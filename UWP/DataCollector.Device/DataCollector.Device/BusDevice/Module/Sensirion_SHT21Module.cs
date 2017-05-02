@@ -1,21 +1,22 @@
 ﻿using DataCollector.Device.Models;
 using System;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Windows.Devices.I2c;
 
-namespace DataCollector.Device.BusDevice
+namespace DataCollector.Device.BusDevice.Module
 {
     /// <summary>
     /// Klasa implementująca obsługę komunikacji urządzenia pomiarowego wilgotności i temperatury.
     /// </summary>
-    class Sensirion_SHT21 : I2CBusDevice
+    public sealed class Sensirion_SHT21Module : I2CBusDevice
     {
         #region Declarations
         /// <summary>
         /// Adresy rejestrów.
         /// </summary>
-        public enum Registers : byte
+        private enum Registers : byte
         {
             TRIG_T_MEASUREMENT_HM = 0xE3, // command trig. temp meas. hold master
             TRIG_RH_MEASUREMENT_HM = 0xE5, // command trig. humidity meas. hold master
@@ -28,7 +29,7 @@ namespace DataCollector.Device.BusDevice
         /// <summary>
         /// Komendy konfiguracyjne
         /// </summary>
-        public enum ConfigCommands : byte
+        private enum ConfigCommands : byte
         {
             SHT2x_RES_12_14BIT = 0x00, // RH=12bit, T=14bit
             SHT2x_RES_8_12BIT = 0x01, // RH= 8bit, T=12bit
@@ -39,7 +40,7 @@ namespace DataCollector.Device.BusDevice
         /// <summary>
         /// Tryb pomiaru.
         /// </summary>
-        public enum ReadMode
+        private enum ReadMode
         {
             Temperature, Humidity
         }
@@ -49,7 +50,7 @@ namespace DataCollector.Device.BusDevice
         /// <summary>
         /// Konstruktor klasy Sensirion_SHT21.
         /// </summary>
-        public Sensirion_SHT21() : base((char)0x40)
+        public Sensirion_SHT21Module() : base((char)0x40)
         {
 
         }
@@ -121,7 +122,7 @@ namespace DataCollector.Device.BusDevice
                     data = ReadWrite.Read(3, (byte)Registers.TRIG_T_MEASUREMENT_HM);
                     break;
             }
-            if(ReadWrite.LastResult.Status == I2cTransferStatus.FullTransfer)
+            if (ReadWrite.LastResult.Status == I2cTransferStatus.FullTransfer)
             {
                 byte[] bValue = data.Take(2).ToArray();
                 bool success = CrcValidate(bValue, data[2]);
@@ -139,7 +140,7 @@ namespace DataCollector.Device.BusDevice
         }
         #endregion
 
-        public override bool UpdateData(ref Measures measures)
+        public override bool UpdateData([In] ref Measures measures)
         {
             measures.Temperature = ReadMeasure(ReadMode.Temperature);
             measures.Humidity = ReadMeasure(ReadMode.Humidity);

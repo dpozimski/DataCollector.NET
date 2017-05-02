@@ -5,13 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.I2c;
+using Windows.Foundation.Metadata;
 
 namespace DataCollector.Device.BusDevice
 {
     /// <summary>
     /// Klasa implementująca metody IO dla urządzenia I2C.
     /// </summary>
-    class BusIO
+    public sealed class BusIO
     {
         #region Private Fields
         private I2cDevice i2cDevice;
@@ -51,6 +52,7 @@ namespace DataCollector.Device.BusDevice
         /// </summary>
         /// <param name="command">komenda</param>
         /// <returns>powodzenie operacji</returns>
+        [DefaultOverload]
         public bool Write(byte command)
         {
             return Write(new List<byte>(), command);

@@ -3,12 +3,12 @@ using System;
 using System.Threading.Tasks;
 using UnitsNet;
 
-namespace DataCollector.Device.BusDevice
+namespace DataCollector.Device.BusDevice.Module
 {
     /// <summary>
     /// Klasa implementująca obsługę komunikacji urządzenia pomiarowego ciśnienia i temperatury.
     /// </summary>
-    class BMP085 : I2CBusDevice
+    public sealed class BMP085Module : I2CBusDevice
     {
         #region Declarations
         /// <summary>
@@ -73,7 +73,7 @@ namespace DataCollector.Device.BusDevice
         /// <summary>
         /// Konstruktor klasy BMP085.
         /// </summary>
-        public BMP085() : base((char)0x77)
+        public BMP085Module() : base((char)0x77)
         {
             calibrationData = new CalibrationData();
         }
@@ -209,7 +209,7 @@ namespace DataCollector.Device.BusDevice
         }
         #endregion
 
-        public override bool UpdateData(ref Measures measures)
+        public override bool UpdateData([System.Runtime.InteropServices.In] ref Measures measures)
         {
             measures.AirPressure = GetPreasure();
             return true;

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DataCollector.Device.BusDevice
+namespace DataCollector.Device.BusDevice.Module
 {
     /// <summary>
     /// Klasa implementująca obsługę komunikacji urządzenia pomiarowego akcelerometru i żyroskopu.
     /// </summary>
-    class MPU_6050 : I2CBusDevice
+    public sealed class MPU_6050Module : I2CBusDevice
     {
         #region Declarations
         /// <summary>
@@ -35,7 +35,7 @@ namespace DataCollector.Device.BusDevice
         /// <summary>
         /// Konstruktor klasy MPU_6050.
         /// </summary>
-        public MPU_6050() : base((char)0x68)
+        public MPU_6050Module() : base((char)0x68)
         {
 
         }
@@ -63,7 +63,7 @@ namespace DataCollector.Device.BusDevice
         }
         #endregion
 
-        public override bool UpdateData(ref Measures measures)
+        public override bool UpdateData([System.Runtime.InteropServices.In] ref Measures measures)
         {
             //utworzenie listy obiektów pomocniczych
             List<SpherePoint> accelerometerValues = new List<SpherePoint>();

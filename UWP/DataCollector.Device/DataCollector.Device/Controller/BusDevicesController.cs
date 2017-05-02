@@ -1,4 +1,6 @@
-﻿using DataCollector.Device.Models;
+﻿using DataCollector.Device.BusDevice;
+using DataCollector.Device.Data;
+using DataCollector.Device.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,15 +9,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.Gpio;
 
-namespace DataCollector.Device.BusDevice
+namespace DataCollector.Device.Controller
 {
     /// <summary>
     /// Klasa zarządzająca szyną I2C.
     /// </summary>
-    public sealed class BusDevicesAccess : IDisposable
+    public sealed class BusDevicesController : IDisposable
     {
         #region Private Fields
-        private readonly object syncObject = new object();
+        private IMeasuresDataController measuresHandler;
         private CancellationTokenSource tokenSource;
         private List<I2CBusDevice> busDevices;
         private Task updaterTask;
@@ -23,25 +25,16 @@ namespace DataCollector.Device.BusDevice
         private GpioPin measureBusyLedIndicator;
         #endregion
 
-        #region Public Events
-        /// <summary>
-        /// Zdarzenie wyzwalane podczas 
-        /// </summary>
-        public event EventHandler<Measures> OnMeasuresArrived;
-        #endregion
-
         #region ctor
         /// <summary>
         /// Konstruktor klasy BusDevicesAccess.
+        /// <paramref name="busDevices">kolekcja urzadzeń szyny I2C</paramref>
+        /// <paramref name="measuresHandler">uchwyt danych pomiarowych</paramref>
         /// </summary>
-        public BusDevicesAccess()
+        public BusDevicesController(IEnumerable<I2CBusDevice> busDevices, IMeasuresDataController measuresHandler)
         {
-            busDevices = new List<I2CBusDevice>();
-            busDevices.Add(new BMP085());
-            busDevices.Add(new MPU_6050());
-            ILedControl ledControl = new PCF8574();
-            busDevices.Add(ledControl as PCF8574);
-            busDevices.Add(new Sensirion_SHT21());
+            this.busDevices = new List<I2CBusDevice>(busDevices);
+            this.measuresHandler = measuresHandler;
 
             measureBusyLedIndicator = GpioController.GetDefault().OpenPin(47);
             measureBusyLedIndicator.SetDriveMode(GpioPinDriveMode.Output);
@@ -61,20 +54,17 @@ namespace DataCollector.Device.BusDevice
                 Measures measures = new Measures();
                 foreach (var item in busDevices)
                 {
-                    lock (syncObject)
+                    try
                     {
-                        try
-                        {
-                            item.UpdateData(ref measures);
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.WriteLine($"Wystąpił błąd podczas aktualizacji danych pomiarowych dla {item.GetType()}\r\n" + ex.Message);
-                        }
+                        item.UpdateData(ref measures);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"Wystąpił błąd podczas aktualizacji danych pomiarowych dla {item.GetType()}\r\n" + ex.Message);
                     }
                 }
                 //powiadomienie subskrybujących o nadejściu nowego zestawu danych.
-                OnMeasuresArrived?.Invoke(this, measures);
+                measuresHandler.NewestMeasure = measures;
 
                 measureBusyLedIndicator.Write(GpioPinValue.Low);
             }
@@ -110,17 +100,6 @@ namespace DataCollector.Device.BusDevice
             updaterTask.Start();
 
             measureBusyLedIndicator.Write(GpioPinValue.Low);
-        }
-        /// <summary>
-        /// Zwraca kontroler diody LED.
-        /// </summary>
-        /// <returns></returns>
-        public ILedControl GetLedController()
-        {
-            lock (syncObject)
-            {
-                return busDevices.Single(s => s is PCF8574) as PCF8574;
-            }
         }
         #endregion
 

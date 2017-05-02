@@ -1,4 +1,5 @@
 ﻿using DataCollector.Device.BusDevice;
+using DataCollector.Device.Data;
 using Restup.Webserver.Attributes;
 using Restup.Webserver.Models.Contracts;
 using Restup.Webserver.Models.Schemas;
@@ -8,24 +9,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataCollector.Device.Network
+namespace DataCollector.Device.Controller
 {
     [RestController(InstanceCreationType.Singleton)]
     public sealed class WebResponseController
     {
         #region Private Fields
-        private ILedControl ledController;
-        private NetworkAccess networkAccess;
+        private ILedController ledController;
+        private IMeasuresDataController measuresHandler;
         #endregion
 
         #region ctor
         /// <summary>
         /// Konstruktor klasy WebResponseController.
         /// </summary>
-        public WebResponseController()
+        /// <param name="args">kolekcja zależności</param>
+        public WebResponseController(params object[] args)
         {
-            this.ledController = StartupTask.NetworkController.LedController;
-            this.networkAccess = StartupTask.NetworkController;
+            IEnumerable<object> dep = args.AsEnumerable();
+            this.ledController = dep.OfType<ILedController>().First();
+            this.measuresHandler = dep.OfType<IMeasuresDataController>().First();
         }
         #endregion
 
@@ -52,8 +55,7 @@ namespace DataCollector.Device.Network
         [UriFormat("/measurements")]
         public IGetResponse GetMeasures()
         {
-            string json = networkAccess.GetResponseData();
-
+            string json = measuresHandler.NewestMeasureOutput;
             return new GetResponse(GetResponse.ResponseStatus.OK, json);
         }
     }

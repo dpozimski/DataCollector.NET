@@ -1,6 +1,7 @@
 ﻿using DataCollector.Device.Models;
 using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
 using Windows.Devices.I2c;
@@ -10,7 +11,7 @@ namespace DataCollector.Device.BusDevice
     /// <summary>
     /// Klasa abstrakcyjna definiująca podstawową funkcjonalność urządzenia z protkołem I2C.
     /// </summary>
-    abstract class I2CBusDevice : IDisposable
+    public abstract class I2CBusDevice : IDisposable
     {
         #region Private Fields
         /// <summary>
@@ -92,7 +93,7 @@ namespace DataCollector.Device.BusDevice
         /// </summary>
         /// <param name="measures">obiekt wejściowy</param>
         /// <returns>powodzenie pobierania danych</returns>
-        public abstract bool UpdateData(ref Measures measures);
+        public abstract bool UpdateData([In] ref Measures measures);
         #endregion
 
         #region Protected Methods
