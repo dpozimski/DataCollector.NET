@@ -16,7 +16,7 @@
 
   * Windows IoT
 
-    **Windows 10 IoT is still under developmnent and I don't require it to use in production.**<br/>
+    **Windows 10 IoT is still under development and I don't require it to use in production.**<br/>
     *DataCollector.Device.Task* works as a task in Windows environment.<br/>
     It needs to be installed via Windows IoT Hub (http://RaspberryIp:8080/). But before you do that, you should make a package from Visual     Studio project selecting *DataCollector.Device.Task* project with PPM and select *Store -> Create app package*. You will get a package     as folder which you can install directly in device.<br/>
     You can also debug code in Visual Studio by selecting your connected device as a Remote Device.<br/>
@@ -24,7 +24,7 @@
 
   * Device
   
-    For developmnent I've been using Raspberry Pi 2 board and prototype board with devices connected to I2C1.<br/>
+    For development I've been using Raspberry Pi 2 board and prototype board with devices connected to I2C1.<br/>
     *I2C is a transfer protocol where each of connected device has an unique address from range 0 to 127.*<br/>
     Each of device is called module (from code class name convention) and they are managed by *BusDevicesController*.<br/>
     <br/>
