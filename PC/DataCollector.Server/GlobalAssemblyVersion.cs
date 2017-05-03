@@ -9,8 +9,8 @@
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.10")]
-[assembly: AssemblyTitle("RT2014 ManagerService")]
-[assembly: AssemblyCopyright("Copyright © POL-EKO-APARATURA 2016")]
-[assembly: AssemblyDescription("RT2014 ManagerService")]
-[assembly: AssemblyProduct("RT2014 ManagerService")]
+[assembly: AssemblyVersion("1.00")]
+[assembly: AssemblyTitle("DataCollector Server Component")]
+[assembly: AssemblyCopyright("Copyright © SoftPower 2017")]
+[assembly: AssemblyDescription("DataCollector Server Component")]
+[assembly: AssemblyProduct("DataCollector Server Component")]
