@@ -63,9 +63,9 @@ namespace DataCollector.Server.Tests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] frame1 {
+        internal static byte[] CorrectFrame {
             get {
-                object obj = ResourceManager.GetObject("frame1", resourceCulture);
+                object obj = ResourceManager.GetObject("CorrectFrame", resourceCulture);
                 return ((byte[])(obj));
             }
         }

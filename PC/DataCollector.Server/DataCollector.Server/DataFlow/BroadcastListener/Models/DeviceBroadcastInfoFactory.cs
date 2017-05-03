@@ -24,7 +24,7 @@ namespace DataCollector.Server.DataFlow.BroadcastListener.Models
         /// <summary>
         /// Oczekiwana liczba znaków w identyfikatorze MAC.
         /// </summary>
-        private const byte MacAddressSignCount = 8;
+        private const byte MacAddressSignCount = 6;
 
         /// <summary>
         /// Metoda parsująca bufor wejściowy do obiektu Device.

@@ -63,6 +63,7 @@
       <Link>Properties\GlobalAssemblyVersion.cs</Link>
     </Compile>
     <Compile Include="DataFlow\BroadcastListener\Models\DeviceBroadcastInfoFactoryTests.cs" />
+    <Compile Include="DataFlow\BroadcastListener\Models\DeviceBroadcastInfoTests.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -83,7 +84,7 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Properties\frame1.bin" />
+    <None Include="Properties\CorrectFrame.bin" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
