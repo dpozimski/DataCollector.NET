@@ -44,9 +44,14 @@
     <Compile Include="..\GlobalAssemblyVersion.cs">
       <Link>Properties\GlobalAssemblyVersion.cs</Link>
     </Compile>
+    <Compile Include="DataFlow\BroadcastListener\BroadcastScanner.cs" />
+    <Compile Include="DataFlow\BroadcastListener\DeviceBroadcastMessageHandler.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\DeviceBroadcastInfo.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\DeviceBroadcastInfoFactory.cs" />
+    <Compile Include="DataFlow\BroadcastListener\Models\DeviceUpdatedEventArgs.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\Exceptions\InvalidFrameException.cs" />
+    <Compile Include="DataFlow\BroadcastListener\Models\TimeStampedDeviceInfo.cs" />
+    <Compile Include="DataFlow\BroadcastListener\Models\UpdateStatus.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
