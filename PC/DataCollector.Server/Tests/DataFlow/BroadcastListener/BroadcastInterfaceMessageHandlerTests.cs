@@ -11,13 +11,15 @@ using Xunit;
 
 namespace DataCollector.Server.Tests.DataFlow.BroadcastListener
 {
-    public class BroadcastInterfaceMessageHandlerTests
+    public class BroadcastInterfaceMessageHandlerTests : IDisposable
     {
         private const string testId = "TestMultiCastByteReceived";
         private readonly IPAddress localhost;
         private readonly IPAddress multicastAddress;
         private readonly int port;
         private readonly BroadcastInterfaceMessageHandler deviceListener;
+        private Socket testSocket;
+        private IPEndPoint endPoint;
 
         public BroadcastInterfaceMessageHandlerTests()
         {
@@ -25,13 +27,14 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener
             localhost = IPAddress.Parse("127.0.0.1");
             port = 8;
             deviceListener = new BroadcastInterfaceMessageHandler(localhost, multicastAddress, port);
+            testSocket = CreateMultiCastSocket();
+            endPoint = new IPEndPoint(localhost, port);
         }
 
         private Socket CreateMultiCastSocket()
         {
             IPEndPoint endPoint = new IPEndPoint(localhost, port);
             UdpClient client = new UdpClient(port);
-            client.Connect(endPoint);
             return client.Client;
         }
 
@@ -43,15 +46,18 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener
             deviceListener.OnReceivedBytes += (o, e) =>
                 loopbackReturn = Encoding.ASCII.GetString(e);
 
-            Socket socket = CreateMultiCastSocket();
-            socket.Send(Encoding.ASCII.GetBytes(testId));
+            testSocket.Connect(endPoint);
+            testSocket.Send(Encoding.ASCII.GetBytes(testId));
 
             Thread.Sleep(10);
 
-            deviceListener.Dispose();
-            socket.Dispose();
-
             Assert.Equal(loopbackReturn, testId);
+        }
+
+        public void Dispose()
+        {
+            deviceListener.Dispose();
+            testSocket.Dispose();
         }
     }
 }

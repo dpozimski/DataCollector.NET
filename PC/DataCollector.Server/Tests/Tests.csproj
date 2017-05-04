@@ -63,6 +63,7 @@
       <Link>Properties\GlobalAssemblyVersion.cs</Link>
     </Compile>
     <Compile Include="DataFlow\BroadcastListener\BroadcastInterfaceMessageHandlerTests.cs" />
+    <Compile Include="DataFlow\BroadcastListener\CachedDetectedDevicesContainerTests.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\DeviceBroadcastInfoFactoryTests.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\DeviceBroadcastInfoTests.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\TimeStampedDeviceInfoTests.cs" />
