@@ -1,4 +1,5 @@
-﻿using DataCollector.Server.DataFlow.BroadcastListener.Models.Exceptions;
+﻿using DataCollector.Server.DataFlow.BroadcastListener.Exceptions;
+using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace DataCollector.Server.DataFlow.BroadcastListener.Models
     /// <summary>
     /// Fabryka obiektów reprezentująych ramkę identyfikacyjną.
     /// </summary>
-    public class DeviceBroadcastInfoFactory
+    public class DeviceBroadcastInfoFactory : IDevicesBroadcastInfoFactory
     {
         /// <summary>
         /// Oczekiwana długość ramki.

@@ -9,13 +9,17 @@ namespace DataCollector.Server.DataFlow.BroadcastListener.Models
     /// <summary>
     /// Klasa reprezentująca znacznik czasu nadejścia obiektu Device.
     /// </summary>
-    public class TimestampedDeviceInfo : DeviceBroadcastInfo
+    public class TimestampedDeviceInfo
     {
         #region Public Properties
         /// <summary>
+        /// Informacje o urządzeniu.
+        /// </summary>
+        public DeviceBroadcastInfo Info { get; set; }
+        /// <summary>
         /// Znacznik czasowy.
         /// </summary>
-        public DateTime LastUpdate { get; private set; }
+        public DateTime LastUpdate { get; set; }
         /// <summary>
         /// Obiekt z informacją utracił termin ważności.
         /// </summary>
@@ -34,8 +38,9 @@ namespace DataCollector.Server.DataFlow.BroadcastListener.Models
         /// Konstruktor klasy TimestampedDeviceInfo.
         /// </summary>
         /// <param name="info">dane urządzenia</param>
-        public TimestampedDeviceInfo(DeviceBroadcastInfo info):base(info)
+        public TimestampedDeviceInfo(DeviceBroadcastInfo info)
         {
+            this.Info = info;
             LastUpdate = DateTime.Now;
         }
         #endregion

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataCollector.Server.DataFlow.BroadcastListener.Models.Exceptions
+namespace DataCollector.Server.DataFlow.BroadcastListener.Exceptions
 {
     /// <summary>
     /// Klasa reprezentująca wyjątek powstały w czasie parsowania ramki.

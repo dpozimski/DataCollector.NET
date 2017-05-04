@@ -12,7 +12,7 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
     /// <summary>
     /// Klasa implementująca nasłuch Broadcast na pojedynczym kanale.
     /// </summary>
-    public class DeviceBroadcastMessageHandler : IDisposable
+    public class BroadcastInterfaceMessageHandler : IDisposable
     {
         #region Private Fields
         /// <summary>
@@ -59,7 +59,7 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
         /// <param name="ip">adres ip nasłuchu</param>
         /// <param name="multicastAddress">multicast address for frames listening</param>
         /// <param name="port">listening port</param>
-        public DeviceBroadcastMessageHandler(IPAddress ip, IPAddress multicastAddress, int port)
+        public BroadcastInterfaceMessageHandler(IPAddress ip, IPAddress multicastAddress, int port)
         {
             this.tokenSource = new CancellationTokenSource();
             this.ip = ip;

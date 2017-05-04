@@ -11,20 +11,20 @@ using Xunit;
 
 namespace DataCollector.Server.Tests.DataFlow.BroadcastListener
 {
-    public class DeviceBroadcastMessageHandlerTests
+    public class BroadcastInterfaceMessageHandlerTests
     {
         private const string testId = "TestMultiCastByteReceived";
         private readonly IPAddress localhost;
         private readonly IPAddress multicastAddress;
         private readonly int port;
-        private readonly DeviceBroadcastMessageHandler deviceListener;
+        private readonly BroadcastInterfaceMessageHandler deviceListener;
 
-        public DeviceBroadcastMessageHandlerTests()
+        public BroadcastInterfaceMessageHandlerTests()
         {
             multicastAddress = IPAddress.Parse("239.0.0.222");
             localhost = IPAddress.Parse("127.0.0.1");
             port = 8;
-            deviceListener = new DeviceBroadcastMessageHandler(localhost, multicastAddress, port);
+            deviceListener = new BroadcastInterfaceMessageHandler(localhost, multicastAddress, port);
         }
 
         private Socket CreateMultiCastSocket()

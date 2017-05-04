@@ -45,11 +45,14 @@
       <Link>Properties\GlobalAssemblyVersion.cs</Link>
     </Compile>
     <Compile Include="DataFlow\BroadcastListener\BroadcastScanner.cs" />
-    <Compile Include="DataFlow\BroadcastListener\DeviceBroadcastMessageHandler.cs" />
+    <Compile Include="DataFlow\BroadcastListener\BroadcastInterfaceMessageHandler.cs" />
+    <Compile Include="DataFlow\BroadcastListener\CachedDetectedDevicesContainer.cs" />
+    <Compile Include="DataFlow\BroadcastListener\Interfaces\IDetectedDevicesContainer.cs" />
+    <Compile Include="DataFlow\BroadcastListener\Interfaces\IDevicesBroadcastInfoFactory.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\DeviceBroadcastInfo.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\DeviceBroadcastInfoFactory.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\DeviceUpdatedEventArgs.cs" />
-    <Compile Include="DataFlow\BroadcastListener\Models\Exceptions\InvalidFrameException.cs" />
+    <Compile Include="DataFlow\BroadcastListener\Exceptions\InvalidFrameException.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\TimeStampedDeviceInfo.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\UpdateStatus.cs" />
   </ItemGroup>
