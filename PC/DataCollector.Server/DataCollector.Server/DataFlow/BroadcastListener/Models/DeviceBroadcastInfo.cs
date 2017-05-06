@@ -58,6 +58,12 @@ namespace DataCollector.Server.DataFlow.BroadcastListener.Models
             Architecture = architecture;
             Model = model;
         }
+
+        public void Returns(Func<object, object> p)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Konstruktor kopiujący.
         /// <param name="broadcastInfo">obiekt oryginalny</param>

@@ -38,7 +38,8 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener
             devicesContainer.When(s => s.Update(Arg.Any<DeviceBroadcastInfo>())).Do(s => broadcastInfoCollection.TryAdd(s.Arg<DeviceBroadcastInfo>().MacAddress, s.Arg<DeviceBroadcastInfo>()));
 
             broadcastInfoFactory = Substitute.For<IDevicesBroadcastInfoFactory>();
-            broadcastInfoFactory.From(Arg.Any<byte[]>()).Returns(s => new DeviceBroadcastInfo("t", IPAddress.Parse("127.0.0.1"), DateTime.Now.Ticks.ToString(), null, null, null));
+            broadcastInfoFactory.From(Arg.Any<byte[]>()).Returns<DeviceBroadcastInfo>(s => 
+                    TestModelsFactory.CreateDeviceBroadcastInfoMock());
 
             addressFactory = Substitute.For<INetworkAddressFactory>();
             addressFactory.Create().Returns(s => new List<IPAddress>() { NetworkTestsUtils.Localhost } );

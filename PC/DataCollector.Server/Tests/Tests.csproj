@@ -69,12 +69,14 @@
     <Compile Include="DataFlow\BroadcastListener\Factories\DeviceBroadcastInfoFactoryTests.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\DeviceBroadcastInfoTests.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\TimeStampedDeviceInfoTests.cs" />
+    <Compile Include="DataFlow\Handlers\SimulatorDeviceHandlerTests.cs" />
     <Compile Include="Utils\NetworkTestsUtils.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Utils\TestModelsFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataCollector.Server\Server.csproj">

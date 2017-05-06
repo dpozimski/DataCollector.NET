@@ -57,7 +57,13 @@
     <Compile Include="DataFlow\BroadcastListener\Interfaces\INetworkAddressFactory.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\TimeStampedDeviceInfo.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\UpdateStatus.cs" />
+    <Compile Include="DataFlow\Handlers\RestDeviceHandler.cs" />
+    <Compile Include="DataFlow\Handlers\SimulatorDeviceHandler.cs" />
+    <Compile Include="Interfaces\IDeviceHandler.cs" />
+    <Compile Include="Interfaces\IDeviceInfo.cs" />
+    <Compile Include="Models\MeasuresArrivedEventArgs.cs" />
   </ItemGroup>
   <ItemGroup />
+  <Import Project="..\..\..\Shared\DataCollector.Device.Models\DataCollector.Device.Models\DataCollector.Device.Models.projitems" Label="DataCollector.Device.Models" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
