@@ -20,18 +20,6 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
         /// </summary>
         private const int MaxUdpSize = 65536;
         /// <summary>
-        /// Numer serwisu nasłuchującego.
-        /// </summary>
-        private readonly int port = 6;
-        /// <summary>
-        /// Adres IP nasłuchującego interfejsu.
-        /// </summary>
-        private readonly IPAddress ip;
-        /// <summary>
-        /// Adres ip multicast.
-        /// </summary>
-        private readonly IPAddress multicastAddress;
-        /// <summary>
         /// Zadanie główne.
         /// </summary>
         private Task task;
@@ -43,6 +31,21 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
         /// Gniazdo połączeniowe.
         /// </summary>
         private Socket socket;
+        #endregion
+
+        #region Public Properties
+        /// <summary>
+        /// Adres IP nasłuchującego interfejsu.
+        /// </summary>
+        public IPAddress IP { get; }
+        /// <summary>
+        /// Numer serwisu nasłuchującego.
+        /// </summary>
+        public int Port { get; }
+        /// <summary>
+        /// Adres ip multicast.
+        /// </summary>
+        public IPAddress MulticastAddress { get; }
         #endregion
 
         #region Events
@@ -62,9 +65,9 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
         public BroadcastInterfaceMessageHandler(IPAddress ip, IPAddress multicastAddress, int port)
         {
             this.tokenSource = new CancellationTokenSource();
-            this.ip = ip;
-            this.multicastAddress = multicastAddress;
-            this.port = port;
+            this.IP = ip;
+            this.MulticastAddress = multicastAddress;
+            this.Port = port;
         }
         #endregion
 
@@ -76,12 +79,12 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
         {
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
-            var endPoint = new IPEndPoint(ip, port);
+            var endPoint = new IPEndPoint(IP, Port);
             socket.Bind(endPoint);
             socket.SetSocketOption(
                 SocketOptionLevel.IP,
                 SocketOptionName.AddMembership,
-                new MulticastOption(multicastAddress, ip));
+                new MulticastOption(MulticastAddress, IP));
 
             task = Task.Factory.StartNew(ReceiverMethod, tokenSource.Token);
         }

@@ -1,4 +1,5 @@
 ﻿using DataCollector.Server.DataFlow.BroadcastListener.Exceptions;
+using DataCollector.Server.DataFlow.BroadcastListener.Factories;
 using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
 using DataCollector.Server.DataFlow.BroadcastListener.Models;
 using System;
@@ -31,7 +32,7 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
         /// <summary>
         /// Lista nasłuchująych kanałów Broadcast.
         /// </summary>
-        private readonly BroadcastInterfaceMessageHandler[] broadcastListeners;
+        private BroadcastInterfaceMessageHandler[] broadcastListeners;
         /// <summary>
         /// Kontener urządzeń w sieci.
         /// </summary>
@@ -40,6 +41,10 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
         /// Fabryka obiektów identyfkujących urządzenia.
         /// </summary>
         private IDevicesBroadcastInfoFactory devicesBroadcastInfoFactory;
+        /// <summary>
+        /// Fabryka adresów sieciowych.
+        /// </summary>
+        private INetworkAddressFactory networkAddressFactory;
         #endregion
 
         #region ctor
@@ -47,14 +52,26 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
         /// Konstruktor klasy DevicesListener
         /// <paramref name="detectedDeviceContainer">Kontener znalezionych urządzeń</paramref>
         /// <paramref name="devicesBroadcastInfoFactory">Fabryka obiektów identyfkujących urządzenia</paramref>
+        /// <paramref name="networkAddresFactory">Fabryka adresów sieciowych</paramref>
         /// </summary>
-        public BroadcastScanner(IDetectedDevicesContainer detectedDeviceContainer, IDevicesBroadcastInfoFactory devicesBroadcastInfoFactory)
+        public BroadcastScanner(INetworkAddressFactory networkAddressFactory, IDetectedDevicesContainer detectedDeviceContainer, IDevicesBroadcastInfoFactory devicesBroadcastInfoFactory)
         {
+            this.networkAddressFactory = networkAddressFactory;
             this.devicesBroadcastInfoFactory = devicesBroadcastInfoFactory;
             this.detectedDeviceContainer = detectedDeviceContainer;
-            broadcastListeners = GetUdpMulticastListeners().ToArray();
+            
         }
         #endregion
+
+        #region Public Methods
+        /// <summary>
+        /// Rozpoczyna nasłuchiwanie na wybranych w konstruktorze adresach.
+        /// </summary>
+        public void StartListening()
+        {
+            broadcastListeners = GetUdpMulticastListeners().ToArray();
+        }
+        #endregion  
 
         #region Private Methods
         /// <summary>
@@ -63,10 +80,11 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
         /// <returns></returns>
         private IEnumerable<BroadcastInterfaceMessageHandler> GetUdpMulticastListeners()
         {
-            foreach (IPAddress ipAddress in GetIpAddresses())
+            foreach (IPAddress ipAddress in networkAddressFactory.Create())
             {
                 var broadcastListener = new BroadcastInterfaceMessageHandler(ipAddress, multicastAddress, port);
                 broadcastListener.OnReceivedBytes += BroadcastListener_ReceivedMessage;
+                broadcastListener.StartListening();
                 yield return broadcastListener;
             }
         }
@@ -88,22 +106,6 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
                 //logger invalid frame exception
             }
         }
-        /// <summary>
-        /// Zwraca liste wszystkich możliwych adresów IP, na których możliwy jest nasłuch gniazda broadcast.
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<IPAddress> GetIpAddresses()
-        {
-            return NetworkInterface
-                .GetAllNetworkInterfaces()
-                .Where(networkInterface =>
-                    networkInterface.Supports(NetworkInterfaceComponent.IPv4) &&
-                    networkInterface.OperationalStatus == OperationalStatus.Up &&
-                    networkInterface.NetworkInterfaceType != NetworkInterfaceType.Loopback)
-                .SelectMany(networkInterface => networkInterface.GetIPProperties().UnicastAddresses)
-                .Where(unicastIpAddressInformation => unicastIpAddressInformation.Address.AddressFamily == AddressFamily.InterNetwork)
-                .Select(unicastIpAddressInformation => unicastIpAddressInformation.Address);
-        }
         #endregion
 
         #region IDisposable
@@ -112,8 +114,11 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
         /// </summary>
         public void Dispose()
         {
-            foreach (var udpMulticastListener in broadcastListeners)
-                udpMulticastListener.Dispose();
+            if(broadcastListeners != null)
+            {
+                foreach (var udpMulticastListener in broadcastListeners)
+                    udpMulticastListener.Dispose();
+            }
         }
         #endregion
     }

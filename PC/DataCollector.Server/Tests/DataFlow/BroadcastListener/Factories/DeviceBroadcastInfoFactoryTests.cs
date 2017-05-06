@@ -1,4 +1,5 @@
 ﻿using DataCollector.Server.DataFlow.BroadcastListener.Exceptions;
+using DataCollector.Server.DataFlow.BroadcastListener.Factories;
 using DataCollector.Server.DataFlow.BroadcastListener.Models;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 using Xunit;
 using static DataCollector.Server.DataFlow.BroadcastListener.Exceptions.InvalidFrameException;
 
-namespace DataCollector.Server.Tests.DataFlow.BroadcastListener.Models
+namespace DataCollector.Server.Tests.DataFlow.BroadcastListener.Factories
 {
     /// <summary>
     /// Klasa testująca fabrykę ramek identyfikujących urządzenie.

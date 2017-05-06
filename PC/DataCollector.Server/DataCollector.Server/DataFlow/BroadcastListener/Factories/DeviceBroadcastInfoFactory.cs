@@ -1,5 +1,6 @@
 ﻿using DataCollector.Server.DataFlow.BroadcastListener.Exceptions;
 using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
+using DataCollector.Server.DataFlow.BroadcastListener.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataCollector.Server.DataFlow.BroadcastListener.Models
+namespace DataCollector.Server.DataFlow.BroadcastListener.Factories
 {
     /// <summary>
     /// Fabryka obiektów reprezentująych ramkę identyfikacyjną.

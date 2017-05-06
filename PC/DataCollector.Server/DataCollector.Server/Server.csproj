@@ -49,10 +49,12 @@
     <Compile Include="DataFlow\BroadcastListener\CachedDetectedDevicesContainer.cs" />
     <Compile Include="DataFlow\BroadcastListener\Interfaces\IDetectedDevicesContainer.cs" />
     <Compile Include="DataFlow\BroadcastListener\Interfaces\IDevicesBroadcastInfoFactory.cs" />
+    <Compile Include="DataFlow\BroadcastListener\Factories\AvailableNetworkAddressFactory.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\DeviceBroadcastInfo.cs" />
-    <Compile Include="DataFlow\BroadcastListener\Models\DeviceBroadcastInfoFactory.cs" />
+    <Compile Include="DataFlow\BroadcastListener\Factories\DeviceBroadcastInfoFactory.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\DeviceUpdatedEventArgs.cs" />
     <Compile Include="DataFlow\BroadcastListener\Exceptions\InvalidFrameException.cs" />
+    <Compile Include="DataFlow\BroadcastListener\Interfaces\INetworkAddressFactory.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\TimeStampedDeviceInfo.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\UpdateStatus.cs" />
   </ItemGroup>
