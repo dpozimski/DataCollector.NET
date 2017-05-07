@@ -34,11 +34,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="NSubstitute, Version=2.0.3.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
       <HintPath>..\packages\NSubstitute.2.0.3\lib\net45\NSubstitute.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -62,6 +66,7 @@
     <Compile Include="..\GlobalAssemblyVersion.cs">
       <Link>Properties\GlobalAssemblyVersion.cs</Link>
     </Compile>
+    <None Include="a.addins" />
     <Compile Include="DataFlow\BroadcastListener\BroadcastInterfaceMessageHandlerTests.cs" />
     <Compile Include="DataFlow\BroadcastListener\BroadcastScannerTests.cs" />
     <Compile Include="DataFlow\BroadcastListener\CachedDetectedDevicesContainerTests.cs" />
@@ -69,6 +74,8 @@
     <Compile Include="DataFlow\BroadcastListener\Factories\DeviceBroadcastInfoFactoryTests.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\DeviceBroadcastInfoTests.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\TimeStampedDeviceInfoTests.cs" />
+    <Compile Include="DataFlow\Handlers\AbstractDeviceHandlerTests.cs" />
+    <Compile Include="DataFlow\Handlers\RestDeviceHandlerTests.cs" />
     <Compile Include="DataFlow\Handlers\SimulatorDeviceHandlerTests.cs" />
     <Compile Include="Utils\NetworkTestsUtils.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -89,6 +96,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

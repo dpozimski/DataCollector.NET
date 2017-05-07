@@ -1,5 +1,6 @@
 ﻿using DataCollector.Device.Models;
 using DataCollector.Server.DataFlow.BroadcastListener.Models;
+using DataCollector.Server.DataFlow.Handlers.Adapters;
 using DataCollector.Server.Interfaces;
 using DataCollector.Server.Models;
 using Newtonsoft.Json;
@@ -20,17 +21,14 @@ namespace DataCollector.Server.DataFlow.Handlers
     {
         #region Constants
         private TimeSpan measurementsRequestInterval = TimeSpan.FromMilliseconds(3000);
-        private const string GetMeasurementsRequest = "/api/measurements";
-        private const string LedChangeRequest = "/api/ledState?p={0}";
-        private const string LedStateRequest = "/api/getLedState";
-        private const int Port = 45321;
         #endregion
 
         #region Private Fields
         private readonly object syncObj = new object();
+        private readonly RestDeviceHandlerConfiguration configuration;
+        private readonly IRestConnectionAdapter restConnectionAdapter;
         private Task measurementsRequestTask;
         private CancellationTokenSource tokenSource;
-        private RestClient restClient;
         #endregion
 
         #region Public Properties
@@ -72,8 +70,13 @@ namespace DataCollector.Server.DataFlow.Handlers
         /// Konstruktor klasy CommunicationDeviceHandler.
         /// </summary>
         /// <param name="broadcastInfo">informacje o urządzeniu pochodzące z broadcast</param>
-        public RestDeviceHandler(DeviceBroadcastInfo broadcastInfo) : base(broadcastInfo)
-        { }
+        /// <param name="configuration">Konfiguracja api REST</param>
+        /// <param name="restConnectionAdapter">adapter komunikacja protkołu REST</param>
+        public RestDeviceHandler(IRestConnectionAdapter restConnectionAdapter, RestDeviceHandlerConfiguration configuration, DeviceBroadcastInfo broadcastInfo) : base(broadcastInfo)
+        {
+            this.restConnectionAdapter = restConnectionAdapter;
+            this.configuration = configuration;
+        }
         #endregion
 
         #region Public Methods
@@ -83,7 +86,7 @@ namespace DataCollector.Server.DataFlow.Handlers
         /// <returns></returns>
         public bool GetLedState()
         {
-            string data = GetRequest(string.Format(LedStateRequest));
+            string data = restConnectionAdapter.GetRequest(string.Format(configuration.LedStateRequest));
             return bool.Parse(data);
         }
         /// <summary>
@@ -96,7 +99,7 @@ namespace DataCollector.Server.DataFlow.Handlers
             bool success = false;
             lock (syncObj)
             {
-                string data = GetRequest(string.Format(LedChangeRequest, state));
+                string data = restConnectionAdapter.GetRequest(string.Format(configuration.LedChangeRequest, state));
                 success = bool.Parse(data);
             }
             return success;
@@ -117,6 +120,7 @@ namespace DataCollector.Server.DataFlow.Handlers
                 IsConnected = false;
 
                 success = true;
+                Disconnected?.Invoke(this, this);
             }
 
             return success;
@@ -128,16 +132,11 @@ namespace DataCollector.Server.DataFlow.Handlers
         public bool Connect()
         {
             bool success = false;
-
             if (!IsConnected)
             {
-                restClient = new RestClient($"http://{IPv4}:{Port}");
-                restClient.ReadWriteTimeout = 3000;
-                restClient.Timeout = 3000;
+                restConnectionAdapter.Connect();
                 tokenSource = new CancellationTokenSource();
-
-                success = (GetRequest(GetMeasurementsRequest) != null);
-
+                success = (restConnectionAdapter.GetRequest(configuration.GetMeasurementsRequest) != null);
                 if (success)
                 {
                     measurementsRequestTask = new Task(MeasurementsRequestLoop, tokenSource.Token);
@@ -145,32 +144,11 @@ namespace DataCollector.Server.DataFlow.Handlers
                     IsConnected = true;
                 }
             }
-
             return success;
         }
         #endregion
 
         #region Private Methods
-        /// <summary>
-        /// Wykonuje zapytanie Get.
-        /// </summary>
-        /// <param name="restRequest">zapytanie</param>
-        /// <returns>odpowiedź</returns>
-        private string GetRequest(string restRequest)
-        {
-            var request = new RestRequest(restRequest, Method.GET);
-
-            IRestResponse response = restClient.Execute(request);
-
-            if (response.ErrorException != null)
-                return null;
-            else
-            {
-                string data = response.Content.Replace("\\", string.Empty);
-                data = new string(data.Skip(1).Take(data.Length - 2).ToArray());
-                return data;
-            }
-        }
         /// <summary>
         /// Obsługa zadania pobierania pomiarów.
         /// </summary>
@@ -182,7 +160,7 @@ namespace DataCollector.Server.DataFlow.Handlers
                 string data = null;
 
                 lock (syncObj)
-                    data = GetRequest(GetMeasurementsRequest);
+                    data = restConnectionAdapter.GetRequest(configuration.GetMeasurementsRequest);
 
                 if (data != null)
                 {

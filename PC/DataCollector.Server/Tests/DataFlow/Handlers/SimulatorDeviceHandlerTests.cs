@@ -8,65 +8,18 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
+using DataCollector.Server.Interfaces;
 
 namespace DataCollector.Server.Tests.DataFlow.Handlers
 {
     /// <summary>
     /// Klasa testująca <see cref="SimulatorDeviceHandler"/>
     /// </summary>
-    public class SimulatorDeviceHandlerTests:IDisposable
+    public class SimulatorDeviceHandlerTests: AbstractDeviceHandlerTests
     {
-        private SimulatorDeviceHandler deviceHandler;
-
-        public SimulatorDeviceHandlerTests()
+        public override IDeviceHandler Init()
         {
-            DeviceBroadcastInfo deviceBroadcastInfo = TestModelsFactory.CreateDeviceBroadcastInfoMock();
-            deviceHandler = new SimulatorDeviceHandler(deviceBroadcastInfo);
-        }
-
-        [Fact]
-        public void TestConnect()
-        {
-            bool success = deviceHandler.Connect();
-            Assert.True(success && deviceHandler.IsConnected);
-        }
-
-        [Fact]
-        public void GetMeasurementsTests()
-        {
-            bool measuresArrived = false;
-            deviceHandler.MeasuresArrived += (o, e) => measuresArrived = true;
-            deviceHandler.MeasurementsMsRequestInterval = 0;
-            bool success = deviceHandler.Connect();
-            Thread.Sleep(10);
-            Assert.True(measuresArrived && success);
-        }
-
-        [Theory]
-        [InlineData(false)]
-        [InlineData(true)]
-        public void TestLedStateChanging(bool state)
-        {
-            deviceHandler.Connect();
-            deviceHandler.ChangeLedState(state);
-            bool ledState = deviceHandler.GetLedState();
-            Assert.Equal(state, ledState);
-        }
-
-        [Fact]
-        public void DisconnectEventRaiseTest()
-        {
-            bool eventRaised = false;
-            deviceHandler.Disconnected += (o, e) => eventRaised = true;
-            deviceHandler.Connect();
-            Assert.False(eventRaised);
-            deviceHandler.Disconnect();
-            Assert.True(eventRaised);
-        }
-
-        public void Dispose()
-        {
-            deviceHandler.Dispose();
+            return new SimulatorDeviceHandler(TestModelsFactory.CreateDeviceBroadcastInfoMock());
         }
     }
 }

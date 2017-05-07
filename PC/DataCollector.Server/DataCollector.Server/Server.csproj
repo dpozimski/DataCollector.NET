@@ -63,6 +63,9 @@
     <Compile Include="DataFlow\BroadcastListener\Interfaces\INetworkAddressFactory.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\TimeStampedDeviceInfo.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\UpdateStatus.cs" />
+    <Compile Include="DataFlow\Handlers\Adapters\IRestConnectionAdapter.cs" />
+    <Compile Include="DataFlow\Handlers\Adapters\RestSharpLibConnectionAdapter.cs" />
+    <Compile Include="DataFlow\Handlers\Adapters\RestDeviceHandlerConfiguration.cs" />
     <Compile Include="DataFlow\Handlers\RestDeviceHandler.cs" />
     <Compile Include="DataFlow\Handlers\SimulatorDeviceHandler.cs" />
     <Compile Include="Interfaces\IDeviceHandler.cs" />
