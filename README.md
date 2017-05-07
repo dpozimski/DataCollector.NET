@@ -1,6 +1,7 @@
 # DataCollector.NET
 
-  1. Information
+  1. Information<br/>
+     *Code Quality*: [![BCH compliance](https://bettercodehub.com/edge/badge/dpozimski/DataCollector.NET?branch=master)](https://bettercodehub.com/)
   2. Purpose
   3. Concept
 
