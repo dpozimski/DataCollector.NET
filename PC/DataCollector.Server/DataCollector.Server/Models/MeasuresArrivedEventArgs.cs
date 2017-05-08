@@ -1,4 +1,5 @@
 ﻿using DataCollector.Device.Models;
+using DataCollector.Server.DataFlow.Handlers.Interfaces;
 using DataCollector.Server.Interfaces;
 using System;
 

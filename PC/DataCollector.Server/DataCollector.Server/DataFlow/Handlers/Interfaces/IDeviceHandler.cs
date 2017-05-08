@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataCollector.Server.Interfaces
+namespace DataCollector.Server.DataFlow.Handlers.Interfaces
 {
     /// <summary>
     /// Interfejs określający zakres interakcji z urządzeniem pomiarowym.

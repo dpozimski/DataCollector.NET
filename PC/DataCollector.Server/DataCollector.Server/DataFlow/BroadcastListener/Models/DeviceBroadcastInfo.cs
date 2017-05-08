@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -10,7 +11,7 @@ namespace DataCollector.Server.DataFlow.BroadcastListener.Models
     /// <summary>
     /// Information regarding a WinIotCore device.
     /// </summary>
-    public class DeviceBroadcastInfo
+    public class DeviceBroadcastInfo : IDeviceBroadcastInfo
     {
         #region Public Properties
         /// <summary>
@@ -59,16 +60,11 @@ namespace DataCollector.Server.DataFlow.BroadcastListener.Models
             Model = model;
         }
 
-        public void Returns(Func<object, object> p)
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// Konstruktor kopiujący.
         /// <param name="broadcastInfo">obiekt oryginalny</param>
         /// </summary>
-        public DeviceBroadcastInfo(DeviceBroadcastInfo broadcastInfo) :
+        public DeviceBroadcastInfo(IDeviceBroadcastInfo broadcastInfo) :
             this(broadcastInfo.Name, broadcastInfo.IPv4, broadcastInfo.MacAddress, broadcastInfo.Architecture, broadcastInfo.WinVer, broadcastInfo.Model)
         { }
         #endregion

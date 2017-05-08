@@ -5,12 +5,12 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataCollector.Server.Interfaces
+namespace DataCollector.Server.DataFlow.BroadcastListener.Interfaces
 {
     /// <summary>
-    /// Interfejs opisujący podstawowe właściwości urządzenia.
+    /// Interfejs określający urządzenie znalezione w sieci.
     /// </summary>
-    public interface IDeviceInfo
+    public interface IDeviceBroadcastInfo
     {
         #region Public Properties
         /// <summary>
@@ -37,14 +37,6 @@ namespace DataCollector.Server.Interfaces
         /// Model urządzenia.
         /// </summary>
         string Model { get; }
-        /// <summary>
-        /// Połączono z serwerem.
-        /// </summary>
-        bool IsConnected { get; }
-        /// <summary>
-        /// Interwal pobierania pomiarów.
-        /// </summary>
-        double MeasurementsMsRequestInterval { get; set; }
         #endregion
     }
 }

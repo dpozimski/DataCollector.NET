@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 using DataCollector.Server.Interfaces;
+using DataCollector.Server.DataFlow.Handlers.Interfaces;
 
 namespace DataCollector.Server.Tests.DataFlow.Handlers
 {

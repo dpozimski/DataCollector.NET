@@ -47,6 +47,23 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
         private INetworkAddressFactory networkAddressFactory;
         #endregion
 
+        #region Events
+        /// <summary>
+        /// Zadzrenie wyzwalane podczas zmiany stanu urządzenia wykrytego w sieci.
+        /// </summary>
+        public event EventHandler<DeviceUpdatedEventArgs> DeviceInfoUpdated
+        {
+            add
+            {
+                detectedDeviceContainer.DeviceInfoUpdated += value;
+            }
+            remove
+            {
+                detectedDeviceContainer.DeviceInfoUpdated -= value;
+            }
+        }
+        #endregion
+
         #region ctor
         /// <summary>
         /// Konstruktor klasy DevicesListener

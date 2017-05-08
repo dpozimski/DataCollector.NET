@@ -1,6 +1,8 @@
 ﻿using DataCollector.Device.Models;
+using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
 using DataCollector.Server.DataFlow.BroadcastListener.Models;
 using DataCollector.Server.DataFlow.Handlers.Adapters;
+using DataCollector.Server.DataFlow.Handlers.Interfaces;
 using DataCollector.Server.Interfaces;
 using DataCollector.Server.Models;
 using Newtonsoft.Json;
@@ -72,7 +74,7 @@ namespace DataCollector.Server.DataFlow.Handlers
         /// <param name="broadcastInfo">informacje o urządzeniu pochodzące z broadcast</param>
         /// <param name="configuration">Konfiguracja api REST</param>
         /// <param name="restConnectionAdapter">adapter komunikacja protkołu REST</param>
-        public RestDeviceHandler(IRestConnectionAdapter restConnectionAdapter, RestDeviceHandlerConfiguration configuration, DeviceBroadcastInfo broadcastInfo) : base(broadcastInfo)
+        public RestDeviceHandler(IRestConnectionAdapter restConnectionAdapter, RestDeviceHandlerConfiguration configuration, IDeviceBroadcastInfo broadcastInfo) : base(broadcastInfo)
         {
             this.restConnectionAdapter = restConnectionAdapter;
             this.configuration = configuration;

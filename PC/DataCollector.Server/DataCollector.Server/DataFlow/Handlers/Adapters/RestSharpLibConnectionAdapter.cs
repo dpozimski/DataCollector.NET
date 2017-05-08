@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DataCollector.Device.Models;
 using RestSharp;
 using System.Net;
+using DataCollector.Server.DataFlow.Handlers.Interfaces;
 
 namespace DataCollector.Server.DataFlow.Handlers.Adapters
 {

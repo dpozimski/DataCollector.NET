@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataCollector.Server.DataFlow.Handlers.Adapters
+namespace DataCollector.Server.DataFlow.Handlers.Interfaces
 {
     /// <summary>
     /// Interfejs definiujący funkcjonalność adaptera komunikacji po protokole REST.

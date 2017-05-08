@@ -7,6 +7,7 @@ using NSubstitute;
 using Newtonsoft.Json;
 using DataCollector.Device.Models;
 using System;
+using DataCollector.Server.DataFlow.Handlers.Interfaces;
 
 namespace DataCollector.Server.Tests.DataFlow.Handlers
 {
