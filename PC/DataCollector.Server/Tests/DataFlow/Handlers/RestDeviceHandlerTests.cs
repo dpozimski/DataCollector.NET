@@ -20,11 +20,6 @@ namespace DataCollector.Server.Tests.DataFlow.Handlers
         private IRestConnectionAdapter connectionAdapter;
         private bool ledState;
 
-        public RestDeviceHandlerTests()
-        {
-            
-        }
-
         public override IDeviceHandler Init()
         {
             this.deviceHandlerConfiguration = TestModelsFactory.CreateRestDeviceConfigMock();

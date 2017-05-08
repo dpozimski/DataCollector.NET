@@ -75,6 +75,8 @@
     <Compile Include="DataFlow\BroadcastListener\Models\DeviceBroadcastInfoTests.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\TimeStampedDeviceInfoTests.cs" />
     <Compile Include="DataFlow\Handlers\AbstractDeviceHandlerTests.cs" />
+    <Compile Include="DataFlow\Handlers\Adapters\RestSharpLibConnectionAdapterTests.cs" />
+    <Compile Include="DataFlow\Handlers\Factories\RestConnectionAdapterFactoryTests.cs" />
     <Compile Include="DataFlow\Handlers\RestDeviceHandlerTests.cs" />
     <Compile Include="DataFlow\Handlers\SimulatorDeviceHandlerTests.cs" />
     <Compile Include="Utils\NetworkTestsUtils.cs" />
@@ -113,6 +115,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

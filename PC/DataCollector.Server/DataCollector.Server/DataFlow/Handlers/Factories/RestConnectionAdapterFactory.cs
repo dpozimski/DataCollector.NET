@@ -23,6 +23,11 @@ namespace DataCollector.Server.DataFlow.Handlers.Factories
         /// <returns>Adapter połączeniowy</returns>
         public IRestConnectionAdapter Create(IPAddress ip, int port)
         {
+            if (ip is null)
+                throw new ArgumentNullException("IP");
+            else if (port < 0 || port > 65536)
+                throw new ArgumentException("Port must be greater than 0 and less than 65536.");
+
             return new RestSharpLibConnectionAdapter(ip, port);
         }
         #endregion
