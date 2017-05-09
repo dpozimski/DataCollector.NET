@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -17,12 +18,14 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener
     /// </summary>
     public class CachedDetectedDevicesContainerTests : IDisposable
     {
+        private readonly TimeSpan cleanUpCacheInterval;
         private readonly CachedDetectedDevicesContainer devicesContainer;
         private readonly IDeviceBroadcastInfo broadcastInfo;
 
         public CachedDetectedDevicesContainerTests()
         {
-            devicesContainer = new CachedDetectedDevicesContainer();
+            cleanUpCacheInterval = TimeSpan.FromMilliseconds(100);
+            devicesContainer = new CachedDetectedDevicesContainer(cleanUpCacheInterval);
             broadcastInfo = TestModelsFactory.CreateDeviceBroadcastInfoMock();
         }
 
@@ -66,6 +69,15 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener
                 broadcastInfo.IPv4, broadcastInfo.MacAddress, broadcastInfo.MacAddress, broadcastInfo.WinVer, broadcastInfo.Model);
             devicesContainer.Update(updatedInfo);
             Assert.True(eventRaised);
+        }
+
+        [Fact]
+        public void CleanUpOldDevicesTest()
+        {
+            devicesContainer.Update(broadcastInfo);
+            Assert.Equal(1, devicesContainer.Devices.Count());
+            Thread.Sleep(500);
+            Assert.Equal(0, devicesContainer.Devices.Count());
         }
     }
 }

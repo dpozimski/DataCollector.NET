@@ -15,7 +15,7 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
     /// <summary>
     /// Klasa implementująca obsługę nasłuchiwania urządzeń opartych na systemie Windows IoT w sieci.
     /// </summary>
-    public class BroadcastScanner : IDisposable
+    public class BroadcastScanner : IBroadcastScanner
     {
         #region Constants
         /// <summary>

@@ -54,6 +54,7 @@
     <Compile Include="DataFlow\BroadcastListener\BroadcastScanner.cs" />
     <Compile Include="DataFlow\BroadcastListener\BroadcastInterfaceMessageHandler.cs" />
     <Compile Include="DataFlow\BroadcastListener\CachedDetectedDevicesContainer.cs" />
+    <Compile Include="DataFlow\BroadcastListener\Interfaces\IBroadcastScanner.cs" />
     <Compile Include="DataFlow\BroadcastListener\Interfaces\IDetectedDevicesContainer.cs" />
     <Compile Include="DataFlow\BroadcastListener\Interfaces\IDeviceBroadcastInfo.cs" />
     <Compile Include="DataFlow\BroadcastListener\Interfaces\IDevicesBroadcastInfoFactory.cs" />

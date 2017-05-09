@@ -25,7 +25,7 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener
         }
 
         [Fact]
-        public void TestMultiCastByteReceived()
+        public void TestMultiCastByteReceivedByEvents()
         {
             string loopbackReturn = null;
             deviceListener.StartListening();
@@ -34,9 +34,17 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener
 
             testSocket.Send(Encoding.ASCII.GetBytes(testId));
 
-            Thread.Sleep(10);
+            Thread.Sleep(20);
 
             Assert.Equal(loopbackReturn, testId);
+        }
+
+        [Fact]
+        public void TestMultiCastByteReceivedWithoutAssignedEvents()
+        {
+            deviceListener.StartListening();
+
+            testSocket.Send(Encoding.ASCII.GetBytes(testId));
         }
 
         public void Dispose()

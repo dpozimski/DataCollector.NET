@@ -69,6 +69,10 @@ namespace DataCollector.Server.Interfaces
         /// <param name="state">stan diody</param>
         /// <returns></returns>
         bool ChangeLedState(IDeviceInfo target, bool state);
+        /// <summary>
+        /// Metoda dodające nowe urządzenie symulujące komunikację.
+        /// </summary>
+        void AddSimulatorDevice();
         #endregion
     }
 }

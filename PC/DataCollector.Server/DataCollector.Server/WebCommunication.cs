@@ -1,4 +1,5 @@
 ﻿using DataCollector.Server.DataFlow.BroadcastListener;
+using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
 using DataCollector.Server.DataFlow.BroadcastListener.Models;
 using DataCollector.Server.DataFlow.Handlers;
 using DataCollector.Server.DataFlow.Handlers.Interfaces;
@@ -20,7 +21,7 @@ namespace DataCollector.Server
     {
         #region Private Fields
         private int port;
-        private BroadcastScanner broadcastScanner;
+        private IBroadcastScanner broadcastScanner;
         private SynchronizedCollection<IDeviceHandler> deviceHandlers;
         private IDeviceHandlerFactory deviceHandlerFactory;
         #endregion
@@ -55,7 +56,7 @@ namespace DataCollector.Server
         /// </summary>
         /// <param name="deviceHandlerFactory">fabryka urządzeń pomiarowych</param>
         /// <param name="port">port nasłuchu każdego z urządzeń</param>
-        public WebCommunication(BroadcastScanner broadcastScanner, IDeviceHandlerFactory deviceHandlerFactory, int port)
+        public WebCommunication(IBroadcastScanner broadcastScanner, IDeviceHandlerFactory deviceHandlerFactory, int port)
         {
             this.broadcastScanner = broadcastScanner;
             this.port = port;
@@ -63,6 +64,14 @@ namespace DataCollector.Server
         }
 
         #region Public Methods
+        /// <summary>
+        /// Metoda dodające nowe urządzenie symulujące komunikację.
+        /// </summary>
+        public void AddSimulatorDevice()
+        {
+            var device = deviceHandlerFactory.CreateSimulatorDevice();
+            this.DeviceChangedState?.Invoke(this, new Models.DeviceUpdatedEventArgs(device, UpdateStatus.Found));
+        }
         /// <summary>
         /// Uruchamia usługi serwisu,
         /// </summary>
@@ -74,10 +83,6 @@ namespace DataCollector.Server
             deviceHandlers = new SynchronizedCollection<IDeviceHandler>();
             broadcastScanner.DeviceInfoUpdated += new EventHandler<DataFlow.BroadcastListener.Models.DeviceUpdatedEventArgs>(OnDeviceInfoUpdated);
             broadcastScanner.StartListening();
-
-#if SIMULATOR
-            InitSimulatorDevice().Start();
-#endif
 
             IsStarted = true;
         }
@@ -170,20 +175,6 @@ namespace DataCollector.Server
         #endregion
 
         #region Private Methods
-        /// <summary>
-        /// Metoda inicjalizująca symulator.
-        /// </summary>
-        /// <returns>zadanie sygnalizujace pojawienie się symulatora w sieci</returns>
-        private Task InitSimulatorDevice()
-        {
-            return new Task(() =>
-            {
-                Task.Delay(6000).Wait();
-                var device = deviceHandlerFactory.CreateSimulatorDevice();
-                this.DeviceChangedState?.Invoke(this, new Models.DeviceUpdatedEventArgs(device, UpdateStatus.Found));
-            });
-
-        }
         /// <summary>
         /// Sygnalizacja rozłączenia urządzenia z komunikacji właściwej.
         /// </summary>

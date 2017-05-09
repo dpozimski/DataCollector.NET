@@ -105,12 +105,6 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
                 {
                     int receivedLength = socket.Receive(buffer, 0, buffer.Length, SocketFlags.None);
 
-                    if (receivedLength == 0)
-                        return;
-
-                    if (receivedLength < 0)
-                        continue;
-
                     var receivedBytes = new byte[receivedLength];
 
                     Array.Copy(buffer, receivedBytes, receivedLength);
@@ -135,7 +129,7 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
         {
             socket.Shutdown(SocketShutdown.Both);
             tokenSource.Cancel();
-            socket?.Dispose();
+            socket.Dispose();
             task.Wait();
             socket = null;
         }

@@ -12,6 +12,13 @@ namespace DataCollector.Server.DataFlow.BroadcastListener.Models
     /// </summary>
     public class TimestampedDeviceInfo
     {
+        #region Private Fields
+        /// <summary>
+        /// Czas ważności odcisku urządzenia.
+        /// </summary>
+        private readonly TimeSpan expirationInterval;
+        #endregion
+
         #region Public Properties
         /// <summary>
         /// Informacje o urządzeniu.
@@ -28,7 +35,7 @@ namespace DataCollector.Server.DataFlow.BroadcastListener.Models
         {
             get
             {
-                DateTime timeoutAt = DateTime.Now.AddSeconds(-10);
+                DateTime timeoutAt = DateTime.Now - expirationInterval;
                 return LastUpdate < timeoutAt;
             }
         }
@@ -38,9 +45,11 @@ namespace DataCollector.Server.DataFlow.BroadcastListener.Models
         /// <summary>
         /// Konstruktor klasy TimestampedDeviceInfo.
         /// </summary>
+        /// <param name="expirationInterval">czas ważności instancji obiektu</param>
         /// <param name="info">dane urządzenia</param>
-        public TimestampedDeviceInfo(IDeviceBroadcastInfo info)
+        public TimestampedDeviceInfo(IDeviceBroadcastInfo info, TimeSpan expirationInterval)
         {
+            this.expirationInterval = expirationInterval;
             this.Info = info;
             LastUpdate = DateTime.Now;
         }

@@ -23,7 +23,7 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
         /// <summary>
         /// Czas po którym następuje sprawdzenie o przekroczeniu ważności informacji o urządzeniu.
         /// </summary>
-        private readonly TimeSpan cleanupCacheInterval = TimeSpan.FromSeconds(5);
+        private readonly TimeSpan cleanupCacheInterval;
         /// <summary>
         /// Timer sprawdzający utratę ważności informacji o urządzeniach.
         /// </summary>
@@ -53,9 +53,11 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
         #region ctor
         /// <summary>
         /// Konstruktor nowego obiektu klasy.
+        /// <paramref name="cleanUpCacheInterval">czas po którym następuje sprawdzenie zgubionych urządzeń</paramref>
         /// </summary>
-        public CachedDetectedDevicesContainer()
+        public CachedDetectedDevicesContainer(TimeSpan cleanupCacheInterval)
         {
+            this.cleanupCacheInterval = cleanupCacheInterval;
             cachedInfo = new ConcurrentDictionary<string, TimestampedDeviceInfo>();
             cleanupCacheTimer = new Timer(CleanupExpiredDevices, null, cleanupCacheInterval, cleanupCacheInterval);
         }
@@ -94,7 +96,7 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
             else
             {
                 updateStatus = UpdateStatus.Found;
-                cachedInfo.TryAdd(device.MacAddress, new TimestampedDeviceInfo(device));
+                cachedInfo.TryAdd(device.MacAddress, new TimestampedDeviceInfo(device, cleanupCacheInterval));
             }
 
             DeviceInfoUpdated?.Invoke(this, new DeviceUpdatedEventArgs(device, updateStatus));
@@ -114,10 +116,8 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
             foreach (IDeviceBroadcastInfo deviceInfo in expiredDevices)
             {
                 TimestampedDeviceInfo timeStampedDeviceInfo = null;
-                if (cachedInfo.TryRemove(deviceInfo.MacAddress, out timeStampedDeviceInfo))
-                    DeviceInfoUpdated?.Invoke(this, new DeviceUpdatedEventArgs(timeStampedDeviceInfo.Info, UpdateStatus.Lost));
-                else
-                    throw new InvalidOperationException("Próba usunięcia urządzenia z buforu nie powiodła się");
+                cachedInfo.TryRemove(deviceInfo.MacAddress, out timeStampedDeviceInfo);
+                DeviceInfoUpdated?.Invoke(this, new DeviceUpdatedEventArgs(timeStampedDeviceInfo.Info, UpdateStatus.Lost));
             }
         }
         #endregion

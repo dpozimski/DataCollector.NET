@@ -24,7 +24,7 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener
     {
         private Socket interfaceBroadcastSocket;
         private readonly ConcurrentDictionary<string, DeviceBroadcastInfo> broadcastInfoCollection;
-        private readonly BroadcastScanner broadcastScanner;
+        private readonly IBroadcastScanner broadcastScanner;
         private readonly IDetectedDevicesContainer devicesContainer;
         private readonly IDevicesBroadcastInfoFactory broadcastInfoFactory;
         private readonly INetworkAddressFactory addressFactory;
@@ -55,14 +55,13 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener
         public void FindDevicesOnAllInterfacesTest()
         {
             bool eventRaised = false;
+            EventHandler<DeviceUpdatedEventArgs> eventHandler = (o, e) => eventRaised = true;
             broadcastScanner.StartListening();
-            broadcastScanner.DeviceInfoUpdated += (o, e) => eventRaised = true;
+            broadcastScanner.DeviceInfoUpdated += eventHandler;
             interfaceBroadcastSocket.Send(Properties.Resources.CorrectFrame);
-
             devicesContainer.DeviceInfoUpdated += Raise.EventWith(this, new DeviceUpdatedEventArgs(null, UpdateStatus.ConnectedToRestService));
-
             Thread.Sleep(20);
-
+            broadcastScanner.DeviceInfoUpdated -= eventHandler;
             Assert.Equal(devicesContainer.Devices.Count(), 1);
             Assert.True(eventRaised);
         }

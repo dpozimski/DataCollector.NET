@@ -24,7 +24,7 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener.Models
         [Fact]
         public void ExpirationTest()
         {
-            TimestampedDeviceInfo timeStampDeviceInfo = new TimestampedDeviceInfo(broadcastInfo);
+            TimestampedDeviceInfo timeStampDeviceInfo = new TimestampedDeviceInfo(broadcastInfo, TimeSpan.FromSeconds(1));
             Assert.False(timeStampDeviceInfo.IsExpired);
         }
     }
