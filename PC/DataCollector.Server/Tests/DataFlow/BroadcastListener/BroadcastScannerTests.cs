@@ -35,7 +35,10 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener
 
             devicesContainer = Substitute.For<IDetectedDevicesContainer>();
             devicesContainer.Devices.Returns(s => broadcastInfoCollection.Values);
-            devicesContainer.When(s => s.Update(Arg.Any<DeviceBroadcastInfo>())).Do(s => broadcastInfoCollection.TryAdd(s.Arg<DeviceBroadcastInfo>().MacAddress, s.Arg<DeviceBroadcastInfo>()));
+            devicesContainer.When(s => s.Update(Arg.Any<DeviceBroadcastInfo>())).Do(s =>
+            {
+                broadcastInfoCollection.TryAdd(s.Arg<DeviceBroadcastInfo>().MacAddress, s.Arg<DeviceBroadcastInfo>());
+            });
 
             broadcastInfoFactory = Substitute.For<IDevicesBroadcastInfoFactory>();
             broadcastInfoFactory.From(Arg.Any<byte[]>()).Returns<DeviceBroadcastInfo>(s => 
@@ -51,13 +54,17 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener
         [Fact]
         public void FindDevicesOnAllInterfacesTest()
         {
+            bool eventRaised = false;
             broadcastScanner.StartListening();
-
+            broadcastScanner.DeviceInfoUpdated += (o, e) => eventRaised = true;
             interfaceBroadcastSocket.Send(Properties.Resources.CorrectFrame);
+
+            devicesContainer.DeviceInfoUpdated += Raise.EventWith(this, new DeviceUpdatedEventArgs(null, UpdateStatus.ConnectedToRestService));
 
             Thread.Sleep(10);
 
             Assert.Equal(devicesContainer.Devices.Count(), 1);
+            Assert.True(eventRaised);
         }
 
         public void Dispose()

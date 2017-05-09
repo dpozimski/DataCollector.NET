@@ -49,6 +49,21 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener.Models
             Assert.False(deviceBroadcastInfo.Equals(type));
         }
 
+        [Theory]
+        [InlineData("21:22:33:44:55:66")]
+        [InlineData("5:22:33:44:55:66")]
+        [InlineData("11:22:33:14:55:26")]
+        [InlineData("11:55:33:44:55:46")]
+        [InlineData("11:22:33:44:55:62")]
+        [InlineData("11:22:33:44:55:64")]
+        [InlineData("76:22:33:44:55:66")]
+        [InlineData("10:11:23:44:55:66")]
+        public void CompareObjectsFalseTest(string mac)
+        {
+            var compareTestInfo = new DeviceBroadcastInfo("TestMachineName", IPAddress.Parse("192.168.101.101"), mac, "ARM", "10.586", "ARM");
+            Assert.False(deviceBroadcastInfo.Equals(compareTestInfo));
+        }
+
         [Fact]
         public void CreateCopyOfObject()
         {

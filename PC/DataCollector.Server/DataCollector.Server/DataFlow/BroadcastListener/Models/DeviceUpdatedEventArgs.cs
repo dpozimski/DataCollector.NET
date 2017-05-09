@@ -29,7 +29,7 @@ namespace DataCollector.Server.DataFlow.BroadcastListener.Models
         /// </summary>
         /// <param name="deviceInfo">urządzenie</param>
         /// <param name="updateStatus">status</param>
-        internal DeviceUpdatedEventArgs(IDeviceBroadcastInfo deviceInfo, UpdateStatus updateStatus)
+        public DeviceUpdatedEventArgs(IDeviceBroadcastInfo deviceInfo, UpdateStatus updateStatus)
         {
             DeviceInfo = deviceInfo;
             UpdateStatus = updateStatus;

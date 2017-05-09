@@ -56,6 +56,11 @@ namespace DataCollector.Server.DataFlow.Handlers.Factories
         /// <returns>referencja interfejsu wykonawczego</returns>
         public IDeviceHandler CreateRestDevice(IDeviceBroadcastInfo broadcastInfo, int port)
         {
+            if (broadcastInfo is null)
+                throw new ArgumentNullException($"{nameof(broadcastInfo)} cannot be null.");
+            if (port <= 0 || port > 65536)
+                throw new ArgumentException("Port must be a valid value between 0 and 65536.");
+
             var restConnectionAdapter = restConnectionAdapterFactory.Create(broadcastInfo.IPv4, port);
             return new RestDeviceHandler(restConnectionAdapter, configuration, broadcastInfo);
         }
