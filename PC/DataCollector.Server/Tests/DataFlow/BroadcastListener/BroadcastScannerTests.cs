@@ -41,7 +41,7 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener
             });
 
             broadcastInfoFactory = Substitute.For<IDevicesBroadcastInfoFactory>();
-            broadcastInfoFactory.From(Arg.Any<byte[]>()).Returns<DeviceBroadcastInfo>(s => 
+            broadcastInfoFactory.From(Arg.Any<byte[]>()).Returns<IDeviceBroadcastInfo>(s => 
                     TestModelsFactory.CreateDeviceBroadcastInfoMock());
 
             addressFactory = Substitute.For<INetworkAddressFactory>();
@@ -61,7 +61,7 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener
 
             devicesContainer.DeviceInfoUpdated += Raise.EventWith(this, new DeviceUpdatedEventArgs(null, UpdateStatus.ConnectedToRestService));
 
-            Thread.Sleep(10);
+            Thread.Sleep(20);
 
             Assert.Equal(devicesContainer.Devices.Count(), 1);
             Assert.True(eventRaised);

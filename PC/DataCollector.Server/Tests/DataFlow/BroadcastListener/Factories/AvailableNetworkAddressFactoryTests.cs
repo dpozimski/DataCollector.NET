@@ -1,4 +1,5 @@
 ﻿using DataCollector.Server.DataFlow.BroadcastListener.Factories;
+using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
@@ -12,7 +13,7 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener.Factories
     /// </summary>
     public class AvailableNetworkAddressFactoryTests
     {
-        private readonly AvailableNetworkAddressFactory addressFactory;
+        private readonly INetworkAddressFactory addressFactory;
 
         public AvailableNetworkAddressFactoryTests()
         {

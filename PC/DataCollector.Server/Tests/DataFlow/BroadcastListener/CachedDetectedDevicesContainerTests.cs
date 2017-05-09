@@ -1,4 +1,5 @@
 ﻿using DataCollector.Server.DataFlow.BroadcastListener;
+using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
 using DataCollector.Server.DataFlow.BroadcastListener.Models;
 using DataCollector.Server.Tests.Utils;
 using System;
@@ -17,7 +18,7 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener
     public class CachedDetectedDevicesContainerTests : IDisposable
     {
         private readonly CachedDetectedDevicesContainer devicesContainer;
-        private readonly DeviceBroadcastInfo broadcastInfo;
+        private readonly IDeviceBroadcastInfo broadcastInfo;
 
         public CachedDetectedDevicesContainerTests()
         {
@@ -61,7 +62,7 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener
             bool eventRaised = false;
             devicesContainer.Update(broadcastInfo);
             devicesContainer.DeviceInfoUpdated += (o, e) => eventRaised = true;
-            DeviceBroadcastInfo updatedInfo = new DeviceBroadcastInfo(broadcastInfo.Name + "Other", 
+            IDeviceBroadcastInfo updatedInfo = new DeviceBroadcastInfo(broadcastInfo.Name + "Other", 
                 broadcastInfo.IPv4, broadcastInfo.MacAddress, broadcastInfo.MacAddress, broadcastInfo.WinVer, broadcastInfo.Model);
             devicesContainer.Update(updatedInfo);
             Assert.True(eventRaised);

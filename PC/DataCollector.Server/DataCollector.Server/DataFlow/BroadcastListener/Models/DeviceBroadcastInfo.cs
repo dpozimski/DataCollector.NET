@@ -79,7 +79,7 @@ namespace DataCollector.Server.DataFlow.BroadcastListener.Models
         {
             if (ReferenceEquals(null, obj) || obj.GetType() != GetType())
                 return false;
-            DeviceBroadcastInfo other = obj as DeviceBroadcastInfo;
+            IDeviceBroadcastInfo other = obj as IDeviceBroadcastInfo;
             return string.Equals(MacAddress, other.MacAddress) &&
                    IPv4.Equals(other.IPv4) &&
                    string.Equals(Name, other.Name);

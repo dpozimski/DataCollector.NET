@@ -1,4 +1,5 @@
-﻿using DataCollector.Server.DataFlow.BroadcastListener.Models;
+﻿using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
+using DataCollector.Server.DataFlow.BroadcastListener.Models;
 using DataCollector.Server.DataFlow.Handlers.Interfaces;
 using DataCollector.Server.Interfaces;
 using DataCollector.Server.Models;
@@ -58,7 +59,7 @@ namespace DataCollector.Server.DataFlow.Handlers
         /// Konstruktor symulatora komuikacji z urządzeniem.
         /// </summary>
         /// <param name="info"></param>
-        public SimulatorDeviceHandler(DeviceBroadcastInfo info) : base(info)
+        public SimulatorDeviceHandler(IDeviceBroadcastInfo info) : base(info)
         { }
         #endregion
 

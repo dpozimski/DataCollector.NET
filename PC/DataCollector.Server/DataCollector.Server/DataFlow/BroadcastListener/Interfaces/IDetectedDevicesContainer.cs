@@ -23,7 +23,7 @@ namespace DataCollector.Server.DataFlow.BroadcastListener.Interfaces
         /// <summary>
         /// Enumeracja urządzeń w sieci.
         /// </summary>
-        IEnumerable<DeviceBroadcastInfo> Devices { get; }
+        IEnumerable<IDeviceBroadcastInfo> Devices { get; }
         #endregion
 
         #region Methods
@@ -33,7 +33,7 @@ namespace DataCollector.Server.DataFlow.BroadcastListener.Interfaces
         /// </summary>
         /// <param name="device">urządzenie</param>
         /// <returns></returns>
-        void Update(DeviceBroadcastInfo device);
+        void Update(IDeviceBroadcastInfo device);
         #endregion
     }
 }

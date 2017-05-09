@@ -1,4 +1,6 @@
-﻿using DataCollector.Server.DataFlow.BroadcastListener.Models;
+﻿using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
+using DataCollector.Server.DataFlow.BroadcastListener.Models;
+using DataCollector.Server.Tests.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +14,11 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener.Models
 {
     public class TimeStampedDeviceInfoTests
     {
-        private readonly DeviceBroadcastInfo broadcastInfo;
+        private readonly IDeviceBroadcastInfo broadcastInfo;
 
         public TimeStampedDeviceInfoTests()
         {
-            broadcastInfo = new DeviceBroadcastInfo("TestMachineName", IPAddress.Parse("192.168.101.101"), "AA:AA:AA:AA:AA:AA", "ARM", "10.586", "ARM");
+            broadcastInfo = TestModelsFactory.CreateDeviceBroadcastInfoMock();
         }
 
         [Fact]

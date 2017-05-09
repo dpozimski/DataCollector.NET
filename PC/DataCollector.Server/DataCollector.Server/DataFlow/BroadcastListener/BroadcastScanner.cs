@@ -115,7 +115,7 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
         {
             try
             {
-                DeviceBroadcastInfo deviceInfo = devicesBroadcastInfoFactory.From(e);
+                IDeviceBroadcastInfo deviceInfo = devicesBroadcastInfoFactory.From(e);
                 detectedDeviceContainer.Update(deviceInfo);
             }
             catch(InvalidFrameException)

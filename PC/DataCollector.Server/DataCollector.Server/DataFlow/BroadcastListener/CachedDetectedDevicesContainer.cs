@@ -41,7 +41,7 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
         /// <summary>
         /// Enumeracja urządzeń w sieci.
         /// </summary>
-        public IEnumerable<DeviceBroadcastInfo> Devices
+        public IEnumerable<IDeviceBroadcastInfo> Devices
         {
             get
             {
@@ -66,7 +66,7 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
         /// Usuwa urządzenie z pamięci tymczasowej.
         /// </summary>
         /// <param name="device">urządzenie</param>
-        public void ClearDeviceCache(DeviceBroadcastInfo device)
+        public void ClearDeviceCache(IDeviceBroadcastInfo device)
         {
             TimestampedDeviceInfo timestampedDeviceInfo = null;
             cachedInfo.TryRemove(device.MacAddress, out timestampedDeviceInfo);
@@ -77,7 +77,7 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
         /// </summary>
         /// <param name="device">urządzenie</param>
         /// <returns></returns>
-        public void Update(DeviceBroadcastInfo device)
+        public void Update(IDeviceBroadcastInfo device)
         {
             UpdateStatus updateStatus;
             TimestampedDeviceInfo existing;
@@ -108,12 +108,10 @@ namespace DataCollector.Server.DataFlow.BroadcastListener
         /// <param name="state"></param>
         private void CleanupExpiredDevices(object state)
         {
-            IEnumerable<DeviceBroadcastInfo> expiredDevices;
-
-            expiredDevices = cachedInfo
+            IEnumerable<IDeviceBroadcastInfo> expiredDevices = cachedInfo
                 .Where(s => s.Value.IsExpired).Select(s => s.Value.Info);
 
-            foreach (DeviceBroadcastInfo deviceInfo in expiredDevices)
+            foreach (IDeviceBroadcastInfo deviceInfo in expiredDevices)
             {
                 TimestampedDeviceInfo timeStampedDeviceInfo = null;
                 if (cachedInfo.TryRemove(deviceInfo.MacAddress, out timeStampedDeviceInfo))

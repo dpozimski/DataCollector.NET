@@ -18,6 +18,6 @@ namespace DataCollector.Server.DataFlow.BroadcastListener.Interfaces
         /// <param name="buffer">bufor wejściowy</param>
         /// <param name="device">informacje o urządzeniu</param>
         /// <returns>obiekt definiujący powstałą ramkę</returns>
-        DeviceBroadcastInfo From(byte[] buffer);
+        IDeviceBroadcastInfo From(byte[] buffer);
     }
 }

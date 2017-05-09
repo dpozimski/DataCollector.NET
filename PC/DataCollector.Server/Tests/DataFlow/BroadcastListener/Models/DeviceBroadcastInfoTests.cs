@@ -1,4 +1,5 @@
-﻿using DataCollector.Server.DataFlow.BroadcastListener.Models;
+﻿using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
+using DataCollector.Server.DataFlow.BroadcastListener.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener.Models
 {
     public class DeviceBroadcastInfoTests
     {
-        private readonly DeviceBroadcastInfo deviceBroadcastInfo;
+        private readonly IDeviceBroadcastInfo deviceBroadcastInfo;
         private const string stringRepresentation = "\"TestMachineName\" - 192.168.101.101 [AA:AA:AA:AA:AA:AA]";
 
         public DeviceBroadcastInfoTests()
@@ -60,14 +61,14 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener.Models
         [InlineData("10:11:23:44:55:66")]
         public void CompareObjectsFalseTest(string mac)
         {
-            var compareTestInfo = new DeviceBroadcastInfo("TestMachineName", IPAddress.Parse("192.168.101.101"), mac, "ARM", "10.586", "ARM");
+            IDeviceBroadcastInfo compareTestInfo = new DeviceBroadcastInfo("TestMachineName", IPAddress.Parse("192.168.101.101"), mac, "ARM", "10.586", "ARM");
             Assert.False(deviceBroadcastInfo.Equals(compareTestInfo));
         }
 
         [Fact]
         public void CreateCopyOfObject()
         {
-            DeviceBroadcastInfo copy = new DeviceBroadcastInfo(deviceBroadcastInfo);
+            IDeviceBroadcastInfo copy = new DeviceBroadcastInfo(deviceBroadcastInfo);
             Assert.True(copy.Equals(deviceBroadcastInfo));
         }
 

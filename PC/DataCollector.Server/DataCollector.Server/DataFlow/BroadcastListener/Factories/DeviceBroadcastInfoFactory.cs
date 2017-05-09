@@ -34,7 +34,7 @@ namespace DataCollector.Server.DataFlow.BroadcastListener.Factories
         /// <param name="buffer">bufor wejściowy</param>
         /// <param name="device">informacje o urządzeniu</param>
         /// <returns>obiekt definiujący powstałą ramkę</returns>
-        public DeviceBroadcastInfo From(byte[] buffer)
+        public IDeviceBroadcastInfo From(byte[] buffer)
         {
             if (buffer is null)
                 throw new ArgumentNullException();

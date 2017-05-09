@@ -1,5 +1,6 @@
 ﻿using DataCollector.Server.DataFlow.BroadcastListener.Exceptions;
 using DataCollector.Server.DataFlow.BroadcastListener.Factories;
+using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
 using DataCollector.Server.DataFlow.BroadcastListener.Models;
 using System;
 using System.Collections.Generic;
@@ -17,14 +18,14 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener.Factories
     /// </summary>
     public class DeviceBroadcastInfoFactoryTests
     {
-        private DeviceBroadcastInfoFactory broadcastInfoFactory;
+        private IDevicesBroadcastInfoFactory broadcastInfoFactory;
 
         public DeviceBroadcastInfoFactoryTests()
         {
             broadcastInfoFactory = new DeviceBroadcastInfoFactory();
         }
 
-        DeviceBroadcastInfo Execute(byte[] frame)
+        IDeviceBroadcastInfo Execute(byte[] frame)
         {
             return broadcastInfoFactory.From(frame);
         }
@@ -48,7 +49,7 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener.Factories
         public void ParsingCorrectFrame()
         {
             byte[] frame = Properties.Resources.CorrectFrame;
-            DeviceBroadcastInfo deviceInfo = Execute(frame);
+            IDeviceBroadcastInfo deviceInfo = Execute(frame);
             Assert.Equal(string.Compare("Raspberry Pi 3", deviceInfo.Name), 0);
             Assert.Equal("AA:AA:AA:AA:AA:AA", deviceInfo.MacAddress);
             Assert.Equal("ARM", deviceInfo.Architecture);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace DataCollector.Server.DataFlow.BroadcastListener.Models
         /// <summary>
         /// Informacje o urządzeniu.
         /// </summary>
-        public DeviceBroadcastInfo Info { get; set; }
+        public IDeviceBroadcastInfo Info { get; set; }
         /// <summary>
         /// Znacznik czasowy.
         /// </summary>
@@ -38,7 +39,7 @@ namespace DataCollector.Server.DataFlow.BroadcastListener.Models
         /// Konstruktor klasy TimestampedDeviceInfo.
         /// </summary>
         /// <param name="info">dane urządzenia</param>
-        public TimestampedDeviceInfo(DeviceBroadcastInfo info)
+        public TimestampedDeviceInfo(IDeviceBroadcastInfo info)
         {
             this.Info = info;
             LastUpdate = DateTime.Now;
