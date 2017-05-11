@@ -43,7 +43,7 @@ namespace DataCollector.Server.Tests.DataFlow.Handlers
             deviceHandler.MeasuresArrived += (o, e) => measuresArrived = true;
             deviceHandler.MeasurementsMsRequestInterval = 0;
             bool success = deviceHandler.Connect();
-            Thread.Sleep(10);
+            Thread.Sleep(20);
             Assert.True(measuresArrived && success);
         }
 

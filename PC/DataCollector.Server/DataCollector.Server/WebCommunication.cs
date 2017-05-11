@@ -61,6 +61,7 @@ namespace DataCollector.Server
             this.broadcastScanner = broadcastScanner;
             this.port = port;
             this.deviceHandlerFactory = deviceHandlerFactory;
+            this.deviceHandlers = new SynchronizedCollection<IDeviceHandler>();
         }
 
         #region Public Methods
@@ -70,7 +71,8 @@ namespace DataCollector.Server
         public void AddSimulatorDevice()
         {
             var device = deviceHandlerFactory.CreateSimulatorDevice();
-            this.DeviceChangedState?.Invoke(this, new Models.DeviceUpdatedEventArgs(device, UpdateStatus.Found));
+            Models.DeviceUpdatedEventArgs simulateEvent = new Models.DeviceUpdatedEventArgs(device, UpdateStatus.Found);
+            DeviceChangedState?.Invoke(this, simulateEvent);
         }
         /// <summary>
         /// Uruchamia usługi serwisu,
@@ -80,8 +82,7 @@ namespace DataCollector.Server
             if (IsStarted)
                 throw new InvalidOperationException("Serwis jest już uruchomiony");
 
-            deviceHandlers = new SynchronizedCollection<IDeviceHandler>();
-            broadcastScanner.DeviceInfoUpdated += new EventHandler<DataFlow.BroadcastListener.Models.DeviceUpdatedEventArgs>(OnDeviceInfoUpdated);
+            broadcastScanner.DeviceInfoUpdated += new EventHandler<DataFlow.BroadcastListener.Models.DeviceUpdatedEventArgs>(OnBroadcastDeviceInfoUpdated);
             broadcastScanner.StartListening();
 
             IsStarted = true;
@@ -189,19 +190,19 @@ namespace DataCollector.Server
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnDeviceInfoUpdated(object sender, DataFlow.BroadcastListener.Models.DeviceUpdatedEventArgs e)
+        private void OnBroadcastDeviceInfoUpdated(object sender, DataFlow.BroadcastListener.Models.DeviceUpdatedEventArgs e)
         {
             var device = deviceHandlers.SingleOrDefault(s => s.MacAddress == e.DeviceInfo.MacAddress);
             if (device == null)
                 device = deviceHandlerFactory.CreateRestDevice(e.DeviceInfo, port);
-            else if (e.UpdateStatus == UpdateStatus.Lost && device.IsConnected)
+            else if (e.UpdateStatus == UpdateStatus.Lost)
             {
                 device.Disconnect();
                 device.MeasuresArrived -= OnMeasuresArrived;
                 deviceHandlers.Remove(device);
             }
 
-            this.DeviceChangedState?.Invoke(sender, new Models.DeviceUpdatedEventArgs(device, e.UpdateStatus));
+            DeviceChangedState?.Invoke(sender, new Models.DeviceUpdatedEventArgs(device, e.UpdateStatus));
         }
         /// <summary>
         /// Obsługa zdarzenia nadejscia pomiarów z urządzenia.
@@ -210,7 +211,7 @@ namespace DataCollector.Server
         /// <param name="e"></param>
         private void OnMeasuresArrived(object sender, MeasuresArrivedEventArgs e)
         {
-            this.MeasuresArrived?.Invoke(sender, e);
+            MeasuresArrived?.Invoke(sender, e);
         }
         #endregion
 
@@ -222,7 +223,7 @@ namespace DataCollector.Server
         {
             if (IsStarted)
             {
-                broadcastScanner.DeviceInfoUpdated -= OnDeviceInfoUpdated;
+                broadcastScanner.DeviceInfoUpdated -= OnBroadcastDeviceInfoUpdated;
                 broadcastScanner.Dispose();
 
                 foreach (var item in deviceHandlers)

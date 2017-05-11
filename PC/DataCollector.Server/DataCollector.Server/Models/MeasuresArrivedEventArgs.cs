@@ -31,7 +31,7 @@ namespace DataCollector.Server.Models
         /// </summary>
         /// <param name="source">źródło pomiarów</param>
         /// <param name="value">wartość</param>
-        internal MeasuresArrivedEventArgs(IDeviceInfo source, Measures value, DateTime timeStamp)
+        public MeasuresArrivedEventArgs(IDeviceInfo source, Measures value, DateTime timeStamp)
         {
             this.Source = source;
             this.Value = value;
