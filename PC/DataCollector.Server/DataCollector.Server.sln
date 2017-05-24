@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder", "SolutionF
 		GlobalAssemblyVersion.cs = GlobalAssemblyVersion.cs
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{C62D3DA9-9B41-4C8F-997C-B6DAF0D3F31F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Service\Server.csproj", "{C62D3DA9-9B41-4C8F-997C-B6DAF0D3F31F}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DataCollector.Device.Models", "..\..\Shared\DataCollector.Device.Models\DataCollector.Device.Models\DataCollector.Device.Models.shproj", "{AE013886-8B5B-464A-B698-24B6C3EC7FF7}"
 EndProject
@@ -19,6 +19,7 @@ EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		DataCollector.Server\DataCollector.Server.projitems*{a6d753cd-9038-4a3a-b1dd-0811301f8822}*SharedItemsImports = 13
+		DataCollector.Server\DataCollector.Server.projitems*{c62d3da9-9b41-4c8f-997c-b6daf0d3f31f}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

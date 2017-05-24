@@ -1,23 +1,28 @@
-﻿using DataCollector.Server.DataFlow.BroadcastListener;
+﻿using AutoMapper;
 using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
 using DataCollector.Server.DataFlow.BroadcastListener.Models;
-using DataCollector.Server.DataFlow.Handlers;
 using DataCollector.Server.DataFlow.Handlers.Interfaces;
 using DataCollector.Server.Interfaces;
 using DataCollector.Server.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
-using System.Net;
+using System.Runtime.Serialization;
+using System.ServiceModel;
+using System.ServiceModel.Web;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DataCollector.Server
 {
+    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in code, svc and config file together.
+    // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     /// <summary>
     /// klasa impleentująca interfejs ICommunication.
     /// </summary>
-    public class WebCommunication : ICommunication
+    public class WebCommunicationService : ICommunicationService
     {
         #region Private Fields
         private int port;
@@ -45,9 +50,9 @@ namespace DataCollector.Server
         /// <summary>
         /// Aktualnie podłączone urządzenia.
         /// </summary>
-        public IEnumerable<IDeviceInfo> Devices
+        public IEnumerable<DeviceInfo> Devices
         {
-            get { return deviceHandlers; }
+            get { return Mapper.Map<IEnumerable<DeviceInfo>>(deviceHandlers); }
         }
         #endregion
 
@@ -55,13 +60,12 @@ namespace DataCollector.Server
         /// Konstruktor nowej instancji klasy.
         /// </summary>
         /// <param name="deviceHandlerFactory">fabryka urządzeń pomiarowych</param>
-        /// <param name="port">port nasłuchu każdego z urządzeń</param>
-        public WebCommunication(IBroadcastScanner broadcastScanner, IDeviceHandlerFactory deviceHandlerFactory, int port)
+        public WebCommunicationService(IBroadcastScanner broadcastScanner, IDeviceHandlerFactory deviceHandlerFactory)
         {
             this.broadcastScanner = broadcastScanner;
-            this.port = port;
             this.deviceHandlerFactory = deviceHandlerFactory;
             this.deviceHandlers = new SynchronizedCollection<IDeviceHandler>();
+            this.port = Convert.ToInt32(ConfigurationManager.AppSettings["DeviceCommunicationPort"]);
         }
 
         #region Public Methods
@@ -102,7 +106,7 @@ namespace DataCollector.Server
         /// </summary>
         /// <param name="device">urządzenie</param>
         /// <returns></returns>
-        public bool ConnectDevice(IDeviceInfo device)
+        public bool ConnectDevice(DeviceInfo device)
         {
             var deviceHandler = device as IDeviceHandler;
 
@@ -130,7 +134,7 @@ namespace DataCollector.Server
         /// </summary>
         /// <param name="device">urządzenie</param>
         /// <returns></returns>
-        public bool DisconnectDevice(IDeviceInfo device)
+        public bool DisconnectDevice(DeviceInfo device)
         {
             var deviceHandler = device as IDeviceHandler;
 
@@ -150,7 +154,7 @@ namespace DataCollector.Server
         /// <param name="target">urządzenie docelowe</param>
         /// <param name="state">stan diody</param>
         /// <returns></returns>
-        public bool ChangeLedState(IDeviceInfo target, bool state)
+        public bool ChangeLedState(DeviceInfo target, bool state)
         {
             var deviceHandler = target as IDeviceHandler;
 
@@ -164,7 +168,7 @@ namespace DataCollector.Server
         /// </summary>
         /// <param name="target">urządzenie</param>
         /// <returns></returns>
-        public bool GetLedState(IDeviceInfo target)
+        public bool GetLedState(DeviceInfo target)
         {
             var deviceHandler = target as IDeviceHandler;
 
@@ -183,7 +187,8 @@ namespace DataCollector.Server
         /// <param name="e"></param>
         private void OnDeviceDisconnected(object sender, IDeviceHandler e)
         {
-            Task.Factory.StartNew(() => DisconnectDevice(e));
+            DeviceInfo deviceInfo = Mapper.Map<DeviceInfo>(e);
+            Task.Factory.StartNew(() => DisconnectDevice(deviceInfo));
         }
         /// <summary>
         /// Obsługa zdarzenia nadejścia nowego pakietu informacji o urządzeniu.

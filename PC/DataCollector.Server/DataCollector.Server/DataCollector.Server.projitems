@@ -24,7 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataFlow\Handlers\Interfaces\IDeviceInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataFlow\Handlers\Interfaces\IRestConnectionAdapter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataFlow\Handlers\Interfaces\IRestConnectionAdapterFactory.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ICommunication.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\DeviceInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\DeviceUpdatedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\MeasuresArrivedEventArgs.cs" />
   </ItemGroup>

@@ -12,14 +12,14 @@ using Xunit;
 namespace DataCollector.Server.Tests
 {
     /// <summary>
-    /// Klasa testująca <see cref="WebCommunication"/>
+    /// Klasa testująca <see cref="WebCommunicationService"/>
     /// </summary>
     public class WebCommunicationTests : IDisposable
     {
         private IDeviceHandler simulatorDevice;
         private IBroadcastScanner broadcastScanner;
         private IDeviceHandlerFactory deviceHandlerFactory;
-        private WebCommunication webCommunication;
+        private WebCommunicationService webCommunication;
         private int port;
         private bool ledState;
         private bool isConnected;
@@ -32,7 +32,7 @@ namespace DataCollector.Server.Tests
             deviceHandlerFactory = Substitute.For<IDeviceHandlerFactory>();
             deviceHandlerFactory.CreateSimulatorDevice().Returns(s => simulatorDevice);
 
-            webCommunication = new WebCommunication(broadcastScanner, deviceHandlerFactory, port);
+            webCommunication = new WebCommunicationService(broadcastScanner, deviceHandlerFactory, port);
         }
 
         private void SimulatorDeviceInit()
