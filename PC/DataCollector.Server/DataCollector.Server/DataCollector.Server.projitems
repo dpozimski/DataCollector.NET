@@ -20,6 +20,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataFlow\BroadcastListener\Models\TimeStampedDeviceInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataFlow\BroadcastListener\Models\UpdateStatus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataFlow\Handlers\Interfaces\IDeviceHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataFlow\Handlers\Interfaces\IDeviceHandlerConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataFlow\Handlers\Interfaces\IDeviceHandlerFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataFlow\Handlers\Interfaces\IDeviceInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataFlow\Handlers\Interfaces\IRestConnectionAdapter.cs" />

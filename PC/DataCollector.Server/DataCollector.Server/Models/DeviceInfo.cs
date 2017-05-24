@@ -4,54 +4,55 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.ServiceModel;
+using System.Runtime.Serialization;
 
 namespace DataCollector.Server.Models
 {
     /// <summary>
     /// Klasa reprezentująca komunikat WCF.
     /// </summary>
-    [MessageContract]
+    [DataContract]
     public class DeviceInfo : IDeviceInfo
     {
         /// <summary>
         /// Połączono z serwerem.
         /// </summary>
-        [MessageBodyMember]
+        [DataMember]
         public bool IsConnected { get; set; }
         /// <summary>
         /// Interwal pobierania pomiarów.
         /// </summary>
-        [MessageBodyMember]
+        [DataMember]
         public double MeasurementsMsRequestInterval { get; set; }
         /// <summary>
         /// Adres IP urządzenia.
         /// </summary>
-        [MessageBodyMember]
+        [DataMember]
         public string Name { get; set; }
         /// <summary>
         /// IPv4.
         /// </summary>
-        [MessageBodyMember]
+        [DataMember]
         public IPAddress IPv4 { get; set; }
         /// <summary>
         /// Wersja Windows 10 IoT Core.
         /// </summary>
-        [MessageBodyMember]
+        [DataMember]
         public string WinVer { get; set; }
         /// <summary>
         /// Architektura systemu.
         /// </summary>
-        [MessageBodyMember]
+        [DataMember]
         public string Architecture { get; set; }
         /// <summary>
         /// Adres MAC urządzenia.
         /// </summary>
-        [MessageBodyMember]
+        [DataMember]
         public string MacAddress { get; set; }
         /// <summary>
         /// Model urządzenia.
         /// </summary>
-        [MessageBodyMember]
+        [DataMember]
         public string Model { get; set; }
     }
 }

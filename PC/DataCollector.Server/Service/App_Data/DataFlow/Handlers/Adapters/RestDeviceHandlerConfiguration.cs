@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataCollector.Server.DataFlow.Handlers.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -10,7 +11,7 @@ namespace DataCollector.Server.DataFlow.Handlers.Adapters
     /// <summary>
     /// Klasa konfiguracyjna <see cref="RestDeviceHandler"/>
     /// </summary>
-    public class RestDeviceHandlerConfiguration
+    public class RestDeviceHandlerConfiguration : IDeviceHandlerConfiguration
     {
         /// <summary>
         /// Referencja do zapytania o pomiary.

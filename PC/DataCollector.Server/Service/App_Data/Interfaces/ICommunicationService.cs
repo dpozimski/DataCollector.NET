@@ -14,6 +14,7 @@ namespace DataCollector.Server.Interfaces
     /// Interfejs określający funkcjonalność komunikacji z urządzeniami zewnętrznym.
     /// </summary>
     [ServiceContract]
+
     public interface ICommunicationService : IDisposable
     {
         #region Events

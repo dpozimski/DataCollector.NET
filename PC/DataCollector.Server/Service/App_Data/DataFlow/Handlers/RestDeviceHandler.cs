@@ -27,7 +27,7 @@ namespace DataCollector.Server.DataFlow.Handlers
 
         #region Private Fields
         private readonly object syncObj = new object();
-        private readonly RestDeviceHandlerConfiguration configuration;
+        private readonly IDeviceHandlerConfiguration configuration;
         private readonly IRestConnectionAdapter restConnectionAdapter;
         private Task measurementsRequestTask;
         private CancellationTokenSource tokenSource;
@@ -74,7 +74,7 @@ namespace DataCollector.Server.DataFlow.Handlers
         /// <param name="broadcastInfo">informacje o urządzeniu pochodzące z broadcast</param>
         /// <param name="configuration">Konfiguracja api REST</param>
         /// <param name="restConnectionAdapter">adapter komunikacja protkołu REST</param>
-        public RestDeviceHandler(IRestConnectionAdapter restConnectionAdapter, RestDeviceHandlerConfiguration configuration, IDeviceBroadcastInfo broadcastInfo) : base(broadcastInfo)
+        public RestDeviceHandler(IRestConnectionAdapter restConnectionAdapter, IDeviceHandlerConfiguration configuration, IDeviceBroadcastInfo broadcastInfo) : base(broadcastInfo)
         {
             this.restConnectionAdapter = restConnectionAdapter;
             this.configuration = configuration;

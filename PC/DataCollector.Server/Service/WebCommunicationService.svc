@@ -1,6 +1,6 @@
 ﻿<%@ ServiceHost 
     Language="C#" 
     Debug="true" 
-    Service="DataCollector.Server.WebCommunicationService" 
+    Service="DataCollector.Server.WebCommunicationService, DataCollector.Server" 
     CodeBehind="WebCommunicationService.svc.cs"  
     Factory="Autofac.Integration.Wcf.AutofacServiceHostFactory, Autofac.Integration.Wcf"%>

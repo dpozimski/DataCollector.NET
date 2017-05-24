@@ -3,6 +3,7 @@ using Autofac.Integration.Wcf;
 using AutoMapper;
 using DataCollector.Server.DataFlow.BroadcastListener;
 using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
+using DataCollector.Server.DataFlow.Handlers.Adapters;
 using DataCollector.Server.DataFlow.Handlers.Interfaces;
 using DataCollector.Server.Interfaces;
 using DataCollector.Server.Models;
@@ -39,9 +40,17 @@ namespace DataCollector.Server
 
             var dataAccess = Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(dataAccess)
+                   .Where(s => !s.Name.EndsWith("DeviceHandler"))
                    .AsImplementedInterfaces()
-                   .Except<WebCommunicationService>().As<ICommunicationService>().WithParameter("port", GetSettingsValue("DeviceCommunicationPort")).SingleInstance()
-                   .Except<CachedDetectedDevicesContainer>().As<IDetectedDevicesContainer>().WithParameter("cleanupCacheInterval", TimeSpan.FromSeconds(GetSettingsValue("CleanupCacheInterval")));
+                   .Except<RestDeviceHandlerConfiguration>()
+                   .Except<WebCommunicationService>(ct => ct.WithParameter("port", GetSettingsValue("DeviceCommunicationPort")).SingleInstance())
+                   .Except<CachedDetectedDevicesContainer>(ct => ct.As<IDetectedDevicesContainer>().WithParameter("cleanupCacheInterval", TimeSpan.FromSeconds(GetSettingsValue("CleanupCacheInterval"))));
+            builder.Register(s => new RestDeviceHandlerConfiguration()
+            {
+                GetMeasurementsRequest = ConfigurationManager.AppSettings["GetMeasurementsRequest"],
+                LedChangeRequest = ConfigurationManager.AppSettings["LedChangeRequest"],
+                LedStateRequest = ConfigurationManager.AppSettings["LedStateRequest"],
+            }).As<IDeviceHandlerConfiguration>();
 
             AutofacHostFactory.Container = builder.Build();
         }

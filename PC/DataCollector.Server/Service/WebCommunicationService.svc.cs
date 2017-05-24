@@ -20,6 +20,7 @@ namespace DataCollector.Server
     /// <summary>
     /// klasa impleentująca interfejs ICommunication.
     /// </summary>
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class WebCommunicationService : ICommunicationService
     {
         #region Private Fields

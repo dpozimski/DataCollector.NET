@@ -19,7 +19,7 @@ namespace DataCollector.Server.DataFlow.Handlers.Factories
         #region Fields
         private int simulatorDevicesCount;
         private IRestConnectionAdapterFactory restConnectionAdapterFactory;
-        private RestDeviceHandlerConfiguration configuration;
+        private IDeviceHandlerConfiguration configuration;
         #endregion
 
         #region ctor
@@ -28,7 +28,7 @@ namespace DataCollector.Server.DataFlow.Handlers.Factories
         /// </summary>
         /// <param name="restConnectionAdapterFactory">fabryka adapterów komunikacji REST</param>
         /// <param name="configuration">konfiguracja protokołu REST</param>
-        public DeviceHandlerFactory(IRestConnectionAdapterFactory restConnectionAdapterFactory, RestDeviceHandlerConfiguration configuration)
+        public DeviceHandlerFactory(IRestConnectionAdapterFactory restConnectionAdapterFactory, IDeviceHandlerConfiguration configuration)
         {
             this.configuration = configuration;
             this.restConnectionAdapterFactory = restConnectionAdapterFactory;
