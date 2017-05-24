@@ -89,7 +89,7 @@
     <Compile Include="WebCommunicationTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataCollector.Server\Server.csproj">
+    <ProjectReference Include="..\Server\Server.csproj">
       <Project>{49993b4e-f036-424c-9777-f906546a7086}</Project>
       <Name>Server</Name>
     </ProjectReference>
