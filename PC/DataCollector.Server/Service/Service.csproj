@@ -64,19 +64,31 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BackEndCollectorService.svc" />
+    <Content Include="WebCommunication.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackEndCollectorService.svc.cs">
-      <DependentUpon>BackEndCollectorService.svc</DependentUpon>
+    <Compile Include="..\GlobalAssemblyVersion.cs">
+      <Link>Properties\GlobalAssemblyVersion.cs</Link>
+    </Compile>
+    <Compile Include="App_Data\DataFlow\BroadcastListener\BroadcastInterfaceMessageHandler.cs" />
+    <Compile Include="App_Data\DataFlow\BroadcastListener\BroadcastScanner.cs" />
+    <Compile Include="App_Data\DataFlow\BroadcastListener\CachedDetectedDevicesContainer.cs" />
+    <Compile Include="App_Data\DataFlow\BroadcastListener\Factories\AvailableNetworkAddressFactory.cs" />
+    <Compile Include="App_Data\DataFlow\BroadcastListener\Factories\DeviceBroadcastInfoFactory.cs" />
+    <Compile Include="App_Data\DataFlow\Handlers\Adapters\RestDeviceHandlerConfiguration.cs" />
+    <Compile Include="App_Data\DataFlow\Handlers\Adapters\RestSharpLibConnectionAdapter.cs" />
+    <Compile Include="App_Data\DataFlow\Handlers\Factories\DeviceHandlerFactory.cs" />
+    <Compile Include="App_Data\DataFlow\Handlers\Factories\RestConnectionAdapterFactory.cs" />
+    <Compile Include="App_Data\DataFlow\Handlers\RestDeviceHandler.cs" />
+    <Compile Include="App_Data\DataFlow\Handlers\SimulatorDeviceHandler.cs" />
+    <Compile Include="App_Data\WebCommunication.cs" />
+    <Compile Include="WebCommunication.svc.cs">
+      <DependentUpon>WebCommunication.svc</DependentUpon>
     </Compile>
     <Compile Include="IBackEndCollectorService.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
@@ -85,12 +97,6 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Server\Server.csproj">
-      <Project>{49993b4e-f036-424c-9777-f906546a7086}</Project>
-      <Name>Server</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

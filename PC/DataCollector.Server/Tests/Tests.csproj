@@ -89,10 +89,6 @@
     <Compile Include="WebCommunicationTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Server\Server.csproj">
-      <Project>{49993b4e-f036-424c-9777-f906546a7086}</Project>
-      <Name>Server</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Service\Service.csproj">
       <Project>{c62d3da9-9b41-4c8f-997c-b6daf0d3f31f}</Project>
       <Name>Service</Name>
