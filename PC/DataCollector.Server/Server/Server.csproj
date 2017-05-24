@@ -54,37 +54,20 @@
     <Compile Include="DataFlow\BroadcastListener\BroadcastScanner.cs" />
     <Compile Include="DataFlow\BroadcastListener\BroadcastInterfaceMessageHandler.cs" />
     <Compile Include="DataFlow\BroadcastListener\CachedDetectedDevicesContainer.cs" />
-    <Compile Include="DataFlow\BroadcastListener\Interfaces\IBroadcastScanner.cs" />
-    <Compile Include="DataFlow\BroadcastListener\Interfaces\IDetectedDevicesContainer.cs" />
-    <Compile Include="DataFlow\BroadcastListener\Interfaces\IDeviceBroadcastInfo.cs" />
-    <Compile Include="DataFlow\BroadcastListener\Interfaces\IDevicesBroadcastInfoFactory.cs" />
     <Compile Include="DataFlow\BroadcastListener\Factories\AvailableNetworkAddressFactory.cs" />
-    <Compile Include="DataFlow\BroadcastListener\Models\DeviceBroadcastInfo.cs" />
     <Compile Include="DataFlow\BroadcastListener\Factories\DeviceBroadcastInfoFactory.cs" />
-    <Compile Include="DataFlow\BroadcastListener\Models\DeviceUpdatedEventArgs.cs" />
-    <Compile Include="DataFlow\BroadcastListener\Exceptions\InvalidFrameException.cs" />
-    <Compile Include="DataFlow\BroadcastListener\Interfaces\INetworkAddressFactory.cs" />
-    <Compile Include="DataFlow\BroadcastListener\Models\TimeStampedDeviceInfo.cs" />
-    <Compile Include="DataFlow\BroadcastListener\Models\UpdateStatus.cs" />
     <Compile Include="DataFlow\Handlers\Factories\RestConnectionAdapterFactory.cs" />
-    <Compile Include="DataFlow\Handlers\Interfaces\IRestConnectionAdapterFactory.cs" />
-    <Compile Include="DataFlow\Handlers\Interfaces\IDeviceHandlerFactory.cs" />
-    <Compile Include="DataFlow\Handlers\Interfaces\IRestConnectionAdapter.cs" />
     <Compile Include="DataFlow\Handlers\Adapters\RestSharpLibConnectionAdapter.cs" />
     <Compile Include="DataFlow\Handlers\Adapters\RestDeviceHandlerConfiguration.cs" />
     <Compile Include="DataFlow\Handlers\Factories\DeviceHandlerFactory.cs" />
     <Compile Include="DataFlow\Handlers\RestDeviceHandler.cs" />
     <Compile Include="DataFlow\Handlers\SimulatorDeviceHandler.cs" />
-    <Compile Include="Interfaces\ICommunication.cs" />
-    <Compile Include="DataFlow\Handlers\Interfaces\IDeviceHandler.cs" />
-    <Compile Include="DataFlow\Handlers\Interfaces\IDeviceInfo.cs" />
-    <Compile Include="Models\DeviceUpdatedEventArgs.cs" />
-    <Compile Include="Models\MeasuresArrivedEventArgs.cs" />
     <Compile Include="WebCommunication.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <Import Project="..\DataCollector.Server\DataCollector.Server.projitems" Label="Shared" />
   <Import Project="..\..\..\Shared\DataCollector.Device.Models\DataCollector.Device.Models\DataCollector.Device.Models.projitems" Label="DataCollector.Device.Models" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

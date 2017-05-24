@@ -20,6 +20,7 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DataCollector.Server", "Dat
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		DataCollector.Server\DataCollector.Server.projitems*{49993b4e-f036-424c-9777-f906546a7086}*SharedItemsImports = 4
 		DataCollector.Server\DataCollector.Server.projitems*{a6d753cd-9038-4a3a-b1dd-0811301f8822}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
