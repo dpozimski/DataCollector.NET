@@ -102,7 +102,6 @@
     <Compile Include="WebCommunicationService.svc.cs">
       <DependentUpon>WebCommunicationService.svc</DependentUpon>
     </Compile>
-    <Compile Include="IBackEndCollectorService.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

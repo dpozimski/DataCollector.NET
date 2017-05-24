@@ -1,11 +1,14 @@
 ﻿using Autofac;
 using Autofac.Integration.Wcf;
 using AutoMapper;
+using DataCollector.Server.DataFlow.BroadcastListener;
+using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
 using DataCollector.Server.DataFlow.Handlers.Interfaces;
 using DataCollector.Server.Interfaces;
 using DataCollector.Server.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -37,10 +40,21 @@ namespace DataCollector.Server
             var dataAccess = Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(dataAccess)
                    .AsImplementedInterfaces()
-                   .Except<WebCommunicationService>(ct =>
-                        ct.As<ICommunicationService>().SingleInstance());
+                   .Except<WebCommunicationService>().As<ICommunicationService>().WithParameter("port", GetSettingsValue("DeviceCommunicationPort")).SingleInstance()
+                   .Except<CachedDetectedDevicesContainer>().As<IDetectedDevicesContainer>().WithParameter("cleanupCacheInterval", TimeSpan.FromSeconds(GetSettingsValue("CleanupCacheInterval")));
 
             AutofacHostFactory.Container = builder.Build();
+        }
+
+        /// <summary>
+        /// Zwraca wartość całkowitą z ustawień aplikacji.
+        /// </summary>
+        /// <param name="key">klucz</param>
+        /// <returns>wartość</returns>
+        private int GetSettingsValue(string key)
+        {
+            string value = ConfigurationManager.AppSettings[key];
+            return Convert.ToInt32(value);
         }
     }
 }
