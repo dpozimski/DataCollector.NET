@@ -4,6 +4,7 @@ using DataCollector.Server.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,16 +13,19 @@ namespace DataCollector.Server.Models
     /// <summary>
     /// Argumenty zdarzenia aktualizacji urządzenia pomiarowego.
     /// </summary>
+    [DataContract]
     public sealed class DeviceUpdatedEventArgs
     {
         #region Public Properties
         /// <summary>
         /// Urządzenie.
         /// </summary>
+        [DataMember]
         public IDeviceInfo Device { get; }
         /// <summary>
         /// Status aktualizacji.
         /// </summary>
+        [DataMember]
         public UpdateStatus UpdateStatus { get; }
         #endregion
 

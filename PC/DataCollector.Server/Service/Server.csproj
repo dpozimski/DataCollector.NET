@@ -96,6 +96,7 @@
     <Compile Include="App_Data\DataFlow\Handlers\RestDeviceHandler.cs" />
     <Compile Include="App_Data\DataFlow\Handlers\SimulatorDeviceHandler.cs" />
     <Compile Include="App_Data\Interfaces\ICommunicationService.cs" />
+    <Compile Include="App_Data\Interfaces\ICommunicationServiceCallback.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

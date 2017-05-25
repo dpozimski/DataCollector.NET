@@ -13,21 +13,9 @@ namespace DataCollector.Server.Interfaces
     /// <summary>
     /// Interfejs określający funkcjonalność komunikacji z urządzeniami zewnętrznym.
     /// </summary>
-    [ServiceContract]
-
+    [ServiceContract(CallbackContract = typeof(ICommunicationServiceCallback))]
     public interface ICommunicationService : IDisposable
     {
-        #region Events
-        /// <summary>
-        /// Aktualne pomiary z pochodzące z urządzenia
-        /// </summary>
-        event EventHandler<MeasuresArrivedEventArgs> MeasuresArrived;
-        /// <summary>
-        /// Wykryto urządzenie w sieci.
-        /// </summary>
-        event EventHandler<DeviceUpdatedEventArgs> DeviceChangedState;
-        #endregion
-
         #region Properties
         /// <summary>
         /// Aktualnie podłączone urządzenia.
@@ -43,7 +31,12 @@ namespace DataCollector.Server.Interfaces
 
         #region Methods
         /// <summary>
-        /// Uruchamia usługi serwisu,
+        /// Dodaje klienta do sybkrypcji zdarzeń serwisu.
+        /// </summary>
+        [OperationContract]
+        void RegisterCallbackChannel();
+        /// <summary>
+        /// Uruchamia usługi serwisu.
         /// </summary>
         [OperationContract]
         void Start();

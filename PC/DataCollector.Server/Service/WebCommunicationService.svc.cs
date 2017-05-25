@@ -6,11 +6,13 @@ using DataCollector.Server.Interfaces;
 using DataCollector.Server.Models;
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
+using System.ServiceModel.Channels;
 using System.ServiceModel.Web;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,21 +26,11 @@ namespace DataCollector.Server
     public class WebCommunicationService : ICommunicationService
     {
         #region Private Fields
+        private ConcurrentDictionary<string, ICommunicationServiceCallback> callbacks;
         private int port;
         private IBroadcastScanner broadcastScanner;
         private SynchronizedCollection<IDeviceHandler> deviceHandlers;
         private IDeviceHandlerFactory deviceHandlerFactory;
-        #endregion
-
-        #region Events
-        /// <summary>
-        /// Aktualne pomiary z pochodzące z urządzenia
-        /// </summary>
-        public event EventHandler<MeasuresArrivedEventArgs> MeasuresArrived;
-        /// <summary>
-        /// Wykryto urządzenie w sieci.
-        /// </summary>
-        public event EventHandler<Models.DeviceUpdatedEventArgs> DeviceChangedState;
         #endregion
 
         #region Properties
@@ -67,9 +59,18 @@ namespace DataCollector.Server
             this.deviceHandlerFactory = deviceHandlerFactory;
             this.deviceHandlers = new SynchronizedCollection<IDeviceHandler>();
             this.port = port;
+            this.callbacks = new ConcurrentDictionary<string, ICommunicationServiceCallback>();
         }
 
         #region Public Methods
+        /// <summary>
+        /// Dodaje klienta do sybkrypcji zdarzeń serwisu.
+        /// </summary>
+        public void RegisterCallbackChannel()
+        {
+            var callback = OperationContext.Current.GetCallbackChannel<ICommunicationServiceCallback>();
+            callbacks.TryAdd(OperationContext.Current.SessionId, callback);
+        }
         /// <summary>
         /// Metoda dodające nowe urządzenie symulujące komunikację.
         /// </summary>
@@ -77,7 +78,7 @@ namespace DataCollector.Server
         {
             var device = deviceHandlerFactory.CreateSimulatorDevice();
             Models.DeviceUpdatedEventArgs simulateEvent = new Models.DeviceUpdatedEventArgs(device, UpdateStatus.Found);
-            DeviceChangedState?.Invoke(this, simulateEvent);
+            OnDeviceChangedState(simulateEvent);
         }
         /// <summary>
         /// Uruchamia usługi serwisu,
@@ -125,7 +126,7 @@ namespace DataCollector.Server
             }
 
             if (success)
-                DeviceChangedState?.Invoke(this, new Models.DeviceUpdatedEventArgs(deviceHandler, UpdateStatus.ConnectedToRestService));
+                OnDeviceChangedState(new Models.DeviceUpdatedEventArgs(deviceHandler, UpdateStatus.ConnectedToRestService));
 
             return success;
         }
@@ -145,7 +146,7 @@ namespace DataCollector.Server
             bool success = deviceHandler.Disconnect();
 
             if (success)
-                DeviceChangedState?.Invoke(this, new Models.DeviceUpdatedEventArgs(deviceHandler, UpdateStatus.DisconnectedFromRestService));
+                OnDeviceChangedState(new Models.DeviceUpdatedEventArgs(deviceHandler, UpdateStatus.DisconnectedFromRestService));
 
             return success;
         }
@@ -182,6 +183,37 @@ namespace DataCollector.Server
 
         #region Private Methods
         /// <summary>
+        /// Wysyłą wiadomość do klientów.
+        /// </summary>
+        /// <param name="data">wiadomość</param>
+        private void NotifyCallbackSubscribers(Action<ICommunicationServiceCallback> data)
+        {
+            //usuń nieaktywnych
+            var notActiveClients = callbacks.Where(s => ((IChannel)s.Value).State != CommunicationState.Opened)
+                .Select(s => s.Key).ToList();
+            ICommunicationServiceCallback deletedCallback = null;
+            foreach (var item in notActiveClients)
+                callbacks.TryRemove(item, out deletedCallback);
+            //wyslij wiadomość
+            foreach (var client in callbacks)
+                data(client.Value);
+        }
+
+        /// <summary>
+        /// Powiadomienie o aktualizacji stanu urządzenia.
+        /// </summary>
+        /// <param name="deviceUpdated">dane dot. aktualizacji</param>
+        private void OnDeviceChangedState(Models.DeviceUpdatedEventArgs deviceUpdated)
+            => NotifyCallbackSubscribers(s => s.DeviceChangedState(deviceUpdated));
+
+        /// <summary>
+        /// Powiadomienie o nadejściu pomiarów.
+        /// </summary>
+        /// <param name="measures">pomiary</param>
+        private void OnMeasuresArrived(MeasuresArrivedEventArgs measures)
+            => NotifyCallbackSubscribers(s => s.MeasuresArrived(measures));
+
+        /// <summary>
         /// Sygnalizacja rozłączenia urządzenia z komunikacji właściwej.
         /// </summary>
         /// <param name="sender"></param>
@@ -208,7 +240,7 @@ namespace DataCollector.Server
                 deviceHandlers.Remove(device);
             }
 
-            DeviceChangedState?.Invoke(sender, new Models.DeviceUpdatedEventArgs(device, e.UpdateStatus));
+            OnDeviceChangedState(new Models.DeviceUpdatedEventArgs(device, e.UpdateStatus));
         }
         /// <summary>
         /// Obsługa zdarzenia nadejscia pomiarów z urządzenia.
@@ -217,7 +249,7 @@ namespace DataCollector.Server
         /// <param name="e"></param>
         private void OnMeasuresArrived(object sender, MeasuresArrivedEventArgs e)
         {
-            MeasuresArrived?.Invoke(sender, e);
+            OnMeasuresArrived(sender, e);
         }
         #endregion
 
