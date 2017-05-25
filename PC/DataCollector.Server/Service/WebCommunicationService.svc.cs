@@ -109,7 +109,7 @@ namespace DataCollector.Server
         /// <returns></returns>
         public bool ConnectDevice(DeviceInfo device)
         {
-            var deviceHandler = device as IDeviceHandler;
+            var deviceHandler = deviceHandlers.Single(s => s.MacAddress == device.MacAddress);
 
             if (deviceHandler.IsConnected)
                 throw new InvalidOperationException("Urządzenie zostało już podłączone.");
@@ -137,7 +137,7 @@ namespace DataCollector.Server
         /// <returns></returns>
         public bool DisconnectDevice(DeviceInfo device)
         {
-            var deviceHandler = device as IDeviceHandler;
+            var deviceHandler = deviceHandlers.Single(s => s.MacAddress == device.MacAddress);
 
             if (!deviceHandler.IsConnected || !deviceHandlers.Contains(deviceHandler))
                 throw new InvalidOperationException("Urządzenie nie zostało podłączone.");
@@ -157,7 +157,7 @@ namespace DataCollector.Server
         /// <returns></returns>
         public bool ChangeLedState(DeviceInfo target, bool state)
         {
-            var deviceHandler = target as IDeviceHandler;
+            var deviceHandler = deviceHandlers.Single(s => s.MacAddress == target.MacAddress);
 
             if (!deviceHandlers.Contains(deviceHandler) || !deviceHandler.IsConnected)
                 throw new InvalidOperationException("Urządzenie nie jest podłączone.");
@@ -171,7 +171,7 @@ namespace DataCollector.Server
         /// <returns></returns>
         public bool GetLedState(DeviceInfo target)
         {
-            var deviceHandler = target as IDeviceHandler;
+            var deviceHandler = deviceHandlers.Single(s => s.MacAddress == target.MacAddress);
 
             if (!deviceHandlers.Contains(deviceHandler) || !deviceHandler.IsConnected)
                 throw new InvalidOperationException("Urządzenie nie jest podłączone.");

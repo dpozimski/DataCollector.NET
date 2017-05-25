@@ -1,4 +1,5 @@
-﻿using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
+﻿using AutoMapper;
+using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
 using DataCollector.Server.DataFlow.Handlers;
 using DataCollector.Server.DataFlow.Handlers.Interfaces;
 using DataCollector.Server.Interfaces;
@@ -14,7 +15,7 @@ namespace DataCollector.Server.Tests
     /// <summary>
     /// Klasa testująca <see cref="WebCommunicationService"/>
     /// </summary>
-    public class WebCommunicationTests : IDisposable
+    public class WebCommunicationServiceTests : IDisposable
     {
         private IDeviceHandler simulatorDevice;
         private IBroadcastScanner broadcastScanner;
@@ -24,7 +25,7 @@ namespace DataCollector.Server.Tests
         private bool ledState;
         private bool isConnected;
 
-        public WebCommunicationTests()
+        public WebCommunicationServiceTests()
         {
             SimulatorDeviceInit();
             port = 41352;
@@ -57,14 +58,19 @@ namespace DataCollector.Server.Tests
             this.simulatorDevice.IsConnected.Returns(d => isConnected);
         }
 
-        private IDeviceInfo GetConnectedDevice()
+        private DeviceInfo GetConnectedDevice()
         {
+            //AutoMapper
+            Mapper.Initialize(cfg => {
+                cfg.CreateMap<IDeviceInfo, DeviceInfo>();
+            });
+
             DeviceUpdatedEventArgs deviceStatus = null;
             webCommunication.Start();
             webCommunication.DeviceChangedState += (o, e) => deviceStatus = e;
             webCommunication.AddSimulatorDevice();
             Assert.NotNull(deviceStatus);
-            return deviceStatus.Device;
+            return Mapper.Map<DeviceInfo>(deviceStatus.Device);
         }
 
         [Fact]
@@ -108,7 +114,7 @@ namespace DataCollector.Server.Tests
         [Fact]
         public void DeviceConnectTest()
         {
-            IDeviceInfo device = GetConnectedDevice();
+            DeviceInfo device = GetConnectedDevice();
             bool success = webCommunication.ConnectDevice(device);
             Assert.True(success);
         }
@@ -116,7 +122,7 @@ namespace DataCollector.Server.Tests
         [Fact]
         public void DeviceFalseConnectTest()
         {
-            IDeviceInfo device = GetConnectedDevice();
+            DeviceInfo device = GetConnectedDevice();
             webCommunication.ConnectDevice(device);
             Assert.Throws(typeof(InvalidOperationException), () => webCommunication.ConnectDevice(device));
         }
@@ -124,14 +130,14 @@ namespace DataCollector.Server.Tests
         [Fact]
         public void DeviceFalseDisconnectTest()
         {
-            IDeviceInfo device = GetConnectedDevice();
+            DeviceInfo device = GetConnectedDevice();
             Assert.Throws(typeof(InvalidOperationException), () => webCommunication.DisconnectDevice(device));
         }
 
         [Fact]
         public void DeviceDisconnectTest()
         {
-            IDeviceInfo device = GetConnectedDevice();
+            DeviceInfo device = GetConnectedDevice();
             webCommunication.ConnectDevice(device);
             bool success = webCommunication.DisconnectDevice(device);
             Assert.True(success);
@@ -140,7 +146,7 @@ namespace DataCollector.Server.Tests
         [Fact]
         public void DeviceAutoDisconnectTest()
         {
-            IDeviceInfo device = GetConnectedDevice();
+            DeviceInfo device = GetConnectedDevice();
             webCommunication.ConnectDevice(device);
             simulatorDevice.Disconnected += Raise.Event<EventHandler<IDeviceHandler>>(this, simulatorDevice as IDeviceHandler);
             Thread.Sleep(10);
@@ -150,7 +156,7 @@ namespace DataCollector.Server.Tests
         [Fact]
         public void DeviceLedStateTest()
         {
-            IDeviceInfo device = GetConnectedDevice();
+            DeviceInfo device = GetConnectedDevice();
             webCommunication.ConnectDevice(device);
             bool ledState = webCommunication.GetLedState(device);
             Assert.Equal(this.ledState, ledState);
@@ -161,7 +167,7 @@ namespace DataCollector.Server.Tests
         [Fact]
         public void DeviceLedStateWithoutConnectingToDeviceTest()
         {
-            IDeviceInfo device = GetConnectedDevice();
+            DeviceInfo device = GetConnectedDevice();
             Assert.Throws(typeof(InvalidOperationException), () => webCommunication.GetLedState(device));
             Assert.Throws(typeof(InvalidOperationException), () => webCommunication.ChangeLedState(device, false));
         }
@@ -170,7 +176,7 @@ namespace DataCollector.Server.Tests
         public void MeasuresArrivedTest()
         {
             MeasuresArrivedEventArgs measuresEvent = null;
-            IDeviceInfo device = GetConnectedDevice();
+            DeviceInfo device = GetConnectedDevice();
             webCommunication.ConnectDevice(device);
             webCommunication.MeasuresArrived += (o, e) => measuresEvent = e;
             simulatorDevice.MeasuresArrived += Raise.Event<EventHandler<MeasuresArrivedEventArgs>>(this, 
