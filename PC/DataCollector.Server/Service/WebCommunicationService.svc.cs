@@ -35,6 +35,16 @@ namespace DataCollector.Server
 
         #region Properties
         /// <summary>
+        /// Proxy aktualnie podłączonego klienta.
+        /// </summary>
+        public ICommunicationServiceCallback CurrentClient
+        {
+            get
+            {
+                return callbackContainer.CurrentClient;
+            }
+        }
+        /// <summary>
         /// Usługi serwisu uruchomione.
         /// </summary>
         public bool IsStarted { get; private set; }
@@ -69,9 +79,8 @@ namespace DataCollector.Server
         /// </summary>
         public void RegisterCallbackChannel()
         {
-            var callback = OperationContext.Current.GetCallbackChannel<ICommunicationServiceCallback>();
-            string id = OperationContext.Current.SessionId;
-            callbackContainer.RegisterCallbackChannel(id, callback);
+            string id = callbackContainer.CurrentClientId;
+            callbackContainer.RegisterCallbackChannel(id, CurrentClient);
         }
         /// <summary>
         /// Metoda dodające nowe urządzenie symulujące komunikację.

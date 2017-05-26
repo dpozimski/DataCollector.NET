@@ -24,6 +24,26 @@ namespace DataCollector.Server.DataFlow
 
         #region Public Properties
         /// <summary>
+        /// Proxy aktualnie podłączonego klienta.
+        /// </summary>
+        public ICommunicationServiceCallback CurrentClient
+        {
+            get
+            {
+                return OperationContext.Current.GetCallbackChannel<ICommunicationServiceCallback>();
+            }
+        }
+        /// <summary>
+        /// Identyfikator aktualnego klienta.
+        /// </summary>
+        public string CurrentClientId
+        {
+            get
+            {
+                return OperationContext.Current.SessionId;
+            }
+        }
+        /// <summary>
         /// Lista podłączonych klientów.
         /// </summary>
         public IEnumerable<ICommunicationServiceCallback> Clients

@@ -22,6 +22,7 @@ namespace DataCollector.Server.Tests
         private IDeviceHandler simulatorDevice;
         private IBroadcastScanner broadcastScanner;
         private IDeviceHandlerFactory deviceHandlerFactory;
+        private ICommunicationServiceCallback callback;
         private ICommunicationClientCallbacksContainer callbackContainer;
         private WebCommunicationService webCommunication;
         private int port;
@@ -39,6 +40,7 @@ namespace DataCollector.Server.Tests
             callbackContainer = Substitute.For<ICommunicationClientCallbacksContainer>();
             callbackContainer.When(s => s.OnMeasuresArrived(Arg.Any<MeasuresArrivedEventArgs>())).Do(s => measuresArrived = s.Arg<MeasuresArrivedEventArgs>());
             callbackContainer.When(s => s.OnDeviceChangedState(Arg.Any<DeviceUpdatedEventArgs>())).Do(s => deviceUpdated = s.Arg<DeviceUpdatedEventArgs>());
+            callbackContainer.When(s => s.RegisterCallbackChannel(Arg.Any<string>(), Arg.Any<ICommunicationServiceCallback>())).Do(s => callback = s.Arg<ICommunicationServiceCallback>());
 
             webCommunication = new WebCommunicationService(broadcastScanner, deviceHandlerFactory, callbackContainer, port);
         }
@@ -212,7 +214,8 @@ namespace DataCollector.Server.Tests
         [Fact]
         public void RegisterCallbackChannelWithoutWcfContextTests()
         {
-            Assert.Throws<NullReferenceException>(() => webCommunication.RegisterCallbackChannel());
+            webCommunication.RegisterCallbackChannel();
+            Assert.NotNull(callback);
         }
 
         public void Dispose()

@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace DataCollector.Server.Interfaces
 {
+    /// <summary>
+    /// Kontener klientów subskrybujących proxy.
+    /// </summary>
 	public interface ICommunicationClientCallbacksContainer : IDisposable
     {
         #region Properties
@@ -16,6 +19,14 @@ namespace DataCollector.Server.Interfaces
         /// Lista podłączonych klientów.
         /// </summary>
         IEnumerable<ICommunicationServiceCallback> Clients { get; }
+        /// <summary>
+        /// Proxy aktualnie podłączonego klienta.
+        /// </summary>
+        ICommunicationServiceCallback CurrentClient { get; }
+        /// <summary>
+        /// Identyfikator aktualnego klienta.
+        /// </summary>
+        string CurrentClientId { get; }
         #endregion
 
         #region Methods

@@ -18,6 +18,10 @@ namespace DataCollector.Server.Interfaces
     {
         #region Properties
         /// <summary>
+        /// Proxy aktualnie podłączonego klienta.
+        /// </summary>
+        ICommunicationServiceCallback CurrentClient { get; }
+        /// <summary>
         /// Aktualnie podłączone urządzenia.
         /// </summary>
         [DataMember]
