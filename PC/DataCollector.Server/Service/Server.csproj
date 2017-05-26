@@ -76,6 +76,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Data\DataFlow\CommuncationClientCallbacksContainer.cs" />
+    <Compile Include="App_Data\Interfaces\ICommunicationClientCallbacksContainer.cs" />
     <Content Include="Global.asax" />
     <Content Include="WebCommunicationService.svc" />
     <Content Include="Web.config" />

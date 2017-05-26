@@ -17,9 +17,12 @@ namespace DataCollector.Server.Tests
     /// </summary>
     public class WebCommunicationServiceTests : IDisposable
     {
+        private MeasuresArrivedEventArgs measuresArrived;
+        private DeviceUpdatedEventArgs deviceUpdated;
         private IDeviceHandler simulatorDevice;
         private IBroadcastScanner broadcastScanner;
         private IDeviceHandlerFactory deviceHandlerFactory;
+        private ICommunicationClientCallbacksContainer callbackContainer;
         private WebCommunicationService webCommunication;
         private int port;
         private bool ledState;
@@ -32,8 +35,11 @@ namespace DataCollector.Server.Tests
             broadcastScanner = Substitute.For<IBroadcastScanner>();
             deviceHandlerFactory = Substitute.For<IDeviceHandlerFactory>();
             deviceHandlerFactory.CreateSimulatorDevice().Returns(s => simulatorDevice);
+            callbackContainer = Substitute.For<ICommunicationClientCallbacksContainer>();
+            callbackContainer.When(s => s.OnMeasuresArrived(Arg.Any<MeasuresArrivedEventArgs>())).Do(s => measuresArrived = s.Arg<MeasuresArrivedEventArgs>());
+            callbackContainer.When(s => s.OnDeviceChangedState(Arg.Any<DeviceUpdatedEventArgs>())).Do(s => deviceUpdated = s.Arg<DeviceUpdatedEventArgs>());
 
-            webCommunication = new WebCommunicationService(broadcastScanner, deviceHandlerFactory, port);
+            webCommunication = new WebCommunicationService(broadcastScanner, deviceHandlerFactory, callbackContainer, port);
         }
 
         private void SimulatorDeviceInit()
@@ -65,12 +71,10 @@ namespace DataCollector.Server.Tests
                 cfg.CreateMap<IDeviceInfo, DeviceInfo>();
             });
 
-            DeviceUpdatedEventArgs deviceStatus = null;
             webCommunication.Start();
-            webCommunication.DeviceChangedState += (o, e) => deviceStatus = e;
             webCommunication.AddSimulatorDevice();
-            Assert.NotNull(deviceStatus);
-            return Mapper.Map<DeviceInfo>(deviceStatus.Device);
+            Assert.NotNull(deviceUpdated);
+            return Mapper.Map<DeviceInfo>(deviceUpdated.Device);
         }
 
         [Fact]
@@ -104,11 +108,9 @@ namespace DataCollector.Server.Tests
         [Fact]
         public void AddSimulatorTest()
         {
-            IDeviceInfo deviceInfo = null;
             webCommunication.Start();
-            webCommunication.DeviceChangedState += (o, e) => deviceInfo = e.Device;
             webCommunication.AddSimulatorDevice();
-            Assert.NotNull(deviceInfo);
+            Assert.NotNull(deviceUpdated);
         }
 
         [Fact]
@@ -175,13 +177,11 @@ namespace DataCollector.Server.Tests
         [Fact]
         public void MeasuresArrivedTest()
         {
-            MeasuresArrivedEventArgs measuresEvent = null;
             DeviceInfo device = GetConnectedDevice();
             webCommunication.ConnectDevice(device);
-            webCommunication.MeasuresArrived += (o, e) => measuresEvent = e;
             simulatorDevice.MeasuresArrived += Raise.Event<EventHandler<MeasuresArrivedEventArgs>>(this, 
                 new MeasuresArrivedEventArgs(simulatorDevice, new Device.Models.Measures(), DateTime.Now));
-            Assert.NotNull(measuresEvent);
+            Assert.NotNull(measuresArrived);
         }
 
         public void Dispose()
