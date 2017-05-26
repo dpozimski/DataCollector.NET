@@ -36,9 +36,9 @@ namespace DataCollector.Server.Models
         /// </summary>
         /// <param name="device">urządzenie</param>
         /// <param name="updateStatus">status</param>
-        public DeviceUpdatedEventArgs(IDeviceInfo device, UpdateStatus updateStatus)
+        public DeviceUpdatedEventArgs(DeviceInfo device, UpdateStatus updateStatus)
         {
-            Device = Mapper.Map<DeviceInfo>(device);
+            Device = device;
             UpdateStatus = updateStatus;
         }
         #endregion

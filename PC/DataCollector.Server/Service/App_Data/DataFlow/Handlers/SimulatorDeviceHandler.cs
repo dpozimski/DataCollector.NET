@@ -1,4 +1,5 @@
-﻿using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
+﻿using AutoMapper;
+using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
 using DataCollector.Server.DataFlow.BroadcastListener.Models;
 using DataCollector.Server.DataFlow.Handlers.Interfaces;
 using DataCollector.Server.Interfaces;
@@ -130,7 +131,7 @@ namespace DataCollector.Server.DataFlow.Handlers
                 {
                     Random rand = new Random(DateTime.Now.Millisecond);
                     Task.Delay(TimeSpan.FromMilliseconds(MeasurementsMsRequestInterval), tokenSource.Token).Wait(tokenSource.Token);
-                    MeasuresArrived?.Invoke(this, new MeasuresArrivedEventArgs(this, new Device.Models.Measures()
+                    MeasuresArrived?.Invoke(this, new MeasuresArrivedEventArgs(Mapper.Map<DeviceInfo>(this), new Device.Models.Measures()
                     {
                         Accelerometer = new Device.Models.SpherePoint()
                         {

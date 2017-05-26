@@ -1,4 +1,5 @@
-﻿using DataCollector.Device.Models;
+﻿using AutoMapper;
+using DataCollector.Device.Models;
 using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
 using DataCollector.Server.DataFlow.BroadcastListener.Models;
 using DataCollector.Server.DataFlow.Handlers.Adapters;
@@ -168,7 +169,7 @@ namespace DataCollector.Server.DataFlow.Handlers
                 {
                     Measures measures = JsonConvert.DeserializeObject<Measures>(data);
                     Task.Factory.StartNew(new Action(() =>
-                            MeasuresArrived?.Invoke(this, new MeasuresArrivedEventArgs(this, measures, DateTime.Now))));
+                            MeasuresArrived?.Invoke(this, new MeasuresArrivedEventArgs(Mapper.Map<DeviceInfo>(this), measures, DateTime.Now))));
                 }
                 else
                     Disconnected?.Invoke(this, this);

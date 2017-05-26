@@ -187,7 +187,7 @@ namespace DataCollector.Server.Tests
             DeviceInfo device = GetConnectedDevice();
             webCommunication.ConnectDevice(device);
             simulatorDevice.MeasuresArrived += Raise.Event<EventHandler<MeasuresArrivedEventArgs>>(this, 
-                new MeasuresArrivedEventArgs(simulatorDevice, new Device.Models.Measures(), DateTime.Now));
+                new MeasuresArrivedEventArgs(Mapper.Map<DeviceInfo>(simulatorDevice), new Device.Models.Measures(), DateTime.Now));
             Assert.NotNull(measuresArrived);
         }
 

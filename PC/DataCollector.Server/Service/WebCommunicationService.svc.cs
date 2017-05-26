@@ -88,7 +88,7 @@ namespace DataCollector.Server
         public void AddSimulatorDevice()
         {
             var device = deviceHandlerFactory.CreateSimulatorDevice();
-            Models.DeviceUpdatedEventArgs simulateEvent = new Models.DeviceUpdatedEventArgs(device, UpdateStatus.Found);
+            Models.DeviceUpdatedEventArgs simulateEvent = new Models.DeviceUpdatedEventArgs(Mapper.Map<DeviceInfo>(device), UpdateStatus.Found);
             deviceHandlers.Add(device);
             callbackContainer.OnDeviceChangedState(simulateEvent);
         }
@@ -136,7 +136,7 @@ namespace DataCollector.Server
             {
                 deviceHandler.MeasuresArrived += new EventHandler<MeasuresArrivedEventArgs>(OnMeasuresArrived);
                 deviceHandler.Disconnected += new EventHandler<IDeviceHandler>(OnDeviceDisconnected);
-                callbackContainer.OnDeviceChangedState(new Models.DeviceUpdatedEventArgs(deviceHandler, UpdateStatus.ConnectedToRestService));
+                callbackContainer.OnDeviceChangedState(new Models.DeviceUpdatedEventArgs(Mapper.Map<DeviceInfo>(deviceHandler), UpdateStatus.ConnectedToRestService));
             } 
 
             return success;
@@ -160,7 +160,7 @@ namespace DataCollector.Server
             {
                 deviceHandler.MeasuresArrived -= OnMeasuresArrived;
                 deviceHandler.Disconnected -= OnDeviceDisconnected;
-                callbackContainer.OnDeviceChangedState(new Models.DeviceUpdatedEventArgs(deviceHandler, UpdateStatus.DisconnectedFromRestService));
+                callbackContainer.OnDeviceChangedState(new Models.DeviceUpdatedEventArgs(Mapper.Map<DeviceInfo>(deviceHandler), UpdateStatus.DisconnectedFromRestService));
             }
                 
             return success;
@@ -227,7 +227,7 @@ namespace DataCollector.Server
                 deviceHandlers.Remove(device);
             }
 
-            callbackContainer.OnDeviceChangedState(new Models.DeviceUpdatedEventArgs(device, e.UpdateStatus));
+            callbackContainer.OnDeviceChangedState(new Models.DeviceUpdatedEventArgs(Mapper.Map<DeviceInfo>(device), e.UpdateStatus));
         }
         /// <summary>
         /// Obsługa zdarzenia nadejscia pomiarów z urządzenia.

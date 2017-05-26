@@ -1,6 +1,8 @@
-﻿using DataCollector.Server.DataFlow.BroadcastListener.Models;
+﻿using AutoMapper;
+using DataCollector.Server.DataFlow.BroadcastListener.Models;
 using DataCollector.Server.DataFlow.Handlers.Interfaces;
 using DataCollector.Server.Interfaces;
+using DataCollector.Server.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,11 +41,14 @@ namespace DataCollector.Server.Tests.DataFlow.Handlers
         [Fact]
         public void GetMeasurementsTests()
         {
+            Mapper.Initialize(cfg => {
+                cfg.CreateMap<IDeviceInfo, DeviceInfo>();
+            });
             bool measuresArrived = false;
             deviceHandler.MeasuresArrived += (o, e) => measuresArrived = true;
             deviceHandler.MeasurementsMsRequestInterval = 0;
             bool success = deviceHandler.Connect();
-            Thread.Sleep(20);
+            Thread.Sleep(30);
             Assert.True(measuresArrived && success);
         }
 
