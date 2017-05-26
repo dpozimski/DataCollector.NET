@@ -35,6 +35,7 @@ namespace DataCollector.Server.Tests
             broadcastScanner = Substitute.For<IBroadcastScanner>();
             deviceHandlerFactory = Substitute.For<IDeviceHandlerFactory>();
             deviceHandlerFactory.CreateSimulatorDevice().Returns(s => simulatorDevice);
+            deviceHandlerFactory.CreateRestDevice(Arg.Any<IDeviceBroadcastInfo>(), Arg.Any<int>()).Returns(s => simulatorDevice);
             callbackContainer = Substitute.For<ICommunicationClientCallbacksContainer>();
             callbackContainer.When(s => s.OnMeasuresArrived(Arg.Any<MeasuresArrivedEventArgs>())).Do(s => measuresArrived = s.Arg<MeasuresArrivedEventArgs>());
             callbackContainer.When(s => s.OnDeviceChangedState(Arg.Any<DeviceUpdatedEventArgs>())).Do(s => deviceUpdated = s.Arg<DeviceUpdatedEventArgs>());
@@ -64,13 +65,17 @@ namespace DataCollector.Server.Tests
             this.simulatorDevice.IsConnected.Returns(d => isConnected);
         }
 
-        private DeviceInfo GetConnectedDevice()
+        private void InitializeMapper()
         {
             //AutoMapper
             Mapper.Initialize(cfg => {
                 cfg.CreateMap<IDeviceInfo, DeviceInfo>();
             });
+        }
 
+        private DeviceInfo GetConnectedDevice()
+        {
+            InitializeMapper();
             webCommunication.Start();
             webCommunication.AddSimulatorDevice();
             Assert.NotNull(deviceUpdated);
@@ -182,6 +187,26 @@ namespace DataCollector.Server.Tests
             simulatorDevice.MeasuresArrived += Raise.Event<EventHandler<MeasuresArrivedEventArgs>>(this, 
                 new MeasuresArrivedEventArgs(simulatorDevice, new Device.Models.Measures(), DateTime.Now));
             Assert.NotNull(measuresArrived);
+        }
+
+        [Fact]
+        public void BroadcastScannerDeviceLostTest()
+        {
+            DeviceInfo device = GetConnectedDevice();
+            broadcastScanner.DeviceInfoUpdated += Raise.Event<EventHandler<Server.DataFlow.BroadcastListener.Models.DeviceUpdatedEventArgs>>(this,
+                new Server.DataFlow.BroadcastListener.Models.DeviceUpdatedEventArgs(simulatorDevice, Server.DataFlow.BroadcastListener.Models.UpdateStatus.Lost));
+            Assert.False(webCommunication.Devices.Any(s => s.MacAddress == device.MacAddress));
+        }
+
+        [Fact]
+        public void BroadcastScannerRestDeviceFoundTest()
+        {
+            InitializeMapper();
+            var simulatorDevice = deviceHandlerFactory.CreateSimulatorDevice();
+            webCommunication.Start();
+            broadcastScanner.DeviceInfoUpdated += Raise.Event<EventHandler<Server.DataFlow.BroadcastListener.Models.DeviceUpdatedEventArgs>>(this,
+                new Server.DataFlow.BroadcastListener.Models.DeviceUpdatedEventArgs(simulatorDevice, Server.DataFlow.BroadcastListener.Models.UpdateStatus.Found));
+            Assert.NotNull(webCommunication.Devices.SingleOrDefault(s => s.MacAddress == simulatorDevice.MacAddress));
         }
 
         public void Dispose()
