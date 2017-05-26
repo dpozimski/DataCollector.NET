@@ -209,6 +209,12 @@ namespace DataCollector.Server.Tests
             Assert.NotNull(webCommunication.Devices.SingleOrDefault(s => s.MacAddress == simulatorDevice.MacAddress));
         }
 
+        [Fact]
+        public void RegisterCallbackChannelWithoutWcfContextTests()
+        {
+            Assert.Throws<NullReferenceException>(() => webCommunication.RegisterCallbackChannel());
+        }
+
         public void Dispose()
         {
             webCommunication.Dispose();
