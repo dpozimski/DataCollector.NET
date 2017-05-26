@@ -79,6 +79,7 @@ namespace DataCollector.Server
         {
             var device = deviceHandlerFactory.CreateSimulatorDevice();
             Models.DeviceUpdatedEventArgs simulateEvent = new Models.DeviceUpdatedEventArgs(device, UpdateStatus.Found);
+            deviceHandlers.Add(device);
             callbackContainer.OnDeviceChangedState(simulateEvent);
         }
         /// <summary>
@@ -111,23 +112,22 @@ namespace DataCollector.Server
         /// <returns></returns>
         public bool ConnectDevice(DeviceInfo device)
         {
-            var deviceHandler = deviceHandlers.Single(s => s.MacAddress == device.MacAddress);
+            var deviceHandler = deviceHandlers.SingleOrDefault(s => s.MacAddress == device.MacAddress);
 
+            if (deviceHandler == null)
+                throw new InvalidOperationException($"Brak urządzenia z MAC: {device.MacAddress}");
             if (deviceHandler.IsConnected)
                 throw new InvalidOperationException("Urządzenie zostało już podłączone.");
 
             bool success = deviceHandler.Connect();
-
+        
             //tutaj przypisanie eventu z zdarzeniami
-            if (success && !deviceHandlers.Contains(deviceHandler))
+            if (success)
             {
                 deviceHandler.MeasuresArrived += new EventHandler<MeasuresArrivedEventArgs>(OnMeasuresArrived);
                 deviceHandler.Disconnected += new EventHandler<IDeviceHandler>(OnDeviceDisconnected);
-                deviceHandlers.Add(deviceHandler);
-            }
-
-            if (success)
                 callbackContainer.OnDeviceChangedState(new Models.DeviceUpdatedEventArgs(deviceHandler, UpdateStatus.ConnectedToRestService));
+            } 
 
             return success;
         }
@@ -147,8 +147,12 @@ namespace DataCollector.Server
             bool success = deviceHandler.Disconnect();
 
             if (success)
+            {
+                deviceHandler.MeasuresArrived -= OnMeasuresArrived;
+                deviceHandler.Disconnected -= OnDeviceDisconnected;
                 callbackContainer.OnDeviceChangedState(new Models.DeviceUpdatedEventArgs(deviceHandler, UpdateStatus.DisconnectedFromRestService));
-
+            }
+                
             return success;
         }
         /// <summary>
@@ -202,7 +206,10 @@ namespace DataCollector.Server
         {
             var device = deviceHandlers.SingleOrDefault(s => s.MacAddress == e.DeviceInfo.MacAddress);
             if (device == null)
+            {
                 device = deviceHandlerFactory.CreateRestDevice(e.DeviceInfo, port);
+                deviceHandlers.Add(device);
+            }
             else if (e.UpdateStatus == UpdateStatus.Lost)
             {
                 device.Disconnect();
@@ -219,7 +226,7 @@ namespace DataCollector.Server
         /// <param name="e"></param>
         private void OnMeasuresArrived(object sender, MeasuresArrivedEventArgs e)
         {
-            OnMeasuresArrived(sender, e);
+            callbackContainer.OnMeasuresArrived(e);
         }
         #endregion
 
@@ -236,6 +243,7 @@ namespace DataCollector.Server
                 foreach (var item in deviceHandlers)
                 {
                     item.MeasuresArrived -= OnMeasuresArrived;
+                    item.Disconnected -= OnDeviceDisconnected;
                     item.Dispose();
                 }
                 deviceHandlers.Clear();
