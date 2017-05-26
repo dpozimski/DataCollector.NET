@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataFlow.BroadcastListener.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataFlow.BroadcastListener.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="UpdateStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Found" />
+      <xs:enumeration value="Updated" />
+      <xs:enumeration value="Lost" />
+      <xs:enumeration value="ConnectedToRestService" />
+      <xs:enumeration value="DisconnectedFromRestService" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="UpdateStatus" nillable="true" type="tns:UpdateStatus" />
+</xs:schema>

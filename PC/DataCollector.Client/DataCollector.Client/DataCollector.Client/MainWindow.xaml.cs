@@ -23,6 +23,7 @@ namespace DataCollector.Client
         public MainWindow()
         {
             InitializeComponent();
+            UI.ServiceReference1.
         }
     }
 }
