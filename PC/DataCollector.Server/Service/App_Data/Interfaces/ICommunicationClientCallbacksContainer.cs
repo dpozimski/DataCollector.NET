@@ -1,5 +1,6 @@
 ﻿using DataCollector.Server.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -10,10 +11,20 @@ namespace DataCollector.Server.Interfaces
 {
 	public interface ICommunicationClientCallbacksContainer : IDisposable
     {
+        #region Properties
+        /// <summary>
+        /// Lista podłączonych klientów.
+        /// </summary>
+        IEnumerable<ICommunicationServiceCallback> Clients { get; }
+        #endregion
+
+        #region Methods
         /// <summary>
         /// Dodaje klienta do sybkrypcji zdarzeń serwisu.
         /// </summary>
-        void RegisterCallbackChannel(ICommunicationServiceCallback serviceCallback);
+        /// <param name="serviceCallback">callback</param>
+        /// <param name="sessionId">id</param>
+        void RegisterCallbackChannel(string sessionId, ICommunicationServiceCallback serviceCallback);
         /// <summary>
         /// Powiadomienie o aktualizacji stanu urządzenia.
         /// </summary>
@@ -24,5 +35,6 @@ namespace DataCollector.Server.Interfaces
         /// </summary>
         /// <param name="measures">pomiary</param>
         void OnMeasuresArrived(MeasuresArrivedEventArgs measures);
+        #endregion
     }
 }

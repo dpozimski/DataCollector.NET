@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System;
 using System.ServiceModel.Channels;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace DataCollector.Server.DataFlow
 {
@@ -18,6 +20,19 @@ namespace DataCollector.Server.DataFlow
     {
         #region Private Fields
         private ConcurrentDictionary<string, ICommunicationServiceCallback> callbacks;
+        #endregion
+
+        #region Public Properties
+        /// <summary>
+        /// Lista podłączonych klientów.
+        /// </summary>
+        public IEnumerable<ICommunicationServiceCallback> Clients
+        {
+            get
+            {
+                return callbacks.Select(s => s.Value);
+            }
+        }
         #endregion
 
         #region ctor
@@ -34,10 +49,10 @@ namespace DataCollector.Server.DataFlow
         /// <summary>
         /// Dodaje klienta do sybkrypcji zdarzeń serwisu.
         /// </summary>
-        public void RegisterCallbackChannel(ICommunicationServiceCallback serviceCallback)
-        {
-            callbacks.TryAdd(OperationContext.Current.SessionId, serviceCallback);
-        }
+        /// <param name="serviceCallback">callback</param>
+        /// <param name="sessionId">id</param>
+        public void RegisterCallbackChannel(string sessionId, ICommunicationServiceCallback serviceCallback)
+            => callbacks.TryAdd(sessionId, serviceCallback);
         /// <summary>
         /// Powiadomienie o aktualizacji stanu urządzenia.
         /// </summary>

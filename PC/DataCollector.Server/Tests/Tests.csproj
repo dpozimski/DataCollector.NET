@@ -46,6 +46,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -76,6 +77,7 @@
     <Compile Include="DataFlow\BroadcastListener\Factories\DeviceBroadcastInfoFactoryTests.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\DeviceBroadcastInfoTests.cs" />
     <Compile Include="DataFlow\BroadcastListener\Models\TimeStampedDeviceInfoTests.cs" />
+    <Compile Include="DataFlow\CommunicationClientCallbacksContainerTests.cs" />
     <Compile Include="DataFlow\Handlers\AbstractDeviceHandlerTests.cs" />
     <Compile Include="DataFlow\Handlers\Adapters\RestSharpLibConnectionAdapterTests.cs" />
     <Compile Include="DataFlow\Handlers\Factories\DeviceHandlerFactoryTests.cs" />

@@ -70,7 +70,8 @@ namespace DataCollector.Server
         public void RegisterCallbackChannel()
         {
             var callback = OperationContext.Current.GetCallbackChannel<ICommunicationServiceCallback>();
-            callbackContainer.RegisterCallbackChannel(callback);
+            string id = OperationContext.Current.SessionId;
+            callbackContainer.RegisterCallbackChannel(id, callback);
         }
         /// <summary>
         /// Metoda dodające nowe urządzenie symulujące komunikację.

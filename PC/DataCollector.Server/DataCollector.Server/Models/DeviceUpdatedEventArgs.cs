@@ -35,7 +35,7 @@ namespace DataCollector.Server.Models
         /// </summary>
         /// <param name="device">urządzenie</param>
         /// <param name="updateStatus">status</param>
-        internal DeviceUpdatedEventArgs(IDeviceHandler device, UpdateStatus updateStatus)
+        public DeviceUpdatedEventArgs(IDeviceHandler device, UpdateStatus updateStatus)
         {
             Device = device;
             UpdateStatus = updateStatus;
