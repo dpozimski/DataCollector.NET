@@ -1,4 +1,5 @@
-﻿using DataCollector.Server.DataFlow.BroadcastListener.Models;
+﻿using AutoMapper;
+using DataCollector.Server.DataFlow.BroadcastListener.Models;
 using DataCollector.Server.DataFlow.Handlers.Interfaces;
 using DataCollector.Server.Interfaces;
 using System;
@@ -21,7 +22,7 @@ namespace DataCollector.Server.Models
         /// Urządzenie.
         /// </summary>
         [DataMember]
-        public IDeviceInfo Device { get; }
+        public DeviceInfo Device { get; }
         /// <summary>
         /// Status aktualizacji.
         /// </summary>
@@ -35,9 +36,9 @@ namespace DataCollector.Server.Models
         /// </summary>
         /// <param name="device">urządzenie</param>
         /// <param name="updateStatus">status</param>
-        public DeviceUpdatedEventArgs(IDeviceHandler device, UpdateStatus updateStatus)
+        public DeviceUpdatedEventArgs(IDeviceInfo device, UpdateStatus updateStatus)
         {
-            Device = device;
+            Device = Mapper.Map<DeviceInfo>(device);
             UpdateStatus = updateStatus;
         }
         #endregion

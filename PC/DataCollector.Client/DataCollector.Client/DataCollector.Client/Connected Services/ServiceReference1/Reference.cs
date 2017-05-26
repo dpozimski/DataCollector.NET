@@ -174,22 +174,13 @@ namespace DataCollector.Client.UI.ServiceReference1 {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="MeasuresArrivedEventArgs", Namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.Models")]
     [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Net.IPAddress))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DataCollector.Client.UI.ServiceReference1.Measures))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DataCollector.Client.UI.ServiceReference1.SpherePoint))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Net.Sockets.AddressFamily))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.EventArgs))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(ushort[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DataCollector.Client.UI.ServiceReference1.UpdateStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DataCollector.Client.UI.ServiceReference1.DeviceInfo))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DataCollector.Client.UI.ServiceReference1.DeviceUpdatedEventArgs))]
     public partial class MeasuresArrivedEventArgs : System.EventArgs, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private object SourceField;
+        private DataCollector.Client.UI.ServiceReference1.DeviceInfo SourceField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime TimeStampField;
@@ -208,7 +199,7 @@ namespace DataCollector.Client.UI.ServiceReference1 {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public object Source {
+        public DataCollector.Client.UI.ServiceReference1.DeviceInfo Source {
             get {
                 return this.SourceField;
             }
@@ -458,47 +449,17 @@ namespace DataCollector.Client.UI.ServiceReference1 {
         }
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UpdateStatus", Namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataFlow.BroadcastLi" +
-        "stener.Models")]
-    public enum UpdateStatus : int {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Found = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Updated = 1,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Lost = 2,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        ConnectedToRestService = 3,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        DisconnectedFromRestService = 4,
-    }
-    
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="DeviceUpdatedEventArgs", Namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.Models")]
     [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Net.IPAddress))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DataCollector.Client.UI.ServiceReference1.Measures))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DataCollector.Client.UI.ServiceReference1.SpherePoint))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Net.Sockets.AddressFamily))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.EventArgs))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(ushort[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DataCollector.Client.UI.ServiceReference1.UpdateStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DataCollector.Client.UI.ServiceReference1.DeviceInfo))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DataCollector.Client.UI.ServiceReference1.MeasuresArrivedEventArgs))]
     public partial class DeviceUpdatedEventArgs : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private object DeviceField;
+        private DataCollector.Client.UI.ServiceReference1.DeviceInfo DeviceField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private DataCollector.Client.UI.ServiceReference1.UpdateStatus UpdateStatusField;
@@ -514,7 +475,7 @@ namespace DataCollector.Client.UI.ServiceReference1 {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public object Device {
+        public DataCollector.Client.UI.ServiceReference1.DeviceInfo Device {
             get {
                 return this.DeviceField;
             }
@@ -547,6 +508,27 @@ namespace DataCollector.Client.UI.ServiceReference1 {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UpdateStatus", Namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataFlow.BroadcastLi" +
+        "stener.Models")]
+    public enum UpdateStatus : int {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Found = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Updated = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Lost = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        ConnectedToRestService = 3,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        DisconnectedFromRestService = 4,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]

@@ -21,7 +21,7 @@
     <xs:complexContent mixed="false">
       <xs:extension xmlns:q2="http://schemas.datacontract.org/2004/07/System" base="q2:EventArgs">
         <xs:sequence>
-          <xs:element minOccurs="0" name="Source" nillable="true" type="xs:anyType" />
+          <xs:element minOccurs="0" name="Source" nillable="true" type="tns:DeviceInfo" />
           <xs:element minOccurs="0" name="TimeStamp" type="xs:dateTime" />
           <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/DataCollector.Device.Models" minOccurs="0" name="Value" nillable="true" type="q3:Measures" />
         </xs:sequence>
@@ -31,7 +31,7 @@
   <xs:element name="MeasuresArrivedEventArgs" nillable="true" type="tns:MeasuresArrivedEventArgs" />
   <xs:complexType name="DeviceUpdatedEventArgs">
     <xs:sequence>
-      <xs:element minOccurs="0" name="Device" nillable="true" type="xs:anyType" />
+      <xs:element minOccurs="0" name="Device" nillable="true" type="tns:DeviceInfo" />
       <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataFlow.BroadcastListener.Models" minOccurs="0" name="UpdateStatus" type="q4:UpdateStatus" />
     </xs:sequence>
   </xs:complexType>
