@@ -1,7 +1,6 @@
-﻿using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
-using DataCollector.Server.DataFlow.BroadcastListener.Models;
-using DataCollector.Server.DataFlow.Handlers;
-using DataCollector.Server.DataFlow.Handlers.Adapters;
+﻿using DataCollector.Server.BroadcastListener.Interfaces;
+using DataCollector.Server.BroadcastListener.Models;
+using DataCollector.Server.DeviceHandlers.Adapters;
 using System.Linq;
 using System.Net;
 using System.Text;

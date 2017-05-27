@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DataCollectorDb" Class="StoredProceduresDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\sqlexpress;Initial Catalog=DataCollectorDb;Integrated Security=True" SettingsObjectName="DataCollector.Server.DataAccess.Properties.Settings" SettingsPropertyName="DataCollectorDbConnectionString" Provider="System.Data.SqlClient" />
+  <Function Name="dbo.SPU_GetSphereMeasurePoints" Method="SPU_GetSphereMeasurePoints">
+    <Parameter Name="deviceId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="type" Type="System.Int32" DbType="Int" />
+    <Parameter Name="from" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="to" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="SPU_GetSphereMeasurePointsResult">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Point_X" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Point_Y" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Point_Z" Type="System.Single" DbType="Real NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AssignedDeviceMeasureTimePoint_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TimeStamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SPU_GetMeasurePoints" Method="SPU_GetMeasurePoints">
+    <Parameter Name="deviceId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="type" Type="System.Int32" DbType="Int" />
+    <Parameter Name="from" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="to" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="SPU_GetMeasurePointsResult">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Value" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AssignedDeviceMeasureTimePoint_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TimeStamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+</Database>

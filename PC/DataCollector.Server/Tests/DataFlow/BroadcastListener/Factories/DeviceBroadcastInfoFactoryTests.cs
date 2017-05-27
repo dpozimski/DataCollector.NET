@@ -1,7 +1,6 @@
-﻿using DataCollector.Server.DataFlow.BroadcastListener.Exceptions;
-using DataCollector.Server.DataFlow.BroadcastListener.Factories;
-using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
-using DataCollector.Server.DataFlow.BroadcastListener.Models;
+﻿using DataCollector.Server.BroadcastListener.Exceptions;
+using DataCollector.Server.BroadcastListener.Factories;
+using DataCollector.Server.BroadcastListener.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +8,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using static DataCollector.Server.DataFlow.BroadcastListener.Exceptions.InvalidFrameException;
+using static DataCollector.Server.BroadcastListener.Exceptions.InvalidFrameException;
 
 namespace DataCollector.Server.Tests.DataFlow.BroadcastListener.Factories
 {

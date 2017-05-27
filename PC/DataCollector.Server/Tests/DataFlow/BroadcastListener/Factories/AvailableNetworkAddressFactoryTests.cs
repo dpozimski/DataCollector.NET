@@ -1,5 +1,5 @@
-﻿using DataCollector.Server.DataFlow.BroadcastListener.Factories;
-using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
+﻿using DataCollector.Server.BroadcastListener.Factories;
+using DataCollector.Server.BroadcastListener.Interfaces;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;

@@ -1,4 +1,4 @@
-﻿using DataCollector.Server.DataFlow.Handlers.Adapters;
+﻿using DataCollector.Server.DeviceHandlers.Adapters;
 using System;
 using System.Collections.Generic;
 using System.Linq;

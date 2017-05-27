@@ -1,13 +1,10 @@
-﻿using DataCollector.Server.DataFlow.Handlers;
-using DataCollector.Server.Tests.Utils;
-using Xunit;
-using DataCollector.Server.Interfaces;
-using DataCollector.Server.DataFlow.Handlers.Adapters;
+﻿using DataCollector.Server.Tests.Utils;
 using NSubstitute;
 using Newtonsoft.Json;
 using DataCollector.Device.Models;
-using System;
-using DataCollector.Server.DataFlow.Handlers.Interfaces;
+using DataCollector.Server.DeviceHandlers.Interfaces;
+using DataCollector.Server.DeviceHandlers.Adapters;
+using DataCollector.Server.DeviceHandlers;
 
 namespace DataCollector.Server.Tests.DataFlow.Handlers
 {

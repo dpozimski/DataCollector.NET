@@ -1,5 +1,5 @@
-﻿using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
-using DataCollector.Server.DataFlow.BroadcastListener.Models;
+﻿using DataCollector.Server.BroadcastListener.Interfaces;
+using DataCollector.Server.BroadcastListener.Models;
 using DataCollector.Server.Tests.Utils;
 using System;
 using System.Collections.Generic;

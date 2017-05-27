@@ -1,7 +1,7 @@
-﻿using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
-using DataCollector.Server.DataFlow.Handlers.Adapters;
-using DataCollector.Server.DataFlow.Handlers.Factories;
-using DataCollector.Server.DataFlow.Handlers.Interfaces;
+﻿using DataCollector.Server.BroadcastListener.Interfaces;
+using DataCollector.Server.DeviceHandlers.Adapters;
+using DataCollector.Server.DeviceHandlers.Factories;
+using DataCollector.Server.DeviceHandlers.Interfaces;
 using DataCollector.Server.Tests.Utils;
 using NSubstitute;
 using System;

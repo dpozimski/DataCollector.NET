@@ -23,7 +23,7 @@ namespace DataCollector.Client
         public MainWindow()
         {
             InitializeComponent();
-            UI.ServiceReference1.
+            UI.ServiceReference1.MeasuresArrivedEventArgs
         }
     }
 }

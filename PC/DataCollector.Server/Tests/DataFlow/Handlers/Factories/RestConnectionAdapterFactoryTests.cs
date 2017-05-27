@@ -1,4 +1,4 @@
-﻿using DataCollector.Server.DataFlow.Handlers.Factories;
+﻿using DataCollector.Server.DeviceHandlers.Factories;
 using DataCollector.Server.Tests.Utils;
 using System;
 using System.Collections.Generic;

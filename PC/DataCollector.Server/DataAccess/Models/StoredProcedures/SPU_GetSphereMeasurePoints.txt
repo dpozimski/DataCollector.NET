@@ -1,0 +1,16 @@
+﻿CREATE PROCEDURE [dbo].[SPU_GetSphereMeasurePoints]
+	@deviceId int,
+	@type int, 
+	@from datetime,
+	@to datetime
+AS
+BEGIN
+
+SELECT a.*, b.TimeStamp FROM dbo.SphereMeasurePoints a
+	INNER JOIN dbo.DeviceTimeMeasurePoints b ON a.AssignedDeviceMeasureTimePoint_ID = b.ID
+	INNER JOIN dbo.MeasureDevices c			 ON b.AssignedMeasureDevice_ID = c.ID
+	WHERE a.Type = @type and 
+		  (b.TimeStamp between @from and @to) and
+		  c.ID = @deviceId
+	ORDER BY b.TimeStamp DESC
+END	

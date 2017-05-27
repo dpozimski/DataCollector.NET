@@ -1,8 +1,7 @@
-﻿using DataCollector.Server.DataFlow;
-using DataCollector.Server.DataFlow.BroadcastListener.Models;
-using DataCollector.Server.DataFlow.Handlers.Interfaces;
+﻿using DataCollector.Server.BroadcastListener.Models;
+using DataCollector.Server.DeviceHandlers.Models;
 using DataCollector.Server.Interfaces;
-using DataCollector.Server.Models;
+using DataCollector.Server.Server;
 using NSubstitute;
 using System;
 using System.Collections.Generic;
@@ -21,15 +20,15 @@ namespace DataCollector.Server.Tests.DataFlow
     public class CommunicationClientCallbacksContainerTests : IDisposable
     {
         private MeasuresArrivedEventArgs measuresArrived;
-        private Models.DeviceUpdatedEventArgs deviceUpdated;
+        private DeviceHandlers.Models.DeviceUpdatedEventArgs deviceUpdated;
         private ICommunicationServiceCallback callback;
         private readonly CommunicationClientCallbacksContainer container;
 
         public CommunicationClientCallbacksContainerTests()
         {
             callback = Substitute.For<ICommunicationServiceCallback, IChannel>();
-            callback.When(s => s.MeasuresArrived(Arg.Any<MeasuresArrivedEventArgs>())).Do(s => measuresArrived = s.Arg<MeasuresArrivedEventArgs>());
-            callback.When(s => s.DeviceChangedState(Arg.Any<Models.DeviceUpdatedEventArgs>())).Do(s => deviceUpdated = s.Arg<Models.DeviceUpdatedEventArgs>());
+            callback.When(s => s.MeasuresArrived(Arg.Any<DeviceHandlers.Models.MeasuresArrivedEventArgs>())).Do(s => measuresArrived = s.Arg<DeviceHandlers.Models.MeasuresArrivedEventArgs>());
+            callback.When(s => s.DeviceChangedState(Arg.Any<DeviceHandlers.Models.DeviceUpdatedEventArgs>())).Do(s => deviceUpdated = s.Arg<DeviceHandlers.Models.DeviceUpdatedEventArgs>());
             container = new CommunicationClientCallbacksContainer();
         }
 
@@ -63,7 +62,7 @@ namespace DataCollector.Server.Tests.DataFlow
             RegisterCallback();
             ((IChannel)callback).State.Returns(s => CommunicationState.Opened);
             DeviceInfo deviceInfo = new DeviceInfo();
-            Models.DeviceUpdatedEventArgs deviceUpdated = new Models.DeviceUpdatedEventArgs(deviceInfo, UpdateStatus.ConnectedToRestService);
+            DeviceHandlers.Models.DeviceUpdatedEventArgs deviceUpdated = new DeviceHandlers.Models.DeviceUpdatedEventArgs(deviceInfo, UpdateStatus.ConnectedToRestService);
             container.OnDeviceChangedState(deviceUpdated);
             Assert.Equal(deviceUpdated, this.deviceUpdated);
         }
@@ -73,7 +72,7 @@ namespace DataCollector.Server.Tests.DataFlow
         {
             RegisterCallback();
             ((IChannel)callback).State.Returns(s => CommunicationState.Closed);
-            Models.DeviceUpdatedEventArgs deviceUpdated = new Models.DeviceUpdatedEventArgs(null, UpdateStatus.ConnectedToRestService);
+            DeviceHandlers.Models.DeviceUpdatedEventArgs deviceUpdated = new DeviceHandlers.Models.DeviceUpdatedEventArgs(null, UpdateStatus.ConnectedToRestService);
             container.OnDeviceChangedState(deviceUpdated);
             Assert.DoesNotContain(callback, container.Clients);
         }

@@ -1,15 +1,7 @@
-﻿using DataCollector.Server.DataFlow.BroadcastListener.Models;
-using DataCollector.Server.DataFlow.Handlers;
+﻿using DataCollector.Server.BroadcastListener.Models;
+using DataCollector.Server.DeviceHandlers;
+using DataCollector.Server.DeviceHandlers.Interfaces;
 using DataCollector.Server.Tests.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Xunit;
-using DataCollector.Server.Interfaces;
-using DataCollector.Server.DataFlow.Handlers.Interfaces;
 
 namespace DataCollector.Server.Tests.DataFlow.Handlers
 {

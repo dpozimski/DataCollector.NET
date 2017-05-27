@@ -1,4 +1,4 @@
-﻿using DataCollector.Server.Models;
+﻿using DataCollector.Server.DeviceHandlers.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +40,7 @@ namespace DataCollector.Server.Interfaces
         /// Powiadomienie o aktualizacji stanu urządzenia.
         /// </summary>
         /// <param name="deviceUpdated">dane dot. aktualizacji</param>
-        void OnDeviceChangedState(Models.DeviceUpdatedEventArgs deviceUpdated);
+        void OnDeviceChangedState(DeviceUpdatedEventArgs deviceUpdated);
         /// <summary>
         /// Powiadomienie o nadejściu pomiarów.
         /// </summary>

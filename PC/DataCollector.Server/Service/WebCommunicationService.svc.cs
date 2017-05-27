@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
-using DataCollector.Server.DataFlow.BroadcastListener.Models;
-using DataCollector.Server.DataFlow.Handlers.Interfaces;
+using DataCollector.Server.BroadcastListener.Interfaces;
+using DataCollector.Server.BroadcastListener.Models;
+using DataCollector.Server.DeviceHandlers.Interfaces;
+using DataCollector.Server.DeviceHandlers.Models;
 using DataCollector.Server.Interfaces;
-using DataCollector.Server.Models;
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
@@ -88,7 +88,7 @@ namespace DataCollector.Server
         public void AddSimulatorDevice()
         {
             var device = deviceHandlerFactory.CreateSimulatorDevice();
-            Models.DeviceUpdatedEventArgs simulateEvent = new Models.DeviceUpdatedEventArgs(Mapper.Map<DeviceInfo>(device), UpdateStatus.Found);
+            DeviceHandlers.Models.DeviceUpdatedEventArgs simulateEvent = new DeviceHandlers.Models.DeviceUpdatedEventArgs(Mapper.Map<DeviceInfo>(device), UpdateStatus.Found);
             deviceHandlers.Add(device);
             callbackContainer.OnDeviceChangedState(simulateEvent);
         }
@@ -100,7 +100,7 @@ namespace DataCollector.Server
             if (IsStarted)
                 throw new InvalidOperationException("Serwis jest już uruchomiony");
 
-            broadcastScanner.DeviceInfoUpdated += new EventHandler<DataFlow.BroadcastListener.Models.DeviceUpdatedEventArgs>(OnBroadcastDeviceInfoUpdated);
+            broadcastScanner.DeviceInfoUpdated += new EventHandler<BroadcastListener.Models.DeviceUpdatedEventArgs>(OnBroadcastDeviceInfoUpdated);
             broadcastScanner.StartListening();
 
             IsStarted = true;
@@ -136,7 +136,7 @@ namespace DataCollector.Server
             {
                 deviceHandler.MeasuresArrived += new EventHandler<MeasuresArrivedEventArgs>(OnMeasuresArrived);
                 deviceHandler.Disconnected += new EventHandler<IDeviceHandler>(OnDeviceDisconnected);
-                callbackContainer.OnDeviceChangedState(new Models.DeviceUpdatedEventArgs(Mapper.Map<DeviceInfo>(deviceHandler), UpdateStatus.ConnectedToRestService));
+                callbackContainer.OnDeviceChangedState(new DeviceHandlers.Models.DeviceUpdatedEventArgs(Mapper.Map<DeviceInfo>(deviceHandler), UpdateStatus.ConnectedToRestService));
             } 
 
             return success;
@@ -160,7 +160,7 @@ namespace DataCollector.Server
             {
                 deviceHandler.MeasuresArrived -= OnMeasuresArrived;
                 deviceHandler.Disconnected -= OnDeviceDisconnected;
-                callbackContainer.OnDeviceChangedState(new Models.DeviceUpdatedEventArgs(Mapper.Map<DeviceInfo>(deviceHandler), UpdateStatus.DisconnectedFromRestService));
+                callbackContainer.OnDeviceChangedState(new DeviceHandlers.Models.DeviceUpdatedEventArgs(Mapper.Map<DeviceInfo>(deviceHandler), UpdateStatus.DisconnectedFromRestService));
             }
                 
             return success;
@@ -212,7 +212,7 @@ namespace DataCollector.Server
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnBroadcastDeviceInfoUpdated(object sender, DataFlow.BroadcastListener.Models.DeviceUpdatedEventArgs e)
+        private void OnBroadcastDeviceInfoUpdated(object sender, BroadcastListener.Models.DeviceUpdatedEventArgs e)
         {
             var device = deviceHandlers.SingleOrDefault(s => s.MacAddress == e.DeviceInfo.MacAddress);
             if (device == null)
@@ -227,7 +227,7 @@ namespace DataCollector.Server
                 deviceHandlers.Remove(device);
             }
 
-            callbackContainer.OnDeviceChangedState(new Models.DeviceUpdatedEventArgs(Mapper.Map<DeviceInfo>(device), e.UpdateStatus));
+            callbackContainer.OnDeviceChangedState(new DeviceHandlers.Models.DeviceUpdatedEventArgs(Mapper.Map<DeviceInfo>(device), e.UpdateStatus));
         }
         /// <summary>
         /// Obsługa zdarzenia nadejscia pomiarów z urządzenia.

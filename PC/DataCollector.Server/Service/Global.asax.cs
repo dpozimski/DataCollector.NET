@@ -1,12 +1,10 @@
 ﻿using Autofac;
 using Autofac.Integration.Wcf;
 using AutoMapper;
-using DataCollector.Server.DataFlow.BroadcastListener;
-using DataCollector.Server.DataFlow.BroadcastListener.Interfaces;
-using DataCollector.Server.DataFlow.Handlers.Adapters;
-using DataCollector.Server.DataFlow.Handlers.Interfaces;
-using DataCollector.Server.Interfaces;
-using DataCollector.Server.Models;
+using DataCollector.Server.BroadcastListener;
+using DataCollector.Server.BroadcastListener.Interfaces;
+using DataCollector.Server.DeviceHandlers.Adapters;
+using DataCollector.Server.DeviceHandlers.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -32,7 +30,7 @@ namespace DataCollector.Server
         {
             //AutoMapper
             Mapper.Initialize(cfg => {
-                cfg.CreateMap<IDeviceInfo, DeviceInfo>();
+                cfg.CreateMap<IDeviceInfo, DeviceHandlers.Models.DeviceInfo>();
             });
 
             //Autofac

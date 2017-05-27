@@ -14,13 +14,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Service\Server.cs
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DataCollector.Device.Models", "..\..\Shared\DataCollector.Device.Models\DataCollector.Device.Models\DataCollector.Device.Models.shproj", "{AE013886-8B5B-464A-B698-24B6C3EC7FF7}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DataCollector.Server", "DataCollector.Server\DataCollector.Server.shproj", "{A6D753CD-9038-4A3A-B1DD-0811301F8822}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{DFDF4133-283F-405A-8570-9F33BCFBBF69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BroadcastListener", "BroadcastListener\BroadcastListener.csproj", "{C9CE4382-13BB-48FE-8FD8-B75E116B54DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceHandlers", "DeviceHandlers\DeviceHandlers.csproj", "{49FF3F55-8DA7-42A9-93D8-7E910D8F9D20}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		DataCollector.Server\DataCollector.Server.projitems*{a6d753cd-9038-4a3a-b1dd-0811301f8822}*SharedItemsImports = 13
-		DataCollector.Server\DataCollector.Server.projitems*{c62d3da9-9b41-4c8f-997c-b6daf0d3f31f}*SharedItemsImports = 4
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -34,6 +34,18 @@ Global
 		{C62D3DA9-9B41-4C8F-997C-B6DAF0D3F31F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C62D3DA9-9B41-4C8F-997C-B6DAF0D3F31F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C62D3DA9-9B41-4C8F-997C-B6DAF0D3F31F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFDF4133-283F-405A-8570-9F33BCFBBF69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFDF4133-283F-405A-8570-9F33BCFBBF69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFDF4133-283F-405A-8570-9F33BCFBBF69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFDF4133-283F-405A-8570-9F33BCFBBF69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9CE4382-13BB-48FE-8FD8-B75E116B54DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9CE4382-13BB-48FE-8FD8-B75E116B54DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9CE4382-13BB-48FE-8FD8-B75E116B54DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9CE4382-13BB-48FE-8FD8-B75E116B54DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49FF3F55-8DA7-42A9-93D8-7E910D8F9D20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49FF3F55-8DA7-42A9-93D8-7E910D8F9D20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49FF3F55-8DA7-42A9-93D8-7E910D8F9D20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49FF3F55-8DA7-42A9-93D8-7E910D8F9D20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

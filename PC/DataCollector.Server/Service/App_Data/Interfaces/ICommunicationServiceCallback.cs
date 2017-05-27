@@ -1,5 +1,4 @@
-﻿using DataCollector.Server.DataFlow.Handlers.Interfaces;
-using DataCollector.Server.Models;
+﻿using DataCollector.Server.DeviceHandlers.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +20,7 @@ namespace DataCollector.Server.Interfaces
         /// <paramref name="measures">pomiary z urządzenia</paramref>
         /// </summary>
         [OperationContract(IsOneWay = true)]
-        Task MeasuresArrived(MeasuresArrivedEventArgs measures);
+        Task MeasuresArrived(DeviceHandlers.Models.MeasuresArrivedEventArgs measures);
         /// <summary>
         /// Wykryto urządzenie w sieci.
         /// <paramref name="deviceUpdated">dane dot. aktualizacji stanu urządzenia</paramref>
