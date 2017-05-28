@@ -1,15 +1,19 @@
 # DataCollector.NET
 
-  1. Information<br/>
+  1. Information<br>
+     *Owner*: Damian Pozimski<br>
+     *WWW*: [SoftPower](https://www.SoftPower.pl)<br>
      *Code Quality*: [![BCH compliance](https://bettercodehub.com/edge/badge/dpozimski/DataCollector.NET?branch=master)](https://bettercodehub.com/)
-  2. Purpose
+  2. Purpose<br>
+     This is the multi-arch project that contains several solutions for collecting data from Windows IoT device using the newest Microsoft technology like .NET Core, WPF, WCF, UWP, async tasks etc...<br>
+     The example shows how to present a data in real-time via a WPF environment, store them in MS SQL Database and generate raports from the collected data.<br>
+     The Client solution use the modern design pattern to bring the best UX experience. It has a MaterialDesign theme included in MahApps controls.<br>
   3. Concept
 
 ## PC
 
   * Client
   * Server
-  * Communication
 
 ## Device
 
@@ -65,4 +69,13 @@
     
       This project use IoC Container called [Autofac](https://github.com/autofac/Autofac) to provide a dependencies for controllers and       control a task lifetime cycle.<br/>
       I wanted to register objects that are divided by purposes with real-time constructor resolving to prevent from using **new** keyword.
+      
+   * API
+   
+      To bring the access for the measures I've created a WebController to share data with external clients.
+      Requests:
+      * */getLedState* - Returns a state of the LED
+      * */ledState?p={val}* - Set a LED state and returns a state after
+      * */measurements* - Returns an object that contains data from the connected sensors
+   
   
