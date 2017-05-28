@@ -65,4 +65,13 @@
     
       This project use IoC Container called [Autofac](https://github.com/autofac/Autofac) to provide a dependencies for controllers and       control a task lifetime cycle.<br/>
       I wanted to register objects that are divided by purposes with real-time constructor resolving to prevent from using **new** keyword.
+      
+   * API
+   
+      To bring the access for the measures I've created a WebController to share data with external clients.
+      Requests:
+      * */getLedState* - Returns a state of the LED
+      * */ledState?p={val}* - Set a LED state and returns a state after
+      * */measurements* - Returns an object that contains data from the connected sensors
+   
   
