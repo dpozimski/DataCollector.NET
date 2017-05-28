@@ -5,6 +5,7 @@ using System.Net;
 using System.ServiceModel;
 using System.Runtime.Serialization;
 using DataCollector.Server.DeviceHandlers.Interfaces;
+using DataCollector.Server.DataAccess.Interfaces;
 
 namespace DataCollector.Server.DeviceHandlers.Models
 {

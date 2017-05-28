@@ -1,5 +1,4 @@
-﻿using DataCollector.Server.Communication.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using DataCollector.Server.DataAccess.Interfaces;
 
 namespace DataCollector.Server.DataAccess.Models
 {
@@ -60,11 +60,25 @@ namespace DataCollector.Server.DataAccess.Models
 
         #region Public Methods
         /// <summary>
+        /// Aktualizacja obiektu urządzenia komunikacyjnego.
+        /// </summary>
+        /// <param name="communicationDevice">uchwyt urządzenia komunikacyjnego</param>
+        /// <returns></returns>
+        public void Update(IDeviceInfo communicationDevice)
+        {
+            Architecture = communicationDevice.Architecture;
+            IPv4 = communicationDevice.IPv4.ToString();
+            Model = communicationDevice.Model;
+            Name = communicationDevice.Name;
+            WinVer = communicationDevice.WinVer;
+            MeasurementsMsRequestInterval = communicationDevice.MeasurementsMsRequestInterval;
+        }
+        /// <summary>
         /// Konwersja obiektu urządzenia komunikacyjnego do typu MeasureDevice
         /// </summary>
         /// <param name="communicationDevice">uchwyt urządzenia komunikacyjnego</param>
         /// <returns></returns>
-        internal static MeasureDevice FromCommunicationHandler(IDevice communicationDevice)
+        public static MeasureDevice FromCommunicationHandler(IDeviceInfo communicationDevice)
         {
             return new MeasureDevice()
             {

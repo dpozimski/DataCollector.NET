@@ -7,7 +7,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataCollector.Server.Interfaces
+namespace DataCollector.Server.Interfaces.Communication
 {
     /// <summary>
     /// Interfejs subskrypcji danych zwrotnych z serwisu.

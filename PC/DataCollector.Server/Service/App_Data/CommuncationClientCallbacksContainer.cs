@@ -1,5 +1,4 @@
-﻿using DataCollector.Server.Interfaces;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -10,8 +9,9 @@ using System.ServiceModel.Channels;
 using System.Collections;
 using System.Collections.Generic;
 using DataCollector.Server.DeviceHandlers.Models;
+using DataCollector.Server.Interfaces.Communication;
 
-namespace DataCollector.Server.Server
+namespace DataCollector.Server
 {
     /// <summary>
     /// Klasa obsługująca kontener klientów subskrybujących callback <see cref="ICommunicationServiceCallback"/>.
@@ -66,6 +66,15 @@ namespace DataCollector.Server.Server
         #endregion
 
         #region Public Methods
+        /// <summary>
+        /// Usuwa klienta z subskrypcji zdarzeń serwisu.
+        /// </summary>
+        /// <param name="sessionId">id</param>
+        public void DeleteCallbackChannel(string sessionId)
+        {
+            ICommunicationServiceCallback callback = null;
+            callbacks.TryRemove(sessionId, out callback);
+        }
         /// <summary>
         /// Dodaje klienta do sybkrypcji zdarzeń serwisu.
         /// </summary>

@@ -1,5 +1,4 @@
-﻿using DataCollector.Server.BroadcastListener.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -7,7 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataCollector.Server.DeviceHandlers.Interfaces
+namespace DataCollector.Server.DataAccess.Interfaces
 {
     /// <summary>
     /// Interfejs opisujący podstawowe właściwości urządzenia.

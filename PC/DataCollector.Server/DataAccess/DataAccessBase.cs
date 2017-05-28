@@ -7,12 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataCollector.Server.DataAccess.AccessObjects
+namespace DataCollector.Server.DataAccess
 {
     /// <summary>
     /// Klasa abstrakcyjna implementująca interfejs IDataAccesBase.
     /// </summary>
-    public abstract class DataAccessBase: IDataAccessBase
+    public abstract class DataAccessBase : IDataAccessBase
     {
         #region Public Properties
         /// <summary>
@@ -21,13 +21,24 @@ namespace DataCollector.Server.DataAccess.AccessObjects
         public string ConnectionString { get; private set; }
         #endregion
 
-        #region Public Methods
+        #region ctor
+        /// <summary>
+        /// Konstruktor nowej instancji klasy.
+        /// </summary>
+        /// <param name="ConnectionString">dane połączeniowe</param>
+        public DataAccessBase(string ConnectionString)
+        {
+            TryApplyConnectionString(ConnectionString);
+        }
+        #endregion
+
+        #region Private Methods
         /// <summary>
         /// Metoda ustawiająca nowe dane połączeniowe do bazy danych.
         /// </summary>
         /// <param name="connStr">dane połączeniowe</param>
         /// <returns>zwraca status migracji</returns>
-        public bool TryApplyConnectionString(string connStr)
+        private bool TryApplyConnectionString(string connStr)
         {
             try
             {

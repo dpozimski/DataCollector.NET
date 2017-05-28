@@ -1,20 +1,34 @@
-﻿using DataCollector.Server.DataAccess.Context;
+﻿using DataCollector.Server.DataAccess;
+using DataCollector.Server.DataAccess.Context;
 using DataCollector.Server.DataAccess.Interfaces;
 using DataCollector.Server.DataAccess.Models;
+using DataCollector.Server.Interfaces.Data;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataCollector.Server.DataAccess.AccessObjects
+namespace DataCollector.Server
 {
     /// <summary>
     /// Klasa implementująca interfejs IUseranagement.
     /// </summary>
-    public class UsersManagement: DataAccessBase, IUsersManagement
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
+    public class UsersManagementService : DataAccessBase, IUsersManagementService
     {
+        #region ctor
+        /// <summary>
+        /// Konstruktor nowej instancji klasy.
+        /// </summary>
+        /// <param name="ConnectionString">dane połączeniowe</param>
+        public UsersManagementService(string ConnectionString) : base(ConnectionString)
+        {
+        }
+        #endregion
+
         #region Public Methods
         /// <summary>
         /// Rejestracja zdarzenia wylogowania się użytkownika z bieżącej sesji.
@@ -74,7 +88,7 @@ namespace DataCollector.Server.DataAccess.AccessObjects
         {
             using (var db = new DataCollectorContext(ConnectionString))
             {
-                var users =  db.Users.Include("UserLoginHistory").ToList();
+                var users = db.Users.Include("UserLoginHistory").ToList();
                 return users;
             }
         }
@@ -99,7 +113,7 @@ namespace DataCollector.Server.DataAccess.AccessObjects
             bool success = false;
             using (var db = new DataCollectorContext(ConnectionString))
             {
-                if(!db.Users.Any(s=>s.Login==user.Login))
+                if (!db.Users.Any(s => s.Login == user.Login))
                 {
                     db.Users.Add(user);
                     db.SaveChanges();
@@ -118,8 +132,8 @@ namespace DataCollector.Server.DataAccess.AccessObjects
             bool succes = false;
             using (var db = new DataCollectorContext(ConnectionString))
             {
-                var user =  db.Users.Include("UserLoginHistory").SingleOrDefault(s=>s.Login == login);
-                if(user != null)
+                var user = db.Users.Include("UserLoginHistory").SingleOrDefault(s => s.Login == login);
+                if (user != null)
                 {
                     //usuniecie historii logowania
                     db.UsersLoginHistory.RemoveRange(user.UserLoginHistory);

@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataCollector.Server.BroadcastListener.Interfaces
+namespace DataCollector.Server.DataAccess.Interfaces
 {
     /// <summary>
     /// Interfejs określający urządzenie znalezione w sieci.

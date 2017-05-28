@@ -7,7 +7,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataCollector.Server.Interfaces
+namespace DataCollector.Server.Interfaces.Communication
 {
     /// <summary>
     /// Kontener klientów subskrybujących proxy.
@@ -30,6 +30,11 @@ namespace DataCollector.Server.Interfaces
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Usuwa klienta z subskrypcji zdarzeń serwisu.
+        /// </summary>
+        /// <param name="sessionId">id</param>
+        void DeleteCallbackChannel(string sessionId);
         /// <summary>
         /// Dodaje klienta do sybkrypcji zdarzeń serwisu.
         /// </summary>

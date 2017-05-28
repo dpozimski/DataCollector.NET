@@ -1,6 +1,7 @@
 ﻿using DataCollector.Server.BroadcastListener.Exceptions;
 using DataCollector.Server.BroadcastListener.Interfaces;
 using DataCollector.Server.BroadcastListener.Models;
+using DataCollector.Server.DataAccess.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

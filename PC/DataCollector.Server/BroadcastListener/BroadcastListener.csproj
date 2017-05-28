@@ -51,13 +51,18 @@
     <Compile Include="Factories\DeviceBroadcastInfoFactory.cs" />
     <Compile Include="Interfaces\IBroadcastScanner.cs" />
     <Compile Include="Interfaces\IDetectedDevicesContainer.cs" />
-    <Compile Include="Interfaces\IDeviceBroadcastInfo.cs" />
     <Compile Include="Interfaces\IDevicesBroadcastInfoFactory.cs" />
     <Compile Include="Interfaces\INetworkAddressFactory.cs" />
     <Compile Include="Models\DeviceBroadcastInfo.cs" />
     <Compile Include="Models\DeviceUpdatedEventArgs.cs" />
     <Compile Include="Models\TimeStampedDeviceInfo.cs" />
     <Compile Include="Models\UpdateStatus.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{dfdf4133-283f-405a-8570-9f33bcfbbf69}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DataCollector.Server.BroadcastListener.Interfaces;
 using DataCollector.Server.BroadcastListener.Models;
+using DataCollector.Server.DataAccess.Interfaces;
 using DataCollector.Server.DeviceHandlers.Interfaces;
 using DataCollector.Server.DeviceHandlers.Models;
 using System;

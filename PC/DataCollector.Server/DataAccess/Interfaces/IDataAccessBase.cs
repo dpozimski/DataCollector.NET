@@ -18,14 +18,5 @@ namespace DataCollector.Server.DataAccess.Interfaces
         /// </summary>
         string ConnectionString { get; }
         #endregion
-
-        #region Methods
-        /// <summary>
-        /// Metoda ustawiająca nowe dane połączeniowe do bazy danych.
-        /// </summary>
-        /// <param name="connStr">dane połączeniowe</param>
-        /// <returns>zwraca status migracji</returns>
-        bool TryApplyConnectionString(string connStr);
-        #endregion
     }
 }

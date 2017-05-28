@@ -1,5 +1,6 @@
 ﻿using DataCollector.Server.BroadcastListener.Interfaces;
 using DataCollector.Server.BroadcastListener.Models;
+using DataCollector.Server.DataAccess.Interfaces;
 using DataCollector.Server.DeviceHandlers.Adapters;
 using DataCollector.Server.DeviceHandlers.Interfaces;
 using System;

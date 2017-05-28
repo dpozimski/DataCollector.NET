@@ -12,7 +12,7 @@ namespace DataCollector.Server.DataAccess.Context
     /// <summary>
     /// Kontekst bazy danych.
     /// </summary>
-    class DataCollectorContext : DbContext
+    public class DataCollectorContext : DbContext
     {
         #region DbSet
         /// <summary>

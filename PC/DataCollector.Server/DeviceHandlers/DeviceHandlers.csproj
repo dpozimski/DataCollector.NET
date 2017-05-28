@@ -61,7 +61,6 @@
     <Compile Include="Interfaces\IDeviceHandler.cs" />
     <Compile Include="Interfaces\IDeviceHandlerConfiguration.cs" />
     <Compile Include="Interfaces\IDeviceHandlerFactory.cs" />
-    <Compile Include="Interfaces\IDeviceInfo.cs" />
     <Compile Include="Interfaces\IRestConnectionAdapter.cs" />
     <Compile Include="Interfaces\IRestConnectionAdapterFactory.cs" />
     <Compile Include="Models\DeviceInfo.cs" />
@@ -75,10 +74,13 @@
       <Project>{c9ce4382-13bb-48fe-8fd8-b75e116b54de}</Project>
       <Name>BroadcastListener</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{DFDF4133-283F-405A-8570-9F33BCFBBF69}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\..\Shared\DataCollector.Device.Models\DataCollector.Device.Models\DataCollector.Device.Models.projitems" Label="DataCollector.Device.Models" />
 </Project>

@@ -3,6 +3,7 @@ using Autofac.Integration.Wcf;
 using AutoMapper;
 using DataCollector.Server.BroadcastListener;
 using DataCollector.Server.BroadcastListener.Interfaces;
+using DataCollector.Server.DataAccess.Interfaces;
 using DataCollector.Server.DeviceHandlers.Adapters;
 using DataCollector.Server.DeviceHandlers.Interfaces;
 using System;
@@ -13,6 +14,7 @@ using System.Reflection;
 using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
+using Autofac.Builder;
 
 namespace DataCollector.Server
 {
@@ -42,7 +44,10 @@ namespace DataCollector.Server
                    .AsImplementedInterfaces()
                    .Except<RestDeviceHandlerConfiguration>()
                    .Except<WebCommunicationService>(ct => ct.WithParameter("port", GetSettingsValue("DeviceCommunicationPort")).SingleInstance())
-                   .Except<CachedDetectedDevicesContainer>(ct => ct.As<IDetectedDevicesContainer>().WithParameter("cleanupCacheInterval", TimeSpan.FromSeconds(GetSettingsValue("CleanupCacheInterval"))));
+                   .Except<CachedDetectedDevicesContainer>(ct => ct.As<IDetectedDevicesContainer>().WithParameter("cleanupCacheInterval", TimeSpan.FromSeconds(GetSettingsValue("CleanupCacheInterval"))))
+                   .Except<MeasureAccessService>(ConstructWithConnectionString)
+                   .Except<MeasureCollectorService>(ConstructWithConnectionString)
+                   .Except<UsersManagementService>(ConstructWithConnectionString);
             builder.Register(s => new RestDeviceHandlerConfiguration()
             {
                 GetMeasurementsRequest = ConfigurationManager.AppSettings["GetMeasurementsRequest"],
@@ -52,6 +57,13 @@ namespace DataCollector.Server
 
             AutofacHostFactory.Container = builder.Build();
         }
+
+        /// <summary>
+        /// Podanie argumentu danych połączeniowych do buildera.
+        /// </summary>
+        /// <param name="ct"></param>
+        private void ConstructWithConnectionString<T>(IRegistrationBuilder<T, ConcreteReflectionActivatorData, SingleRegistrationStyle> ct)
+            => ct.WithParameter("ConnectionString", GetSettingsValue("ConnectionString"));
 
         /// <summary>
         /// Zwraca wartość całkowitą z ustawień aplikacji.

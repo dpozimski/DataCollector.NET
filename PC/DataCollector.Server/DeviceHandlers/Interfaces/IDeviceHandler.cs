@@ -1,4 +1,5 @@
-﻿using DataCollector.Server.DeviceHandlers.Models;
+﻿using DataCollector.Server.DataAccess.Interfaces;
+using DataCollector.Server.DeviceHandlers.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

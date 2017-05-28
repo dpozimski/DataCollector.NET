@@ -1,29 +1,33 @@
-﻿using DataCollector.Server.Communication.Interfaces;
-using DataCollector.Server.DataAccess.Context;
+﻿using DataCollector.Server.DataAccess.Context;
 using DataCollector.Server.DataAccess.Interfaces;
 using DataCollector.Server.DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataCollector.Server.Communication.Models;
-using System.Collections.Concurrent;
-using System.ComponentModel;
-using System.Diagnostics;
-using DataCollector.Device.Models;
-using System.Threading;
 using System.Data.Entity.Migrations;
 using LiveCharts.Defaults;
-using Splat;
+using DataCollector.Server.Interfaces.Data;
+using DataCollector.Server.DataAccess;
+using System.ServiceModel;
 
-namespace DataCollector.Server.DataAccess.AccessObjects
+namespace DataCollector.Server
 {
     /// <summary>
     /// Klasa implementująca serws IMeasureAccess.
     /// </summary>
-    public class MeasureAccess : DataAccessBase, IMeasureAccess
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
+    public class MeasureAccessService : DataAccessBase, IMeasureAccessService
     {
+        #region ctor
+        /// <summary>
+        /// Konstruktor nowej instancji klasy.
+        /// </summary>
+        /// <param name="ConnectionString">dane połączeniowe</param>
+        public MeasureAccessService(string ConnectionString) : base(ConnectionString)
+        {
+        }
+        #endregion
+
         #region Public Methods
         /// <summary>
         /// Pobiera pomiary od wskazanego urządzenia, typu i okresu.
@@ -78,7 +82,7 @@ namespace DataCollector.Server.DataAccess.AccessObjects
         /// Aktualizuje urządzenie pomiarowe.
         /// </summary>
         /// <param name="deviceHandler">urządzenie pomiarowe</param>
-        public void UpdateMeasureDevice(IDevice deviceHandler)
+        public void UpdateMeasureDevice(IDeviceInfo deviceHandler)
         {
             using (var db = new DataCollectorContext(ConnectionString))
             {
@@ -86,27 +90,6 @@ namespace DataCollector.Server.DataAccess.AccessObjects
                 //zaktualizuj ustawienia w bazie danych
                 existingDevice.MeasurementsMsRequestInterval = deviceHandler.MeasurementsMsRequestInterval;
                 db.SaveChanges();
-            }
-        }
-        /// <summary>
-        /// Metoda przypisująca urządzenie komunikacyjnego do odpowiednika w bazie danych.
-        /// </summary>
-        /// <param name="deviceHandler">urządzenie pomiarowe</param>
-        /// <returns></returns>
-        public MeasureDevice AssignMeasureDevice(IDevice deviceHandler)
-        {
-            using (var db = new DataCollectorContext(ConnectionString))
-            {
-                MeasureDevice existingDevice = db.MeasureDevices.SingleOrDefault(s => s.MacAddress == deviceHandler.MacAddress);
-                if (existingDevice != null)
-                {
-                    //zaktualizuj ustawienia z bazy danych
-                    deviceHandler.MeasurementsMsRequestInterval = existingDevice.MeasurementsMsRequestInterval;
-                }
-                MeasureDevice device = MeasureDevice.FromCommunicationHandler(deviceHandler);
-                db.MeasureDevices.AddOrUpdate(s=>s.MacAddress, device);
-                db.SaveChanges();
-                return device;
             }
         }
         #endregion
