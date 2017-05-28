@@ -1,15 +1,19 @@
 # DataCollector.NET
 
-  1. Information<br/>
+  1. Information<br>
+     *Owner*: Damian Pozimski<br>
+     *WWW*: [SoftPower](https://www.SoftPower.pl)<br>
      *Code Quality*: [![BCH compliance](https://bettercodehub.com/edge/badge/dpozimski/DataCollector.NET?branch=master)](https://bettercodehub.com/)
-  2. Purpose
+  2. Purpose<br>
+     This is the multi-arch project that contains several solutions for collecting data from Windows IoT device using the newest Microsoft technology like .NET Core, WPF, WCF, UWP, async tasks etc...<br>
+     The example shows how to present a data in real-time via a WPF environment, store them in MS SQL Database and generate raports from the collected data.<br>
+     The Client solution use the modern design pattern to bring the best UX experience. It has a MaterialDesign theme included in MahApps controls.<br>
   3. Concept
 
 ## PC
 
   * Client
   * Server
-  * Communication
 
 ## Device
 
