@@ -101,7 +101,7 @@ namespace DataCollector.Server
         {
             using (var db = new DataCollectorContext(ConnectionString))
             {
-                return db.UsersLoginHistory.Where(s => s.AssignedUser == user).ToList();
+                return db.UsersLoginHistory.Where(s => s.AssignedUser.Login == user.Login).ToList();
             }
         }
         /// <summary>

@@ -202,7 +202,7 @@ namespace DataCollector.Server
         /// </summary>
         public void Dispose()
         {
-            if (webCommunication != null)
+            if(IsCollectingDataEnabled)
                 callbacksContainer.DeleteCallbackChannel(nameof(MeasureCollectorService));
         }
         #endregion

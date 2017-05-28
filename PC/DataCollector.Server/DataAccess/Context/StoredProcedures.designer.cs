@@ -33,7 +33,7 @@ namespace DataCollector.Server.DataAccess.Context
     #endregion
 		
 		public StoredProceduresDataContext() : 
-				base(global::DataCollector.Server.DataAccess.Properties.Settings.Default.DataCollectorDbConnectionString, mappingSource)
+				base("", mappingSource)
 		{
 			OnCreated();
 		}

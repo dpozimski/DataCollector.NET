@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace DataCollector.Server.Tests
 {
+    /// <summary>
+    /// Klasa testująca <see cref="MeasureCollectorService"/>.
+    /// </summary>
     public class MeasureCollectorServiceTests
     {
+        private readonly MeasureCollectorService collectorService;
     }
 }

@@ -15,6 +15,12 @@ namespace DataCollector.Server.Tests.Utils
     public static class TestModelsFactory
     {
         /// <summary>
+        /// Zwraca testowe dane połączeniowe do bazy danych.
+        /// </summary>
+        /// <returns></returns>
+        public const string TestConnectionString = "Data source=.\\DCInstance;Initial Catalog=DataCollectorDbTests;User ID=sa;Password=p@ssw0rd;";
+
+        /// <summary>
         /// Tworzy instancję klasy <see cref="DeviceBroadcastInfo"/>.
         /// </summary>
         /// <returns></returns>
