@@ -1,5 +1,6 @@
 ﻿using DataCollector.Server.BroadcastListener.Interfaces;
 using DataCollector.Server.BroadcastListener.Models;
+using DataCollector.Server.DataAccess.Interfaces;
 using DataCollector.Server.Tests.Utils;
 using System;
 using System.Collections.Generic;

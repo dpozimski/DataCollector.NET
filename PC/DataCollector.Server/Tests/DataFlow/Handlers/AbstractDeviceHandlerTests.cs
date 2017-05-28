@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DataCollector.Server.DataAccess.Interfaces;
 using DataCollector.Server.DeviceHandlers.Interfaces;
 using DataCollector.Server.DeviceHandlers.Models;
 using System;
@@ -46,7 +47,7 @@ namespace DataCollector.Server.Tests.DataFlow.Handlers
             deviceHandler.MeasuresArrived += (o, e) => measuresArrived = true;
             deviceHandler.MeasurementsMsRequestInterval = 0;
             bool success = deviceHandler.Connect();
-            Thread.Sleep(30);
+            Thread.Sleep(150);
             Assert.True(measuresArrived && success);
         }
 

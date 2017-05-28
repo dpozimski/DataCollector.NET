@@ -84,6 +84,9 @@
     <Compile Include="DataFlow\Handlers\Factories\RestConnectionAdapterFactoryTests.cs" />
     <Compile Include="DataFlow\Handlers\RestDeviceHandlerTests.cs" />
     <Compile Include="DataFlow\Handlers\SimulatorDeviceHandlerTests.cs" />
+    <Compile Include="MeasureAccessServiceTests.cs" />
+    <Compile Include="MeasureCollectorServiceTests.cs" />
+    <Compile Include="UsersMnagamentServiceTests.cs" />
     <Compile Include="Utils\NetworkTestsUtils.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -97,6 +100,10 @@
     <ProjectReference Include="..\BroadcastListener\BroadcastListener.csproj">
       <Project>{c9ce4382-13bb-48fe-8fd8-b75e116b54de}</Project>
       <Name>BroadcastListener</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{DFDF4133-283F-405A-8570-9F33BCFBBF69}</Project>
+      <Name>DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\DeviceHandlers\DeviceHandlers.csproj">
       <Project>{49ff3f55-8da7-42a9-93d8-7e910d8f9d20}</Project>

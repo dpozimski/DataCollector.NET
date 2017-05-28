@@ -1,7 +1,7 @@
 ﻿using DataCollector.Server.BroadcastListener.Models;
 using DataCollector.Server.DeviceHandlers.Models;
 using DataCollector.Server.Interfaces;
-using DataCollector.Server.Server;
+using DataCollector.Server.Interfaces.Communication;
 using NSubstitute;
 using System;
 using System.Collections.Generic;

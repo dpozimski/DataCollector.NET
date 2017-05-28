@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using DataCollector.Server.BroadcastListener.Interfaces;
 using DataCollector.Server.BroadcastListener.Models;
+using DataCollector.Server.DataAccess.Interfaces;
 using DataCollector.Server.DeviceHandlers.Interfaces;
 using DataCollector.Server.DeviceHandlers.Models;
 using DataCollector.Server.Interfaces;
+using DataCollector.Server.Interfaces.Communication;
 using NSubstitute;
 using System;
 using System.Linq;

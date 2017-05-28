@@ -1,10 +1,10 @@
 ﻿using DataCollector.Server.Tests.Utils;
 using NSubstitute;
 using Newtonsoft.Json;
-using DataCollector.Device.Models;
 using DataCollector.Server.DeviceHandlers.Interfaces;
 using DataCollector.Server.DeviceHandlers.Adapters;
 using DataCollector.Server.DeviceHandlers;
+using DataCollector.Device.Models;
 
 namespace DataCollector.Server.Tests.DataFlow.Handlers
 {
