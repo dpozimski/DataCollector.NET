@@ -22,7 +22,7 @@ namespace DataCollector.Server.Interfaces.Data
         /// </summary>
         /// <param name="deviceHandler">urządzenie pomiarowe</param>
         [OperationContract]
-        void UpdateMeasureDevice(IDeviceInfo deviceHandler);
+        void UpdateMeasureDevice(MeasureDevice deviceHandler);
         /// <summary>
         /// Pobiera dostępne urządzenia pomiarowe z bazy danych.
         /// </summary>
@@ -48,7 +48,7 @@ namespace DataCollector.Server.Interfaces.Data
         /// <param name="upperRange">do</param>
         /// <returns>punkty pomiarowe [X,Y,Z]</returns>
         [OperationContract]
-        IEnumerable<DateTimePoint[]> GetMeasures(SphereMeasureType type, MeasureDevice device, DateTime lowerRange, DateTime upperRange);
+        IEnumerable<DateTimePoint[]> GetSphereMeasures(SphereMeasureType type, MeasureDevice device, DateTime lowerRange, DateTime upperRange);
         #endregion
     }
 }

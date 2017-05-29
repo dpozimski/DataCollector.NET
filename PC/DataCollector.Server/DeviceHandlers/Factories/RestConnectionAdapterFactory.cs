@@ -21,7 +21,7 @@ namespace DataCollector.Server.DeviceHandlers.Factories
         /// <param name="ip">docelowy IP</param>
         /// <param name="port">docelowy port</param>
         /// <returns>Adapter połączeniowy</returns>
-        public IRestConnectionAdapter Create(IPAddress ip, int port)
+        public IRestConnectionAdapter Create(string ip, int port)
         {
             if (ip is null)
                 throw new ArgumentNullException("IP");

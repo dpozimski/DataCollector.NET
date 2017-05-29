@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DataCollector.Device.Models;
+using DataCollector.Server.DataAccess.Models;
 using System;
 using System.Runtime.Serialization;
 
@@ -16,7 +17,7 @@ namespace DataCollector.Server.DeviceHandlers.Models
         /// Źródło danych.
         /// </summary>
         [DataMember]
-        public DeviceInfo Source { get; private set; }
+        public MeasureDevice Source { get; private set; }
         /// <summary>
         /// Wartość.
         /// </summary>
@@ -35,7 +36,7 @@ namespace DataCollector.Server.DeviceHandlers.Models
         /// </summary>
         /// <param name="source">źródło pomiarów</param>
         /// <param name="value">wartość</param>
-        public MeasuresArrivedEventArgs(DeviceInfo source, Measures value, DateTime timeStamp)
+        public MeasuresArrivedEventArgs(MeasureDevice source, Measures value, DateTime timeStamp)
         {
             this.Source = source;
             this.Value = value;

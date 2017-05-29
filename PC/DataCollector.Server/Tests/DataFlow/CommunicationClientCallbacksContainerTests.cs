@@ -1,4 +1,5 @@
 ﻿using DataCollector.Server.BroadcastListener.Models;
+using DataCollector.Server.DataAccess.Models;
 using DataCollector.Server.DeviceHandlers.Models;
 using DataCollector.Server.Interfaces;
 using DataCollector.Server.Interfaces.Communication;
@@ -50,7 +51,7 @@ namespace DataCollector.Server.Tests.DataFlow
         {
             RegisterCallback();
             ((IChannel)callback).State.Returns(s => CommunicationState.Opened);
-            DeviceInfo deviceInfo = new DeviceInfo();
+            MeasureDevice deviceInfo = new MeasureDevice();
             MeasuresArrivedEventArgs measures = new MeasuresArrivedEventArgs(deviceInfo, null, DateTime.Now);
             container.OnMeasuresArrived(measures);
             Assert.Equal(measures, measuresArrived);
@@ -61,7 +62,7 @@ namespace DataCollector.Server.Tests.DataFlow
         {
             RegisterCallback();
             ((IChannel)callback).State.Returns(s => CommunicationState.Opened);
-            DeviceInfo deviceInfo = new DeviceInfo();
+            MeasureDevice deviceInfo = new MeasureDevice();
             DeviceHandlers.Models.DeviceUpdatedEventArgs deviceUpdated = new DeviceHandlers.Models.DeviceUpdatedEventArgs(deviceInfo, UpdateStatus.ConnectedToRestService);
             container.OnDeviceChangedState(deviceUpdated);
             Assert.Equal(deviceUpdated, this.deviceUpdated);

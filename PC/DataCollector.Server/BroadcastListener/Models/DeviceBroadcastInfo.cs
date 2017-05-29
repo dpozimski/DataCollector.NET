@@ -22,7 +22,7 @@ namespace DataCollector.Server.BroadcastListener.Models
         /// <summary>
         /// IPv4.
         /// </summary>
-        public IPAddress IPv4 { get; private set; }
+        public string IPv4 { get; private set; }
         /// <summary>
         /// Wersja Windows 10 IoT Core.
         /// </summary>
@@ -51,7 +51,7 @@ namespace DataCollector.Server.BroadcastListener.Models
         /// <param name="architecture">architektura systemu</param>
         /// <param name="model">model</param>
         /// <param name="winVer">wersja windows 10 iot core</param>
-        public DeviceBroadcastInfo(string machineName, IPAddress ipv4, string macAddressString, string architecture, string winVer, string model)
+        public DeviceBroadcastInfo(string machineName, string ipv4, string macAddressString, string architecture, string winVer, string model)
         {
             Name = machineName;
             IPv4 = ipv4;

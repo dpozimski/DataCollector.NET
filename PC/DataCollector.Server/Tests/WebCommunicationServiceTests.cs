@@ -2,6 +2,7 @@
 using DataCollector.Server.BroadcastListener.Interfaces;
 using DataCollector.Server.BroadcastListener.Models;
 using DataCollector.Server.DataAccess.Interfaces;
+using DataCollector.Server.DataAccess.Models;
 using DataCollector.Server.DeviceHandlers.Interfaces;
 using DataCollector.Server.DeviceHandlers.Models;
 using DataCollector.Server.Interfaces;
@@ -73,17 +74,17 @@ namespace DataCollector.Server.Tests
         {
             //AutoMapper
             Mapper.Initialize(cfg => {
-                cfg.CreateMap<IDeviceInfo, DeviceInfo>();
+                cfg.CreateMap<IDeviceInfo, MeasureDevice>();
             });
         }
 
-        private DeviceInfo GetConnectedDevice()
+        private MeasureDevice GetConnectedDevice()
         {
             InitializeMapper();
             webCommunication.Start();
             webCommunication.AddSimulatorDevice();
             Assert.NotNull(deviceUpdated);
-            return Mapper.Map<DeviceInfo>(deviceUpdated.Device);
+            return Mapper.Map<MeasureDevice>(deviceUpdated.Device);
         }
 
         [Fact]
@@ -125,7 +126,7 @@ namespace DataCollector.Server.Tests
         [Fact]
         public void DeviceConnectTest()
         {
-            DeviceInfo device = GetConnectedDevice();
+            MeasureDevice device = GetConnectedDevice();
             bool success = webCommunication.ConnectDevice(device);
             Assert.True(success);
         }
@@ -133,7 +134,7 @@ namespace DataCollector.Server.Tests
         [Fact]
         public void DeviceFalseConnectTest()
         {
-            DeviceInfo device = GetConnectedDevice();
+            MeasureDevice device = GetConnectedDevice();
             webCommunication.ConnectDevice(device);
             Assert.Throws(typeof(InvalidOperationException), () => webCommunication.ConnectDevice(device));
         }
@@ -141,14 +142,14 @@ namespace DataCollector.Server.Tests
         [Fact]
         public void DeviceFalseDisconnectTest()
         {
-            DeviceInfo device = GetConnectedDevice();
+            MeasureDevice device = GetConnectedDevice();
             Assert.Throws(typeof(InvalidOperationException), () => webCommunication.DisconnectDevice(device));
         }
 
         [Fact]
         public void DeviceDisconnectTest()
         {
-            DeviceInfo device = GetConnectedDevice();
+            MeasureDevice device = GetConnectedDevice();
             webCommunication.ConnectDevice(device);
             bool success = webCommunication.DisconnectDevice(device);
             Assert.True(success);
@@ -157,7 +158,7 @@ namespace DataCollector.Server.Tests
         [Fact]
         public void DeviceAutoDisconnectTest()
         {
-            DeviceInfo device = GetConnectedDevice();
+            MeasureDevice device = GetConnectedDevice();
             webCommunication.ConnectDevice(device);
             simulatorDevice.Disconnected += Raise.Event<EventHandler<IDeviceHandler>>(this, simulatorDevice as IDeviceHandler);
             Thread.Sleep(10);
@@ -167,7 +168,7 @@ namespace DataCollector.Server.Tests
         [Fact]
         public void DeviceLedStateTest()
         {
-            DeviceInfo device = GetConnectedDevice();
+            MeasureDevice device = GetConnectedDevice();
             webCommunication.ConnectDevice(device);
             bool ledState = webCommunication.GetLedState(device);
             Assert.Equal(this.ledState, ledState);
@@ -178,7 +179,7 @@ namespace DataCollector.Server.Tests
         [Fact]
         public void DeviceLedStateWithoutConnectingToDeviceTest()
         {
-            DeviceInfo device = GetConnectedDevice();
+            MeasureDevice device = GetConnectedDevice();
             Assert.Throws(typeof(InvalidOperationException), () => webCommunication.GetLedState(device));
             Assert.Throws(typeof(InvalidOperationException), () => webCommunication.ChangeLedState(device, false));
         }
@@ -186,17 +187,17 @@ namespace DataCollector.Server.Tests
         [Fact]
         public void MeasuresArrivedTest()
         {
-            DeviceInfo device = GetConnectedDevice();
+            MeasureDevice device = GetConnectedDevice();
             webCommunication.ConnectDevice(device);
             simulatorDevice.MeasuresArrived += Raise.Event<EventHandler<MeasuresArrivedEventArgs>>(this, 
-                new MeasuresArrivedEventArgs(Mapper.Map<DeviceInfo>(simulatorDevice), new Device.Models.Measures(), DateTime.Now));
+                new MeasuresArrivedEventArgs(Mapper.Map<MeasureDevice>(simulatorDevice), new Device.Models.Measures(), DateTime.Now));
             Assert.NotNull(measuresArrived);
         }
 
         [Fact]
         public void BroadcastScannerDeviceLostTest()
         {
-            DeviceInfo device = GetConnectedDevice();
+            MeasureDevice device = GetConnectedDevice();
             broadcastScanner.DeviceInfoUpdated += Raise.Event<EventHandler<BroadcastListener.Models.DeviceUpdatedEventArgs>>(this,
                 new BroadcastListener.Models.DeviceUpdatedEventArgs(simulatorDevice, UpdateStatus.Lost));
             Assert.False(webCommunication.Devices.Any(s => s.MacAddress == device.MacAddress));

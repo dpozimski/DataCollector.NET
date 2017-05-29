@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DataCollector.Server.BroadcastListener.Interfaces;
 using DataCollector.Server.BroadcastListener.Models;
+using DataCollector.Server.DataAccess.Models;
 using DataCollector.Server.DeviceHandlers.Interfaces;
 using DataCollector.Server.DeviceHandlers.Models;
 using DataCollector.Server.Interfaces.Communication;
@@ -51,9 +52,9 @@ namespace DataCollector.Server
         /// <summary>
         /// Aktualnie podłączone urządzenia.
         /// </summary>
-        public IEnumerable<DeviceInfo> Devices
+        public IEnumerable<MeasureDevice> Devices
         {
-            get { return Mapper.Map<IEnumerable<DeviceInfo>>(deviceHandlers); }
+            get { return Mapper.Map<IEnumerable<MeasureDevice>>(deviceHandlers); }
         }
         #endregion
 
@@ -88,7 +89,7 @@ namespace DataCollector.Server
         public void AddSimulatorDevice()
         {
             var device = deviceHandlerFactory.CreateSimulatorDevice();
-            DeviceHandlers.Models.DeviceUpdatedEventArgs simulateEvent = new DeviceHandlers.Models.DeviceUpdatedEventArgs(Mapper.Map<DeviceInfo>(device), UpdateStatus.Found);
+            DeviceHandlers.Models.DeviceUpdatedEventArgs simulateEvent = new DeviceHandlers.Models.DeviceUpdatedEventArgs(Mapper.Map<MeasureDevice>(device), UpdateStatus.Found);
             deviceHandlers.Add(device);
             callbackContainer.OnDeviceChangedState(simulateEvent);
         }
@@ -120,7 +121,7 @@ namespace DataCollector.Server
         /// </summary>
         /// <param name="device">urządzenie</param>
         /// <returns></returns>
-        public bool ConnectDevice(DeviceInfo device)
+        public bool ConnectDevice(MeasureDevice device)
         {
             var deviceHandler = deviceHandlers.SingleOrDefault(s => s.MacAddress == device.MacAddress);
 
@@ -136,7 +137,7 @@ namespace DataCollector.Server
             {
                 deviceHandler.MeasuresArrived += new EventHandler<MeasuresArrivedEventArgs>(OnMeasuresArrived);
                 deviceHandler.Disconnected += new EventHandler<IDeviceHandler>(OnDeviceDisconnected);
-                callbackContainer.OnDeviceChangedState(new DeviceHandlers.Models.DeviceUpdatedEventArgs(Mapper.Map<DeviceInfo>(deviceHandler), UpdateStatus.ConnectedToRestService));
+                callbackContainer.OnDeviceChangedState(new DeviceHandlers.Models.DeviceUpdatedEventArgs(Mapper.Map<MeasureDevice>(deviceHandler), UpdateStatus.ConnectedToRestService));
             } 
 
             return success;
@@ -147,7 +148,7 @@ namespace DataCollector.Server
         /// </summary>
         /// <param name="device">urządzenie</param>
         /// <returns></returns>
-        public bool DisconnectDevice(DeviceInfo device)
+        public bool DisconnectDevice(MeasureDevice device)
         {
             var deviceHandler = deviceHandlers.Single(s => s.MacAddress == device.MacAddress);
 
@@ -160,7 +161,7 @@ namespace DataCollector.Server
             {
                 deviceHandler.MeasuresArrived -= OnMeasuresArrived;
                 deviceHandler.Disconnected -= OnDeviceDisconnected;
-                callbackContainer.OnDeviceChangedState(new DeviceHandlers.Models.DeviceUpdatedEventArgs(Mapper.Map<DeviceInfo>(deviceHandler), UpdateStatus.DisconnectedFromRestService));
+                callbackContainer.OnDeviceChangedState(new DeviceHandlers.Models.DeviceUpdatedEventArgs(Mapper.Map<MeasureDevice>(deviceHandler), UpdateStatus.DisconnectedFromRestService));
             }
                 
             return success;
@@ -171,7 +172,7 @@ namespace DataCollector.Server
         /// <param name="target">urządzenie docelowe</param>
         /// <param name="state">stan diody</param>
         /// <returns></returns>
-        public bool ChangeLedState(DeviceInfo target, bool state)
+        public bool ChangeLedState(MeasureDevice target, bool state)
         {
             var deviceHandler = deviceHandlers.Single(s => s.MacAddress == target.MacAddress);
 
@@ -185,7 +186,7 @@ namespace DataCollector.Server
         /// </summary>
         /// <param name="target">urządzenie</param>
         /// <returns></returns>
-        public bool GetLedState(DeviceInfo target)
+        public bool GetLedState(MeasureDevice target)
         {
             var deviceHandler = deviceHandlers.Single(s => s.MacAddress == target.MacAddress);
 
@@ -204,7 +205,7 @@ namespace DataCollector.Server
         /// <param name="e"></param>
         private void OnDeviceDisconnected(object sender, IDeviceHandler e)
         {
-            DeviceInfo deviceInfo = Mapper.Map<DeviceInfo>(e);
+            MeasureDevice deviceInfo = Mapper.Map<MeasureDevice>(e);
             Task.Factory.StartNew(() => DisconnectDevice(deviceInfo));
         }
         /// <summary>
@@ -227,7 +228,7 @@ namespace DataCollector.Server
                 deviceHandlers.Remove(device);
             }
 
-            callbackContainer.OnDeviceChangedState(new DeviceHandlers.Models.DeviceUpdatedEventArgs(Mapper.Map<DeviceInfo>(device), e.UpdateStatus));
+            callbackContainer.OnDeviceChangedState(new DeviceHandlers.Models.DeviceUpdatedEventArgs(Mapper.Map<MeasureDevice>(device), e.UpdateStatus));
         }
         /// <summary>
         /// Obsługa zdarzenia nadejscia pomiarów z urządzenia.

@@ -54,7 +54,7 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener.Factories
             Assert.Equal("AA:AA:AA:AA:AA:AA", deviceInfo.MacAddress);
             Assert.Equal("ARM", deviceInfo.Architecture);
             Assert.Equal("10.1586", deviceInfo.WinVer);
-            Assert.True(IPAddress.Parse("192.168.101.101").Equals(deviceInfo.IPv4));
+            Assert.True(deviceInfo.IPv4.Equals("192.168.101.101"));
         }
     }
 }

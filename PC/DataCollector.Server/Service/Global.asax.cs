@@ -15,6 +15,8 @@ using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
 using Autofac.Builder;
+using DataCollector.Server.DataAccess.Models;
+using DataCollector.Server.Interfaces.Communication;
 
 namespace DataCollector.Server
 {
@@ -32,38 +34,79 @@ namespace DataCollector.Server
         {
             //AutoMapper
             Mapper.Initialize(cfg => {
-                cfg.CreateMap<IDeviceInfo, DeviceHandlers.Models.DeviceInfo>();
+                cfg.CreateMap<IDeviceInfo, MeasureDevice>();
             });
 
             //Autofac
             var builder = new ContainerBuilder();
 
-            var dataAccess = Assembly.GetExecutingAssembly();
-            builder.RegisterAssemblyTypes(dataAccess)
+            ConstructBroadcastListener(builder);
+            ConstructDeviceHandlers(builder);
+            ConstructServices(builder);
+
+            AutofacHostFactory.Container = builder.Build();
+
+            //var service = AutofacHostFactory.Container.Resolve<MeasureCollectorService>();
+        }
+
+        /// <summary>
+        /// Konstrukcja typów do kontenera AutoFac z biblioteki serwisów.
+        /// </summary>
+        /// <param name="builder">builder</param>
+        private void ConstructServices(ContainerBuilder builder)
+        {
+            var serviceAssembly = Assembly.GetExecutingAssembly();
+            builder.RegisterAssemblyTypes(serviceAssembly)
+                   .AsImplementedInterfaces()
+                   .Except<CommunicationClientCallbacksContainer>(ct => ct.As<ICommunicationClientCallbacksContainer>().SingleInstance())
+                   .Except<WebCommunicationService>(ct => ct.WithParameter("port", GetSettingsValue("DeviceCommunicationPort")).SingleInstance())
+                   .Except<MeasureCollectorService>(ct => ConstructWithConnectionString(ct, _aCt => _aCt.SingleInstance()))
+                   .Except<MeasureAccessService>(ct => ConstructWithConnectionString(ct))
+                   .Except<UsersManagementService>(ct => ConstructWithConnectionString(ct));
+        }
+
+        /// <summary>
+        /// Konstrukcja typów do kontenera AutoFac z biblioteki BroadcastListener.
+        /// </summary>
+        /// <param name="builder">builder</param>
+        private void ConstructBroadcastListener(ContainerBuilder builder)
+        {
+            var assembly = Assembly.GetAssembly(typeof(IBroadcastScanner));
+            builder.RegisterAssemblyTypes(assembly)
+                .AsImplementedInterfaces()
+                .Except<CachedDetectedDevicesContainer>(ct => ct.As<IDetectedDevicesContainer>().WithParameter("cleanupCacheInterval", TimeSpan.FromSeconds(GetSettingsValue("CleanupCacheInterval"))));
+        }
+
+        /// <summary>
+        /// Konstrukcja typów do kontenera AutoFac z biblioteki DeviceHandlers.
+        /// </summary>
+        /// <param name="builder">builder</param>
+        private void ConstructDeviceHandlers(ContainerBuilder builder)
+        {
+            var assembly = Assembly.GetAssembly(typeof(IDeviceHandler));
+            builder.RegisterAssemblyTypes(assembly)
                    .Where(s => !s.Name.EndsWith("DeviceHandler"))
                    .AsImplementedInterfaces()
-                   .Except<RestDeviceHandlerConfiguration>()
-                   .Except<WebCommunicationService>(ct => ct.WithParameter("port", GetSettingsValue("DeviceCommunicationPort")).SingleInstance())
-                   .Except<CachedDetectedDevicesContainer>(ct => ct.As<IDetectedDevicesContainer>().WithParameter("cleanupCacheInterval", TimeSpan.FromSeconds(GetSettingsValue("CleanupCacheInterval"))))
-                   .Except<MeasureAccessService>(ConstructWithConnectionString)
-                   .Except<MeasureCollectorService>(ConstructWithConnectionString)
-                   .Except<UsersManagementService>(ConstructWithConnectionString);
+                   .Except<RestDeviceHandlerConfiguration>();
             builder.Register(s => new RestDeviceHandlerConfiguration()
             {
                 GetMeasurementsRequest = ConfigurationManager.AppSettings["GetMeasurementsRequest"],
                 LedChangeRequest = ConfigurationManager.AppSettings["LedChangeRequest"],
                 LedStateRequest = ConfigurationManager.AppSettings["LedStateRequest"],
             }).As<IDeviceHandlerConfiguration>();
-
-            AutofacHostFactory.Container = builder.Build();
         }
 
         /// <summary>
         /// Podanie argumentu danych połączeniowych do buildera.
         /// </summary>
-        /// <param name="ct"></param>
-        private void ConstructWithConnectionString<T>(IRegistrationBuilder<T, ConcreteReflectionActivatorData, SingleRegistrationStyle> ct)
-            => ct.WithParameter("ConnectionString", GetSettingsValue("ConnectionString"));
+        /// <param name="ct">builder</param>
+        /// <param name="additionalAction">builder akcja dodatkowa</param>
+        private void ConstructWithConnectionString<T>(IRegistrationBuilder<T, ConcreteReflectionActivatorData, SingleRegistrationStyle> ct, Action<IRegistrationBuilder<T, 
+            ConcreteReflectionActivatorData, SingleRegistrationStyle>> additionalAction = null)
+        {
+            var value = ct.WithParameter("ConnectionString", ConfigurationManager.AppSettings["ConnectionString"]);
+            additionalAction?.Invoke(value);
+        }
 
         /// <summary>
         /// Zwraca wartość całkowitą z ustawień aplikacji.

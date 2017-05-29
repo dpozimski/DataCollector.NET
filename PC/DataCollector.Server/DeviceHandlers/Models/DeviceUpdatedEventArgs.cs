@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DataCollector.Server.BroadcastListener.Models;
+using DataCollector.Server.DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace DataCollector.Server.DeviceHandlers.Models
         /// Urządzenie.
         /// </summary>
         [DataMember]
-        public DeviceInfo Device { get; }
+        public MeasureDevice Device { get; }
         /// <summary>
         /// Status aktualizacji.
         /// </summary>
@@ -34,7 +35,7 @@ namespace DataCollector.Server.DeviceHandlers.Models
         /// </summary>
         /// <param name="device">urządzenie</param>
         /// <param name="updateStatus">status</param>
-        public DeviceUpdatedEventArgs(DeviceInfo device, UpdateStatus updateStatus)
+        public DeviceUpdatedEventArgs(MeasureDevice device, UpdateStatus updateStatus)
         {
             Device = device;
             UpdateStatus = updateStatus;

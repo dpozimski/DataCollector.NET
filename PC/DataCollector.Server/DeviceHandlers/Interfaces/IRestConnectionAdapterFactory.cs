@@ -18,6 +18,6 @@ namespace DataCollector.Server.DeviceHandlers.Interfaces
         /// <param name="ip">docelowy IP</param>
         /// <param name="port">docelowy port</param>
         /// <returns>Adapter połączeniowy</returns>
-        IRestConnectionAdapter Create(IPAddress ip, int port);
+        IRestConnectionAdapter Create(string ip, int port);
     }
 }

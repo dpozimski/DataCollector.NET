@@ -1,0 +1,44 @@
+﻿<UserControl
+    x:Class="DataCollector.Client.UI.Controls.DateTimeRange"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:DataCollector.Client.UI.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:validation="clr-namespace:DataCollector.Client.UI.ValidationRules"
+    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+    d:DesignHeight="500"
+    d:DesignWidth="500"
+    mc:Ignorable="d">
+    <StackPanel x:Name="spMain" Orientation="Horizontal">
+        <DatePicker
+            Width="100"
+            Margin="0,0,10,0"
+            HorizontalAlignment="Left"
+            Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+            wpf:HintAssist.Hint="Data">
+            <DatePicker.Text>
+                <Binding Path="InternalDate" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:DateValidationRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </DatePicker.Text>
+        </DatePicker>
+        <wpf:TimePicker
+            Width="100"
+            Is24Hours="True"
+            Margin="10,0,0,0"
+            HorizontalAlignment="Right"
+            Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
+            wpf:HintAssist.Hint="Czas">
+            <wpf:TimePicker.Text>
+                <Binding Path="InternalTime" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:DateValidationRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </wpf:TimePicker.Text>
+        </wpf:TimePicker>
+    </StackPanel>
+</UserControl>

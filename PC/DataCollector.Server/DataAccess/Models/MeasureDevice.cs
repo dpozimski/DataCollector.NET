@@ -7,13 +7,15 @@ using System.Net;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using DataCollector.Server.DataAccess.Interfaces;
+using System.Runtime.Serialization;
 
 namespace DataCollector.Server.DataAccess.Models
 {
     /// <summary>
     /// Klasa reprezentująca urządzenie pomiarowe w bazie danych.
     /// </summary>
-    public class MeasureDevice : BaseTable
+    [DataContract]
+    public class MeasureDevice : BaseTable, IDeviceInfo
     {
         #region Public Properties
         /// <summary>
@@ -21,37 +23,51 @@ namespace DataCollector.Server.DataAccess.Models
         /// </summary>
         [Required]
         [MaxLength(25)]
+        [DataMember]
         public string MacAddress { get; set; }
         /// <summary>
         /// Adres IP urządzenia.
         /// </summary>
         [Required]
+        [DataMember]
         public string Name { get; set; }
         /// <summary>
         /// IPv4.
         /// </summary
         [Required]
         [MaxLength(25)]
+        [DataMember]
         public string IPv4 { get; set; }
         /// <summary>
         /// Wersja Windows 10 IoT Core.
         /// </summary>
         [MaxLength(25)]
+        [DataMember]
         public string WinVer { get; set; }
         /// <summary>
         /// Architektura systemu.
         /// </summary>
         [MaxLength(25)]
+        [DataMember]
         public string Architecture { get; set; }
         /// <summary>
         /// Model urządzenia.
         /// </summary>
         [MaxLength(50)]
+        [DataMember]
         public string Model { get; set; }
         /// <summary>
         /// Interwal pobierania pomiarów.
         /// </summary>
+        [NotMapped]
+        [DataMember]
         public double MeasurementsMsRequestInterval { get; set; }
+        /// <summary>
+        /// Połączono z serwerem.
+        /// </summary>
+        [NotMapped]
+        [DataMember]
+        public bool IsConnected { get; set; }
         /// <summary>
         /// Kolekcja danych pomiarowych.
         /// </summary>
@@ -67,7 +83,7 @@ namespace DataCollector.Server.DataAccess.Models
         public void Update(IDeviceInfo communicationDevice)
         {
             Architecture = communicationDevice.Architecture;
-            IPv4 = communicationDevice.IPv4.ToString();
+            IPv4 = communicationDevice.IPv4;
             Model = communicationDevice.Model;
             Name = communicationDevice.Name;
             WinVer = communicationDevice.WinVer;
@@ -83,7 +99,7 @@ namespace DataCollector.Server.DataAccess.Models
             return new MeasureDevice()
             {
                 Architecture = communicationDevice.Architecture,
-                IPv4 = communicationDevice.IPv4.ToString(),
+                IPv4 = communicationDevice.IPv4,
                 MacAddress = communicationDevice.MacAddress,
                 Model = communicationDevice.Model,
                 Name = communicationDevice.Name,

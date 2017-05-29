@@ -21,7 +21,7 @@ namespace DataCollector.Server.Tests.DataFlow.Handlers.Adapters
         public RestSharpLibConnectionAdapterTests()
         {
             var host = Dns.GetHostAddresses(testRestService)[0];
-            this.restSharpLibConnectionAdapter = new RestSharpLibConnectionAdapter(host, port);
+            this.restSharpLibConnectionAdapter = new RestSharpLibConnectionAdapter(host.ToString(), port);
         }
 
         [Fact]

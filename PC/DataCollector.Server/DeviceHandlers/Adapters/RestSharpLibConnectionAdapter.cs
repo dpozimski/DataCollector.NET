@@ -16,14 +16,14 @@ namespace DataCollector.Server.DeviceHandlers.Adapters
     public class RestSharpLibConnectionAdapter : IRestConnectionAdapter
     {
         private RestClient restClient;
-        private IPAddress ip;
+        private string ip;
         private int port;
 
         /// <summary>
         /// Konstruktor nowej instancji klasy.
         /// </summary>
         /// <param name="configuration">Konfiguracja protokołu</param>
-        public RestSharpLibConnectionAdapter(IPAddress ip, int port)
+        public RestSharpLibConnectionAdapter(string ip, int port)
         {
             this.ip = ip;
             this.port = port;

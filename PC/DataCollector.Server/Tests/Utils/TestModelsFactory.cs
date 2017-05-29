@@ -26,7 +26,7 @@ namespace DataCollector.Server.Tests.Utils
         /// <returns></returns>
         public static IDeviceBroadcastInfo CreateDeviceBroadcastInfoMock()
         {
-            return new DeviceBroadcastInfo("Raspberry Pi 3", IPAddress.Parse("127.0.0.1"), "AA:AA:AA:AA:AA:AA", "ARM", "10.586", "ARM");
+            return new DeviceBroadcastInfo("Raspberry Pi 3", "127.0.0.1", "AA:AA:AA:AA:AA:AA", "ARM", "10.586", "ARM");
         }
 
         /// <summary>

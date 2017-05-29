@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace DataCollector.Server.DataAccess.Models
     /// Klasa reprezentująca użytkownika.
     /// Na wzór jej tworzymy pozostałe klasy, któe będą zmapowane do tabel w Entity Frmaework.
     /// </summary>
+    [DataContract]
     public class User : BaseTable
     {
         #region Public Properties
@@ -19,24 +21,29 @@ namespace DataCollector.Server.DataAccess.Models
         /// Nazwa użytkownika.
         /// </summary>
         [Required]
+        [DataMember]
         public string Login { get; set; }
         /// <summary>
         /// Hasło zakodowane w MD5
         /// </summary>
         [Required]
+        [DataMember]
         public string Password { get; set; }
         /// <summary>
         /// Imię.
         /// </summary>
+        [DataMember]
         public string FirstName { get; set; }
         /// <summary>
         /// Nazwisko.
         /// </summary>
+        [DataMember]
         public string LastName { get; set; }
         /// <summary>
         /// Uprawnienie.
         /// </summary>
         [Required]
+        [DataMember]
         public UserRole Role { get; set; } = UserRole.Viewer;
         /// <summary>
         /// Kolekcja historii logowania użytkownika.

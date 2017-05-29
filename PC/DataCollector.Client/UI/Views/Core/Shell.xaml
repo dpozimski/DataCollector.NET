@@ -1,0 +1,279 @@
+﻿<controls:MetroWindow
+    x:Class="DataCollector.Client.UI.Views.Core.Shell"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ChartViewModels="clr-namespace:DataCollector.Client.UI.ViewModels.Chart"
+    xmlns:CoreViewModels="clr-namespace:DataCollector.Client.UI.ViewModels.Core"
+    xmlns:CoreViews="clr-namespace:DataCollector.Client.UI.Views.Core"
+    xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+    xmlns:ViewModels="clr-namespace:DataCollector.Client.UI.ViewModels"
+    xmlns:Views="clr-namespace:DataCollector.Client.UI.Views"
+    xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:converters="clr-namespace:DataCollector.Client.UI.Converters"
+    xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
+    xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes"
+    x:Name="ShellView"
+    Title="Kolektor danych"
+    Width="1024"
+    Height="682"
+    MinWidth="720"
+    MinHeight="480"
+    Background="{StaticResource MaterialDesignPaper}"
+    BorderBrush="{StaticResource AccentColorBrush}"
+    BorderThickness="1"
+    FontFamily="{StaticResource DefaultFont}"
+    Dialog:DialogParticipation.Register="{Binding RelativeSource={RelativeSource Self}}"
+    Loaded="ShellView_Loaded"
+    NonActiveGlowBrush="#CDFF0000"
+    TextElement.Foreground="{StaticResource MaterialDesignBody}"
+    WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <ResourceDictionary>
+
+            <Style x:Key="RectangleStyle" TargetType="Rectangle">
+                <Setter Property="Width" Value="20" />
+                <Setter Property="Height" Value="20" />
+                <Setter Property="Margin" Value="0,0,5,0" />
+                <Setter Property="Fill" Value="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}" />
+            </Style>
+
+            <converters:IsNullToVisiblityConverter x:Key="IsNullToVisiblityConverter" />
+            <converters:CurrentUserToVisibilityConverter x:Key="CurrentUserToVisibilityConverter" />
+
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <controls:MetroWindow.LeftWindowCommands>
+        <controls:WindowCommands>
+            <Image Source="pack://application:,,,/Resources/Assets/150277.ico" />
+        </controls:WindowCommands>
+    </controls:MetroWindow.LeftWindowCommands>
+
+    <controls:MetroWindow.RightWindowCommands>
+        <controls:WindowCommands>
+            <Button Command="{Binding LedChangeDialogCommand}" ToolTip="Naciśnij, aby sterować stanem diody LED">
+                <wpf:PackIcon Kind="LedOn" />
+            </Button>
+            <Button
+                x:Name="btUsers"
+                Command="{Binding UsersManagementDialogCommand}"
+                ToolTip="Naciśnij, aby zarządzać użytkownikami systemu">
+                <wpf:PackIcon Kind="AccountMultiple" />
+            </Button>
+            <Button Command="{Binding SettingsPromptDialogCommand}" ToolTip="Naciśnij, aby spersonalizować aplikację">
+                <wpf:PackIcon Kind="Settings" />
+            </Button>
+        </controls:WindowCommands>
+    </controls:MetroWindow.RightWindowCommands>
+
+
+    <controls:MetroWindow.Flyouts>
+        <controls:FlyoutsControl>
+            <controls:Flyout
+                ClosingFinished="Flyout_ClosingFinished"
+                Header="Użytkownik"
+                IsOpen="{Binding IsUserInfoFlyoutOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Position="Right">
+                <CoreViews:UserView DataContext="{Binding CurrentLoggedUser, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+            </controls:Flyout>
+            <controls:Flyout
+                ClosingFinished="Flyout_ClosingFinished"
+                Header="Urządzenia"
+                IsOpen="{Binding IsDevicesFlyoutOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Position="Left">
+                <CoreViews:MeasureDevicesView x:Name="flDevices" SelectedDevice="{Binding DataContext.SelectedDevice, ElementName=ShellView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <CoreViews:MeasureDevicesView.DataContext>
+                        <CoreViewModels:MeasureDevicesViewModel />
+                    </CoreViews:MeasureDevicesView.DataContext>
+                </CoreViews:MeasureDevicesView>
+            </controls:Flyout>
+        </controls:FlyoutsControl>
+    </controls:MetroWindow.Flyouts>
+
+    <wpf:DialogHost x:Name="dialogHost" Identifier="{Binding RootDialogId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Text="Wymagana autoryzacja aplikacji"
+                TextAlignment="Center"
+                TextElement.Foreground="{StaticResource MaterialDesignBody}"
+                TextWrapping="Wrap">
+                <TextBlock.Resources>
+                    <Style BasedOn="{StaticResource MaterialDesignDisplay1TextBlock}" TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CurrentLoggedUser, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Resources>
+            </TextBlock>
+
+            <dockablz:Layout>
+
+                <dragablz:TabablzControl
+                    x:Name="dragablzTabs"
+                    Margin="0,-1,0,1"
+                    BorderThickness="0">
+
+                    <dragablz:TabablzControl.Resources>
+                        <Style BasedOn="{StaticResource {x:Type dragablz:TabablzControl}}" TargetType="dragablz:TabablzControl">
+                            <Setter Property="Visibility" Value="Visible" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding CurrentLoggedUser, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </dragablz:TabablzControl.Resources>
+
+                    <TabItem Header="Wizualizacja" Visibility="{Binding CurrentLoggedUser, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrentUserToVisibilityConverter}, ConverterParameter='All'}">
+                        <Grid>
+                            <Views:VisualizationView>
+                                <Views:VisualizationView.Resources>
+                                    <Style TargetType="Views:VisualizationView">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding DataContext.SelectedDevice, ElementName=ShellView, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Value="{x:Null}">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Views:VisualizationView.Resources>
+                                <Views:VisualizationView.DataContext>
+                                    <ChartViewModels:VisualizationViewModel />
+                                </Views:VisualizationView.DataContext>
+                            </Views:VisualizationView>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Text="Nie wybrano urządzenia pomiarowego"
+                                TextAlignment="Center"
+                                TextElement.Foreground="{StaticResource MaterialDesignBody}"
+                                TextWrapping="Wrap">
+                                <TextBlock.Resources>
+                                    <Style BasedOn="{StaticResource MaterialDesignDisplay1TextBlock}" TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding DataContext.SelectedDevice, ElementName=ShellView, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Value="{x:Null}">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Resources>
+                            </TextBlock>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Historia pomiarów" Visibility="{Binding CurrentLoggedUser, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrentUserToVisibilityConverter}, ConverterParameter='All'}">
+                        <Views:MeasurementsHistoryView>
+                            <Views:MeasurementsHistoryView.DataContext>
+                                <ChartViewModels:MeasurementsHistoryViewModel />
+                            </Views:MeasurementsHistoryView.DataContext>
+                        </Views:MeasurementsHistoryView>
+                    </TabItem>
+
+                </dragablz:TabablzControl>
+            </dockablz:Layout>
+
+            <StatusBar Grid.Row="1">
+
+                <StatusBar.Resources>
+                    <converters:IsNullToVisiblityConverter x:Key="IsNullToVisiblityConverter" />
+                </StatusBar.Resources>
+
+                <StatusBarItem Content="Data" />
+                <StatusBarItem Content="{Binding Now, Mode=OneWay}" />
+                <Separator Style="{StaticResource MetroStatusBarSeparator}" />
+                <StatusBarItem>
+                    <TextBlock Text="Podłączone urządzenia" TextWrapping="Wrap" />
+                </StatusBarItem>
+                <StatusBarItem>
+                    <Button Command="{Binding ToggleDevicesFlyoutCommand}" ToolTip="Naciśnij, aby wyświetlić listę urządzeń">
+                        <Button.Resources>
+                            <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
+                                <Setter Property="IsEnabled" Value="True" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding DataContext.DevicesCount, ElementName=flDevices, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                        <Setter Property="IsEnabled" Value="False" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Resources>
+                        <StackPanel DataContext="{Binding DataContext, ElementName=flDevices}" Orientation="Horizontal">
+                            <wpf:PackIcon Kind="Raspberrypi" />
+                            <TextBlock Text="{Binding ConnectedDevicesCount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Text="/" />
+                            <TextBlock Text="{Binding DevicesCount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </Button>
+                </StatusBarItem>
+                <Separator Style="{StaticResource MetroStatusBarSeparator}" Visibility="{Binding SelectedDevice, Converter={StaticResource IsNullToVisiblityConverter}, ConverterParameter='False'}" />
+                <StatusBarItem Visibility="{Binding SelectedDevice, Converter={StaticResource IsNullToVisiblityConverter}}">
+                    <TextBlock x:Name="tbStation" TextWrapping="Wrap">
+                        <Run Text="Wybrane urządzenie" />
+                        <Run FontWeight="Bold" Text="{Binding SelectedDevice.Name, UpdateSourceTrigger=PropertyChanged}" />
+                        <Run>
+                            <Run.Style>
+                                <Style TargetType="Run">
+                                    <Setter Property="Text" Value="Komunikacja uruchomiona" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedDevice.IsConnected}" Value="False">
+                                            <Setter Property="Text" Value="Komunikacja zatrzymana" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Run.Style>
+                        </Run>
+                    </TextBlock>
+                </StatusBarItem>
+                <Separator HorizontalAlignment="Right" Style="{StaticResource MetroStatusBarSeparator}" />
+                <StatusBarItem HorizontalAlignment="Right">
+                    <StackPanel Orientation="Horizontal">
+                        <Separator Margin="0,0,5,0" Style="{StaticResource MetroStatusBarSeparator}" />
+                        <StatusBarItem>
+                            <TextBlock TextWrapping="Wrap">
+                                <TextBlock.Style>
+                                    <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock">
+                                        <Setter Property="Text" Value="{Binding CurrentLoggedUser.Login, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding CurrentLoggedUser.Login, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Value="{x:Null}">
+                                                <Setter Property="Text" Value="Niezalogowany" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </StatusBarItem>
+                        <Button Command="{Binding FlyoutUserCommand}" ToolTip="Naciśnij, aby zalogować się do aplikacji">
+                            <wpf:PackIcon Width="24" Height="24">
+                                <wpf:PackIcon.Resources>
+                                    <Style BasedOn="{StaticResource {x:Type wpf:PackIcon}}" TargetType="wpf:PackIcon">
+                                        <Setter Property="Kind" Value="Account" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding CurrentLoggedUser, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Value="{x:Null}">
+                                                <Setter Property="Kind" Value="Login" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </wpf:PackIcon.Resources>
+                            </wpf:PackIcon>
+                        </Button>
+                    </StackPanel>
+                </StatusBarItem>
+            </StatusBar>
+
+        </Grid>
+    </wpf:DialogHost>
+
+</controls:MetroWindow>

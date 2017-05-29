@@ -2,6 +2,7 @@
 using DataCollector.Server.BroadcastListener.Interfaces;
 using DataCollector.Server.BroadcastListener.Models;
 using DataCollector.Server.DataAccess.Interfaces;
+using DataCollector.Server.DataAccess.Models;
 using DataCollector.Server.DeviceHandlers.Interfaces;
 using DataCollector.Server.DeviceHandlers.Models;
 using System;
@@ -131,7 +132,7 @@ namespace DataCollector.Server.DeviceHandlers
                 {
                     Random rand = new Random(DateTime.Now.Millisecond);
                     Task.Delay(TimeSpan.FromMilliseconds(MeasurementsMsRequestInterval), tokenSource.Token).Wait(tokenSource.Token);
-                    MeasuresArrived?.Invoke(this, new MeasuresArrivedEventArgs(Mapper.Map<DeviceInfo>(this), new Device.Models.Measures()
+                    MeasuresArrived?.Invoke(this, new MeasuresArrivedEventArgs(Mapper.Map<MeasureDevice>(this), new Device.Models.Measures()
                     {
                         Accelerometer = new Device.Models.SpherePoint()
                         {

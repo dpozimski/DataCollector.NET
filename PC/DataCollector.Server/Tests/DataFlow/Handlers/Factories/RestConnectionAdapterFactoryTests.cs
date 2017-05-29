@@ -33,7 +33,7 @@ namespace DataCollector.Server.Tests.DataFlow.Handlers.Factories
         [InlineData(165536)]
         public void CreateArgumentExceptionTest(int port)
         {
-            Assert.Throws(typeof(ArgumentException), () => factory.Create(NetworkTestsUtils.Localhost, port));
+            Assert.Throws(typeof(ArgumentException), () => factory.Create(NetworkTestsUtils.Localhost.ToString(), port));
         }
 
         [Theory]
@@ -42,7 +42,7 @@ namespace DataCollector.Server.Tests.DataFlow.Handlers.Factories
         [InlineData(8214)]
         public void CreateWithoutExceptionsTest(int port)
         {
-            Assert.NotNull(factory.Create(NetworkTestsUtils.Localhost, port));
+            Assert.NotNull(factory.Create(NetworkTestsUtils.Localhost.ToString(), port));
         }
     }
 }

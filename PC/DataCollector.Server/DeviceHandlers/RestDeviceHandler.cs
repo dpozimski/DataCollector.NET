@@ -3,6 +3,7 @@ using DataCollector.Device.Models;
 using DataCollector.Server.BroadcastListener.Interfaces;
 using DataCollector.Server.BroadcastListener.Models;
 using DataCollector.Server.DataAccess.Interfaces;
+using DataCollector.Server.DataAccess.Models;
 using DataCollector.Server.DeviceHandlers.Interfaces;
 using DataCollector.Server.DeviceHandlers.Models;
 using Newtonsoft.Json;
@@ -168,7 +169,7 @@ namespace DataCollector.Server.DeviceHandlers
                 {
                     Measures measures = JsonConvert.DeserializeObject<Measures>(data);
                     Task.Factory.StartNew(new Action(() =>
-                            MeasuresArrived?.Invoke(this, new MeasuresArrivedEventArgs(Mapper.Map<DeviceInfo>(this), measures, DateTime.Now))));
+                            MeasuresArrived?.Invoke(this, new MeasuresArrivedEventArgs(Mapper.Map<MeasureDevice>(this), measures, DateTime.Now))));
                 }
                 else
                     Disconnected?.Invoke(this, this);

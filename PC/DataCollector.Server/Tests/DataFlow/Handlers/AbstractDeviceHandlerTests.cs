@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DataCollector.Server.DataAccess.Interfaces;
+using DataCollector.Server.DataAccess.Models;
 using DataCollector.Server.DeviceHandlers.Interfaces;
 using DataCollector.Server.DeviceHandlers.Models;
 using System;
@@ -41,7 +42,7 @@ namespace DataCollector.Server.Tests.DataFlow.Handlers
         public void GetMeasurementsTests()
         {
             Mapper.Initialize(cfg => {
-                cfg.CreateMap<IDeviceInfo, DeviceInfo>();
+                cfg.CreateMap<IDeviceInfo, MeasureDevice>();
             });
             bool measuresArrived = false;
             deviceHandler.MeasuresArrived += (o, e) => measuresArrived = true;

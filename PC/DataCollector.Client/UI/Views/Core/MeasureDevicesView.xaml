@@ -1,0 +1,178 @@
+﻿<UserControl
+    x:Class="DataCollector.Client.UI.Views.Core.MeasureDevicesView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:MahApps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:converters="clr-namespace:DataCollector.Client.UI.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:validation="clr-namespace:DataCollector.Client.UI.ValidationRules"
+    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+    x:Name="ucMeasureDevicesView"
+    mc:Ignorable="d">
+    <Grid>
+        <ListBox
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            ItemsSource="{Binding Devices}"
+            SelectedItem="{Binding Path=SelectedDevice, ElementName=ucMeasureDevicesView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="0.3*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.Resources>
+                            <Style BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}" TargetType="TextBox">
+                                <Setter Property="IsReadOnly" Value="True" />
+                                <Setter Property="TextWrapping" Value="Wrap" />
+                                <Setter Property="Margin" Value="0" />
+                                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                <Setter Property="VerticalAlignment" Value="Stretch" />
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </Grid.Resources>
+
+                        <wpf:PackIcon
+                            Grid.Column="0"
+                            Width="32"
+                            Height="32"
+                            Margin="0,0,10,0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Stretch"
+                            Kind="Raspberrypi">
+                            <wpf:PackIcon.Resources>
+                                <Style TargetType="wpf:PackIcon">
+                                    <Setter Property="Foreground" Value="{StaticResource MaterialDesignBody}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsConnected, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                            <Setter Property="Foreground" Value="#FF1976D2" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </wpf:PackIcon.Resources>
+                        </wpf:PackIcon>
+
+
+                        <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                            <StackPanel.Resources>
+                                <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+                                    <Setter Property="Width" Value="110"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            <TextBox Text="{Binding Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox Text="{Binding IPv4, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+
+                        <wpf:PopupBox
+                            Grid.Column="2"
+                            Margin="16"
+                            wpf:HintAssist.IsFloating="False"
+                            wpf:HintAssist.HintOpacity="0"
+                            wpf:HintAssist.Hint="0"
+                            StaysOpen="True">
+                            <Grid Width="300" Margin="8">
+                                <StackPanel Grid.Column="1" Orientation="Vertical">
+                                    <TextBox wpf:HintAssist.Hint="Nazwa urządzenia" Text="{Binding Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox wpf:HintAssist.Hint="Adres IP" Text="{Binding IPv4, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox wpf:HintAssist.Hint="Wersja systemu" Text="{Binding WinVer, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox wpf:HintAssist.Hint="Architektura systemu" Text="{Binding Architecture, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox wpf:HintAssist.Hint="Adres MAC" Text="{Binding MacAddress, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox wpf:HintAssist.Hint="Model urządzenia" Text="{Binding Model, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox wpf:HintAssist.Hint="Status">
+                                        <TextBox.Resources>
+                                            <Style BasedOn="{StaticResource {x:Type TextBox}}" TargetType="TextBox">
+                                                <Setter Property="Text" Value="Komunikacja uruchomiona" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsConnected, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                                                        <Setter Property="Text" Value="Komunikacja zatrzymana" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBox.Resources>
+                                    </TextBox>
+                                    <TextBox
+                                        wpf:HintAssist.Hint="Interwał pobierania pomiarów"
+                                        IsReadOnly="False"
+                                        PreviewTextInput="TextBox_PreviewTextInput">
+                                        <TextBox.Text>
+                                            <Binding
+                                                Mode="TwoWay"
+                                                Path="MeasurementsMsRequestInterval"
+                                                UpdateSourceTrigger="PropertyChanged">
+                                                <Binding.ValidationRules>
+                                                    <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                                    <validation:OnlyIntegerValidationRule
+                                                        MaxValue="30000"
+                                                        MinValue="1000"
+                                                        ValidatesOnTargetUpdated="True" />
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
+
+                                    <Grid
+                                        Margin="0,10,0,0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch">
+                                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                            <StackPanel.Style>
+                                                <Style TargetType="StackPanel">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsBusy, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                                            <Setter Property="Visibility" Value="Visible" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </StackPanel.Style>
+
+                                            <TextBlock
+                                                Margin="0,0,5,0"
+                                                VerticalAlignment="Center"
+                                                Text="Proszę czekać" />
+
+                                            <ProgressBar
+                                                Margin="5,0,0,0"
+                                                Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                                IsIndeterminate="True"
+                                                Value="0" />
+                                        </StackPanel>
+
+                                        <Button HorizontalAlignment="Right">
+                                            <Button.Style>
+                                                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                    <Setter Property="Command" Value="{Binding ConnectPromptCommand}" />
+                                                    <Setter Property="Content" Value="Połącz" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsBusy, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                                            <Setter Property="Visibility" Value="Collapsed" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding IsConnected, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                                            <Setter Property="Command" Value="{Binding DisconnectPromptCommand}" />
+                                                            <Setter Property="Content" Value="Rozłącz" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+
+                        </wpf:PopupBox>
+
+                    </Grid>
+
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</UserControl>

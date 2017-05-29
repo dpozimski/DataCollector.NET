@@ -62,7 +62,7 @@ namespace DataCollector.Server.BroadcastListener.Factories
             string winver = parts[5];
             string architecture = parts[6];
 
-            return new DeviceBroadcastInfo(name, ipv4, macAddressString, architecture, winver, deviceModel);
+            return new DeviceBroadcastInfo(name, ipv4.ToString(), macAddressString, architecture, winver, deviceModel);
         }
     }
 }

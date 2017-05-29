@@ -34,7 +34,6 @@ namespace DataCollector.Server
 
         #region Private Fields
         private PropertyDescriptorCollection measureProperties;
-        private ICommunicationService webCommunication;
         private ICommunicationClientCallbacksContainer callbacksContainer;
         private ConcurrentBag<DeviceTimeMeasurePoint> cachedMeasures;
         #endregion
@@ -49,14 +48,12 @@ namespace DataCollector.Server
         #region ctor
         /// <summary>
         /// Konstruktor klasy MeasureAccess.
-        /// <paramref name="webCommunication">referencja do serwisu komunikacyjnego</paramref>
         /// <paramref name="callbacksContainer">kontener odpowiedzi urządzenia</paramref>
         /// <paramref name=ConnectionString">dane połączeniowe</paramref>
         /// </summary>
-        public MeasureCollectorService(ICommunicationService webCommunication, ICommunicationClientCallbacksContainer callbacksContainer, string ConnectionString) : base(ConnectionString)
+        public MeasureCollectorService(ICommunicationClientCallbacksContainer callbacksContainer, string ConnectionString) : base(ConnectionString)
         {
             this.callbacksContainer = callbacksContainer;
-            this.webCommunication = webCommunication;
             cachedMeasures = new ConcurrentBag<DeviceTimeMeasurePoint>();
             measureProperties = TypeDescriptor.GetProperties(typeof(Measures));
         }

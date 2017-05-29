@@ -1,0 +1,182 @@
+﻿<UserControl
+    x:Class="DataCollector.Client.UI.Views.Dialogs.SettingsDialogView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:MahAppsControls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:converters="clr-namespace:DataCollector.Client.UI.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:extensions="clr-namespace:DataCollector.Client.UI.Extensions"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:utility="clr-namespace:DataCollector.Client.UI.Extensions"
+    xmlns:validation="clr-namespace:DataCollector.Client.UI.ValidationRules"
+    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+    Background="{DynamicResource MaterialDesignPaper}"
+    BorderBrush="{DynamicResource AccentColorBrush}"
+    FontFamily="{StaticResource DefaultFont}"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    mc:Ignorable="d">
+    <Grid Margin="8">
+
+        <Grid.Resources>
+            <Style BasedOn="{StaticResource {x:Type materialDesign:PackIcon}}" TargetType="materialDesign:PackIcon">
+                <Setter Property="Width" Value="25" />
+                <Setter Property="Height" Value="25" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <system:Double x:Key="RightFieldWidth">125</system:Double>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ScrollViewer Grid.Row="0" MaxHeight="500">
+            <StackPanel>
+                <GroupBox
+                    Margin="0,8,0,8"
+                    Style="{DynamicResource MaterialDesignCardGroupBox}"
+                    Header="Aplikacja">
+                    <GroupBox.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Application" />
+                                <TextBlock
+                                    Margin="8,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                    Text="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </GroupBox.HeaderTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Grid.Column="0"
+                            Margin="0,0,5,0"
+                            Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                            Text="Uruchom aplikację przy starcie systemu" />
+                        <ToggleButton
+                            Grid.Column="1"
+                            Width="{StaticResource RightFieldWidth}"
+                            Margin="10"
+                            IsChecked="{Binding RunAppDuringStartup}" />
+                    </Grid>
+                </GroupBox>
+                <GroupBox
+                    Margin="0,8,0,8"
+                    Style="{DynamicResource MaterialDesignCardGroupBox}"
+                    Header="Baza danych">
+                    <GroupBox.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Database" />
+                                <TextBlock
+                                    Margin="8,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                    Text="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </GroupBox.HeaderTemplate>
+
+                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center">
+
+                        <TextBox x:Name="tbDatabaseAddress" wpf:HintAssist.Hint="Adres bazy danych">
+                            <TextBox.Text>
+                                <Binding Path="DatabaseAddress" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+                        <TextBox x:Name="tbLogin" wpf:HintAssist.Hint="Login">
+                            <TextBox.Text>
+                                <Binding Path="Login" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+                        <PasswordBox
+                            x:Name="tbPassword"
+                            utility:PasswordBoxHelper.BindPassword="True"
+                            wpf:HintAssist.Hint="Hasło">
+                            <utility:PasswordBoxHelper.BoundPassword>
+                                <Binding
+                                    Mode="TwoWay"
+                                    Path="Password"
+                                    UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validation:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </utility:PasswordBoxHelper.BoundPassword>
+                        </PasswordBox>
+
+                    </StackPanel>
+
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+
+        <StackPanel
+            Grid.Row="1"
+            Margin="10"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal">
+
+            <StackPanel.Resources>
+                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
+                    <Setter Property="Command" Value="{x:Static wpf:DialogHost.CloseDialogCommand}" />
+                </Style>
+            </StackPanel.Resources>
+
+            <Button
+                Margin="10"
+                Command="{x:Static wpf:DialogHost.CloseDialogCommand}"
+                CommandParameter="{Binding}"
+                IsDefault="True">
+                <wpf:PackIcon Kind="Check" />
+                <Button.Resources>
+                    <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
+                        <Setter Property="IsEnabled" Value="False" />
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=tbLogin, Path=(Validation.HasError)}" Value="False" />
+                                    <Condition Binding="{Binding ElementName=tbDatabaseAddress, Path=(Validation.HasError)}" Value="False" />
+                                    <Condition Binding="{Binding ElementName=tbPassword, Path=(Validation.HasError)}" Value="False" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="True" />
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button
+                Margin="10"
+                Command="{x:Static wpf:DialogHost.CloseDialogCommand}"
+                IsCancel="True">
+                <wpf:PackIcon Kind="Close" />
+            </Button>
+        </StackPanel>
+
+
+    </Grid>
+</UserControl>
+

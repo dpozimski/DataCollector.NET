@@ -45,7 +45,7 @@ namespace DataCollector.Server.DeviceHandlers.Factories
         {
             simulatorDevicesCount++;
             IDeviceBroadcastInfo fakeBroadcastInfo = new DeviceBroadcastInfo($"Rpi Simulator {simulatorDevicesCount}", 
-                IPAddress.Parse($"192.168.110.{simulatorDevicesCount}"), 
+                $"192.168.110.{simulatorDevicesCount}", 
                 $"11:11:33:44:{simulatorDevicesCount.ToString("X2")}", "ARM", "10.0.14393.00", "Raspberry Pi 2 Model B");
             return new SimulatorDeviceHandler(fakeBroadcastInfo);
         }

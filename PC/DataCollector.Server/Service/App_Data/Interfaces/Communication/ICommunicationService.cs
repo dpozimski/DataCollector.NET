@@ -1,4 +1,5 @@
-﻿using DataCollector.Server.DeviceHandlers.Models;
+﻿using DataCollector.Server.DataAccess.Models;
+using DataCollector.Server.DeviceHandlers.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace DataCollector.Server.Interfaces.Communication
         /// Aktualnie podłączone urządzenia.
         /// </summary>
         [DataMember]
-        IEnumerable<DeviceInfo> Devices { get; }
+        IEnumerable<MeasureDevice> Devices { get; }
         /// <summary>
         /// Usługi serwisu uruchomione.
         /// </summary>
@@ -54,21 +55,21 @@ namespace DataCollector.Server.Interfaces.Communication
         /// <param name="device">urządzenie</param>
         /// <returns></returns>
         [OperationContract]
-        bool ConnectDevice(DeviceInfo device);
+        bool ConnectDevice(MeasureDevice device);
         /// <summary>
         /// Metoda przerywająca trwającą komunikacje z urządzeniem.
         /// </summary>
         /// <param name="device">urządzenie</param>
         /// <returns></returns>
         [OperationContract]
-        bool DisconnectDevice(DeviceInfo device);
+        bool DisconnectDevice(MeasureDevice device);
         /// <summary>
         /// Zwraca stan diody LED.
         /// </summary>
         /// <param name="deviceHandler">urządzenie</param>
         /// <returns></returns>
         [OperationContract]
-        bool GetLedState(DeviceInfo deviceHandler);
+        bool GetLedState(MeasureDevice deviceHandler);
         /// <summary>
         /// Metoda zmieniająca stan diody we wskazanym urządzeniu.
         /// </summary>
@@ -76,7 +77,7 @@ namespace DataCollector.Server.Interfaces.Communication
         /// <param name="state">stan diody</param>
         /// <returns></returns>
         [OperationContract]
-        bool ChangeLedState(DeviceInfo target, bool state);
+        bool ChangeLedState(MeasureDevice target, bool state);
         /// <summary>
         /// Metoda dodające nowe urządzenie symulujące komunikację.
         /// </summary>

@@ -18,7 +18,7 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener.Models
 
         public DeviceBroadcastInfoTests()
         {
-            deviceBroadcastInfo = new DeviceBroadcastInfo("TestMachineName", IPAddress.Parse("192.168.101.101"), "AA:AA:AA:AA:AA:AA", "ARM", "10.586", "ARM");
+            deviceBroadcastInfo = new DeviceBroadcastInfo("TestMachineName", "192.168.101.101", "AA:AA:AA:AA:AA:AA", "ARM", "10.586", "ARM");
         }
 
         [Fact]
@@ -62,7 +62,7 @@ namespace DataCollector.Server.Tests.DataFlow.BroadcastListener.Models
         [InlineData("10:11:23:44:55:66")]
         public void CompareObjectsFalseTest(string mac)
         {
-            IDeviceBroadcastInfo compareTestInfo = new DeviceBroadcastInfo("TestMachineName", IPAddress.Parse("192.168.101.101"), mac, "ARM", "10.586", "ARM");
+            IDeviceBroadcastInfo compareTestInfo = new DeviceBroadcastInfo("TestMachineName", "192.168.101.101", mac, "ARM", "10.586", "ARM");
             Assert.False(deviceBroadcastInfo.Equals(compareTestInfo));
         }
 

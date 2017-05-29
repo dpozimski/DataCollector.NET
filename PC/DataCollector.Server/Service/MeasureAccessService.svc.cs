@@ -55,7 +55,7 @@ namespace DataCollector.Server
         /// <param name="lowerRange">od</param>
         /// <param name="upperRange">do</param>
         /// <returns>punkty pomiarowe [X,Y,Z]</returns>
-        public IEnumerable<DateTimePoint[]> GetMeasures(SphereMeasureType type, MeasureDevice device, DateTime lowerRange, DateTime upperRange)
+        public IEnumerable<DateTimePoint[]> GetSphereMeasures(SphereMeasureType type, MeasureDevice device, DateTime lowerRange, DateTime upperRange)
         {
             using (var db = new StoredProceduresDataContext(ConnectionString))
             {
@@ -82,7 +82,7 @@ namespace DataCollector.Server
         /// Aktualizuje urządzenie pomiarowe.
         /// </summary>
         /// <param name="deviceHandler">urządzenie pomiarowe</param>
-        public void UpdateMeasureDevice(IDeviceInfo deviceHandler)
+        public void UpdateMeasureDevice(MeasureDevice deviceHandler)
         {
             using (var db = new DataCollectorContext(ConnectionString))
             {

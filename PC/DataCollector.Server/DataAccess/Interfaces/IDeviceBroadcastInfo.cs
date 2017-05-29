@@ -20,7 +20,7 @@ namespace DataCollector.Server.DataAccess.Interfaces
         /// <summary>
         /// IPv4.
         /// </summary>
-        IPAddress IPv4 { get; }
+        string IPv4 { get; }
         /// <summary>
         /// Wersja Windows 10 IoT Core.
         /// </summary>
