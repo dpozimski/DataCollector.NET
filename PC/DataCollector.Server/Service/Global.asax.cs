@@ -17,6 +17,7 @@ using System.Web.SessionState;
 using Autofac.Builder;
 using DataCollector.Server.DataAccess.Models;
 using DataCollector.Server.Interfaces.Communication;
+using DataCollector.Server.Interfaces.Data;
 
 namespace DataCollector.Server
 {
@@ -59,10 +60,10 @@ namespace DataCollector.Server
             builder.RegisterAssemblyTypes(serviceAssembly)
                    .AsImplementedInterfaces()
                    .Except<CommunicationClientCallbacksContainer>(ct => ct.As<ICommunicationClientCallbacksContainer>().SingleInstance())
-                   .Except<WebCommunicationService>(ct => ct.WithParameter("port", GetSettingsValue("DeviceCommunicationPort")).SingleInstance())
-                   .Except<MeasureCollectorService>(ct => ConstructWithConnectionString(ct, _aCt => _aCt.SingleInstance()))
-                   .Except<MeasureAccessService>(ct => ConstructWithConnectionString(ct))
-                   .Except<UsersManagementService>(ct => ConstructWithConnectionString(ct));
+                   .Except<WebCommunicationService>(ct => ct.WithParameter("port", GetSettingsValue("DeviceCommunicationPort")).As<ICommunicationService>().SingleInstance())
+                   .Except<MeasureCollectorService>(ct => ConstructWithConnectionString(ct, _aCt => _aCt.As<IMeasureCollectorService>().SingleInstance()))
+                   .Except<MeasureAccessService>(ct => ConstructWithConnectionString(ct, _aCt => _aCt.As<IMeasureAccessService>()))
+                   .Except<UsersManagementService>(ct => ConstructWithConnectionString(ct, _aCt => _aCt.As<IUsersManagementService>()));
         }
 
         /// <summary>
