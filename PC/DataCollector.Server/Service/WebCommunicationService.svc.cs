@@ -27,6 +27,7 @@ namespace DataCollector.Server
     public class WebCommunicationService : ICommunicationService
     {
         #region Private Fields
+        private bool isStarted;
         private int port;
         private IBroadcastScanner broadcastScanner;
         private SynchronizedCollection<IDeviceHandler> deviceHandlers;
@@ -45,10 +46,6 @@ namespace DataCollector.Server
                 return callbackContainer.CurrentClient;
             }
         }
-        /// <summary>
-        /// Usługi serwisu uruchomione.
-        /// </summary>
-        public bool IsStarted { get; private set; }
         /// <summary>
         /// Aktualnie podłączone urządzenia.
         /// </summary>
@@ -76,6 +73,13 @@ namespace DataCollector.Server
 
         #region Public Methods
         /// <summary>
+        /// Usługi serwisu uruchomione.
+        /// </summary>
+        public bool IsStarted()
+        {
+            return isStarted;
+        }
+        /// <summary>
         /// Dodaje klienta do sybkrypcji zdarzeń serwisu.
         /// </summary>
         public void RegisterCallbackChannel()
@@ -98,20 +102,20 @@ namespace DataCollector.Server
         /// </summary>
         public void Start()
         {
-            if (IsStarted)
+            if (isStarted)
                 throw new InvalidOperationException("Serwis jest już uruchomiony");
 
             broadcastScanner.DeviceInfoUpdated += new EventHandler<BroadcastListener.Models.DeviceUpdatedEventArgs>(OnBroadcastDeviceInfoUpdated);
             broadcastScanner.StartListening();
 
-            IsStarted = true;
+            isStarted = true;
         }
         /// <summary>
         /// Zatrzymuje usługi serwisu.
         /// </summary>
         public void Stop()
         {
-            if (!IsStarted)
+            if (!isStarted)
                 throw new InvalidOperationException("Serwis nie jest uruchomiony");
 
             Dispose();
@@ -247,7 +251,7 @@ namespace DataCollector.Server
         /// </summary>
         public void Dispose()
         {
-            if (IsStarted)
+            if (isStarted)
             {
                 broadcastScanner.DeviceInfoUpdated -= OnBroadcastDeviceInfoUpdated;
                 broadcastScanner.Dispose();
@@ -259,7 +263,7 @@ namespace DataCollector.Server
                 }
                 deviceHandlers.Clear();
                 callbackContainer.Dispose();
-                IsStarted = false;
+                isStarted = false;
             }
         }
         #endregion

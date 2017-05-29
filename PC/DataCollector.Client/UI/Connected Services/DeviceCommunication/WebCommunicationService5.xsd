@@ -2,6 +2,18 @@
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost/WebCommunicationService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models" />
   <xs:import schemaLocation="http://localhost/WebCommunicationService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DeviceHandlers.Models" />
+  <xs:element name="IsStarted">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="IsStartedResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="IsStartedResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="RegisterCallbackChannel">
     <xs:complexType>
       <xs:sequence />

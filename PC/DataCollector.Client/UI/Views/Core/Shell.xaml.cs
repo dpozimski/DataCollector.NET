@@ -53,7 +53,9 @@ namespace DataCollector.Client.UI.Views.Core
             //zamknięcie dialogu
             await progress.CloseAsync();
 
-            ServiceLocator.Resolve<ICommunicationService>().Start();
+            ICommunicationService service = ServiceLocator.Resolve<ICommunicationService>();
+            if(!service.IsStarted())
+                service.Start();
         }
         /// <summary>
         /// Zdarzenie powodujące przerzucenie focus na okno główne programu.

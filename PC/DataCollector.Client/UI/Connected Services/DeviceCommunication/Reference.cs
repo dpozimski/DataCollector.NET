@@ -561,6 +561,12 @@ namespace DataCollector.Client.UI.DeviceCommunication {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="DeviceCommunication.ICommunicationService", CallbackContract=typeof(DataCollector.Client.UI.DeviceCommunication.ICommunicationServiceCallback))]
     public interface ICommunicationService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommunicationService/IsStarted", ReplyAction="http://tempuri.org/ICommunicationService/IsStartedResponse")]
+        bool IsStarted();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommunicationService/IsStarted", ReplyAction="http://tempuri.org/ICommunicationService/IsStartedResponse")]
+        System.Threading.Tasks.Task<bool> IsStartedAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommunicationService/RegisterCallbackChannel", ReplyAction="http://tempuri.org/ICommunicationService/RegisterCallbackChannelResponse")]
         void RegisterCallbackChannel();
         
@@ -646,6 +652,14 @@ namespace DataCollector.Client.UI.DeviceCommunication {
         
         public CommunicationServiceClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(callbackInstance, binding, remoteAddress) {
+        }
+        
+        public bool IsStarted() {
+            return base.Channel.IsStarted();
+        }
+        
+        public System.Threading.Tasks.Task<bool> IsStartedAsync() {
+            return base.Channel.IsStartedAsync();
         }
         
         public void RegisterCallbackChannel() {

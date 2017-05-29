@@ -91,7 +91,7 @@ namespace DataCollector.Server.Tests
         public void IsConnectedPropertyWhileCommunicationStartedTest()
         {
             webCommunication.Start();
-            Assert.True(webCommunication.IsStarted);
+            Assert.True(webCommunication.IsStarted());
         }
 
         [Fact]
@@ -99,7 +99,7 @@ namespace DataCollector.Server.Tests
         {
             webCommunication.Start();
             webCommunication.Stop();
-            Assert.False(webCommunication.IsStarted);
+            Assert.False(webCommunication.IsStarted());
         }
 
         [Fact]

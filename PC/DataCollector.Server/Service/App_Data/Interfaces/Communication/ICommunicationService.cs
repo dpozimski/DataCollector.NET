@@ -26,14 +26,14 @@ namespace DataCollector.Server.Interfaces.Communication
         /// </summary>
         [DataMember]
         IEnumerable<MeasureDevice> Devices { get; }
-        /// <summary>
-        /// Usługi serwisu uruchomione.
-        /// </summary>
-        [DataMember]
-        bool IsStarted { get; }
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Usługi serwisu uruchomione.
+        /// </summary>
+        [OperationContract]
+        bool IsStarted();
         /// <summary>
         /// Dodaje klienta do sybkrypcji zdarzeń serwisu.
         /// </summary>

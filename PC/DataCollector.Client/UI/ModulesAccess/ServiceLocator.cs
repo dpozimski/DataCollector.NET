@@ -55,7 +55,7 @@ namespace DataCollector.Client.UI.ModulesAccess
 
 
             builder.RegisterType<AppSettings>().As<IAppSettings>().SingleInstance();
-            builder.RegisterType<DialogAccess>().As<IDialogAccess>();
+            builder.RegisterType<DialogAccess>().As<IDialogAccess>().SingleInstance();
 
             container = builder.Build();
 
