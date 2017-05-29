@@ -1,13 +1,9 @@
-﻿using DataCollector.Client.Communication.Interfaces;
-using DataCollector.Client.Communication.Models;
-using DataCollector.Client.DataAccess.Interfaces;
-using DataCollector.Client.DataFlow.BroadcastListener.Models;
-using DataCollector.Client.UI.Converters;
+﻿using DataCollector.Client.UI.Converters;
+using DataCollector.Client.UI.DataAccess;
+using DataCollector.Client.UI.DeviceCommunication;
 using DataCollector.Client.UI.ModulesAccess;
 using DataCollector.Client.UI.ModulesAccess.Interfaces;
-using DataCollector.Client.UI.ViewModels.Dialogs;
-using DataCollector.Client.UI.Views.Core;
-using netoaster;
+using netoaster.Enumes;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -32,8 +28,8 @@ namespace DataCollector.Client.UI.ViewModels.Core
         #region Private Fields
         private EnumToStringDescription enumConverter;
         private ObservableCollection<MeasureDeviceViewModel> devices;
-        private IMeasureAccess measureAccess;
-        private ICommunication webCommunication;
+        private IMeasureAccessService measureAccess;
+        private ICommunicationServiceEventCallback webCommunicationCallback;
         #endregion
 
         #region Public Properties
@@ -69,9 +65,9 @@ namespace DataCollector.Client.UI.ViewModels.Core
 #endif
             enumConverter = new EnumToStringDescription();
             Devices = new ObservableCollection<MeasureDeviceViewModel>();
-            measureAccess = ServiceLocator.Resolve<IMeasureAccess>();
-            webCommunication = ServiceLocator.Resolve<ICommunication>();
-            webCommunication.DeviceChangedState += new EventHandler<DeviceUpdatedEventArgs>(OnDeviceChangedState);
+            measureAccess = ServiceLocator.Resolve<IMeasureAccessService>();
+            webCommunicationCallback = ServiceLocator.Resolve<ICommunicationServiceEventCallback>();
+            webCommunicationCallback.DeviceChangedStateEvent += new EventHandler<DeviceUpdatedEventArgs>(OnDeviceChangedState);
         }
         #endregion
 
@@ -89,7 +85,7 @@ namespace DataCollector.Client.UI.ViewModels.Core
                 var device = devices.SingleOrDefault(s => s.MacAddress == e.Device.MacAddress);
                 if (device == null && e.UpdateStatus == UpdateStatus.Found)
                 {
-                    measureAccess.AssignMeasureDevice(e.Device);
+                    //measureAccess.AssignMeasureDevice(e.Device);
                     var vmDevice = new MeasureDeviceViewModel(e.Device);
                     Devices.Add(vmDevice);
                 }
@@ -97,7 +93,7 @@ namespace DataCollector.Client.UI.ViewModels.Core
                 {
                     if (e.UpdateStatus != UpdateStatus.Lost)
                     {
-                        measureAccess.AssignMeasureDevice(e.Device);
+                        //measureAccess.AssignMeasureDevice(e.Device);
                         device.Update(e.Device);
                     }
                     else

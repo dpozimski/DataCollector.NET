@@ -1,22 +1,18 @@
-﻿using DataCollector.Client.Communication.Interfaces;
-using DataCollector.Client.DataAccess.Models;
-using DataCollector.Client.UI.ModulesAccess;
+﻿using DataCollector.Client.UI.ModulesAccess;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DataCollector.Client.Communication.Models;
-using DataCollector.Client.UI.Views.Core;
 using DataCollector.Client.UI.Models;
 using System.Collections.ObjectModel;
 using DataCollector.Client.UI.ViewModels.Core;
 using LiveCharts.Defaults;
-using System.Diagnostics;
-using DataCollector.Client.UI.ViewModels.Chart;
 using System.ComponentModel;
-using DataCollector.Device.Models;
 using System.Windows;
+using DataCollector.Client.UI.DeviceCommunication;
+using DataCollector.Client.UI.DataAccess;
+using DataCollector.Client.UI.ModulesAccess.Interfaces;
 
 namespace DataCollector.Client.UI.ViewModels.Chart
 {
@@ -29,9 +25,9 @@ namespace DataCollector.Client.UI.ViewModels.Chart
         private MeasureDeviceViewModel currentMeasureDevice;
         private VariableVisualizationViewModel selectedMeasure;
         private ObservableCollection<VariableVisualizationViewModel> measureCollection;
-        private ICommunication webCommunication;
         private PropertyDescriptorCollection measureProperties;
         private IReadOnlyList<MeasureType> measureTypes;
+        private ICommunicationServiceEventCallback communicationServiceCallback;
         #endregion
 
         #region Public Properties
@@ -61,10 +57,10 @@ namespace DataCollector.Client.UI.ViewModels.Chart
         /// </summary>
         public VisualizationViewModel()
         {
+            communicationServiceCallback = ServiceLocator.Resolve<ICommunicationServiceEventCallback>();
             measureTypes = ((MeasureType[])Enum.GetValues(typeof(MeasureType))).ToList();
             measureProperties = TypeDescriptor.GetProperties(typeof(Measures));
             MeasureCollection = new ObservableCollection<VariableVisualizationViewModel>();
-            webCommunication = ServiceLocator.Resolve<ICommunication>();
             var observableForDeviceChanged = MainViewModel.ObservableForProperty(s => s.SelectedDevice);
             observableForDeviceChanged.Subscribe(device => OnCurrentDeviceChanged(device.Value));
         }
@@ -89,7 +85,7 @@ namespace DataCollector.Client.UI.ViewModels.Chart
         {
             if(currentMeasureDevice?.MacAddress != measureDevice?.MacAddress)
             {
-                webCommunication.MeasuresArrived -= OnMeasuresArrived;
+                communicationServiceCallback.MeasuresArrivedEvent -= OnMeasuresArrived;
 
                 foreach (var item in MeasureCollection)
                     item.Values.Dispose();
@@ -101,7 +97,7 @@ namespace DataCollector.Client.UI.ViewModels.Chart
                     MeasureCollection.Add(new VariableVisualizationViewModel() { Values = values });
                 }
 
-                webCommunication.MeasuresArrived += new EventHandler<MeasuresArrivedEventArgs>(OnMeasuresArrived);
+                communicationServiceCallback.MeasuresArrivedEvent += new EventHandler<MeasuresArrivedEventArgs>(OnMeasuresArrived);
                 currentMeasureDevice = measureDevice;
                 //opóźnienie oznaczenia nowego pomiaru
                 Task.Factory.StartNew(() =>

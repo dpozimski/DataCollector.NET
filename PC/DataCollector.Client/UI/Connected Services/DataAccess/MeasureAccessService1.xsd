@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost/MeasureAccessService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models" />
+  <xs:import schemaLocation="http://localhost/MeasureAccessService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/LiveCharts.Defaults" />
+  <xs:element name="UpdateDeviceRequestInterval">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="macAddress" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="requestInterval" type="xs:double" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateDeviceRequestIntervalResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMeasureDevices">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMeasureDevicesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models" minOccurs="0" name="GetMeasureDevicesResult" nillable="true" type="q1:ArrayOfMeasureDevice" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMeasures">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models" minOccurs="0" name="type" type="q2:MeasureType" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models" minOccurs="0" name="device" nillable="true" type="q3:MeasureDevice" />
+        <xs:element minOccurs="0" name="lowerRange" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="upperRange" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMeasuresResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/LiveCharts.Defaults" minOccurs="0" name="GetMeasuresResult" nillable="true" type="q4:ArrayOfArrayOfDateTimePoint" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSphereMeasures">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models" minOccurs="0" name="type" type="q5:SphereMeasureType" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models" minOccurs="0" name="device" nillable="true" type="q6:MeasureDevice" />
+        <xs:element minOccurs="0" name="lowerRange" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="upperRange" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSphereMeasuresResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/LiveCharts.Defaults" minOccurs="0" name="GetSphereMeasuresResult" nillable="true" type="q7:ArrayOfArrayOfDateTimePoint" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

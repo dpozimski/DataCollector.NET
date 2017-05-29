@@ -72,7 +72,7 @@
                             IsChecked="{Binding RunAppDuringStartup}" />
                     </Grid>
                 </GroupBox>
-                <GroupBox
+                <!--<GroupBox
                     Margin="0,8,0,8"
                     Style="{DynamicResource MaterialDesignCardGroupBox}"
                     Header="Baza danych">
@@ -129,7 +129,7 @@
 
                     </StackPanel>
 
-                </GroupBox>
+                </GroupBox>-->
             </StackPanel>
         </ScrollViewer>
 

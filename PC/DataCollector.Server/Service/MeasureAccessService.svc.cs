@@ -37,7 +37,7 @@ namespace DataCollector.Server
         /// <param name="lowerRange">zakres dolny</param>
         /// <param name="upperRange">zakres górny</param>
         /// <returns>punkty pomiarowe [X]</returns>
-        public IEnumerable<DateTimePoint[]> GetMeasures(MeasureType type, MeasureDevice device, DateTime lowerRange, DateTime upperRange)
+        public List<DateTimePoint[]> GetMeasures(MeasureType type, MeasureDevice device, DateTime lowerRange, DateTime upperRange)
         {
             using (var db = new StoredProceduresDataContext(ConnectionString))
             {
@@ -55,7 +55,7 @@ namespace DataCollector.Server
         /// <param name="lowerRange">od</param>
         /// <param name="upperRange">do</param>
         /// <returns>punkty pomiarowe [X,Y,Z]</returns>
-        public IEnumerable<DateTimePoint[]> GetSphereMeasures(SphereMeasureType type, MeasureDevice device, DateTime lowerRange, DateTime upperRange)
+        public List<DateTimePoint[]> GetSphereMeasures(SphereMeasureType type, MeasureDevice device, DateTime lowerRange, DateTime upperRange)
         {
             using (var db = new StoredProceduresDataContext(ConnectionString))
             {
@@ -71,7 +71,7 @@ namespace DataCollector.Server
         /// Pobiera dostępne urządzenia pomiarowe z bazy danych.
         /// </summary>
         /// <returns></returns>
-        public IReadOnlyList<MeasureDevice> GetMeasureDevices()
+        public List<MeasureDevice> GetMeasureDevices()
         {
             using (var db = new DataCollectorContext(ConnectionString))
             {
@@ -81,14 +81,15 @@ namespace DataCollector.Server
         /// <summary>
         /// Aktualizuje urządzenie pomiarowe.
         /// </summary>
-        /// <param name="deviceHandler">urządzenie pomiarowe</param>
-        public void UpdateMeasureDevice(MeasureDevice deviceHandler)
+        /// <param name="macAddress">adres MAC urządzenia</param>
+        /// <param name="requestInterval">interwal rejestracji</param>
+        public void UpdateDeviceRequestInterval(string macAddress, double requestInterval)
         {
             using (var db = new DataCollectorContext(ConnectionString))
             {
-                MeasureDevice existingDevice = db.MeasureDevices.Single(s => s.MacAddress == deviceHandler.MacAddress);
+                MeasureDevice existingDevice = db.MeasureDevices.Single(s => s.MacAddress == macAddress);
                 //zaktualizuj ustawienia w bazie danych
-                existingDevice.MeasurementsMsRequestInterval = deviceHandler.MeasurementsMsRequestInterval;
+                existingDevice.MeasurementsMsRequestInterval = requestInterval;
                 db.SaveChanges();
             }
         }

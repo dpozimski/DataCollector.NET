@@ -1,5 +1,4 @@
-﻿using DataCollector.Client.DataAccess.Interfaces;
-using DataCollector.Client.DataAccess.Models;
+﻿using DataCollector.Client.UI.DataAccess;
 using DataCollector.Client.UI.Models;
 using DataCollector.Client.UI.ModulesAccess;
 using DataCollector.Client.UI.ViewModels.Chart;
@@ -9,6 +8,7 @@ using LiveCharts.Defaults;
 using LiveCharts.Definitions.Series;
 using LiveCharts.Wpf;
 using netoaster;
+using netoaster.Enumes;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -31,7 +31,7 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
         #endregion
 
         #region Private Fields
-        private IMeasureAccess measureAccess;
+        private IMeasureAccessService measureAccess;
         private DateTime from = DateTime.Now.AddDays(-1),  to = DateTime.Now.AddHours(1);
         private ReportDefinitionViewModel reportDefinition;
         private ObservableCollection<MeasureDevice> measureDevices;
@@ -111,7 +111,7 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
         /// </summary>
         public ReportCreatorDialogViewModel()
         {
-            measureAccess = ServiceLocator.Resolve<IMeasureAccess>();
+            measureAccess = ServiceLocator.Resolve<IMeasureAccessService>();
             InitCommands();
             InitData();
         }
@@ -165,7 +165,7 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
             if (selectedMeasureType is MeasureType)
                 data = measureAccess.GetMeasures((MeasureType)selectedMeasureType, selectedDevice, from, to);
             else
-                data = measureAccess.GetMeasures((SphereMeasureType)selectedMeasureType, selectedDevice, from, to);
+                data = measureAccess.GetSphereMeasures((SphereMeasureType)selectedMeasureType, selectedDevice, from, to);
             return data.OrderBy(s=>s.First().DateTime);
         }
         /// <summary>

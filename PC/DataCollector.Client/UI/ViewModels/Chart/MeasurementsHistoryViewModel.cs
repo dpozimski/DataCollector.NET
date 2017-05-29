@@ -1,8 +1,6 @@
-﻿using DataCollector.Client.DataAccess.Interfaces;
+﻿using DataCollector.Client.UI.DataAccess;
 using DataCollector.Client.UI.Models;
 using DataCollector.Client.UI.ModulesAccess;
-using DataCollector.Client.UI.ModulesAccess.Interfaces;
-using DataCollector.Client.UI.ViewModels.Chart;
 using DataCollector.Client.UI.ViewModels.Dialogs;
 using DataCollector.Client.UI.Views.Dialogs;
 using LiveCharts;
@@ -24,7 +22,7 @@ namespace DataCollector.Client.UI.ViewModels.Chart
     public class MeasurementsHistoryViewModel : RootViewModelBase
     {
         #region Private Fields
-        private IMeasureAccess measureAccess;
+        private IMeasureAccessService measureAccess;
         private ObservableCollection<ReportDefinitionViewModel> reportCollection;
         private ReportDefinitionViewModel selectedReport;
         #endregion
@@ -71,7 +69,7 @@ namespace DataCollector.Client.UI.ViewModels.Chart
         /// </summary>
         public MeasurementsHistoryViewModel()
         {
-            measureAccess = ServiceLocator.Resolve<IMeasureAccess>();
+            measureAccess = ServiceLocator.Resolve<IMeasureAccessService>();
             reportCollection = new ObservableCollection<ReportDefinitionViewModel>();
             InitCommands();
         }

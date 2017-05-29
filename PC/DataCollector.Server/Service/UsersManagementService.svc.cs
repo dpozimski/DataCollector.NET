@@ -84,7 +84,7 @@ namespace DataCollector.Server
         /// Metoda zwracająca listę wszystkich użytkowników w bazie danych.
         /// </summary>
         /// <returns>lista użytkowników</returns>
-        public IReadOnlyList<User> GetUsers()
+        public List<User> GetUsers()
         {
             using (var db = new DataCollectorContext(ConnectionString))
             {
@@ -97,7 +97,7 @@ namespace DataCollector.Server
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public IReadOnlyList<UserLoginHistory> GetUserLoginHistory(User user)
+        public List<UserLoginHistory> GetUserLoginHistory(User user)
         {
             using (var db = new DataCollectorContext(ConnectionString))
             {

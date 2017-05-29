@@ -16,8 +16,8 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
     class SettingsDialogViewModel : ViewModelBase, IAppSettings
     {
         #region Private Fields
-        private SqlConnectionStringBuilder sqlConnectionBuilder;
         private bool runAppDuringStartup;
+        private string collectorServiceHost, dataAccessHost, deviceCommunicationHost, usersHost;
         #endregion
 
         #region Public Properties
@@ -30,48 +30,36 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
             set { this.RaiseAndSetIfChanged(ref runAppDuringStartup, value); }
         }
         /// <summary>
-        /// Użytkownik.
+        /// Adres serwisu kolektora danych.
         /// </summary>
-        public string Login
+        public string CollectorServiceHost
         {
-            get { return sqlConnectionBuilder.UserID; }
-            set
-            {
-                sqlConnectionBuilder.UserID = value;
-                this.RaisePropertyChanged(nameof(Login));
-            }
+            get { return collectorServiceHost; }
+            set { this.RaiseAndSetIfChanged(ref collectorServiceHost, value); }
         }
         /// <summary>
-        /// Hasło.
+        /// Adres serwisu dostępu do danych.
         /// </summary>
-        public string Password
+        public string DataAccessHost
         {
-            get { return sqlConnectionBuilder.Password; }
-            set
-            {
-                sqlConnectionBuilder.Password = value;
-                this.RaisePropertyChanged(nameof(Password));
-            }
+            get { return dataAccessHost; }
+            set { this.RaiseAndSetIfChanged(ref dataAccessHost, value); }
         }
         /// <summary>
-        /// Adres instancji bazy danych.
+        /// Adres serwisu komunikacji z urządzeniami.
         /// </summary>
-        public string DatabaseAddress
+        public string DeviceCommunicationHost
         {
-            get { return sqlConnectionBuilder.DataSource; }
-            set { sqlConnectionBuilder.DataSource = value;
-                this.RaisePropertyChanged(nameof(DatabaseAddress));
-            }
+            get { return deviceCommunicationHost; }
+            set { this.RaiseAndSetIfChanged(ref deviceCommunicationHost, value); }
         }
         /// <summary>
-        /// Dane połączeniowe do bazy danych.
+        /// Adres serwisu dostępu do użytkowników.
         /// </summary>
-        public string DatabaseConnectionString
+        public string UsersHost
         {
-            get { return sqlConnectionBuilder.ToString(); }
-            set { sqlConnectionBuilder = new SqlConnectionStringBuilder(value);
-                this.RaisePropertyChanged(nameof(DatabaseConnectionString));
-            }
+            get { return usersHost; }
+            set { this.RaiseAndSetIfChanged(ref usersHost, value); }
         }
         #endregion
 
@@ -82,7 +70,6 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
         public SettingsDialogViewModel()
         {
             var settings = ServiceLocator.Resolve<IAppSettings>();
-            DatabaseConnectionString = settings.DatabaseConnectionString;
             RunAppDuringStartup = settings.RunAppDuringStartup;
         }
         #endregion

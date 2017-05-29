@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using DataCollector.Client.UI.Views.Core;
 using MahApps.Metro.Controls;
 using System.Windows.Controls;
+using netoaster.Enumes;
 
 namespace DataCollector.Client.UI.ModulesAccess.Interfaces
 {

@@ -1,5 +1,4 @@
-﻿using DataCollector.Client.DataAccess.Models;
-using DataCollector.Client.UI.Converters;
+﻿using DataCollector.Client.UI.Converters;
 using DataCollector.Client.UI.Models;
 using LiveCharts;
 using LiveCharts.Defaults;

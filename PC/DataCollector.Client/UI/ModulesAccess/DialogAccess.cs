@@ -5,6 +5,7 @@ using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using MaterialDesignThemes.Wpf;
 using netoaster;
+using netoaster.Enumes;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -115,21 +116,19 @@ namespace DataCollector.Client.UI.ModulesAccess
         /// <param name="type">Typ powiadomienia</param>
         public void ShowToastNotification(string message, ToastType type = ToastType.Info)
         {
-            ToasterPosition position = ToasterPosition.PrimaryScreenBottomRight;
-            ToasterAnimation animation = ToasterAnimation.SlideInFromRight;
             switch (type)
             {
                 case ToastType.Info:
-                    Toaster.ShowInfo(hwnd, hwnd.Title, message, position, animation);
+                    Toaster.ShowInfo(hwnd, hwnd.Title, message);
                     break;
                 case ToastType.Error:
-                    Toaster.ShowError(hwnd, hwnd.Title, message, position, animation);
+                    Toaster.ShowError(hwnd, hwnd.Title, message);
                     break;
                 case ToastType.Success:
-                    Toaster.ShowSuccess(hwnd, hwnd.Title, message, position, animation);
+                    Toaster.ShowSuccess(hwnd, hwnd.Title, message);
                     break;
                 case ToastType.Warning:
-                    Toaster.ShowWarning(hwnd, hwnd.Title, message, position, animation);
+                    Toaster.ShowWarning(hwnd, hwnd.Title, message);
                     break;
             }
         }

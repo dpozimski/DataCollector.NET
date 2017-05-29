@@ -5,8 +5,17 @@
     <Setting Name="UpgradeRequired" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="DatabaseConnectionString" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Data source=.\DCInstance;Initial catalog=DataCollectorDb;USER ID=sa;PASSWORD=p@ssw0rd;</Value>
+    <Setting Name="CollectorServiceHost" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://localhost/MeasureCollectorService.svc</Value>
+    </Setting>
+    <Setting Name="DataAccessHost" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://localhost/MeasureAccessService.svc</Value>
+    </Setting>
+    <Setting Name="DeviceCommunicationHost" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://localhost/WebCommunicationService.svc</Value>
+    </Setting>
+    <Setting Name="UsersHost" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://localhost/UsersManagementService.svc</Value>
     </Setting>
   </Settings>
 </SettingsFile>

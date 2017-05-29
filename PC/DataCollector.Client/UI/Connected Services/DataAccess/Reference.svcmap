@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="f7b738d0-8a12-4d0a-8263-e3fc4dfaa210" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost/MeasureAccessService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MeasureAccessService.xsd" MetadataType="Schema" ID="84bbeb3d-2497-47e4-8fa3-2cfd7bf9a0db" SourceId="1" SourceUrl="http://localhost/MeasureAccessService.svc?xsd=xsd1" />
+    <MetadataFile FileName="MeasureAccessService1.xsd" MetadataType="Schema" ID="12bbc354-5e9d-4b61-aba8-f30bd75e5980" SourceId="1" SourceUrl="http://localhost/MeasureAccessService.svc?xsd=xsd0" />
+    <MetadataFile FileName="MeasureAccessService2.xsd" MetadataType="Schema" ID="f6323e0b-30b1-41c0-a28c-9ef7d1b741bb" SourceId="1" SourceUrl="http://localhost/MeasureAccessService.svc?xsd=xsd3" />
+    <MetadataFile FileName="MeasureAccessService3.xsd" MetadataType="Schema" ID="a35e68b4-9005-4ec0-bcb9-580f736c3e81" SourceId="1" SourceUrl="http://localhost/MeasureAccessService.svc?xsd=xsd2" />
+    <MetadataFile FileName="MeasureAccessService.disco" MetadataType="Disco" ID="d6190e10-dc05-49e9-a49b-acc29e8f50ae" SourceId="1" SourceUrl="http://localhost/MeasureAccessService.svc?disco" />
+    <MetadataFile FileName="MeasureAccessService.wsdl" MetadataType="Wsdl" ID="1c9a3dd1-b276-444d-96f5-08a1cb201b04" SourceId="1" SourceUrl="http://localhost/MeasureAccessService.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

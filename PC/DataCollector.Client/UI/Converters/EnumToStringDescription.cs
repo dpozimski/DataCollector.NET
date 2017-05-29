@@ -1,5 +1,4 @@
-﻿using DataCollector.Client.DataAccess.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -32,7 +31,7 @@ namespace DataCollector.Client.UI.Converters
         /// <returns></returns>
         public string ToUnit(Enum value)
         {
-            return GetAttribute<MeasureInformationAttribute>(value)?.Unit;
+            return /*GetAttribute<MeasureInformationAttribute>(value)?.Unit*/ "";
         }
 
         #region Private Methods

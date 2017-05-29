@@ -20,15 +20,16 @@ namespace DataCollector.Server.Interfaces.Data
         /// <summary>
         /// Aktualizuje urządzenie pomiarowe.
         /// </summary>
-        /// <param name="deviceHandler">urządzenie pomiarowe</param>
+        /// <param name="macAddress">adres MAC urządzenia</param>
+        /// <param name="requestInterval">interwal rejestracji</param>
         [OperationContract]
-        void UpdateMeasureDevice(MeasureDevice deviceHandler);
+        void UpdateDeviceRequestInterval(string macAddress, double requestInterval);
         /// <summary>
         /// Pobiera dostępne urządzenia pomiarowe z bazy danych.
         /// </summary>
         /// <returns></returns>
         [OperationContract]
-        IReadOnlyList<MeasureDevice> GetMeasureDevices();
+        List<MeasureDevice> GetMeasureDevices();
         /// <summary>
         /// Pobiera pomiary od wskazanego urządzenia, typu i okresu.
         /// </summary>
@@ -38,7 +39,7 @@ namespace DataCollector.Server.Interfaces.Data
         /// <param name="upperRange">zakres górny</param>
         /// <returns>punkty pomiarowe [X]</returns>
         [OperationContract]
-        IEnumerable<DateTimePoint[]> GetMeasures(MeasureType type, MeasureDevice device, DateTime lowerRange, DateTime upperRange);
+        List<DateTimePoint[]> GetMeasures(MeasureType type, MeasureDevice device, DateTime lowerRange, DateTime upperRange);
         /// <summary>
         /// Pobiera pomiary od wskazanego urządzenia, typu i okresu.
         /// </summary>
@@ -48,7 +49,7 @@ namespace DataCollector.Server.Interfaces.Data
         /// <param name="upperRange">do</param>
         /// <returns>punkty pomiarowe [X,Y,Z]</returns>
         [OperationContract]
-        IEnumerable<DateTimePoint[]> GetSphereMeasures(SphereMeasureType type, MeasureDevice device, DateTime lowerRange, DateTime upperRange);
+        List<DateTimePoint[]> GetSphereMeasures(SphereMeasureType type, MeasureDevice device, DateTime lowerRange, DateTime upperRange);
         #endregion
     }
 }

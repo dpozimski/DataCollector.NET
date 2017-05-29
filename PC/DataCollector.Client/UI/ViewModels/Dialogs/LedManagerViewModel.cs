@@ -1,4 +1,4 @@
-﻿using DataCollector.Client.Communication.Interfaces;
+﻿using DataCollector.Client.UI.DeviceCommunication;
 using DataCollector.Client.UI.ModulesAccess;
 using DataCollector.Client.UI.ViewModels.Core;
 using DataCollector.Client.UI.Views.Core;
@@ -19,7 +19,7 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
     public class LedManagerViewModel : ViewModelBase
     {
         #region Private Fields
-        private ICommunication webAccess;
+        private ICommunicationService webAccess;
         private bool isActive;
         #endregion
 
@@ -51,7 +51,7 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
         /// </summary>
         public LedManagerViewModel()
         {
-            webAccess = ServiceLocator.Resolve<ICommunication>();
+            webAccess = ServiceLocator.Resolve<ICommunicationService>();
             InitCommands();
             InitData();
         }

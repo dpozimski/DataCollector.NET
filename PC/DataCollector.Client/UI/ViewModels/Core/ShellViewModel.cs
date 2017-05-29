@@ -20,12 +20,12 @@ using System.Reactive.Linq;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Globalization;
-using DataCollector.Client.DataAccess.Models;
-using DataCollector.Client.DataAccess.Interfaces;
 using DataCollector.Client.UI.ModulesAccess;
 using DataCollector.Client.UI.Views.Dialogs;
 using DataCollector.Client.UI.ViewModels.Dialogs;
 using DataCollector.Client.UI.Models;
+using DataCollector.Client.UI.Users;
+using netoaster.Enumes;
 
 namespace DataCollector.Client.UI.ViewModels.Core
 {
@@ -35,7 +35,7 @@ namespace DataCollector.Client.UI.ViewModels.Core
     public class ShellViewModel : RootViewModelBase
     {
         #region Private Fields
-        private IUsersManagement usersManagement;
+        private IUsersManagementService usersManagement;
         private bool isDevicesFlyoutOpen, isUserInfoFlyoutOpen;
         private IAppSettings settings;
         private UserViewModel currentLoggedUser;
@@ -130,7 +130,7 @@ namespace DataCollector.Client.UI.ViewModels.Core
             if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
                 return;
 #endif
-            usersManagement = ServiceLocator.Resolve<IUsersManagement>();
+            usersManagement = ServiceLocator.Resolve<IUsersManagementService>();
             settings = Locator.Current.GetService<IAppSettings>();
             InitTimer();
             InitCommands();
@@ -152,20 +152,6 @@ namespace DataCollector.Client.UI.ViewModels.Core
             {
                 var appSettings = ServiceLocator.Resolve<IAppSettings>();
                 appSettings.RunAppDuringStartup = result.RunAppDuringStartup;
-
-                //zmiana connectionString - zmiany zostaną zastosowane po ponownym uruchomieniu aplikacji
-                if (appSettings.DatabaseConnectionString != result.DatabaseConnectionString)
-                {
-                    appSettings.DatabaseConnectionString = result.DatabaseConnectionString;
-                    var builder = RequestModel.Create().Text("Dane dostępowe do bazy danych zostały zmienione.\r\n" +
-                                                             "Czy chcesz ponownie uruchomić aplikację?").Style(MessageDialogStyle.AffirmativeAndNegative);
-                    var rebootPromptResult = await DialogAccess.ShowRequestAsync(builder);
-                    if (rebootPromptResult == MessageDialogResult.Affirmative)
-                    {
-                        System.Windows.Forms.Application.Restart();
-                        Process.GetCurrentProcess().Kill();
-                    }
-                }
             }
         }
         /// <summary>
@@ -259,7 +245,7 @@ namespace DataCollector.Client.UI.ViewModels.Core
                 await DialogAccess.Show(view, RootDialogId);
             }
             else
-                DialogAccess.ShowToastNotification("Nie nawiązano komunikacji z urządzeniem", netoaster.ToastType.Error);
+                DialogAccess.ShowToastNotification("Nie nawiązano komunikacji z urządzeniem", ToastType.Error);
         }
         /// <summary>
         /// Metoda zmieniająca stan okna info o użytkowniku lub logująca do systemu

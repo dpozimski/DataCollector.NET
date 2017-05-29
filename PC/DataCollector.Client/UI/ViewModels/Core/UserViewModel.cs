@@ -1,5 +1,5 @@
-﻿using DataCollector.Client.DataAccess.Models;
-using DataCollector.Client.UI.Converters;
+﻿using DataCollector.Client.UI.ModulesAccess;
+using DataCollector.Client.UI.Users;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -17,11 +17,13 @@ namespace DataCollector.Client.UI.ViewModels.Core
     public class UserViewModel : ViewModelBase
     {
         #region Private Fields
+        private IUsersManagementService managementService;
         private int sessionId;
         private User user;
         private bool logoutRequested;
         private bool isPasswordDirty;
         private ObservableCollection<UserRole> availableRoles;
+        private ObservableCollection<UserLoginHistory> loginHistory;
         #endregion
 
         #region Public Properties
@@ -115,9 +117,10 @@ namespace DataCollector.Client.UI.ViewModels.Core
         /// <summary>
         /// Historia logowania użytkownika.
         /// </summary>
-        public ICollection<UserLoginHistory> LoginHistory
+        public ObservableCollection<UserLoginHistory> LoginHistory
         {
-            get { return user.UserLoginHistory; }
+            get { return loginHistory; }
+            set { this.RaiseAndSetIfChanged(ref loginHistory, value); }
         }
         #endregion
 
@@ -159,6 +162,10 @@ namespace DataCollector.Client.UI.ViewModels.Core
             //inicjalizacja komendy wylogowywania się
             LogoutCommand = ReactiveCommand.Create();
             LogoutCommand.Subscribe(s => LogoutRequested = !LogoutRequested);
+
+            //pobranie danych logowania
+            managementService = ServiceLocator.Resolve<IUsersManagementService>();
+            LoginHistory = new ObservableCollection<UserLoginHistory>(managementService.GetUserLoginHistory(user.Item1));
         }
         #endregion
 
@@ -189,7 +196,7 @@ namespace DataCollector.Client.UI.ViewModels.Core
             };
 
             if (isPasswordDirty)
-                user.AssignPassword(Password);
+                user.Password = Password;//user.AssignPassword(Password);
             else
                 user.Password = Password;
 

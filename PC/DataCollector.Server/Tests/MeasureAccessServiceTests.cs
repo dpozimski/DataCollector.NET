@@ -50,7 +50,7 @@ namespace DataCollector.Server.Tests
         [Fact]
         public void UpdateMeasureDeviceFailTest()
         {
-            Assert.Throws<InvalidOperationException>(() => accessService.UpdateMeasureDevice(device));
+            Assert.Throws<InvalidOperationException>(() => accessService.UpdateDeviceRequestInterval("111", 0));
         }
     }
 }

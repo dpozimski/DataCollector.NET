@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="758d0d57-f8d9-4a82-a5e4-598dfd513471" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost/MeasureCollectorService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MeasureCollectorService.xsd" MetadataType="Schema" ID="f2a414e5-8b60-4fde-beca-31371dee6ab2" SourceId="1" SourceUrl="http://localhost/MeasureCollectorService.svc?xsd=xsd0" />
+    <MetadataFile FileName="MeasureCollectorService.disco" MetadataType="Disco" ID="efc1777b-4fa4-478d-bad8-fa1a2c4dfa05" SourceId="1" SourceUrl="http://localhost/MeasureCollectorService.svc?disco" />
+    <MetadataFile FileName="MeasureCollectorService.wsdl" MetadataType="Wsdl" ID="7f88abcd-2e95-4ea0-a6ea-e7139ff2f48d" SourceId="1" SourceUrl="http://localhost/MeasureCollectorService.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -19,9 +19,21 @@ namespace DataCollector.Client.UI.ModulesAccess.Interfaces
         /// </summary>
         bool RunAppDuringStartup { get; set; }
         /// <summary>
-        /// Dane połączeniowe do bazy danych.
+        /// Adres serwisu kolektora danych.
         /// </summary>
-        string DatabaseConnectionString { get; set; }
+        string CollectorServiceHost { get; set; }
+        /// <summary>
+        /// Adres serwisu dostępu do danych.
+        /// </summary>
+        string DataAccessHost { get; set; }
+        /// <summary>
+        /// Adres serwisu komunikacji z urządzeniami.
+        /// </summary>
+        string DeviceCommunicationHost { get; set; }
+        /// <summary>
+        /// Adres serwisu dostępu do użytkowników.
+        /// </summary>
+        string UsersHost { get; set; }
         #endregion
     }
 }

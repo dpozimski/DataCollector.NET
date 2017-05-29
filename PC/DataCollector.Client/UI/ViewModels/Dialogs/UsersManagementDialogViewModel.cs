@@ -1,6 +1,5 @@
-﻿using DataCollector.Client.DataAccess.Interfaces;
-using DataCollector.Client.DataAccess.Models;
-using DataCollector.Client.UI.ModulesAccess;
+﻿using DataCollector.Client.UI.ModulesAccess;
+using DataCollector.Client.UI.Users;
 using DataCollector.Client.UI.ViewModels.Core;
 using DataCollector.Client.UI.Views.Core;
 using DataCollector.Client.UI.Views.Dialogs;
@@ -22,7 +21,7 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
     class UsersManagementDialogViewModel : RootViewModelBase
     {
         #region Private Fields
-        private IUsersManagement usersManagement;
+        private IUsersManagementService usersManagement;
         private ObservableCollection<UserViewModel> users;
         private UserViewModel selectedUser;
         #endregion
@@ -76,7 +75,7 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
         /// </summary>
         public UsersManagementDialogViewModel()
         {
-            usersManagement = ServiceLocator.Resolve<IUsersManagement>();
+            usersManagement = ServiceLocator.Resolve<IUsersManagementService>();
             InitUsers();
             InitCommands();
         }

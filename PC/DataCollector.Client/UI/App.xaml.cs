@@ -17,7 +17,7 @@ using DataCollector.Client.UI.Views.Core;
 using LiveCharts.Configurations;
 using LiveCharts;
 using DataCollector.Client.UI.Models;
-using DataCollector.Client.DataAccess.Interfaces;
+using DataCollector.Client.UI.Users;
 
 namespace DataCollector.Client.UI
 {
@@ -42,7 +42,7 @@ namespace DataCollector.Client.UI
         protected override void OnStartup(StartupEventArgs e)
         {
             //rejestracja serwisów
-            //ServiceLocator.Register();
+            ServiceLocator.Register();
             //charts
             InitializeChartsLayout();
         }
@@ -53,11 +53,9 @@ namespace DataCollector.Client.UI
             var loggedUser = ViewModelBase.MainViewModel?.CurrentLoggedUser;
             if (loggedUser != null)
             {
-                //IUsersManagement usersAccess = ServiceLocator.Resolve<IUsersManagement>();
-                usersAccess.RecordLogoutTimeStamp(loggedUser.SessionId);
+                IUsersManagementService managementService = ServiceLocator.Resolve<IUsersManagementService>();
+                managementService.RecordLogoutTimeStamp(loggedUser.SessionId);
             }
-            //zwolnienie zasobów m.in. dla otwartych wątków, zadań
-            //ServiceLocator.Dispose();
         }
         #endregion
 

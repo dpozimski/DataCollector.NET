@@ -1,15 +1,10 @@
-﻿using DataCollector.Client.Communication.Interfaces;
-using ReactiveUI;
+﻿using ReactiveUI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Net;
 using DataCollector.Client.UI.ModulesAccess;
-using DataCollector.Client.UI.Views.Core;
-using DataCollector.Client.DataAccess.Interfaces;
 using System.Windows;
+using DataCollector.Client.UI.DataAccess;
+using DataCollector.Client.UI.DeviceCommunication;
 
 namespace DataCollector.Client.UI.ViewModels.Core
 {
@@ -19,11 +14,11 @@ namespace DataCollector.Client.UI.ViewModels.Core
     public class MeasureDeviceViewModel : ViewModelBase
     {
         #region Private Fields
-        private IMeasureAccess measureAccess;
-        private ICommunication webCommunication;
-        private IDevice deviceHandler;
+        private IMeasureAccessService measureAccess;
+        private ICommunicationService webCommunication;
+        private DeviceCommunication.MeasureDevice deviceHandler;
         private string name, winVer, architecture, macAddress, model;
-        private IPAddress ipV4;
+        private string ipV4;
         private bool isConnected;
         #endregion
 
@@ -39,7 +34,7 @@ namespace DataCollector.Client.UI.ViewModels.Core
         /// <summary>
         /// IPv4.
         /// </summary>
-        public IPAddress IPv4
+        public string IPv4
         {
             get { return ipV4; }
             set { this.RaiseAndSetIfChanged(ref ipV4, value); }
@@ -93,7 +88,7 @@ namespace DataCollector.Client.UI.ViewModels.Core
             set
             {
                 deviceHandler.MeasurementsMsRequestInterval = value;
-                measureAccess.UpdateMeasureDevice(deviceHandler);
+                measureAccess.UpdateDeviceRequestInterval(deviceHandler.MacAddress, deviceHandler.MeasurementsMsRequestInterval);
                 this.RaisePropertyChanged(nameof(MeasurementsMsRequestInterval));
             }
         }
@@ -121,10 +116,10 @@ namespace DataCollector.Client.UI.ViewModels.Core
         /// Konstruktor klasy MeasureDeviceViewModel.
         /// </summary>
         /// <param name="deviceHandler"></param>
-        public MeasureDeviceViewModel(IDevice deviceHandler)
+        public MeasureDeviceViewModel(DeviceCommunication.MeasureDevice deviceHandler)
         {
-            webCommunication = ServiceLocator.Resolve<ICommunication>();
-            measureAccess = ServiceLocator.Resolve<IMeasureAccess>();
+            webCommunication = ServiceLocator.Resolve<ICommunicationService>();
+            measureAccess = ServiceLocator.Resolve<IMeasureAccessService>();
             Update(deviceHandler);
             InitCommands();
         }
@@ -135,13 +130,13 @@ namespace DataCollector.Client.UI.ViewModels.Core
         /// Zwraca referencję do głównego uchwytu urządzenia.
         /// </summary>
         /// <returns></returns>
-        public IDevice GetDeviceHandler() =>
+        public DeviceCommunication.MeasureDevice GetDeviceHandler() =>
             deviceHandler;
         /// <summary>
         /// Aktualizuje model o nowe dane urządzenia.
         /// </summary>
         /// <param name="deviceHandler"></param>
-        public void Update(IDevice deviceHandler)
+        public void Update(DeviceCommunication.MeasureDevice deviceHandler)
         {
             this.Name = deviceHandler.Name;
             this.IPv4 = deviceHandler.IPv4;

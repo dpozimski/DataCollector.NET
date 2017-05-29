@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/DataCollector.Server.DeviceHandlers.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DeviceHandlers.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost/WebCommunicationService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models" />
+  <xs:import schemaLocation="http://localhost/WebCommunicationService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/DataCollector.Device.Models" />
+  <xs:import schemaLocation="http://localhost/WebCommunicationService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System" />
+  <xs:import schemaLocation="http://localhost/WebCommunicationService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.BroadcastListener.Models" />
+  <xs:complexType name="MeasuresArrivedEventArgs">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/System" base="q1:EventArgs">
+        <xs:sequence>
+          <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models" minOccurs="0" name="Source" nillable="true" type="q2:MeasureDevice" />
+          <xs:element minOccurs="0" name="TimeStamp" type="xs:dateTime" />
+          <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/DataCollector.Device.Models" minOccurs="0" name="Value" nillable="true" type="q3:Measures" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="MeasuresArrivedEventArgs" nillable="true" type="tns:MeasuresArrivedEventArgs" />
+  <xs:complexType name="DeviceUpdatedEventArgs">
+    <xs:sequence>
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models" minOccurs="0" name="Device" nillable="true" type="q4:MeasureDevice" />
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/DataCollector.Server.BroadcastListener.Models" minOccurs="0" name="UpdateStatus" type="q5:UpdateStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DeviceUpdatedEventArgs" nillable="true" type="tns:DeviceUpdatedEventArgs" />
+</xs:schema>

@@ -37,14 +37,49 @@ namespace DataCollector.Client.UI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data source=.\\DCInstance;Initial catalog=DataCollectorDb;USER ID=sa;PASSWORD=p@ss" +
-            "w0rd;")]
-        public string DatabaseConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/MeasureCollectorService.svc")]
+        public string CollectorServiceHost {
             get {
-                return ((string)(this["DatabaseConnectionString"]));
+                return ((string)(this["CollectorServiceHost"]));
             }
             set {
-                this["DatabaseConnectionString"] = value;
+                this["CollectorServiceHost"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/MeasureAccessService.svc")]
+        public string DataAccessHost {
+            get {
+                return ((string)(this["DataAccessHost"]));
+            }
+            set {
+                this["DataAccessHost"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/WebCommunicationService.svc")]
+        public string DeviceCommunicationHost {
+            get {
+                return ((string)(this["DeviceCommunicationHost"]));
+            }
+            set {
+                this["DeviceCommunicationHost"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/UsersManagementService.svc")]
+        public string UsersHost {
+            get {
+                return ((string)(this["UsersHost"]));
+            }
+            set {
+                this["UsersHost"] = value;
             }
         }
     }

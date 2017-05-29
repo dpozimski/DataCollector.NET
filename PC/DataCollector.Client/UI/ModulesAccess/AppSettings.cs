@@ -13,21 +13,6 @@ namespace DataCollector.Client.UI.ModulesAccess
     {
         #region Public Properties
         /// <summary>
-        /// Dane połączeniowe do bazy danych.
-        /// </summary>
-        public string DatabaseConnectionString
-        {
-            get
-            {
-                return Settings.Default.DatabaseConnectionString;
-            }
-
-            set
-            {
-                Settings.Default.DatabaseConnectionString = value;
-            }
-        }
-        /// <summary>
         /// Uruchamiaj aplikacje przy starcie systemu.
         /// </summary>
         public bool RunAppDuringStartup
@@ -51,6 +36,62 @@ namespace DataCollector.Client.UI.ModulesAccess
                 else
                     //usunięcie aplikacji z rejestru rozruchowego
                     rkApp.DeleteValue("DataCollector", false);
+            }
+        }
+        /// <summary>
+        /// Adres serwisu kolektora danych.
+        /// </summary>
+        public string CollectorServiceHost
+        {
+            get
+            {
+                return Settings.Default.CollectorServiceHost;
+            }
+            set
+            {
+                Settings.Default.CollectorServiceHost = value;
+            }
+        }
+        /// <summary>
+        /// Adres serwisu dostępu do danych.
+        /// </summary>
+        public string DataAccessHost
+        {
+            get
+            {
+                return Settings.Default.DataAccessHost;
+            }
+            set
+            {
+                Settings.Default.DataAccessHost = value;
+            }
+        }
+        /// <summary>
+        /// Adres serwisu komunikacji z urządzeniami.
+        /// </summary>
+        public string DeviceCommunicationHost
+        {
+            get
+            {
+                return Settings.Default.DeviceCommunicationHost;
+            }
+            set
+            {
+                Settings.Default.DeviceCommunicationHost = value;
+            }
+        }
+        /// <summary>
+        /// Adres serwisu dostępu do użytkowników.
+        /// </summary>
+        public string UsersHost
+        {
+            get
+            {
+                return Settings.Default.UsersHost;
+            }
+            set
+            {
+                Settings.Default.UsersHost = value;
             }
         }
         #endregion

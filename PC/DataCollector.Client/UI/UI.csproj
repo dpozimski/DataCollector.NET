@@ -48,6 +48,12 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.6.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Wcf, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Wcf.4.0.0\lib\net45\Autofac.Integration.Wcf.dll</HintPath>
+    </Reference>
     <Reference Include="Dragablz, Version=0.0.3.182, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dragablz.0.0.3.182\lib\net45\Dragablz.dll</HintPath>
       <Private>True</Private>
@@ -149,6 +155,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Connected Services\Collector\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\DataAccess\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\DeviceCommunication\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\Users\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Controls\DateTimeRange.xaml.cs">
       <DependentUpon>DateTimeRange.xaml</DependentUpon>
     </Compile>
@@ -162,9 +188,12 @@
     <Compile Include="Models\RequestModel.cs" />
     <Compile Include="Models\SeriesModel.cs" />
     <Compile Include="ModulesAccess\AppSettings.cs" />
+    <Compile Include="ModulesAccess\CommunicationServiceCallback.cs" />
     <Compile Include="ModulesAccess\DialogAccess.cs" />
     <Compile Include="ModulesAccess\Interfaces\IAppSettings.cs" />
+    <Compile Include="ModulesAccess\Interfaces\ICommunicationServiceEventCallback.cs" />
     <Compile Include="ModulesAccess\Interfaces\IDialogAccess.cs" />
+    <Compile Include="ModulesAccess\ServiceLocator.cs" />
     <Compile Include="Resources\Styles\MahApps\FlyoutAssist.cs" />
     <Compile Include="ValidationRules\DateValidationRule.cs" />
     <Compile Include="ValidationRules\NotEmptyValidationRule.cs" />
@@ -309,7 +338,69 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Connected Services\Collector\MeasureCollectorService.wsdl" />
+    <None Include="Connected Services\Collector\MeasureCollectorService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DataAccess\DataCollector.Client.UI.DataAccess.MeasureDevice.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\DataAccess\MeasureAccessService.wsdl" />
+    <None Include="Connected Services\DataAccess\MeasureAccessService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DataAccess\MeasureAccessService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DataAccess\MeasureAccessService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DataAccess\MeasureAccessService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DeviceCommunication\WebCommunicationService.wsdl" />
+    <None Include="Connected Services\DeviceCommunication\WebCommunicationService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DeviceCommunication\WebCommunicationService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DeviceCommunication\WebCommunicationService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DeviceCommunication\WebCommunicationService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DeviceCommunication\WebCommunicationService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DeviceCommunication\WebCommunicationService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DeviceCommunication\WebCommunicationService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Users\DataCollector.Client.UI.Users.User.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Users\DataCollector.Client.UI.Users.UserLoginHistory.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Users\UsersManagementService.wsdl" />
+    <None Include="Connected Services\Users\UsersManagementService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Users\UsersManagementService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Users\UsersManagementService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Users\UsersManagementService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\LiveCharts.Defaults.DateTimePoint.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -331,6 +422,75 @@
     <Resource Include="Resources\Assets\150277.png" />
     <Resource Include="Resources\Assets\basicline.jpg" />
     <Resource Include="Resources\Assets\stacked-areas.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\Collector\" />
+    <WCFMetadataStorage Include="Connected Services\DataAccess\" />
+    <WCFMetadataStorage Include="Connected Services\DeviceCommunication\" />
+    <WCFMetadataStorage Include="Connected Services\Users\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DataAccess\MeasureAccessService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DataAccess\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DataAccess\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DataAccess\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Collector\MeasureCollectorService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Collector\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Collector\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Collector\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Users\UsersManagementService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Users\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Users\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Users\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DeviceCommunication\WebCommunicationService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DeviceCommunication\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DeviceCommunication\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DeviceCommunication\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -28,7 +28,7 @@ namespace DataCollector.Server.Interfaces.Data
         /// <param name="user"></param>
         /// <returns></returns>
         [OperationContract]
-        IReadOnlyList<UserLoginHistory> GetUserLoginHistory(User user);
+        List<UserLoginHistory> GetUserLoginHistory(User user);
         /// <summary>
         /// Weryfikacja poświadczeń użytkownika.
         /// </summary>
@@ -50,7 +50,7 @@ namespace DataCollector.Server.Interfaces.Data
         /// </summary>
         /// <returns>lista użytkowników</returns>
         [OperationContract]
-        IReadOnlyList<User> GetUsers();
+        List<User> GetUsers();
         /// <summary>
         /// Metoda dodająca nowego użytkownika.
         /// <param name="user">użytkownik</param>
