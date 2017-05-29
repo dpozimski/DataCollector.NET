@@ -11,9 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder", "SolutionF
 		ExternalOpenLibraries\ReadMe.txt = ExternalOpenLibraries\ReadMe.txt
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExternalOpenLibraries", "ExternalOpenLibraries", "{A17DE345-A9E3-4B50-B7CA-5D5DC53CA22E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netoaster", "ExternalOpenLibraries\netoaster\netoaster.csproj", "{211D37EF-74F8-4E4F-9ED0-DA4566F423F5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toaster", "ExternalOpenLibraries\netoaster\Toaster.csproj", "{211D37EF-74F8-4E4F-9ED0-DA4566F423F5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{D9CE9DAD-67F0-47C9-9FBE-0675AB7EF1DB}"
 EndProject
@@ -38,9 +36,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{A17DE345-A9E3-4B50-B7CA-5D5DC53CA22E} = {4234F5BB-9FBA-4F48-9C66-A9EAA2C0A9F8}
-		{211D37EF-74F8-4E4F-9ED0-DA4566F423F5} = {A17DE345-A9E3-4B50-B7CA-5D5DC53CA22E}
 	EndGlobalSection
 EndGlobal

@@ -58,6 +58,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enumes\ToastType.cs" />
+    <Compile Include="NotificationColor.cs" />
+    <Compile Include="NotificationIcoPath.cs" />
     <Compile Include="ThemeKeys.cs" />
     <Compile Include="ToasterWindow.xaml.cs">
       <DependentUpon>ToasterWindow.xaml</DependentUpon>

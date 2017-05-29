@@ -1,31 +1,37 @@
-﻿using System.Windows;
+﻿using netoaster.Enumes;
+using System.Windows;
 
 namespace netoaster
 {
     public static class Toaster
     {
-        private static ToasterWindow GetToasterWindow(Window owner, ToastType type, string title, string message,
-            ToasterPosition position, ToasterAnimation animation, double margin)
+        private static ToasterWindow GetToasterWindow(Window owner, ToastType type, string title, string message, double margin)
         {
-            var toaster = new ToasterWindow(owner, title, message, position, animation, margin);
-            switch (type)
+            var toaster = new ToasterWindow(owner)
             {
-                case ToastType.Error:
-                    toaster.Ico.Data = NotificationIcoPath.Error;
-                    toaster.Notification.Background = NotificationColor.Error;
-                    break;
-                case ToastType.Info:
-                    toaster.Ico.Data = NotificationIcoPath.Info;
-                    toaster.Notification.Background = NotificationColor.Info;
-                    break;
-                case ToastType.Warning:
-                    toaster.Ico.Data = NotificationIcoPath.Warning;
-                    toaster.Notification.Background = NotificationColor.Warning;
-                    break;
-                case ToastType.Success:
-                    toaster.Ico.Data = NotificationIcoPath.Success;
-                    toaster.Notification.Background = NotificationColor.Success;
-                    break;
+                Title = title,
+                Message = message,
+                Margins = margin
+            };
+            if (type == ToastType.Error)
+            {
+                toaster.Ico.Data = NotificationIcoPath.Error;
+                toaster.Notification.Background = NotificationColor.Error;
+            }
+            else if (type == ToastType.Info)
+            {
+                toaster.Ico.Data = NotificationIcoPath.Info;
+                toaster.Notification.Background = NotificationColor.Info;
+            }
+            else if (type == ToastType.Warning)
+            {
+                toaster.Ico.Data = NotificationIcoPath.Warning;
+                toaster.Notification.Background = NotificationColor.Warning;
+            }
+            else if (type == ToastType.Success)
+            {
+                toaster.Ico.Data = NotificationIcoPath.Success;
+                toaster.Notification.Background = NotificationColor.Success;
             }
             return toaster;
         }
@@ -34,11 +40,9 @@ namespace netoaster
             Window owner,
             string title = "Error",
             string message = "Something terrible may have just happened and you are being notified of it.",
-            ToasterPosition position = ToasterPosition.PrimaryScreenBottomRight,
-            ToasterAnimation animation = ToasterAnimation.SlideInFromRight,
             double margin = 10.0)
         {
-            var toaster = GetToasterWindow(owner, ToastType.Error, title, message, position, animation, margin);
+            var toaster = GetToasterWindow(owner, ToastType.Error, title, message, margin);
             toaster.Show();
         }
 
@@ -46,11 +50,9 @@ namespace netoaster
             Window owner,
             string title = "Info",
             string message = "Something you may notice.",
-            ToasterPosition position = ToasterPosition.PrimaryScreenBottomRight,
-            ToasterAnimation animation = ToasterAnimation.SlideInFromRight,
             double margin = 10.0)
         {
-            var toaster = GetToasterWindow(owner, ToastType.Info, title, message, position, animation, margin);
+            var toaster = GetToasterWindow(owner, ToastType.Info, title, message, margin);
             toaster.Show();
         }
 
@@ -58,12 +60,10 @@ namespace netoaster
             Window owner,
             string title = "Success",
             string message = "All good.",
-            ToasterPosition position = ToasterPosition.PrimaryScreenBottomRight,
-            ToasterAnimation animation = ToasterAnimation.SlideInFromRight,
             double margin = 10.0)
         {
 
-            var toaster = GetToasterWindow(owner, ToastType.Success, title, message, position, animation, margin);
+            var toaster = GetToasterWindow(owner, ToastType.Success, title, message, margin);
             toaster.Show();
         }
 
@@ -71,11 +71,9 @@ namespace netoaster
             Window owner,
             string title = "Warning",
             string message = "Something terrible may have just happened and you are being notified of it.",
-            ToasterPosition position = ToasterPosition.PrimaryScreenBottomRight,
-            ToasterAnimation animation = ToasterAnimation.SlideInFromRight,
             double margin = 10.0)
         {
-            var toaster = GetToasterWindow(owner, ToastType.Warning, title, message, position, animation, margin);
+            var toaster = GetToasterWindow(owner, ToastType.Warning, title, message, margin);
             toaster.Show();
         }
     }

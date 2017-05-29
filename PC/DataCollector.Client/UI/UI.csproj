@@ -320,9 +320,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ExternalOpenLibraries\netoaster\netoaster.csproj">
+    <ProjectReference Include="..\ExternalOpenLibraries\netoaster\Toaster.csproj">
       <Project>{211d37ef-74f8-4e4f-9ed0-da4566f423f5}</Project>
-      <Name>netoaster</Name>
+      <Name>Toaster</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
