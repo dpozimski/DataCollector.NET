@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="2KZ8Ew3e8D38QcRwzjuT1DIQW8o=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="Dvxu3tckDNn04oqh+VcxcKqPHAQ=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="BasicHttpBinding_IMeasureAccessService">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="BasicHttpBinding_IMeasureAccessService" contract="DataAccess.IMeasureAccessService" bindingType="basicHttpBinding" address="http://localhost/MeasureAccessService.svc" bindingConfiguration="BasicHttpBinding_IMeasureAccessService">
+    <endpoint name="BasicHttpBinding_IMeasureAccessService" contract="DataAccess.IMeasureAccessService" bindingType="basicHttpBinding" address="http://localhost:57412/MeasureAccessService.svc" bindingConfiguration="BasicHttpBinding_IMeasureAccessService">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://localhost/MeasureAccessService.svc</serializedValue>
+          <serializedValue>http://localhost:57412/MeasureAccessService.svc</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

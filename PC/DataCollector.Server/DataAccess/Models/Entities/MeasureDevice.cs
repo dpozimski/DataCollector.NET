@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using DataCollector.Server.DataAccess.Interfaces;
 using System.Runtime.Serialization;
 
-namespace DataCollector.Server.DataAccess.Models
+namespace DataCollector.Server.DataAccess.Models.Entities
 {
     /// <summary>
     /// Klasa reprezentująca urządzenie pomiarowe w bazie danych.

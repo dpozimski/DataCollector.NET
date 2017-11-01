@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataCollector.Server.DataAccess.Models
+namespace DataCollector.Server.DataAccess.Models.Entities
 {
     /// <summary>
     /// Klasa reprezentująca tabelę z odciskiem czasu dla danego urządzenia.

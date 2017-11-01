@@ -34,7 +34,9 @@ namespace DataCollector.Client.UI.ModulesAccess
 
             var builder = new ContainerBuilder();
 
-            builder.RegisterType<CommunicationServiceCallback>().AsImplementedInterfaces();
+            builder.RegisterType<CommunicationServiceCallback>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
 
             builder.Register(c =>
             {

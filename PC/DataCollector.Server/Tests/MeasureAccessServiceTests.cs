@@ -1,4 +1,5 @@
 ﻿using DataCollector.Server.DataAccess.Models;
+using DataCollector.Server.DataAccess.Models.Entities;
 using DataCollector.Server.Tests.Utils;
 using System;
 using System.Collections.Generic;

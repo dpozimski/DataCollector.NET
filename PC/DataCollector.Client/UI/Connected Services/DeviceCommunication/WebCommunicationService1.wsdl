@@ -565,13 +565,13 @@
   </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://localhost/WebCommunicationService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://localhost/WebCommunicationService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost/WebCommunicationService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models" />
-      <xsd:import schemaLocation="http://localhost/WebCommunicationService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DeviceHandlers.Models" />
-      <xsd:import schemaLocation="http://localhost/WebCommunicationService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System" />
-      <xsd:import schemaLocation="http://localhost/WebCommunicationService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/DataCollector.Device.Models" />
-      <xsd:import schemaLocation="http://localhost/WebCommunicationService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.BroadcastListener.Models" />
+      <xsd:import schemaLocation="http://localhost:57412/WebCommunicationService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:57412/WebCommunicationService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:57412/WebCommunicationService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models.Entities" />
+      <xsd:import schemaLocation="http://localhost:57412/WebCommunicationService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DeviceHandlers.Models" />
+      <xsd:import schemaLocation="http://localhost:57412/WebCommunicationService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System" />
+      <xsd:import schemaLocation="http://localhost:57412/WebCommunicationService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/DataCollector.Device.Models" />
+      <xsd:import schemaLocation="http://localhost:57412/WebCommunicationService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.BroadcastListener.Models" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="ICommunicationService_IsStarted_InputMessage">
@@ -797,11 +797,11 @@
   </wsdl:binding>
   <wsdl:service name="WebCommunicationService">
     <wsdl:port name="WSDualHttpBinding_ICommunicationService" binding="tns:WSDualHttpBinding_ICommunicationService">
-      <soap12:address location="http://localhost/WebCommunicationService.svc" />
+      <soap12:address location="http://localhost:57412/WebCommunicationService.svc" />
       <wsa10:EndpointReference>
-        <wsa10:Address>http://localhost/WebCommunicationService.svc</wsa10:Address>
+        <wsa10:Address>http://localhost:57412/WebCommunicationService.svc</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Spn>host/DESKTOP-N4E0H7N</Spn>
+          <Spn>host/Thinkpad-DP.lis.local</Spn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

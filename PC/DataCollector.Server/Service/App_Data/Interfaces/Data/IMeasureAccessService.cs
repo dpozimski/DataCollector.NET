@@ -1,5 +1,6 @@
 ﻿using DataCollector.Server.DataAccess.Interfaces;
 using DataCollector.Server.DataAccess.Models;
+using DataCollector.Server.DataAccess.Models.Entities;
 using LiveCharts.Defaults;
 using System;
 using System.Collections.Generic;

@@ -9,6 +9,7 @@ using LiveCharts.Defaults;
 using DataCollector.Server.Interfaces.Data;
 using DataCollector.Server.DataAccess;
 using System.ServiceModel;
+using DataCollector.Server.DataAccess.Models.Entities;
 
 namespace DataCollector.Server
 {

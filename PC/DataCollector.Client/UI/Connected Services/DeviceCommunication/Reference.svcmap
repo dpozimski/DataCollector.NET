@@ -19,18 +19,18 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost/WebCommunicationService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:57412/WebCommunicationService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="WebCommunicationService.xsd" MetadataType="Schema" ID="4d609bf5-8242-4fda-aee3-a3a75534d106" SourceId="1" SourceUrl="http://localhost/WebCommunicationService.svc?xsd=xsd6" />
-    <MetadataFile FileName="WebCommunicationService1.xsd" MetadataType="Schema" ID="920f701d-154b-4e9c-b016-df03865977e5" SourceId="1" SourceUrl="http://localhost/WebCommunicationService.svc?xsd=xsd4" />
-    <MetadataFile FileName="WebCommunicationService2.xsd" MetadataType="Schema" ID="e1ca0697-286e-4e4d-a0ee-d25596e4abed" SourceId="1" SourceUrl="http://localhost/WebCommunicationService.svc?xsd=xsd5" />
-    <MetadataFile FileName="WebCommunicationService.wsdl" MetadataType="Wsdl" ID="572f2d40-838f-4762-aa8f-3e4c8a3f052f" SourceId="1" SourceUrl="http://localhost/WebCommunicationService.svc?wsdl" />
-    <MetadataFile FileName="WebCommunicationService.disco" MetadataType="Disco" ID="c8584d74-091e-411a-a563-aa5a5eea4394" SourceId="1" SourceUrl="http://localhost/WebCommunicationService.svc?disco" />
-    <MetadataFile FileName="WebCommunicationService3.xsd" MetadataType="Schema" ID="e83dcdd6-7c03-4c39-ae66-66bb8a89b08f" SourceId="1" SourceUrl="http://localhost/WebCommunicationService.svc?xsd=xsd2" />
-    <MetadataFile FileName="WebCommunicationService4.xsd" MetadataType="Schema" ID="7af59d9a-f1e3-47b3-a83d-85da12969745" SourceId="1" SourceUrl="http://localhost/WebCommunicationService.svc?xsd=xsd3" />
-    <MetadataFile FileName="WebCommunicationService5.xsd" MetadataType="Schema" ID="efc2df5a-f747-453e-b706-00b0215002e3" SourceId="1" SourceUrl="http://localhost/WebCommunicationService.svc?xsd=xsd0" />
-    <MetadataFile FileName="WebCommunicationService6.xsd" MetadataType="Schema" ID="18ca29a5-5f1e-48b2-b790-3c439bf88b22" SourceId="1" SourceUrl="http://localhost/WebCommunicationService.svc?xsd=xsd1" />
+    <MetadataFile FileName="WebCommunicationService7.xsd" MetadataType="Schema" ID="3c4da4d8-a3c2-4f0b-b58a-630c54842c12" SourceId="1" SourceUrl="http://localhost:57412/WebCommunicationService.svc?xsd=xsd2" />
+    <MetadataFile FileName="WebCommunicationService1.disco" MetadataType="Disco" ID="296bf501-fcf7-4b69-a051-9aeda36c6a88" SourceId="1" SourceUrl="http://localhost:57412/WebCommunicationService.svc?disco" />
+    <MetadataFile FileName="WebCommunicationService71.xsd" MetadataType="Schema" ID="f2e051ba-8720-4019-8bfc-f84460f60b5a" SourceId="1" SourceUrl="http://localhost:57412/WebCommunicationService.svc?xsd=xsd3" />
+    <MetadataFile FileName="WebCommunicationService72.xsd" MetadataType="Schema" ID="a287cc5c-8644-4a9d-b3f9-1a01d8f9e6dd" SourceId="1" SourceUrl="http://localhost:57412/WebCommunicationService.svc?xsd=xsd5" />
+    <MetadataFile FileName="WebCommunicationService73.xsd" MetadataType="Schema" ID="e0fa8472-7986-457e-ad45-74329d2eaf73" SourceId="1" SourceUrl="http://localhost:57412/WebCommunicationService.svc?xsd=xsd6" />
+    <MetadataFile FileName="WebCommunicationService74.xsd" MetadataType="Schema" ID="15245628-6966-460c-bbb1-eb9fc363eed7" SourceId="1" SourceUrl="http://localhost:57412/WebCommunicationService.svc?xsd=xsd0" />
+    <MetadataFile FileName="WebCommunicationService75.xsd" MetadataType="Schema" ID="07d0b2d9-998e-493c-bc2b-6fb13565393c" SourceId="1" SourceUrl="http://localhost:57412/WebCommunicationService.svc?xsd=xsd4" />
+    <MetadataFile FileName="WebCommunicationService76.xsd" MetadataType="Schema" ID="0e63970d-67bd-48bc-b9ac-00d9e0465cd7" SourceId="1" SourceUrl="http://localhost:57412/WebCommunicationService.svc?xsd=xsd1" />
+    <MetadataFile FileName="WebCommunicationService1.wsdl" MetadataType="Wsdl" ID="4b407a47-4968-4a25-bddc-082f5193e61b" SourceId="1" SourceUrl="http://localhost:57412/WebCommunicationService.svc?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

@@ -139,25 +139,25 @@ namespace DataCollector.Client.UI.ViewModels.Core
         /// Konstruktor klasy UserViewModel
         /// </summary>
         /// <param name="user">użytkownik</param>
-        public UserViewModel(User user):this(new Tuple<User, int>(user, -1))
+        public UserViewModel(User user):this(new UserSession() { SessionUser = user, SessionId = -1 })
         {
 
         }
         /// <summary>
         /// Konstruktor klasy UserViewModel.
         /// </summary>
-        /// <param name="user">użytkownik bazodanowy z identyfikatorem sesji</param>
-        public UserViewModel(Tuple<User, int> user)
+        /// <param name="userSession">użytkownik bazodanowy z identyfikatorem sesji</param>
+        public UserViewModel(UserSession userSession)
         {
             //inicjalizacja uprawnień
             var roles = ((UserRole[])Enum.GetValues(typeof(UserRole))).Where(s => s != UserRole.All);
             this.AvailableRoles = new ObservableCollection<UserRole>(roles);
 
             //aktualizacja danych uzytkownika
-            Update(user.Item1);
+            Update(userSession.SessionUser);
 
             //przypisanie id sesji
-            this.SessionId = user.Item2;
+            this.SessionId = userSession.SessionId;
 
             //inicjalizacja komendy wylogowywania się
             LogoutCommand = ReactiveCommand.Create();
@@ -165,7 +165,7 @@ namespace DataCollector.Client.UI.ViewModels.Core
 
             //pobranie danych logowania
             managementService = ServiceLocator.Resolve<IUsersManagementService>();
-            LoginHistory = new ObservableCollection<UserLoginHistory>(managementService.GetUserLoginHistory(user.Item1));
+            LoginHistory = new ObservableCollection<UserLoginHistory>(managementService.GetUserLoginHistory(userSession.SessionUser));
         }
         #endregion
 

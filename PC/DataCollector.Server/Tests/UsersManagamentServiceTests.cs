@@ -1,4 +1,5 @@
 ﻿using DataCollector.Server.DataAccess.Models;
+using DataCollector.Server.DataAccess.Models.Entities;
 using DataCollector.Server.Tests.Utils;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace DataCollector.Server.Tests
         public void GetUsersLoginHistoryTest()
         {
             var adminUser = managementService.GetUser("admin");
-            var list = managementService.GetUserLoginHistory(adminUser.Item1);
+            var list = managementService.GetUserLoginHistory(adminUser.SessionUser);
             Assert.True(list.Count > 0);
         }
         
@@ -47,19 +48,19 @@ namespace DataCollector.Server.Tests
         {
             string name = "asd" + DateTime.Now.Ticks;
             var user = managementService.GetUser("viewer");
-            user.Item1.FirstName = name;
-            managementService.UpdateUser(user.Item1);
+            user.SessionUser.FirstName = name;
+            managementService.UpdateUser(user.SessionUser);
             user = managementService.GetUser("viewer");
-            Assert.Equal(name, user.Item1.FirstName);
+            Assert.Equal(name, user.SessionUser.FirstName);
         }
 
         [Fact]
         public void AddUserTimeStampHistory()
         {
             var user = managementService.GetUser("admin");
-            managementService.RecordLogoutTimeStamp(user.Item2);
-            var list = managementService.GetUserLoginHistory(user.Item1);
-            Assert.True(list.Any(s => s.ID == user.Item2));
+            managementService.RecordLogoutTimeStamp(user.SessionId);
+            var list = managementService.GetUserLoginHistory(user.SessionUser);
+            Assert.True(list.Any(s => s.ID == user.SessionId));
         }
 
         [Theory]

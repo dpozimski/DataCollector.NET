@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DataCollector.Server.BroadcastListener.Models;
 using DataCollector.Server.DataAccess.Models;
+using DataCollector.Server.DataAccess.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,12 +22,12 @@ namespace DataCollector.Server.DeviceHandlers.Models
         /// Urządzenie.
         /// </summary>
         [DataMember]
-        public MeasureDevice Device { get; }
+        public MeasureDevice Device { get; set; }
         /// <summary>
         /// Status aktualizacji.
         /// </summary>
         [DataMember]
-        public UpdateStatus UpdateStatus { get; }
+        public UpdateStatus UpdateStatus { get; set; }
         #endregion
 
         #region ctor

@@ -19,12 +19,12 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost/MeasureCollectorService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:57412/MeasureCollectorService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="MeasureCollectorService.xsd" MetadataType="Schema" ID="f2a414e5-8b60-4fde-beca-31371dee6ab2" SourceId="1" SourceUrl="http://localhost/MeasureCollectorService.svc?xsd=xsd0" />
-    <MetadataFile FileName="MeasureCollectorService.disco" MetadataType="Disco" ID="efc1777b-4fa4-478d-bad8-fa1a2c4dfa05" SourceId="1" SourceUrl="http://localhost/MeasureCollectorService.svc?disco" />
-    <MetadataFile FileName="MeasureCollectorService.wsdl" MetadataType="Wsdl" ID="7f88abcd-2e95-4ea0-a6ea-e7139ff2f48d" SourceId="1" SourceUrl="http://localhost/MeasureCollectorService.svc?wsdl" />
+    <MetadataFile FileName="MeasureCollectorService1.xsd" MetadataType="Schema" ID="584c6641-29a3-4642-b877-f8f257b4cdac" SourceId="1" SourceUrl="http://localhost:57412/MeasureCollectorService.svc?xsd=xsd0" />
+    <MetadataFile FileName="MeasureCollectorService1.disco" MetadataType="Disco" ID="a1e09c7e-ed35-46b0-b7d0-e3d31e6005fe" SourceId="1" SourceUrl="http://localhost:57412/MeasureCollectorService.svc?disco" />
+    <MetadataFile FileName="MeasureCollectorService1.wsdl" MetadataType="Wsdl" ID="bc6d0cba-3d26-4003-84d0-1af2bb7ddd1e" SourceId="1" SourceUrl="http://localhost:57412/MeasureCollectorService.svc?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost/MeasureAccessService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models" />
-  <xs:import schemaLocation="http://localhost/MeasureAccessService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/LiveCharts.Defaults" />
+  <xs:import schemaLocation="http://localhost:57412/MeasureAccessService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models.Entities" />
+  <xs:import schemaLocation="http://localhost:57412/MeasureAccessService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models" />
+  <xs:import schemaLocation="http://localhost:57412/MeasureAccessService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/LiveCharts.Defaults" />
   <xs:element name="UpdateDeviceRequestInterval">
     <xs:complexType>
       <xs:sequence>
@@ -23,7 +24,7 @@
   <xs:element name="GetMeasureDevicesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models" minOccurs="0" name="GetMeasureDevicesResult" nillable="true" type="q1:ArrayOfMeasureDevice" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models.Entities" minOccurs="0" name="GetMeasureDevicesResult" nillable="true" type="q1:ArrayOfMeasureDevice" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -31,7 +32,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models" minOccurs="0" name="type" type="q2:MeasureType" />
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models" minOccurs="0" name="device" nillable="true" type="q3:MeasureDevice" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models.Entities" minOccurs="0" name="device" nillable="true" type="q3:MeasureDevice" />
         <xs:element minOccurs="0" name="lowerRange" type="xs:dateTime" />
         <xs:element minOccurs="0" name="upperRange" type="xs:dateTime" />
       </xs:sequence>
@@ -48,7 +49,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models" minOccurs="0" name="type" type="q5:SphereMeasureType" />
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models" minOccurs="0" name="device" nillable="true" type="q6:MeasureDevice" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models.Entities" minOccurs="0" name="device" nillable="true" type="q6:MeasureDevice" />
         <xs:element minOccurs="0" name="lowerRange" type="xs:dateTime" />
         <xs:element minOccurs="0" name="upperRange" type="xs:dateTime" />
       </xs:sequence>

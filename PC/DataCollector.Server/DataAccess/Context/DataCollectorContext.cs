@@ -1,4 +1,5 @@
 ﻿using DataCollector.Server.DataAccess.Models;
+using DataCollector.Server.DataAccess.Models.Entities;
 using System;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
@@ -49,6 +50,7 @@ namespace DataCollector.Server.DataAccess.Context
         public DataCollectorContext(string connectionString): base(connectionString)
         {
             Database.SetInitializer(new DataCollectorContextInitializer());
+            Configuration.ProxyCreationEnabled = false;
         }
         #endregion
     }

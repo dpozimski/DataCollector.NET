@@ -18,6 +18,7 @@ using Autofac.Builder;
 using DataCollector.Server.DataAccess.Models;
 using DataCollector.Server.Interfaces.Communication;
 using DataCollector.Server.Interfaces.Data;
+using DataCollector.Server.DataAccess.Models.Entities;
 
 namespace DataCollector.Server
 {
@@ -47,7 +48,7 @@ namespace DataCollector.Server
 
             AutofacHostFactory.Container = builder.Build();
 
-            //var service = AutofacHostFactory.Container.Resolve<MeasureCollectorService>();
+            PreconfigureDataCollecting();
         }
 
         /// <summary>
@@ -118,6 +119,18 @@ namespace DataCollector.Server
         {
             string value = ConfigurationManager.AppSettings[key];
             return Convert.ToInt32(value);
+        }
+
+        /// <summary>
+        /// Performs a basic configuration of the collecting catched data from the devices.
+        /// </summary>
+        /// <CreatedOn>01.11.2017 20:57</CreatedOn>
+        /// <CreatedBy>dpozimski</CreatedBy>
+        private void PreconfigureDataCollecting()
+        {
+            var clientCallbacksContainer = AutofacHostFactory.Container.Resolve<ICommunicationClientCallbacksContainer>();
+            var measureCollectorService = AutofacHostFactory.Container.Resolve<IMeasureCollectorService>();
+            measureCollectorService.StartCollectingData();
         }
     }
 }

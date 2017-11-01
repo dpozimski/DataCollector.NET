@@ -54,8 +54,12 @@ namespace DataCollector.Client.UI.Views.Core
             await progress.CloseAsync();
 
             ICommunicationService service = ServiceLocator.Resolve<ICommunicationService>();
-            if(!service.IsStarted())
+            await service.RegisterCallbackChannelAsync();
+            if (!service.IsStarted())
+            {
+                await service.AddSimulatorDeviceAsync();
                 service.Start();
+            }  
         }
         /// <summary>
         /// Zdarzenie powodujące przerzucenie focus na okno główne programu.

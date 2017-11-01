@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DataCollector.Client.UI.DataAccess;
+using DataCollector.Client.UI.Users;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -22,7 +24,32 @@ namespace DataCollector.Client.UI.Converters
         /// <returns></returns>
         public string ToDescription(Enum value)
         {
-            return GetAttribute<DescriptionAttribute>(value)?.Description;
+            if (value is UserRole role)
+            {
+                if (role == UserRole.Administrator)
+                    return "Administrator";
+                else if (role == UserRole.Viewer)
+                    return "Obserwator";
+                else if (role == UserRole.All)
+                    return "Wszyscy";
+            }
+            else if (value is MeasureType measureType)
+            {
+                if (measureType == MeasureType.Humidity)
+                    return "Wilgotność";
+                else if (measureType == MeasureType.AirPressure)
+                    return "Ciśnienie";
+                else if (measureType == MeasureType.Temperature)
+                    return "Temperatura";
+            }
+            else if(value is SphereMeasureType sphereMeasureType)
+            {
+                if (sphereMeasureType == SphereMeasureType.Accelerometer)
+                    return "Akcelerometr";
+                else if (sphereMeasureType == SphereMeasureType.Gyroscope)
+                    return "Żyroskop";
+            }
+            return "Błąd";
         }
         /// <summary>
         /// Konwersja typu wyliczeniowego do jego jednostki.
@@ -31,7 +58,7 @@ namespace DataCollector.Client.UI.Converters
         /// <returns></returns>
         public string ToUnit(Enum value)
         {
-            return /*GetAttribute<MeasureInformationAttribute>(value)?.Unit*/ "";
+            return "";
         }
 
         #region Private Methods

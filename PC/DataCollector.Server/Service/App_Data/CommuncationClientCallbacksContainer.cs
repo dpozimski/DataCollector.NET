@@ -104,7 +104,8 @@ namespace DataCollector.Server
         private void NotifyCallbackSubscribers(Action<ICommunicationServiceCallback> data)
         {
             //usuń nieaktywnych
-            var notActiveClients = callbacks.Where(s => ((IChannel)s.Value).State != CommunicationState.Opened)
+            var notActiveClients = callbacks
+                .Where(s => s.Value is IChannel channel && channel.State != CommunicationState.Opened)
                 .Select(s => s.Key).ToList();
             ICommunicationServiceCallback deletedCallback = null;
             foreach (var item in notActiveClients)

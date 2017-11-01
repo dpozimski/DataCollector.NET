@@ -1,4 +1,5 @@
 ﻿using DataCollector.Server.DataAccess.Models;
+using DataCollector.Server.DataAccess.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -25,12 +26,16 @@ namespace DataCollector.Server.DataAccess.Context
         {
             var admin = new User();
             admin.Login = "admin";
+            admin.FirstName = "Jan";
+            admin.LastName = "Kowalski";
             admin.AssignPassword("admin");
             admin.Role = UserRole.Administrator;
             context.Users.Add(admin);
 
             var viewer = new User();
             viewer.Login = "viewer";
+            viewer.FirstName = "Andrzej";
+            viewer.LastName = "Kłoda";
             viewer.AssignPassword("viewer");
             viewer.Role = UserRole.Viewer;
             context.Users.Add(viewer);

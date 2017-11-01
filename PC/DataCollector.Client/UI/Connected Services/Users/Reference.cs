@@ -15,7 +15,8 @@ namespace DataCollector.Client.UI.Users {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BaseTable", Namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BaseTable", Namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models.En" +
+        "tities")]
     [System.SerializableAttribute()]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DataCollector.Client.UI.Users.UserLoginHistory))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DataCollector.Client.UI.Users.User))]
@@ -62,7 +63,8 @@ namespace DataCollector.Client.UI.Users {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UserLoginHistory", Namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserLoginHistory", Namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models.En" +
+        "tities")]
     [System.SerializableAttribute()]
     public partial class UserLoginHistory : DataCollector.Client.UI.Users.BaseTable {
         
@@ -101,7 +103,8 @@ namespace DataCollector.Client.UI.Users {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="User", Namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="User", Namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models.En" +
+        "tities")]
     [System.SerializableAttribute()]
     public partial class User : DataCollector.Client.UI.Users.BaseTable {
         
@@ -201,6 +204,67 @@ namespace DataCollector.Client.UI.Users {
         All = 3,
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserSession", Namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models")]
+    [System.SerializableAttribute()]
+    public partial class UserSession : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int SessionIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private DataCollector.Client.UI.Users.User SessionUserField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SessionId {
+            get {
+                return this.SessionIdField;
+            }
+            set {
+                if ((this.SessionIdField.Equals(value) != true)) {
+                    this.SessionIdField = value;
+                    this.RaisePropertyChanged("SessionId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public DataCollector.Client.UI.Users.User SessionUser {
+            get {
+                return this.SessionUserField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SessionUserField, value) != true)) {
+                    this.SessionUserField = value;
+                    this.RaisePropertyChanged("SessionUser");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Users.IUsersManagementService")]
     public interface IUsersManagementService {
@@ -224,10 +288,10 @@ namespace DataCollector.Client.UI.Users {
         System.Threading.Tasks.Task<bool> ValidateCredentialsAsync(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/GetUser", ReplyAction="http://tempuri.org/IUsersManagementService/GetUserResponse")]
-        System.Tuple<DataCollector.Client.UI.Users.User, int> GetUser(string username);
+        DataCollector.Client.UI.Users.UserSession GetUser(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/GetUser", ReplyAction="http://tempuri.org/IUsersManagementService/GetUserResponse")]
-        System.Threading.Tasks.Task<System.Tuple<DataCollector.Client.UI.Users.User, int>> GetUserAsync(string username);
+        System.Threading.Tasks.Task<DataCollector.Client.UI.Users.UserSession> GetUserAsync(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/GetUsers", ReplyAction="http://tempuri.org/IUsersManagementService/GetUsersResponse")]
         DataCollector.Client.UI.Users.User[] GetUsers();
@@ -305,11 +369,11 @@ namespace DataCollector.Client.UI.Users {
             return base.Channel.ValidateCredentialsAsync(username, password);
         }
         
-        public System.Tuple<DataCollector.Client.UI.Users.User, int> GetUser(string username) {
+        public DataCollector.Client.UI.Users.UserSession GetUser(string username) {
             return base.Channel.GetUser(username);
         }
         
-        public System.Threading.Tasks.Task<System.Tuple<DataCollector.Client.UI.Users.User, int>> GetUserAsync(string username) {
+        public System.Threading.Tasks.Task<DataCollector.Client.UI.Users.UserSession> GetUserAsync(string username) {
             return base.Channel.GetUserAsync(username);
         }
         

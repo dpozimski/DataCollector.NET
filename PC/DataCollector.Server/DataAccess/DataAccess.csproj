@@ -63,19 +63,24 @@
     <Compile Include="Interfaces\IDataAccessBase.cs" />
     <Compile Include="Interfaces\IDeviceBroadcastInfo.cs" />
     <Compile Include="Interfaces\IDeviceInfo.cs" />
-    <Compile Include="Models\BaseTable.cs" />
-    <Compile Include="Models\DeviceTimeMeasurePoint.cs" />
+    <Compile Include="Models\Entities\BaseTable.cs" />
+    <Compile Include="Models\Entities\DeviceTimeMeasurePoint.cs" />
     <Compile Include="Models\Enumes.cs" />
-    <Compile Include="Models\MeasureDevice.cs" />
-    <Compile Include="Models\MeasureInformationAttribute.cs" />
-    <Compile Include="Models\MeasurePoint.cs" />
-    <Compile Include="Models\SphereMeasurePoint.cs" />
-    <Compile Include="Models\User.cs" />
-    <Compile Include="Models\UserLoginHistory.cs" />
+    <Compile Include="Models\Entities\MeasureDevice.cs" />
+    <Compile Include="Models\Entities\MeasurePoint.cs" />
+    <Compile Include="Models\Entities\SphereMeasurePoint.cs" />
+    <Compile Include="Models\Entities\User.cs" />
+    <Compile Include="Models\Entities\UserLoginHistory.cs" />
+    <Compile Include="Models\UserSession.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -86,6 +91,10 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Models\StoredProcedures\SPU_GetMeasurePoints.txt" />

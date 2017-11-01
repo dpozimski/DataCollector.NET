@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost/UsersManagementService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:57412/UsersManagementService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models" />
   <xs:complexType name="User">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:BaseTable">
@@ -9,7 +9,7 @@
           <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Login" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="Role" type="tns:UserRole" />
+          <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models" minOccurs="0" name="Role" type="q1:UserRole" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -21,24 +21,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BaseTable" nillable="true" type="tns:BaseTable" />
-  <xs:simpleType name="UserRole">
-    <xs:list>
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="Administrator" />
-          <xs:enumeration value="Viewer" />
-          <xs:enumeration value="All">
-            <xs:annotation>
-              <xs:appinfo>
-                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:enumeration>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:list>
-  </xs:simpleType>
-  <xs:element name="UserRole" nillable="true" type="tns:UserRole" />
   <xs:complexType name="ArrayOfUserLoginHistory">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="UserLoginHistory" nillable="true" type="tns:UserLoginHistory" />

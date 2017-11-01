@@ -15,7 +15,8 @@ namespace DataCollector.Client.UI.DataAccess {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="MeasureDevice", Namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="MeasureDevice", Namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models.En" +
+        "tities")]
     [System.SerializableAttribute()]
     public partial class MeasureDevice : DataCollector.Client.UI.DataAccess.BaseTable {
         
@@ -150,7 +151,8 @@ namespace DataCollector.Client.UI.DataAccess {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BaseTable", Namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BaseTable", Namespace="http://schemas.datacontract.org/2004/07/DataCollector.Server.DataAccess.Models.En" +
+        "tities")]
     [System.SerializableAttribute()]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DataCollector.Client.UI.DataAccess.MeasureDevice))]
     public partial class BaseTable : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {

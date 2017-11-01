@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataCollector.Device.Models;
 
-namespace DataCollector.Server.DataAccess.Models
+namespace DataCollector.Server.DataAccess.Models.Entities
 {
     /// <summary>
     /// Klasa reprezentująca pomiar punktu w przestrzeni.

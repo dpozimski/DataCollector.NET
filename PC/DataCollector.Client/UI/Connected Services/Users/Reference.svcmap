@@ -19,15 +19,15 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost/UsersManagementService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:57412/UsersManagementService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="UsersManagementService.xsd" MetadataType="Schema" ID="12a96ac6-ea4d-41b1-994a-417163aff365" SourceId="1" SourceUrl="http://localhost/UsersManagementService.svc?xsd=xsd0" />
-    <MetadataFile FileName="UsersManagementService1.xsd" MetadataType="Schema" ID="a5d0aa51-2d1f-4ca7-a807-d239823fa3bb" SourceId="1" SourceUrl="http://localhost/UsersManagementService.svc?xsd=xsd2" />
-    <MetadataFile FileName="UsersManagementService.disco" MetadataType="Disco" ID="025cd25c-dcfa-4db2-9bf2-ae018faf2431" SourceId="1" SourceUrl="http://localhost/UsersManagementService.svc?disco" />
-    <MetadataFile FileName="UsersManagementService.wsdl" MetadataType="Wsdl" ID="068f9b79-ce76-4b90-a7e8-a67ed1166a75" SourceId="1" SourceUrl="http://localhost/UsersManagementService.svc?wsdl" />
-    <MetadataFile FileName="UsersManagementService2.xsd" MetadataType="Schema" ID="dc3d2987-76fa-4427-a997-e63853a4e857" SourceId="1" SourceUrl="http://localhost/UsersManagementService.svc?xsd=xsd3" />
-    <MetadataFile FileName="UsersManagementService3.xsd" MetadataType="Schema" ID="4bbf5f9e-8b15-4bf5-af82-699b71a8a11d" SourceId="1" SourceUrl="http://localhost/UsersManagementService.svc?xsd=xsd1" />
+    <MetadataFile FileName="UsersManagementService.xsd" MetadataType="Schema" ID="b7c3494c-bebe-4912-998c-43be554e7aa3" SourceId="1" SourceUrl="http://localhost:57412/UsersManagementService.svc?xsd=xsd3" />
+    <MetadataFile FileName="UsersManagementService1.disco" MetadataType="Disco" ID="6313c106-45a6-4d71-9789-5918898930e3" SourceId="1" SourceUrl="http://localhost:57412/UsersManagementService.svc?disco" />
+    <MetadataFile FileName="UsersManagementService41.xsd" MetadataType="Schema" ID="c1f824e3-66d7-467d-817e-d6f7f3202f1c" SourceId="1" SourceUrl="http://localhost:57412/UsersManagementService.svc?xsd=xsd1" />
+    <MetadataFile FileName="UsersManagementService42.xsd" MetadataType="Schema" ID="c39c5cc5-ddd3-44db-95bf-c36f42da1310" SourceId="1" SourceUrl="http://localhost:57412/UsersManagementService.svc?xsd=xsd0" />
+    <MetadataFile FileName="UsersManagementService1.wsdl" MetadataType="Wsdl" ID="32470c7c-1229-4b64-b82e-ff3a261a4c0c" SourceId="1" SourceUrl="http://localhost:57412/UsersManagementService.svc?wsdl" />
+    <MetadataFile FileName="UsersManagementService43.xsd" MetadataType="Schema" ID="3c7cb7dc-9f62-45b3-ae26-ef456956a2e9" SourceId="1" SourceUrl="http://localhost:57412/UsersManagementService.svc?xsd=xsd2" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

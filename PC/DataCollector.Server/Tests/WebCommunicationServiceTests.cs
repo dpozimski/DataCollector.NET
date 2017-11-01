@@ -3,6 +3,7 @@ using DataCollector.Server.BroadcastListener.Interfaces;
 using DataCollector.Server.BroadcastListener.Models;
 using DataCollector.Server.DataAccess.Interfaces;
 using DataCollector.Server.DataAccess.Models;
+using DataCollector.Server.DataAccess.Models.Entities;
 using DataCollector.Server.DeviceHandlers.Interfaces;
 using DataCollector.Server.DeviceHandlers.Models;
 using DataCollector.Server.Interfaces;

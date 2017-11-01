@@ -1,5 +1,6 @@
 ﻿using DataCollector.Server.DataAccess.Interfaces;
 using DataCollector.Server.DataAccess.Models;
+using DataCollector.Server.DataAccess.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +45,7 @@ namespace DataCollector.Server.Interfaces.Data
         /// <param name="username">login</param>
         /// <returns>użytkownik z identyfikatorem sesji</returns>
         [OperationContract]
-        Tuple<User, int> GetUser(string username);
+        UserSession GetUser(string username);
         /// <summary>
         /// Metoda zwracająca listę wszystkich użytkowników w bazie danych.
         /// </summary>

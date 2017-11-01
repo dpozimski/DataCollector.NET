@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataCollector.Server.DataAccess.Models
+namespace DataCollector.Server.DataAccess.Models.Entities
 {
     /// <summary>
     /// Klasa reprezentująca pojedyncze zdarzenie logowania użytkownika.

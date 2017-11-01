@@ -2,6 +2,7 @@
 using DataCollector.Server.DataAccess.Context;
 using DataCollector.Server.DataAccess.Interfaces;
 using DataCollector.Server.DataAccess.Models;
+using DataCollector.Server.DataAccess.Models.Entities;
 using DataCollector.Server.Interfaces.Data;
 using System;
 using System.Collections.Generic;
@@ -65,19 +66,19 @@ namespace DataCollector.Server
         /// </summary>
         /// <param name="username">login</param>
         /// <returns>użytkownik z identyfikatorem sesji</returns>
-        public Tuple<User, int> GetUser(string username)
+        public UserSession GetUser(string username)
         {
             using (var db = new DataCollectorContext(ConnectionString))
             {
                 var user = db.Users.SingleOrDefault(s => s.Login == username);
-                UserLoginHistory session = new UserLoginHistory() { AssignedUser = user, LoginTimeStamp = DateTime.Now };
+                var session = new UserLoginHistory() { AssignedUser = user, LoginTimeStamp = DateTime.Now };
                 if (user != null)
                 {
                     //dodanie zapisu o pobraniu użytkownika z bazy danych
                     db.UsersLoginHistory.Add(session);
                     db.SaveChanges();
                 }
-                return new Tuple<User, int>(user, session.ID);
+                return new UserSession() { SessionUser = user, SessionId = session.ID };
             }
         }
         /// <summary>

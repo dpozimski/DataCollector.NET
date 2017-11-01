@@ -16,17 +16,14 @@ namespace DataCollector.Server.DataAccess.Models
         /// <summary>
         /// Uprawnienie administratora.
         /// </summary>
-        [Description("Administrator")]
         Administrator = 1,
         /// <summary>
         /// Uprawnienie obserwatora.
         /// </summary>
-        [Description("Obserwator")]
         Viewer = 2,
         /// <summary>
         /// Uprawnienie obserwatora i administratora.
         /// </summary>
-        [Description("Wszyscy")]
         All = Administrator | Viewer
     }
     /// <summary>
@@ -37,17 +34,14 @@ namespace DataCollector.Server.DataAccess.Models
         /// <summary>
         /// Pomiar wigotności w RH.
         /// </summary>
-        [MeasureInformationAttribute("Wilgotność", "RH")]
         Humidity,
         /// <summary>
         /// Pomiar wilgotności w Celsjuszach.
         /// </summary>
-        [MeasureInformationAttribute("Temperatura", "°C")]
         Temperature,
         /// <summary>
         /// Pomiar ciśnienia atmosferycznego w hPa.
         /// </summary>
-        [MeasureInformationAttribute("Ciśnienie", "hPa")]
         AirPressure
     }
 
@@ -59,12 +53,10 @@ namespace DataCollector.Server.DataAccess.Models
         /// <summary>
         /// Żyroskop.
         /// </summary>
-        [MeasureInformationAttribute("Żyroskop", "")]
         Gyroscope,
         /// <summary>
         /// Akcelerometr.
         /// </summary>
-        [MeasureInformationAttribute("Akcelerometr", "")]
         Accelerometer
     }
 }

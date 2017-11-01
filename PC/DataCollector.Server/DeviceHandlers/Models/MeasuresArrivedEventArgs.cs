@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DataCollector.Device.Models;
 using DataCollector.Server.DataAccess.Models;
+using DataCollector.Server.DataAccess.Models.Entities;
 using System;
 using System.Runtime.Serialization;
 
