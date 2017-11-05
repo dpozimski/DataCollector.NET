@@ -7,8 +7,10 @@ using DataCollector.Client.UI.ModulesAccess.Interfaces;
 using DataCollector.Client.UI.Users;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
+using System.ServiceModel.Configuration;
 using System.Xml;
 
 namespace DataCollector.Client.UI.ModulesAccess
@@ -43,7 +45,7 @@ namespace DataCollector.Client.UI.ModulesAccess
                 var settingsService = c.Resolve<IAppSettings>();
                 return new DuplexChannelFactory<ICommunicationService>(
                     c.Resolve<ICommunicationServiceCallback>(),
-                    new WSDualHttpBinding(),
+                    GetWsDualHttpBinding(),
                     new EndpointAddress(settingsService.DeviceCommunicationHost));
             }).SingleInstance();
 
@@ -81,13 +83,44 @@ namespace DataCollector.Client.UI.ModulesAccess
             {
                 IAppSettings settings = c.Resolve<IAppSettings>();
                 return new ChannelFactory<TService>(
-                                new BasicHttpBinding(),
+                                GetBasicHttpBinding(),
                                 new EndpointAddress(hostFactory(settings)));                
             }).SingleInstance();
 
             builder.Register(c => c.Resolve<ChannelFactory<TService>>().CreateChannel())
               .As<TService>()
               .UseWcfSafeRelease();
+        }
+
+
+        private static BasicHttpBinding GetBasicHttpBinding()
+        {
+            return new BasicHttpBinding()
+            {
+                MaxBufferPoolSize = 20000000,
+                MaxBufferSize = 20000000,
+                MaxReceivedMessageSize = 20000000,
+                ReaderQuotas = new XmlDictionaryReaderQuotas()
+                {
+                    MaxDepth = 32,
+                    MaxStringContentLength = 20000000,
+                    MaxArrayLength = 20000000
+                }
+            };
+        }
+
+        private static WSDualHttpBinding GetWsDualHttpBinding()
+        {
+            return new WSDualHttpBinding()
+            {
+                MaxBufferPoolSize = 20000000,
+                MaxReceivedMessageSize = 20000000,
+                ReaderQuotas = new XmlDictionaryReaderQuotas()
+                {
+                    MaxStringContentLength = 20000000,
+                    MaxArrayLength = 20000000
+                }
+            };
         }
     }
 }

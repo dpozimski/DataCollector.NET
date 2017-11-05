@@ -183,6 +183,7 @@
     <Compile Include="Converters\EnumToStringDescription.cs" />
     <Compile Include="Converters\IsNullToVisiblityConverter.cs" />
     <Compile Include="Extensions\PasswordBoxHelper.cs" />
+    <Compile Include="Extensions\TranslationExtension.cs" />
     <Compile Include="Models\DataRange.cs" />
     <Compile Include="Models\IRequestBuilder.cs" />
     <Compile Include="Models\QueueableChartValues.cs" />
@@ -196,6 +197,11 @@
     <Compile Include="ModulesAccess\Interfaces\IDialogAccess.cs" />
     <Compile Include="ModulesAccess\ServiceLocator.cs" />
     <Compile Include="Resources\Styles\MahApps\FlyoutAssist.cs" />
+    <Compile Include="Resources\Translation\DataCollectorStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataCollectorStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="ValidationRules\DateValidationRule.cs" />
     <Compile Include="ValidationRules\NotEmptyValidationRule.cs" />
     <Compile Include="ValidationRules\OnlyIntegerValidationRule.cs" />
@@ -339,12 +345,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Translation\DataCollectorStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DataCollectorStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="Connected Services\Collector\MeasureCollectorService.wsdl" />
     <None Include="Connected Services\Collector\MeasureCollectorService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\Collector\MeasureCollectorService1.wsdl" />
-    <None Include="Connected Services\Collector\MeasureCollectorService1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\DataAccess\DataCollector.Client.UI.DataAccess.MeasureDevice.datasource">
@@ -354,7 +360,6 @@
     <None Include="Connected Services\DataAccess\MeasureAccessService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\DataAccess\MeasureAccessService1.wsdl" />
     <None Include="Connected Services\DataAccess\MeasureAccessService1.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -367,20 +372,10 @@
     <None Include="Connected Services\DataAccess\MeasureAccessService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\DataAccess\MeasureAccessService41.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\DataAccess\MeasureAccessService42.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\DataAccess\MeasureAccessService43.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Connected Services\DeviceCommunication\WebCommunicationService.wsdl" />
     <None Include="Connected Services\DeviceCommunication\WebCommunicationService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\DeviceCommunication\WebCommunicationService1.wsdl" />
     <None Include="Connected Services\DeviceCommunication\WebCommunicationService1.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -399,41 +394,19 @@
     <None Include="Connected Services\DeviceCommunication\WebCommunicationService6.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\DeviceCommunication\WebCommunicationService7.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\DeviceCommunication\WebCommunicationService71.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\DeviceCommunication\WebCommunicationService72.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\DeviceCommunication\WebCommunicationService73.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\DeviceCommunication\WebCommunicationService74.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\DeviceCommunication\WebCommunicationService75.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\DeviceCommunication\WebCommunicationService76.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Connected Services\Users\DataCollector.Client.UI.Users.User.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\Users\DataCollector.Client.UI.Users.UserLoginHistory.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\Users\DataCollector.Client.UI.Users.UserSession1.datasource">
+    <None Include="Connected Services\Users\DataCollector.Client.UI.Users.UserSession.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\Users\UsersManagementService.wsdl" />
     <None Include="Connected Services\Users\UsersManagementService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\Users\UsersManagementService1.wsdl" />
     <None Include="Connected Services\Users\UsersManagementService1.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -441,15 +414,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\Users\UsersManagementService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\Users\UsersManagementService41.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\Users\UsersManagementService42.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\Users\UsersManagementService43.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
@@ -461,7 +425,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ExternalOpenLibraries\netoaster\Toaster.csproj">
@@ -484,21 +450,6 @@
     <WCFMetadataStorage Include="Connected Services\DataAccess\" />
     <WCFMetadataStorage Include="Connected Services\DeviceCommunication\" />
     <WCFMetadataStorage Include="Connected Services\Users\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\DataAccess\MeasureAccessService.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\DataAccess\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\DataAccess\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\DataAccess\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\Collector\MeasureCollectorService.disco" />
@@ -546,16 +497,19 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\Collector\MeasureCollectorService1.disco" />
+    <None Include="Connected Services\DataAccess\MeasureAccessService.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\DataAccess\MeasureAccessService1.disco" />
+    <None Include="Connected Services\DataAccess\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\DeviceCommunication\WebCommunicationService1.disco" />
+    <None Include="Connected Services\DataAccess\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\Users\UsersManagementService1.disco" />
+    <None Include="Connected Services\DataAccess\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

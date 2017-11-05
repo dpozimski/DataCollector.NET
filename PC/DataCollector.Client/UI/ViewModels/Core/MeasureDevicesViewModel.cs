@@ -103,7 +103,7 @@ namespace DataCollector.Client.UI.ViewModels.Core
                     }
                 }
                 string strEnum = enumConverter.ToDescription(e.UpdateStatus);
-                DialogAccess.ShowToastNotification(string.Format(strEnum, e.Device.Name), toastType);
+                DialogAccess.ShowToastNotification($"{strEnum} {e.Device.Name}", toastType);
                 this.RaisePropertyChanged(nameof(ConnectedDevicesCount));
                 this.RaisePropertyChanged(nameof(DevicesCount));
             }));
