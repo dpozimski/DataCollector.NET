@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataCollector.Client.Translation;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -29,9 +30,9 @@ namespace DataCollector.Client.UI.ValidationRules
             int iValue = -1;
             bool success = int.TryParse(value.ToString(), NumberStyles.Any, cultureInfo, out iValue);
             if (success && (iValue < MinValue || iValue > MaxValue))
-                result = new ValidationResult(false, $"Dozwolony zakres {MinValue}-{MaxValue}");
+                result = new ValidationResult(false, string.Format(TranslationExtension.GetString("AllowedRange"), MinValue, MaxValue));
             else if(!success)
-                result = new ValidationResult(false, "Dozwolone są tylko liczby całkowite");
+                result = new ValidationResult(false, TranslationExtension.GetString("OnlyIntegerValuesAllowed"));
 
             return result;
         }

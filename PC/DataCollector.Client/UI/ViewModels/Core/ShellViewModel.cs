@@ -26,6 +26,7 @@ using DataCollector.Client.UI.ViewModels.Dialogs;
 using DataCollector.Client.UI.Models;
 using DataCollector.Client.UI.Users;
 using netoaster.Enumes;
+using DataCollector.Client.Translation;
 
 namespace DataCollector.Client.UI.ViewModels.Core
 {
@@ -167,7 +168,7 @@ namespace DataCollector.Client.UI.ViewModels.Core
             {
                 success = usersManagement.ValidateCredentials(result.Username, result.Password);
                 if (!success)
-                    DialogAccess.ShowToastNotification("Niepoprawne dane logowania");
+                    DialogAccess.ShowToastNotification(TranslationExtension.GetString("InvalidLoginData"));
                 else
                     CurrentLoggedUser = new UserViewModel(usersManagement.GetUser(result.Username));
             }
@@ -182,7 +183,8 @@ namespace DataCollector.Client.UI.ViewModels.Core
         /// <param name="logoutTrigger"></param>
         private async void LogoutMethod(bool logoutTrigger)
         {
-            var builder = RequestModel.Create().Text("Czy na pewno chcesz wylogować się z biezącej sesji ?").Style(MessageDialogStyle.AffirmativeAndNegative);
+            string text = TranslationExtension.GetString("DoYouReallyWantToLogoutFromTheCurrentSession");
+            var builder = RequestModel.Create().Text(text).Style(MessageDialogStyle.AffirmativeAndNegative);
             var message = await DialogAccess.ShowRequestAsync(builder);
             if (message == MessageDialogResult.Affirmative)
             {
@@ -245,7 +247,7 @@ namespace DataCollector.Client.UI.ViewModels.Core
                 await DialogAccess.Show(view, RootDialogId);
             }
             else
-                DialogAccess.ShowToastNotification("Nie nawiązano komunikacji z urządzeniem", ToastType.Error);
+                DialogAccess.ShowToastNotification(TranslationExtension.GetString("ThereIsNoConnectionWithDevice"), ToastType.Error);
         }
         /// <summary>
         /// Metoda zmieniająca stan okna info o użytkowniku lub logująca do systemu

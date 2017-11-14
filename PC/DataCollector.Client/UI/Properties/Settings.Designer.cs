@@ -12,7 +12,7 @@ namespace DataCollector.Client.UI.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.3.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -37,7 +37,7 @@ namespace DataCollector.Client.UI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/MeasureCollectorService.svc")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:57412/MeasureCollectorService.svc")]
         public string CollectorServiceHost {
             get {
                 return ((string)(this["CollectorServiceHost"]));
@@ -49,7 +49,7 @@ namespace DataCollector.Client.UI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/MeasureAccessService.svc")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:57412/MeasureAccessService.svc")]
         public string DataAccessHost {
             get {
                 return ((string)(this["DataAccessHost"]));
@@ -61,7 +61,7 @@ namespace DataCollector.Client.UI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/WebCommunicationService.svc")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:57412/WebCommunicationService.svc")]
         public string DeviceCommunicationHost {
             get {
                 return ((string)(this["DeviceCommunicationHost"]));
@@ -73,7 +73,7 @@ namespace DataCollector.Client.UI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/UsersManagementService.svc")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:57412/UsersManagementService.svc")]
         public string UsersHost {
             get {
                 return ((string)(this["UsersHost"]));

@@ -5,6 +5,13 @@
     xmlns:converters="clr-namespace:DataCollector.Client.UI.Converters"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+    xmlns:lexEx="http://wpflocalizeextension.codeplex.com"
+    xmlns:lex ="clr-namespace:WPFLocalizeExtension.Engine;assembly=WPFLocalizeExtension"
+    lex:LocalizeDictionary.DesignCulture="en"
+    lex:LocalizeDictionary.OutputMissingKeys="True"
+    lexEx:ResxLocalizationProvider.DefaultAssembly="DataCollector.Client.Translation"
+    lexEx:ResxLocalizationProvider.DefaultDictionary="Strings"
+    lex:LocalizeDictionary.IncludeInvariantCulture="True"
     Width="720"
     Height="540"
     FontFamily="{StaticResource DefaultFont}"
@@ -25,7 +32,7 @@
                 Grid.Column="0"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignCardGroupBox}"
-                Header="Użytkownicy">
+                Header="{lexEx:Loc Key=Users}">
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -52,7 +59,7 @@
                     <DataGrid.RowDetailsTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" Margin="16">
-                                <TextBlock Margin="0,0,0,10" TextAlignment="Left" FontWeight="Bold" Text="Historia logowania użytkownika"/>
+                                <TextBlock Margin="0,0,0,10" TextAlignment="Left" FontWeight="Bold" Text="{lexEx:Loc Key=UserLoginHistory}"/>
                                 <DataGrid
                                     MaxHeight="250"
                                     wpf:DataGridAssist.CellPadding="13 8 8 8"
@@ -66,11 +73,11 @@
                                     <DataGrid.Columns>
                                         <materialDesign:MaterialDataGridTextColumn
                                             Binding="{Binding LoginTimeStamp, StringFormat=dd.MM.yy HH:mm:ss}"
-                                            Header="Rozpoczęcie sesji"
+                                            Header="{lexEx:Loc Key=SessionStart}"
                                             IsReadOnly="True" />
                                         <materialDesign:MaterialDataGridTextColumn
                                             Binding="{Binding LogoutTimeStamp}"
-                                            Header="Zakończenie sesji"
+                                            Header="{lexEx:Loc Key=SessionEnd}"
                                             IsReadOnly="True" />
                                     </DataGrid.Columns>
                                 </DataGrid>
@@ -80,19 +87,19 @@
                     <DataGrid.Columns>
                         <materialDesign:MaterialDataGridTextColumn
                             Binding="{Binding Login}"
-                            Header="Login"
+                            Header="{lexEx:Loc Key=Login}"
                             IsReadOnly="True" />
                         <materialDesign:MaterialDataGridTextColumn
                             Binding="{Binding FirstName}"
-                            Header="Imię"
+                            Header="{lexEx:Loc Key=FirstName}"
                             IsReadOnly="True" />
                         <materialDesign:MaterialDataGridTextColumn
                             Binding="{Binding LastName}"
-                            Header="Nazwisko"
+                            Header="{lexEx:Loc Key=LastName}"
                             IsReadOnly="True" />
                         <materialDesign:MaterialDataGridTextColumn
                             Binding="{Binding Role, Converter={StaticResource EnumToDescriptionConverter}}"
-                            Header="Uprawnienie"
+                            Header="{lexEx:Loc Key=Role}"
                             IsReadOnly="True" />
                     </DataGrid.Columns>
                 </DataGrid>
@@ -102,7 +109,7 @@
                 Grid.Column="1"
                 Margin="10"
                 Style="{DynamicResource MaterialDesignCardGroupBox}"
-                Header="Zarządzanie">
+                Header="{lexEx:Loc Key=Management}">
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -130,7 +137,7 @@
                             <TextBlock
                                 Margin="8,0,0,0"
                                 VerticalAlignment="Center"
-                                Text="Dodaj" />
+                                Text="{lexEx:Loc Key=Add}" />
                         </StackPanel>
                     </Button>
 
@@ -140,7 +147,7 @@
                             <TextBlock
                                 Margin="8,0,0,0"
                                 VerticalAlignment="Center"
-                                Text="Usuń" />
+                                Text="{lexEx:Loc Key=Delete}" />
                         </StackPanel>
                     </Button>
 
@@ -150,7 +157,7 @@
                             <TextBlock
                                 Margin="8,0,0,0"
                                 VerticalAlignment="Center"
-                                Text="Zmień" />
+                                Text="{lexEx:Loc Key=Change}" />
                         </StackPanel>
                     </Button>
 
@@ -160,7 +167,7 @@
                             <TextBlock
                                 Margin="8,0,0,0"
                                 VerticalAlignment="Center"
-                                Text="Zamknij" />
+                                Text="{lexEx:Loc Key=Close}" />
                         </StackPanel>
                     </Button>
 

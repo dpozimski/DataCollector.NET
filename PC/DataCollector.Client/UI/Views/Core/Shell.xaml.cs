@@ -11,6 +11,10 @@ using System.Globalization;
 using DataCollector.Client.UI.ViewModels;
 using DataCollector.Client.UI.DeviceCommunication;
 using DataCollector.Client.UI.Users;
+using DataCollector.Client.UI.Extensions;
+using WPFLocalizeExtension.Providers;
+using WPFLocalizeExtension.Engine;
+using DataCollector.Client.Translation;
 
 namespace DataCollector.Client.UI.Views.Core
 {
@@ -38,28 +42,25 @@ namespace DataCollector.Client.UI.Views.Core
         {
             IDialogAccess dialogAccess = ServiceLocator.Resolve<IDialogAccess>();
             dialogAccess.SetHwnd(this);
-
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("pl-PL");
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("pl-PL");
-            LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(
-                        XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
-
             //dialog postępu
-            var progress = await DialogManager.ShowProgressAsync(this, Title, "Inicjalizacja aplikacji");
+            var progress = await DialogManager.ShowProgressAsync(this, Title, "ClientInitialization");
             progress.SetIndeterminate();
-
-            progress.SetMessage("Zakończono inicjalizację aplikacji");
+            progress.SetMessage(TranslationExtension.GetString("ClientInitializationFinished"));
             await Task.Delay(1000);
+            progress.SetMessage(TranslationExtension.GetString("ConnectingWithService"));
+            await ConnectToService();
             //zamknięcie dialogu
-            await progress.CloseAsync();
-
+            await progress.CloseAsync(); 
+        }
+        private async Task ConnectToService()
+        {
             ICommunicationService service = ServiceLocator.Resolve<ICommunicationService>();
             await service.RegisterCallbackChannelAsync();
             if (!service.IsStarted())
             {
                 await service.AddSimulatorDeviceAsync();
                 service.Start();
-            }  
+            }
         }
         /// <summary>
         /// Zdarzenie powodujące przerzucenie focus na okno główne programu.

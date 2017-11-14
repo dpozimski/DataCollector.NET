@@ -193,7 +193,7 @@ namespace DataCollector.Client.UI.ViewModels.Chart
                 return dtPoint.Ticks > this.MinXAxis &&
                        dtPoint.Ticks < this.MaxXAxis;
             }).OrderBy(s=>s.Min(d=>d.DateTime)).ToList();
-            //wyczyszczenie poprzednich wartości z widoku
+            //wyczyszczenie {lex:Loc Key=Previous}ch wartości z widoku
             foreach (var item in view)
                 item.Values.Clear();
             //wpisanie danych z odpowiedniej osi do odpowiadającej serii

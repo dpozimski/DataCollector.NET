@@ -4,6 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:DataCollector.Client.UI.Converters"
     xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+    xmlns:lex ="clr-namespace:WPFLocalizeExtension.Engine;assembly=WPFLocalizeExtension"
+    xmlns:lexEx="http://wpflocalizeextension.codeplex.com"
+    lex:LocalizeDictionary.DesignCulture="en"
+    lex:LocalizeDictionary.OutputMissingKeys="True"
+    lexEx:ResxLocalizationProvider.DefaultAssembly="DataCollector.Client.Translation"
+    lexEx:ResxLocalizationProvider.DefaultDictionary="Strings"
+    lex:LocalizeDictionary.IncludeInvariantCulture="True"
     Width="225"
     FontFamily="{StaticResource DefaultFont}"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}">
@@ -21,16 +28,16 @@
             <converters:EnumToStringDescription x:Key="EnumToDescriptionConverter"/>
         </StackPanel.Resources>
 
-        <TextBox wpf:HintAssist.Hint="Login" Text="{Binding Login}" />
-        <TextBox wpf:HintAssist.Hint="Imię" Text="{Binding FirstName}" />
-        <TextBox wpf:HintAssist.Hint="Nazwisko" Text="{Binding LastName}" />
-        <TextBox wpf:HintAssist.Hint="Uprawnienia" Text="{Binding Role, Converter={StaticResource EnumToDescriptionConverter}}"/>
+        <TextBox wpf:HintAssist.Hint="{lexEx:Loc Key=Login}" Text="{Binding Login}" />
+        <TextBox wpf:HintAssist.Hint="{lexEx:Loc Key=FirstName}" Text="{Binding FirstName}" />
+        <TextBox wpf:HintAssist.Hint="{lexEx:Loc Key=LastName}" Text="{Binding LastName}" />
+        <TextBox wpf:HintAssist.Hint="{lexEx:Loc Key=Roles}" Text="{Binding Role, Converter={StaticResource EnumToDescriptionConverter}}"/>
 
         <Button
             Margin="5"
             HorizontalAlignment="Right"
             Command="{Binding LogoutCommand}"
-            ToolTip="Naciśnij, aby wylogować bieżącego użytkownika z aplikacji">
+            ToolTip="{lexEx:Loc Key=PressToLogoutCurrentUser}">
             <wpf:PackIcon
                 Width="24"
                 Height="24"

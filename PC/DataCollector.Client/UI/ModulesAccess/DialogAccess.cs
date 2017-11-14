@@ -1,4 +1,5 @@
-﻿using DataCollector.Client.UI.Models;
+﻿using DataCollector.Client.Translation;
+using DataCollector.Client.UI.Models;
 using DataCollector.Client.UI.ModulesAccess.Interfaces;
 using DataCollector.Client.UI.Views.Core;
 using MahApps.Metro.Controls;
@@ -49,7 +50,7 @@ namespace DataCollector.Client.UI.ModulesAccess
             }
             catch(InvalidOperationException)
             {
-                Debug.WriteLine("Próba ponownego wyświetlenia dialogu nie powiodła się.");
+                //ignored, because the dialog was openned more than once
                 return null;
             }
         }
@@ -88,12 +89,12 @@ namespace DataCollector.Client.UI.ModulesAccess
         {
             LoginDialogSettings loginDialogSettings = new LoginDialogSettings()
             {
-                AffirmativeButtonText = "Zaloguj",
-                PasswordWatermark = "Hasło",
-                UsernameWatermark = "Użytkownik",
+                AffirmativeButtonText = TranslationExtension.GetString("Login"),
+                PasswordWatermark = TranslationExtension.GetString("Password"),
+                UsernameWatermark = TranslationExtension.GetString("UserName"),
             };
             return await hwnd.ShowLoginAsync(hwnd.Title,
-                                "Podaj dane logowania do bazy danych", loginDialogSettings);
+                                TranslationExtension.GetString("PleaseTypeDataToLogIn"), loginDialogSettings);
         }
         /// <summary>
         /// Wyświetla okno oczekiwania.

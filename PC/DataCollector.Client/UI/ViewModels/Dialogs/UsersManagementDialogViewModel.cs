@@ -1,8 +1,10 @@
-﻿using DataCollector.Client.UI.ModulesAccess;
+﻿using DataCollector.Client.Translation;
+using DataCollector.Client.UI.ModulesAccess;
 using DataCollector.Client.UI.Users;
 using DataCollector.Client.UI.ViewModels.Core;
 using DataCollector.Client.UI.Views.Core;
 using DataCollector.Client.UI.Views.Dialogs;
+using LiveCharts.Helpers;
 using MaterialDesignThemes.Wpf;
 using ReactiveUI;
 using System;
@@ -137,7 +139,7 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
                 if (userAlreadyExists)
                     InitUsers();
                 else
-                    DialogAccess.ShowToastNotification("Użytkownik o wybranym loginie już istnieje");
+                    DialogAccess.ShowToastNotification(TranslationExtension.GetString("UserNameIsTaken"));
             }
         }
         /// <summary>
@@ -162,6 +164,7 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
         {
             var dbUsers = usersManagement.GetUsers().Select(s => new UserViewModel(s));
             Users = new ObservableCollection<UserViewModel>(dbUsers.OrderBy(s=>s.Login));
+            Users.ForEach(s => s.FillLoginHistory());
             SelectedUser = Users.FirstOrDefault();
         }
         #endregion

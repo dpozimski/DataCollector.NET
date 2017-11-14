@@ -5,6 +5,13 @@
     xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+    xmlns:lexEx="http://wpflocalizeextension.codeplex.com"
+    xmlns:lex ="clr-namespace:WPFLocalizeExtension.Engine;assembly=WPFLocalizeExtension"
+    lex:LocalizeDictionary.DesignCulture="en"
+    lex:LocalizeDictionary.OutputMissingKeys="True"
+    lex:LocalizeDictionary.IncludeInvariantCulture="True"
+    lexEx:ResxLocalizationProvider.DefaultAssembly="DataCollector.Client.Translation"
+    lexEx:ResxLocalizationProvider.DefaultDictionary="Strings"
     FontFamily="{StaticResource DefaultFont}"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}">
 
@@ -27,10 +34,10 @@
                         <materialDesign:PackIcon
                             VerticalAlignment="Center"
                             Kind="Plus"
-                            ToolTip="Naciśnij, aby wygenerować nowy raport" />
+                            ToolTip="{lexEx:Loc Key=PressToGenerateData}" />
                         <TextBlock
                             Margin="8,0,0,0"
-                            Text="Nowy"
+                            Text="{lexEx:LocText Key=New}"
                             TextWrapping="Wrap" />
                     </StackPanel>
                 </Button>
@@ -39,10 +46,10 @@
                         <materialDesign:PackIcon
                             VerticalAlignment="Center"
                             Kind="Delete"
-                            ToolTip="Naciśnij, aby usunąć bieżący raport" />
+                            ToolTip="{lexEx:Loc Key=PressToDeleteCurrentReport}" />
                         <TextBlock
                             Margin="8,0,0,0"
-                            Text="Usuń"
+                            Text="{lexEx:Loc Key=Delete}"
                             TextWrapping="Wrap" />
                     </StackPanel>
                     <Button.Resources>
@@ -63,7 +70,7 @@
                 Margin="0,-50,0,0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Text="Brak wygenerowanych raportów"
+                Text="{lexEx:Loc Key=NoGeneratedReports}"
                 TextAlignment="Center"
                 TextElement.Foreground="{StaticResource MaterialDesignBody}"
                 TextWrapping="Wrap">
@@ -155,9 +162,9 @@
                                             VerticalAlignment="Center"
                                             Orientation="Vertical">
 
-                                            <TextBlock Text="Zakres danych" />
-                                            <TextBox wpf:HintAssist.Hint="Od" Text="{Binding DataRange.FirstStamp, StringFormat=dd.MM.yy HH:mm:ss}" />
-                                            <TextBox wpf:HintAssist.Hint="do" Text="{Binding DataRange.LastStamp, StringFormat=dd.MM.yy HH:mm:ss}" />
+                                            <TextBlock Text="{lexEx:Loc Key=DataRange}" />
+                                            <TextBox wpf:HintAssist.Hint="{lexEx:Loc Key=From}" Text="{Binding DataRange.FirstStamp, StringFormat=dd.MM.yy HH:mm:ss}" />
+                                            <TextBox wpf:HintAssist.Hint="{lexEx:Loc Key=To}" Text="{Binding DataRange.LastStamp, StringFormat=dd.MM.yy HH:mm:ss}" />
                                         </StackPanel>
 
                                         <StackPanel
@@ -166,9 +173,9 @@
                                             VerticalAlignment="Center"
                                             Orientation="Vertical">
 
-                                            <TextBlock Text="Bieżące dane" />
-                                            <TextBox wpf:HintAssist.Hint="Od" Text="{Binding ViewRange.FirstStamp, StringFormat=dd.MM.yy HH:mm:ss}" />
-                                            <TextBox wpf:HintAssist.Hint="do" Text="{Binding ViewRange.LastStamp, StringFormat=dd.MM.yy HH:mm:ss}" />
+                                            <TextBlock Text="{lexEx:Loc Key=CurrentData}" />
+                                            <TextBox wpf:HintAssist.Hint="{lexEx:Loc Key=From}" Text="{Binding ViewRange.FirstStamp, StringFormat=dd.MM.yy HH:mm:ss}" />
+                                            <TextBox wpf:HintAssist.Hint="{lexEx:Loc Key=To}" Text="{Binding ViewRange.LastStamp, StringFormat=dd.MM.yy HH:mm:ss}" />
                                         </StackPanel>
 
 
@@ -185,10 +192,10 @@
                                             </StackPanel.Resources>
 
                                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                                                <Button Command="{Binding StepBackwardCommand}" ToolTip="Naciśnij, aby przesunąć wykres w lewo">
+                                                <Button Command="{Binding StepBackwardCommand}" ToolTip="{lexEx:Loc Key=PressToMoveChartToLeft}">
                                                     <wpf:PackIcon VerticalAlignment="Center" Kind="ArrowLeft" />
                                                 </Button>
-                                                <Button Command="{Binding StepForwardCommand}" ToolTip="Naciśnij, aby przesunąć wykres w prawo">
+                                                <Button Command="{Binding StepForwardCommand}" ToolTip="{lexEx:Loc Key=PressToMoveChartToRight}">
                                                     <wpf:PackIcon VerticalAlignment="Center" Kind="ArrowRight" />
                                                 </Button>
                                             </StackPanel>
@@ -197,10 +204,10 @@
                                                 Margin="0,20,0,0"
                                                 HorizontalAlignment="Center"
                                                 Orientation="Horizontal">
-                                                <Button Command="{Binding ZoomInCommand}" ToolTip="Naciśnij, aby przybliżyć wykrees">
+                                                <Button Command="{Binding ZoomInCommand}" ToolTip="{lexEx:Loc Key=PressToZoomChart}">
                                                     <wpf:PackIcon VerticalAlignment="Center" Kind="MagnifyPlus" />
                                                 </Button>
-                                                <Button Command="{Binding ZoomOutCommand}" ToolTip="Naciśnij, aby oddalić wykres">
+                                                <Button Command="{Binding ZoomOutCommand}" ToolTip="{lexEx:Loc Key=PressToZoomOutChart}">
                                                     <wpf:PackIcon VerticalAlignment="Center" Kind="MagnifyMinus" />
                                                 </Button>
                                             </StackPanel>

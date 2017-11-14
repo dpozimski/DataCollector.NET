@@ -1,5 +1,4 @@
-﻿using DataCollector.Client.UI.Resources.Translation;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
 
-namespace DataCollector.Client.UI.Extensions
+namespace DataCollector.Client.Translation
 {
     /// <summary>
     /// Class provides a functionality to translate a keys using current culture.
@@ -17,35 +16,17 @@ namespace DataCollector.Client.UI.Extensions
     /// <CreatedOn>01.11.2017 21:17</CreatedOn>
     /// <CreatedBy>dpozimski</CreatedBy>
     /// <seealso cref="System.Windows.Markup.MarkupExtension" />
-    public class TranslationExtension : MarkupExtension
+    public class TranslationExtension
     {
-        #region [Public Properties]
-        public string Key { get; set; }
-        #endregion
-
         #region [Public Static Methods]        
-        /// <summary>
-        /// Gets the value.
-        /// </summary>
-        /// <param name="key">The key.</param>
-        /// <returns></returns>
-        /// <CreatedOn>01.11.2017 21:20</CreatedOn>
-        /// <CreatedBy>dpozimski</CreatedBy>
         public static string GetString(string key)
         {
             var assembly = typeof(TranslationExtension).Assembly;
-            var rm = new ResourceManager("DataCollector.Client.UI.Resources.Translation.DataCollectorStrings", assembly);
+            var rm = new ResourceManager("DataCollector.Client.Translation.Strings", assembly);
             var value =
                 rm.GetResourceSet(System.Threading.Thread.CurrentThread.CurrentCulture, true, true)
                   .GetString(key);
             return value;
-        }
-        #endregion
-
-        #region [Overrides]
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return GetString(Key);
         }
         #endregion
     }

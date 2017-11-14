@@ -47,6 +47,10 @@
     <StartupObject>
     </StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <Win32Resource>
+    </Win32Resource>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac, Version=4.6.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
@@ -146,6 +150,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFLocalizeExtension, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFLocalizeExtension.3.0.1\lib\net35\WPFLocalizeExtension.dll</HintPath>
+    </Reference>
     <Reference Include="XAMLMarkupExtensions, Version=1.2.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\XAMLMarkupExtensions.1.2.2\lib\net40\XAMLMarkupExtensions.dll</HintPath>
       <Private>True</Private>
@@ -183,7 +190,6 @@
     <Compile Include="Converters\EnumToStringDescription.cs" />
     <Compile Include="Converters\IsNullToVisiblityConverter.cs" />
     <Compile Include="Extensions\PasswordBoxHelper.cs" />
-    <Compile Include="Extensions\TranslationExtension.cs" />
     <Compile Include="Models\DataRange.cs" />
     <Compile Include="Models\IRequestBuilder.cs" />
     <Compile Include="Models\QueueableChartValues.cs" />
@@ -197,11 +203,6 @@
     <Compile Include="ModulesAccess\Interfaces\IDialogAccess.cs" />
     <Compile Include="ModulesAccess\ServiceLocator.cs" />
     <Compile Include="Resources\Styles\MahApps\FlyoutAssist.cs" />
-    <Compile Include="Resources\Translation\DataCollectorStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataCollectorStrings.resx</DependentUpon>
-    </Compile>
     <Compile Include="ValidationRules\DateValidationRule.cs" />
     <Compile Include="ValidationRules\NotEmptyValidationRule.cs" />
     <Compile Include="ValidationRules\OnlyIntegerValidationRule.cs" />
@@ -331,24 +332,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Translation\DataCollectorStrings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>DataCollectorStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <None Include="Connected Services\Collector\MeasureCollectorService.wsdl" />
     <None Include="Connected Services\Collector\MeasureCollectorService.xsd">
       <SubType>Designer</SubType>
@@ -434,6 +422,10 @@
       <Project>{211d37ef-74f8-4e4f-9ed0-da4566f423f5}</Project>
       <Name>Toaster</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Translation\Translation.csproj">
+      <Project>{88f8d3db-3d98-4a30-b7d4-1b1ba38fda0e}</Project>
+      <Name>Translation</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Assets\150277.bmp" />
@@ -511,6 +503,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

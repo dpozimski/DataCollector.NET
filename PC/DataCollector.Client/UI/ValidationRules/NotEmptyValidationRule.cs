@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataCollector.Client.Translation;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -25,9 +26,9 @@ namespace DataCollector.Client.UI.ValidationRules
             string text = (value ?? "").ToString();
 
             if (string.IsNullOrEmpty(text))
-                result = new ValidationResult(false, "Pole wymagane");
+                result = new ValidationResult(false, TranslationExtension.GetString("RequiredField"));
             else if (text.Length < MinLength)
-                result = new ValidationResult(false, $"Minimum {MinLength} znaków");
+                result = new ValidationResult(false, string.Format(TranslationExtension.GetString("MinimumChars"), MinLength));
 
             return result;
         }

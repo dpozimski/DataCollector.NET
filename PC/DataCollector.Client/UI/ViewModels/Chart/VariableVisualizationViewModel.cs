@@ -1,4 +1,5 @@
-﻿using DataCollector.Client.UI.Converters;
+﻿using DataCollector.Client.Translation;
+using DataCollector.Client.UI.Converters;
 using DataCollector.Client.UI.Models;
 using LiveCharts;
 using LiveCharts.Defaults;
@@ -177,10 +178,10 @@ namespace DataCollector.Client.UI.ViewModels.Chart
         /// </summary>
         private void ResetStatisticData()
         {
-            averageValue = new SeriesModel("Średnia");
-            maxValue = new SeriesModel("Maksimum");
-            minValue = new SeriesModel("Minimum");
-            actualValue = new SeriesModel("Bieżąca");
+            averageValue = new SeriesModel(TranslationExtension.GetString("Average"));
+            maxValue = new SeriesModel(TranslationExtension.GetString("Maximum"));
+            minValue = new SeriesModel(TranslationExtension.GetString("Minimum"));
+            actualValue = new SeriesModel(TranslationExtension.GetString("Current"));
 
             StatisticValues = new ChartValues<SeriesModel>() { averageValue, maxValue, minValue, actualValue };
             StatisticLabels = new ObservableCollection<string>(statisticValues.Select(x => x.Name));

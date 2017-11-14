@@ -157,7 +157,7 @@ namespace DataCollector.Client.UI.ViewModels.Core
             Update(userSession.SessionUser);
 
             //przypisanie id sesji
-            this.SessionId = userSession.SessionId;
+            SessionId = userSession.SessionId;
 
             //inicjalizacja komendy wylogowywania się
             LogoutCommand = ReactiveCommand.Create();
@@ -165,12 +165,21 @@ namespace DataCollector.Client.UI.ViewModels.Core
 
             //pobranie danych logowania
             managementService = ServiceLocator.Resolve<IUsersManagementService>();
-            LoginHistory = new ObservableCollection<UserLoginHistory>(managementService.GetUserLoginHistory(userSession.SessionUser));
         }
         #endregion
 
-        #region Public Methods
-
+        #region Public Methods        
+        /// <summary>
+        /// Fills the login history of the current user.
+        /// </summary>
+        /// <CreatedOn>14.11.2017 20:34</CreatedOn>
+        /// <CreatedBy>dpozimski</CreatedBy>
+        public void FillLoginHistory()
+        {
+            //Get the login history collection
+            var userLoginHistory = managementService.GetUserLoginHistory(user);
+            LoginHistory = new ObservableCollection<UserLoginHistory>(userLoginHistory);
+        }
         /// <summary>
         /// Aktualizuje ViewModel o nowe dane.
         /// </summary>
@@ -196,7 +205,7 @@ namespace DataCollector.Client.UI.ViewModels.Core
             };
 
             if (isPasswordDirty)
-                user.Password = Password;//user.AssignPassword(Password);
+                user.Password = Password;
             else
                 user.Password = Password;
 

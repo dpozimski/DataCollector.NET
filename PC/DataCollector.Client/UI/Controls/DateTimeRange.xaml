@@ -7,6 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:validation="clr-namespace:DataCollector.Client.UI.ValidationRules"
     xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+    xmlns:lex ="clr-namespace:WPFLocalizeExtension.Engine;assembly=WPFLocalizeExtension"
+    xmlns:lexEx="http://wpflocalizeextension.codeplex.com"
     d:DesignHeight="500"
     d:DesignWidth="500"
     mc:Ignorable="d">
@@ -16,7 +18,7 @@
             Margin="0,0,10,0"
             HorizontalAlignment="Left"
             Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-            wpf:HintAssist.Hint="Data">
+            wpf:HintAssist.Hint="{lexEx:Loc Key=Date}">
             <DatePicker.Text>
                 <Binding Path="InternalDate" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -31,7 +33,7 @@
             Margin="10,0,0,0"
             HorizontalAlignment="Right"
             Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
-            wpf:HintAssist.Hint="Czas">
+            wpf:HintAssist.Hint="{lexEx:Loc Key=Time}">
             <wpf:TimePicker.Text>
                 <Binding Path="InternalTime" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>

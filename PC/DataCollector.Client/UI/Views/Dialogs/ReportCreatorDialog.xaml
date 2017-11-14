@@ -6,12 +6,16 @@
     xmlns:MeasureTypes="clr-namespace:DataCollector.Client.UI.DataAccess"
     xmlns:controls="clr-namespace:DataCollector.Client.UI.Controls"
     xmlns:converters="clr-namespace:DataCollector.Client.UI.Converters"
-    xmlns:core="clr-namespace:System;assembly=mscorlib"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:validation="clr-namespace:DataCollector.Client.UI.ValidationRules"
     xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+    xmlns:lex ="clr-namespace:WPFLocalizeExtension.Engine;assembly=WPFLocalizeExtension"
+    xmlns:lexEx="http://wpflocalizeextension.codeplex.com"
+    lex:LocalizeDictionary.DesignCulture="en"
+    lex:LocalizeDictionary.OutputMissingKeys="True"
+    lexEx:ResxLocalizationProvider.DefaultAssembly="DataCollector.Client.Translation"
+    lexEx:ResxLocalizationProvider.DefaultDictionary="Strings"
+    lex:LocalizeDictionary.IncludeInvariantCulture="True"
     MinWidth="450"
     MinHeight="380"
     FontFamily="{StaticResource DefaultFont}"
@@ -57,7 +61,7 @@
                             Margin="8,0,0,0"
                             VerticalAlignment="Center"
                             Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                            Text="Kreator raportu" />
+                            Text="{lexEx:Loc Key=ReportCreator}" />
                     </StackPanel>
                     <Button
                         Grid.Column="1"
@@ -98,7 +102,7 @@
                                     Margin="8,0,0,0"
                                     VerticalAlignment="Center"
                                     Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                    Text="Kolekcja danych" />
+                                    Text="{lexEx:Loc Key=DataCollection}" />
                             </StackPanel>
                             <StackPanel
                                 Grid.Row="1"
@@ -108,7 +112,7 @@
                                 <ComboBox
                                     Width="{Binding ActualWidth, Mode=OneWay, Source={x:Reference Name=spLowerRange}}"
                                     Margin="0,0,0,16"
-                                    wpf:HintAssist.Hint="Urządzenie pomiarowe"
+                                    wpf:HintAssist.Hint="{lexEx:Loc Key=MeasureDevice}"
                                     ItemsSource="{Binding MeasureDevices}">
                                     <ComboBox.SelectedItem>
                                         <Binding
@@ -127,13 +131,13 @@
                                                 <StackPanel Margin="8,0,0,0" Orientation="Horizontal">
                                                     <TextBox
                                                         VerticalAlignment="Center"
-                                                        wpf:HintAssist.Hint="Nazwa"
+                                                        wpf:HintAssist.Hint="{lexEx:Loc Key=Name}"
                                                         IsReadOnly="True"
                                                         Text="{Binding Name}" />
                                                     <TextBox
                                                         VerticalAlignment="Center"
                                                         FontStyle="Italic"
-                                                        wpf:HintAssist.Hint="Adres MAC"
+                                                        wpf:HintAssist.Hint="{lexEx:Loc Key=MACAddress}"
                                                         IsReadOnly="True"
                                                         Text="{Binding MacAddress}" />
                                                 </StackPanel>
@@ -143,13 +147,13 @@
                                 </ComboBox>
                                 <StackPanel Margin="0,32,0,0" Orientation="Vertical">
                                     <StackPanel x:Name="spLowerRange" Orientation="Horizontal">
-                                        <TextBlock Text="Zakres dolny" />
+                                        <TextBlock Text="{lexEx:Loc Key=LowerRange}" />
                                         <controls:DateTimeRange Margin="10,0,0,0" SelectedDate="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     </StackPanel>
                                 </StackPanel>
                                 <StackPanel Margin="0,16,0,0" Orientation="Vertical">
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Zakres górny" />
+                                        <TextBlock Text="{lexEx:Loc Key=UpperRange}" />
                                         <controls:DateTimeRange Margin="10,0,0,0" SelectedDate="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     </StackPanel>
                                 </StackPanel>
@@ -190,7 +194,7 @@
                                     Margin="8,0,0,0"
                                     VerticalAlignment="Center"
                                     Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                                    Text="Pomiary" />
+                                    Text="{lexEx:Loc Key=Measures}" />
                             </StackPanel>
                             <Grid
                                 Grid.Row="1"
@@ -207,14 +211,14 @@
                                     <ComboBox
                                         x:Name="cbMeasureType"
                                         Margin="0,0,0,16"
-                                        wpf:HintAssist.Hint="Typ pomiaru"
+                                        wpf:HintAssist.Hint="{lexEx:Loc Key=MeasureType}"
                                         SelectedIndex="0">
-                                        <ComboBoxItem>Jednostkowy</ComboBoxItem>
-                                        <ComboBoxItem>Przestrzenny</ComboBoxItem>
+                                        <ComboBoxItem Content="{lexEx:Loc Key=PerUnit}"/>
+                                        <ComboBoxItem Content="{lexEx:Loc Key=Sphere}"/>
                                     </ComboBox>
                                     <ComboBox
                                         x:Name="cbMeasureProperties"
-                                        wpf:HintAssist.Hint="Parametr"
+                                        wpf:HintAssist.Hint="{lexEx:Loc Key=Parameter}"
                                         SelectedItem="{Binding SelectedMeasureType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                         <ComboBox.Resources>
                                             <Style BasedOn="{StaticResource {x:Type ComboBox}}" TargetType="ComboBox">
@@ -262,7 +266,7 @@
                                             <TextBlock
                                                 Margin="8,0,0,0"
                                                 VerticalAlignment="Center"
-                                                Text="Pobierz" />
+                                                Text="{lexEx:Loc Key=Download}" />
                                         </StackPanel>
                                     </Button>
                                     <Button
@@ -284,7 +288,7 @@
                                             <TextBlock
                                                 Margin="8,0,0,0"
                                                 VerticalAlignment="Center"
-                                                Text="Zatwierdź" />
+                                                Text="{lexEx:Loc Key=Confirm}" />
                                         </StackPanel>
                                     </Button>
                                 </Grid>

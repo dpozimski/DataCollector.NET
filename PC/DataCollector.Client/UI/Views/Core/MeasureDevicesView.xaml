@@ -2,13 +2,17 @@
     x:Class="DataCollector.Client.UI.Views.Core.MeasureDevicesView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-    xmlns:MahApps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-    xmlns:converters="clr-namespace:DataCollector.Client.UI.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:validation="clr-namespace:DataCollector.Client.UI.ValidationRules"
     xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+    xmlns:lex ="clr-namespace:WPFLocalizeExtension.Engine;assembly=WPFLocalizeExtension"
+    xmlns:lexEx="http://wpflocalizeextension.codeplex.com"
+    lex:LocalizeDictionary.DesignCulture="en"
+    lex:LocalizeDictionary.OutputMissingKeys="True"
+    lexEx:ResxLocalizationProvider.DefaultAssembly="DataCollector.Client.Translation"
+    lexEx:ResxLocalizationProvider.DefaultDictionary="Strings"
+    lex:LocalizeDictionary.IncludeInvariantCulture="True"
     x:Name="ucMeasureDevicesView"
     mc:Ignorable="d">
     <Grid>
@@ -79,26 +83,26 @@
                             StaysOpen="True">
                             <Grid Width="300" Margin="8">
                                 <StackPanel Grid.Column="1" Orientation="Vertical">
-                                    <TextBox wpf:HintAssist.Hint="Nazwa urządzenia" Text="{Binding Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <TextBox wpf:HintAssist.Hint="Adres IP" Text="{Binding IPv4, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <TextBox wpf:HintAssist.Hint="Wersja systemu" Text="{Binding WinVer, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <TextBox wpf:HintAssist.Hint="Architektura systemu" Text="{Binding Architecture, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <TextBox wpf:HintAssist.Hint="Adres MAC" Text="{Binding MacAddress, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <TextBox wpf:HintAssist.Hint="Model urządzenia" Text="{Binding Model, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <TextBox wpf:HintAssist.Hint="Status">
+                                    <TextBox wpf:HintAssist.Hint="{lexEx:Loc Key=DeviceName}" Text="{Binding Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox wpf:HintAssist.Hint="{lexEx:Loc Key=IPAddress}" Text="{Binding IPv4, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox wpf:HintAssist.Hint="{lexEx:Loc Key=SystemVersion}" Text="{Binding WinVer, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox wpf:HintAssist.Hint="{lexEx:Loc Key=SystemArchitecture}" Text="{Binding Architecture, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox wpf:HintAssist.Hint="{lexEx:Loc Key=MACAddress}" Text="{Binding MacAddress, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox wpf:HintAssist.Hint="{lexEx:Loc Key=DeviceModel}" Text="{Binding Model, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBox wpf:HintAssist.Hint="{lexEx:Loc Key=Status}">
                                         <TextBox.Resources>
                                             <Style BasedOn="{StaticResource {x:Type TextBox}}" TargetType="TextBox">
-                                                <Setter Property="Text" Value="Komunikacja uruchomiona" />
+                                                <Setter Property="Text" Value="{lexEx:Loc Key=CommunicationStarted}" />
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding IsConnected, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Value="False">
-                                                        <Setter Property="Text" Value="Komunikacja zatrzymana" />
+                                                        <Setter Property="Text" Value="{lexEx:Loc Key=CommunicationStopped}" />
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
                                         </TextBox.Resources>
                                     </TextBox>
                                     <TextBox
-                                        wpf:HintAssist.Hint="Interwał pobierania pomiarów"
+                                        wpf:HintAssist.Hint="{lexEx:Loc Key=DataCollectInterval}"
                                         IsReadOnly="False"
                                         PreviewTextInput="TextBox_PreviewTextInput">
                                         <TextBox.Text>
@@ -136,7 +140,7 @@
                                             <TextBlock
                                                 Margin="0,0,5,0"
                                                 VerticalAlignment="Center"
-                                                Text="Proszę czekać" />
+                                                Text="{lexEx:Loc Key=PleaseWait}" />
 
                                             <ProgressBar
                                                 Margin="5,0,0,0"
@@ -150,14 +154,14 @@
                                                 <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
                                                     <Setter Property="Visibility" Value="Visible" />
                                                     <Setter Property="Command" Value="{Binding ConnectPromptCommand}" />
-                                                    <Setter Property="Content" Value="Połącz" />
+                                                    <Setter Property="Content" Value="{lexEx:Loc Key=Connect}" />
                                                     <Style.Triggers>
                                                         <DataTrigger Binding="{Binding IsBusy, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Value="True">
                                                             <Setter Property="Visibility" Value="Collapsed" />
                                                         </DataTrigger>
                                                         <DataTrigger Binding="{Binding IsConnected, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Value="True">
                                                             <Setter Property="Command" Value="{Binding DisconnectPromptCommand}" />
-                                                            <Setter Property="Content" Value="Rozłącz" />
+                                                            <Setter Property="Content" Value="{lexEx:Loc Key=Disconnect}" />
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataCollector.Client.Translation;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -18,11 +19,11 @@ namespace DataCollector.Client.UI.ValidationRules
             string date = value as string;
 
             DateTime time;
-            bool success = DateTime.TryParse(date, CultureInfo.GetCultureInfo("pl-PL"), DateTimeStyles.None, out time);
+            bool success = DateTime.TryParse(date, CultureInfo.CurrentCulture, DateTimeStyles.None, out time);
             if (success)
                 return ValidationResult.ValidResult;
             else
-                return new ValidationResult(false, "Błędna data");
+                return new ValidationResult(false, TranslationExtension.GetString("InvalidDate"));
         }
     }
 }

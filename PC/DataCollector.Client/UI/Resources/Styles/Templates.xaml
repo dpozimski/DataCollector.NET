@@ -3,8 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:DataCollector.Client.UI.Converters"
     xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
-    xmlns:local="clr-namespace:DataCollector.Client.UI.Resources.Styles"
-    xmlns:controls="clr-namespace:DataCollector.Client.UI.Controls"
+    xmlns:lex ="clr-namespace:WPFLocalizeExtension.Engine;assembly=WPFLocalizeExtension"
+    xmlns:lexEx="http://wpflocalizeextension.codeplex.com"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <!--  Event Message  -->
 
@@ -55,7 +55,7 @@
                     <TextBlock
                             Margin="8,0,0,0"
                             VerticalAlignment="Center"
-                            Text="Poprzedni" />
+                            Text="{lexEx:Loc Key=Previous}" />
                 </StackPanel>
             </Button>
             <Button
@@ -79,7 +79,7 @@
                     <TextBlock
                             Margin="8,0,0,0"
                             VerticalAlignment="Center"
-                            Text="Następny" />
+                            Text="{lexEx:Loc Key=Next}" />
                 </StackPanel>
             </Button>
         </Grid>

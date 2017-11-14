@@ -6,17 +6,20 @@
     xmlns:CoreViewModels="clr-namespace:DataCollector.Client.UI.ViewModels.Core"
     xmlns:CoreViews="clr-namespace:DataCollector.Client.UI.Views.Core"
     xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
-    xmlns:ViewModels="clr-namespace:DataCollector.Client.UI.ViewModels"
     xmlns:Views="clr-namespace:DataCollector.Client.UI.Views"
     xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:converters="clr-namespace:DataCollector.Client.UI.Converters"
     xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
     xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:lex ="clr-namespace:WPFLocalizeExtension.Engine;assembly=WPFLocalizeExtension"
+    xmlns:lexEx="http://wpflocalizeextension.codeplex.com"
+    lex:LocalizeDictionary.OutputMissingKeys="True"
+    lexEx:ResxLocalizationProvider.DefaultAssembly="DataCollector.Client.Translation"
+    lexEx:ResxLocalizationProvider.DefaultDictionary="Strings"
+    lex:LocalizeDictionary.IncludeInvariantCulture="True"
     x:Name="ShellView"
-    Title="Kolektor danych"
+    Title="{lexEx:Loc Key=Title}"
     Width="1024"
     Height="682"
     MinWidth="720"
@@ -55,16 +58,16 @@
 
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
-            <Button Command="{Binding LedChangeDialogCommand}" ToolTip="Naciśnij, aby sterować stanem diody LED">
+            <Button Command="{Binding LedChangeDialogCommand}" ToolTip="{lexEx:Loc Key=PressToControlLedState}">
                 <wpf:PackIcon Kind="LedOn" />
             </Button>
             <Button
                 x:Name="btUsers"
                 Command="{Binding UsersManagementDialogCommand}"
-                ToolTip="Naciśnij, aby zarządzać użytkownikami systemu">
+                ToolTip="{lexEx:Loc Key=PressToManageUserAccounts}">
                 <wpf:PackIcon Kind="AccountMultiple" />
             </Button>
-            <Button Command="{Binding SettingsPromptDialogCommand}" ToolTip="Naciśnij, aby spersonalizować aplikację">
+            <Button Command="{Binding SettingsPromptDialogCommand}" ToolTip="{lexEx:Loc Key=PressToPersonalizeApp}">
                 <wpf:PackIcon Kind="Settings" />
             </Button>
         </controls:WindowCommands>
@@ -75,14 +78,14 @@
         <controls:FlyoutsControl>
             <controls:Flyout
                 ClosingFinished="Flyout_ClosingFinished"
-                Header="Użytkownik"
+                Header="{lexEx:Loc Key=User}"
                 IsOpen="{Binding IsUserInfoFlyoutOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Position="Right">
                 <CoreViews:UserView DataContext="{Binding CurrentLoggedUser, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
             </controls:Flyout>
             <controls:Flyout
                 ClosingFinished="Flyout_ClosingFinished"
-                Header="Urządzenia"
+                Header="{lexEx:Loc Key=Devices}"
                 IsOpen="{Binding IsDevicesFlyoutOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Position="Left">
                 <CoreViews:MeasureDevicesView x:Name="flDevices" SelectedDevice="{Binding DataContext.SelectedDevice, ElementName=ShellView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -104,7 +107,7 @@
             <TextBlock
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Text="Wymagana autoryzacja aplikacji"
+                Text="{lexEx:Loc Key=AuthorizationRequired}"
                 TextAlignment="Center"
                 TextElement.Foreground="{StaticResource MaterialDesignBody}"
                 TextWrapping="Wrap">
@@ -138,7 +141,7 @@
                         </Style>
                     </dragablz:TabablzControl.Resources>
 
-                    <TabItem Header="Wizualizacja" Visibility="{Binding CurrentLoggedUser, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrentUserToVisibilityConverter}, ConverterParameter='All'}">
+                    <TabItem Header="{lexEx:Loc Key=Visualization}" Visibility="{Binding CurrentLoggedUser, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrentUserToVisibilityConverter}, ConverterParameter='All'}">
                         <Grid>
                             <Views:VisualizationView>
                                 <Views:VisualizationView.Resources>
@@ -158,7 +161,7 @@
                             <TextBlock
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Text="Nie wybrano urządzenia pomiarowego"
+                                Text="{lexEx:Loc Key=DeviceIsNotSelected}"
                                 TextAlignment="Center"
                                 TextElement.Foreground="{StaticResource MaterialDesignBody}"
                                 TextWrapping="Wrap">
@@ -175,7 +178,7 @@
                             </TextBlock>
                         </Grid>
                     </TabItem>
-                    <TabItem Header="Historia pomiarów" Visibility="{Binding CurrentLoggedUser, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrentUserToVisibilityConverter}, ConverterParameter='All'}">
+                    <TabItem Header="{lexEx:Loc Key=MeasuresHistory}" Visibility="{Binding CurrentLoggedUser, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrentUserToVisibilityConverter}, ConverterParameter='All'}">
                         <Views:MeasurementsHistoryView>
                             <Views:MeasurementsHistoryView.DataContext>
                                 <ChartViewModels:MeasurementsHistoryViewModel />
@@ -192,14 +195,14 @@
                     <converters:IsNullToVisiblityConverter x:Key="IsNullToVisiblityConverter" />
                 </StatusBar.Resources>
 
-                <StatusBarItem Content="Data" />
+                <StatusBarItem Content="{lexEx:Loc Key=Date}" />
                 <StatusBarItem Content="{Binding Now, Mode=OneWay}" />
                 <Separator Style="{StaticResource MetroStatusBarSeparator}" />
                 <StatusBarItem>
-                    <TextBlock Text="Podłączone urządzenia" TextWrapping="Wrap" />
+                    <TextBlock Text="{lexEx:Loc Key=ConnectedDevices}" TextWrapping="Wrap" />
                 </StatusBarItem>
                 <StatusBarItem>
-                    <Button Command="{Binding ToggleDevicesFlyoutCommand}" ToolTip="Naciśnij, aby wyświetlić listę urządzeń">
+                    <Button Command="{Binding ToggleDevicesFlyoutCommand}" ToolTip="{lexEx:Loc Key=PressToShowDevicesList}">
                         <Button.Resources>
                             <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
                                 <Setter Property="IsEnabled" Value="True" />
@@ -221,15 +224,15 @@
                 <Separator Style="{StaticResource MetroStatusBarSeparator}" Visibility="{Binding SelectedDevice, Converter={StaticResource IsNullToVisiblityConverter}, ConverterParameter='False'}" />
                 <StatusBarItem Visibility="{Binding SelectedDevice, Converter={StaticResource IsNullToVisiblityConverter}}">
                     <TextBlock x:Name="tbStation" TextWrapping="Wrap">
-                        <Run Text="Wybrane urządzenie" />
+                        <Run Text="{lexEx:Loc Key=SelectedDevice}" />
                         <Run FontWeight="Bold" Text="{Binding SelectedDevice.Name, UpdateSourceTrigger=PropertyChanged}" />
                         <Run>
                             <Run.Style>
                                 <Style TargetType="Run">
-                                    <Setter Property="Text" Value="Komunikacja uruchomiona" />
+                                    <Setter Property="Text" Value="{lexEx:Loc Key=CommunicationStarted}" />
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding SelectedDevice.IsConnected}" Value="False">
-                                            <Setter Property="Text" Value="Komunikacja zatrzymana" />
+                                            <Setter Property="Text" Value="{lexEx:Loc Key=CommunicationStopped}" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -248,14 +251,14 @@
                                         <Setter Property="Text" Value="{Binding CurrentLoggedUser.Login, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding CurrentLoggedUser.Login, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Value="{x:Null}">
-                                                <Setter Property="Text" Value="Niezalogowany" />
+                                                <Setter Property="Text" Value="{lexEx:Loc Key=NotLoggedIn}" />
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </TextBlock.Style>
                             </TextBlock>
                         </StatusBarItem>
-                        <Button Command="{Binding FlyoutUserCommand}" ToolTip="Naciśnij, aby zalogować się do aplikacji">
+                        <Button Command="{Binding FlyoutUserCommand}" ToolTip="{lexEx:Loc Key=PressToLoginToApp}">
                             <wpf:PackIcon Width="24" Height="24">
                                 <wpf:PackIcon.Resources>
                                     <Style BasedOn="{StaticResource {x:Type wpf:PackIcon}}" TargetType="wpf:PackIcon">

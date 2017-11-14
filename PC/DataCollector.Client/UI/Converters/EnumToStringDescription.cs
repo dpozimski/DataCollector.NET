@@ -1,4 +1,5 @@
-﻿using DataCollector.Client.UI.DataAccess;
+﻿using DataCollector.Client.Translation;
+using DataCollector.Client.UI.DataAccess;
 using DataCollector.Client.UI.Extensions;
 using DataCollector.Client.UI.Users;
 using System;

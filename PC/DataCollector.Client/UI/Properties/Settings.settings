@@ -6,16 +6,16 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="CollectorServiceHost" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://localhost/MeasureCollectorService.svc</Value>
+      <Value Profile="(Default)">http://localhost:57412/MeasureCollectorService.svc</Value>
     </Setting>
     <Setting Name="DataAccessHost" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://localhost/MeasureAccessService.svc</Value>
+      <Value Profile="(Default)">http://localhost:57412/MeasureAccessService.svc</Value>
     </Setting>
     <Setting Name="DeviceCommunicationHost" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://localhost/WebCommunicationService.svc</Value>
+      <Value Profile="(Default)">http://localhost:57412/WebCommunicationService.svc</Value>
     </Setting>
     <Setting Name="UsersHost" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://localhost/UsersManagementService.svc</Value>
+      <Value Profile="(Default)">http://localhost:57412/UsersManagementService.svc</Value>
     </Setting>
   </Settings>
 </SettingsFile>
