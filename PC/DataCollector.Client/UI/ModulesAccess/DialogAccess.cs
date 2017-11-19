@@ -85,6 +85,7 @@ namespace DataCollector.Client.UI.ModulesAccess
             LoginDialogSettings loginDialogSettings = new LoginDialogSettings()
             {
                 AffirmativeButtonText = TranslationExtension.GetString("Login"),
+                NegativeButtonText = TranslationExtension.GetString("Close"),
                 PasswordWatermark = TranslationExtension.GetString("Password"),
                 UsernameWatermark = TranslationExtension.GetString("UserName"),
             };

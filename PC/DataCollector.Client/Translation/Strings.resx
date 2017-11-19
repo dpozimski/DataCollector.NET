@@ -457,10 +457,13 @@
     <value>LED</value>
   </data>
   <data name="TurnOff" xml:space="preserve">
-    <value>Turn off</value>
+    <value>Off</value>
   </data>
   <data name="TurnOn" xml:space="preserve">
-    <value>Turn on</value>
+    <value>On</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
   <data name="DoYouWantToDeleteCurrentReport" xml:space="preserve">
     <value>Do you really want to delete the current selected report?</value>

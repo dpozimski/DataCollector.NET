@@ -142,6 +142,15 @@ namespace DataCollector.Client.Translation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change.
         /// </summary>
         internal static string Change {
@@ -1006,7 +1015,7 @@ namespace DataCollector.Client.Translation {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Turn off.
+        ///   Looks up a localized string similar to Off.
         /// </summary>
         internal static string TurnOff {
             get {
@@ -1015,7 +1024,7 @@ namespace DataCollector.Client.Translation {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Turn on.
+        ///   Looks up a localized string similar to On.
         /// </summary>
         internal static string TurnOn {
             get {
