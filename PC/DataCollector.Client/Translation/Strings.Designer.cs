@@ -448,6 +448,15 @@ namespace DataCollector.Client.Translation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Information.
+        /// </summary>
+        internal static string Information {
+            get {
+                return ResourceManager.GetString("Information", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid date.
         /// </summary>
         internal static string InvalidDate {

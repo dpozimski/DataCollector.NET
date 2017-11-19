@@ -468,4 +468,7 @@
   <data name="DoYouWantToDeleteCurrentReport" xml:space="preserve">
     <value>Do you really want to delete the current selected report?</value>
   </data>
+  <data name="Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
 </root>
