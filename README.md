@@ -12,7 +12,8 @@
 
 ## PC
 
-  * Client
+  * Client<br>
+    <iframe width="854" height="480" src="https://www.youtube.com/embed/g-ky-iDyDHQ" frameborder="0" gesture="media" allowfullscreen></iframe>
   * Server
 
 ## Device
