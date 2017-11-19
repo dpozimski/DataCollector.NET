@@ -7,39 +7,39 @@ using DataCollector.Client.UI.Properties;
 namespace DataCollector.Client.UI.ModulesAccess
 {
     /// <summary>
-    /// Klasa zarzadzajaca ustawieniami aplikacji.
+    /// Class which holds the settings values.
     /// </summary>
     class AppSettings : IAppSettings
     {
         #region Public Properties
         /// <summary>
-        /// Uruchamiaj aplikacje przy starcie systemu.
+        /// Run the app on startup.
         /// </summary>
         public bool RunAppDuringStartup
         {
             get
             {
-                //zdobycie klucza rejestru
+                //gets the registry key
                 RegistryKey rkApp = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-                //sprawdzenie czy istnieje wpis w rejestrze startowym
+                //checks if the entry exists
                 return (rkApp.GetValue("DataCollector") != null);
             }
 
             set
             {
-                //zdobycie klucza rejestru
+                //gets the registry key
                 RegistryKey rkApp = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
                 var s = Assembly.GetExecutingAssembly().Location;
                 if (value)
-                    //dodanie aplikacji do rejestru rozruchowego
+                    //add the app location to run registry
                     rkApp.SetValue("DataCollector", Assembly.GetExecutingAssembly().Location);
                 else
-                    //usunięcie aplikacji z rejestru rozruchowego
+                    //delete the app location from run registry
                     rkApp.DeleteValue("DataCollector", false);
             }
         }
         /// <summary>
-        /// Adres serwisu kolektora danych.
+        /// The collector service host.
         /// </summary>
         public string CollectorServiceHost
         {
@@ -53,7 +53,7 @@ namespace DataCollector.Client.UI.ModulesAccess
             }
         }
         /// <summary>
-        /// Adres serwisu dostępu do danych.
+        /// The data access host.
         /// </summary>
         public string DataAccessHost
         {
@@ -67,7 +67,7 @@ namespace DataCollector.Client.UI.ModulesAccess
             }
         }
         /// <summary>
-        /// Adres serwisu komunikacji z urządzeniami.
+        /// The device communication host.
         /// </summary>
         public string DeviceCommunicationHost
         {
@@ -81,7 +81,7 @@ namespace DataCollector.Client.UI.ModulesAccess
             }
         }
         /// <summary>
-        /// Adres serwisu dostępu do użytkowników.
+        /// The users host.
         /// </summary>
         public string UsersHost
         {
@@ -98,12 +98,11 @@ namespace DataCollector.Client.UI.ModulesAccess
 
         #region ctor
         /// <summary>
-        /// Konstruktor klasy AppSettings.
+        /// The class constructor.
         /// </summary>
         public AppSettings()
         {
-            //podniesienie wersji ustawień jeśli mamy do czynienia z nową wersją aplikacji
-            //standardowo Settings.Default.UpgradeRequired==True
+            //if the version is higher(the flag is true) upgrade the settings
             if (Settings.Default.UpgradeRequired)
             {
                 Settings.Default.Upgrade();

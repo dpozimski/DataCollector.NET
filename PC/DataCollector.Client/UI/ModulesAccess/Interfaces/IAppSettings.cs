@@ -9,29 +9,29 @@ using System.Threading.Tasks;
 namespace DataCollector.Client.UI.ModulesAccess.Interfaces
 {
     /// <summary>
-    /// Interfejs zawierający ustawienia aplikacji.
+    /// The interface that defines an app settings.
     /// </summary>
     public interface IAppSettings
     {
         #region Properties
         /// <summary>
-        /// Uruchamiaj aplikacje przy starcie systemu.
+        /// Run the app on startup.
         /// </summary>
         bool RunAppDuringStartup { get; set; }
         /// <summary>
-        /// Adres serwisu kolektora danych.
+        /// The collector service host.
         /// </summary>
         string CollectorServiceHost { get; set; }
         /// <summary>
-        /// Adres serwisu dostępu do danych.
+        /// The data access host.
         /// </summary>
         string DataAccessHost { get; set; }
         /// <summary>
-        /// Adres serwisu komunikacji z urządzeniami.
+        /// The device communication host.
         /// </summary>
         string DeviceCommunicationHost { get; set; }
         /// <summary>
-        /// Adres serwisu dostępu do użytkowników.
+        /// The user management host.
         /// </summary>
         string UsersHost { get; set; }
         #endregion

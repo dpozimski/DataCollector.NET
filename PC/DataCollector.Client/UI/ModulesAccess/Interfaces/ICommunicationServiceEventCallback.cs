@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 namespace DataCollector.Client.UI.ModulesAccess.Interfaces
 {
     /// <summary>
-    /// Interfejs definiujący interakcję zdarzeń serwisu <see cref="ICommunicationService"/> z UI.
+    /// The interface which defines an interaction <see cref="ICommunicationService"/> with an UI.
     /// </summary>
     public interface ICommunicationServiceEventCallback
     {
         #region Events
         /// <summary>
-        /// Zdarzenie nadejścia aktualizacji stanu urządzenia.
+        /// The event which contains an information about the changed device.
         /// </summary>
         event EventHandler<DeviceUpdatedEventArgs> DeviceChangedStateEvent;
         /// <summary>
-        /// Zdarzenie nadejścia pomiarów z urządzenia.
+        /// The event which contains the measures from the device.
         /// </summary>
         event EventHandler<MeasuresArrivedEventArgs> MeasuresArrivedEvent;
         #endregion

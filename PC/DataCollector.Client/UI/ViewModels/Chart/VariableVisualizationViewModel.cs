@@ -17,7 +17,7 @@ using System.Windows.Threading;
 namespace DataCollector.Client.UI.ViewModels.Chart
 {
     /// <summary>
-    /// ViewModel obsługujący dane prezentacyjne kolekcji pomiarów.
+    /// ViewModel which presents the visualization data of single variable.
     /// </summary>
     public class VariableVisualizationViewModel : ChartVisualizationViewModelBase
     {
@@ -36,50 +36,68 @@ namespace DataCollector.Client.UI.ViewModels.Chart
         private QueueableChartValues<DateTimePoint> values;
         #endregion
 
-        #region Public Properties
+        #region Public Properties        
         /// <summary>
-        /// Czas trwania pomiaru.
+        /// Gets or sets the duration of the measure.
         /// </summary>
+        /// <value>
+        /// The duration of the measure.
+        /// </value>
         public TimeSpan MeasureDuration
         {
             get { return measureDuration; }
             set { this.RaiseAndSetIfChanged(ref measureDuration, value); }
         }
         /// <summary>
-        /// Czas rozpoczęcia pomiaru.
+        /// Gets or sets the measure start time.
         /// </summary>
+        /// <value>
+        /// The measure start time.
+        /// </value>
         public DateTime MeasureStartTime
         {
             get { return measureStartTime; }
             set { this.RaiseAndSetIfChanged(ref measureStartTime, value); }
         }
         /// <summary>
-        /// Nagłówki wartości danych statystycznych.
+        /// Gets or sets the statistic labels.
         /// </summary>
+        /// <value>
+        /// The statistic labels.
+        /// </value>
         public ObservableCollection<string> StatisticLabels
         {
             get { return statisticLabels; }
             set { this.RaiseAndSetIfChanged(ref statisticLabels, value); }
         }
         /// <summary>
-        /// Wartości danych statystycznych.
+        /// Gets or sets the statistic values.
         /// </summary>
+        /// <value>
+        /// The statistic values.
+        /// </value>
         public ChartValues<SeriesModel> StatisticValues
         {
             get { return statisticValues; }
             set { this.RaiseAndSetIfChanged(ref statisticValues, value); }
         }
         /// <summary>
-        /// Czas trwania animacji wykresu w czasie rzeczywistym.
+        /// Gets or sets the real time chart animation speed.
         /// </summary>
+        /// <value>
+        /// The real time chart animation speed.
+        /// </value>
         public TimeSpan RealTimeChartAnimationSpeed
         {
             get { return realTimeAnimationSpeed; }
             set { this.RaiseAndSetIfChanged(ref realTimeAnimationSpeed, value); }
         }
         /// <summary>
-        /// Wartości wejściowe.
+        /// Gets or sets the values.
         /// </summary>
+        /// <value>
+        /// The values.
+        /// </value>
         public QueueableChartValues<DateTimePoint> Values
         {
             get { return values; }
@@ -87,10 +105,13 @@ namespace DataCollector.Client.UI.ViewModels.Chart
         }
         #endregion
 
-        #region Command
+        #region Command        
         /// <summary>
-        /// Komenda resetu istniejących statystyk.
+        /// Gets or sets the reset statistic data command.
         /// </summary>
+        /// <value>
+        /// The reset statistic data command.
+        /// </value>
         public ReactiveCommand<object> ResetStatisticDataCommand
         {
             get; protected set;
@@ -99,7 +120,7 @@ namespace DataCollector.Client.UI.ViewModels.Chart
 
         #region ctor
         /// <summary>
-        /// Konstruktor klasy SingleVariableVisualizationControl.
+        /// The constructor.
         /// </summary>
         public VariableVisualizationViewModel():base(string.Empty, string.Empty, (val) => string.Empty)
         {
@@ -116,11 +137,11 @@ namespace DataCollector.Client.UI.ViewModels.Chart
         }
         #endregion
 
-        #region Private Methods
+        #region Private Methods        
         /// <summary>
-        /// Czyszczenie subkrybowanych zdarzeń przed wpisaniem nowej wartości.
+        /// Cleans the series resources.
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="data">The data.</param>
         private void CleanSeriesResources(QueueableChartValues<DateTimePoint> data)
         {
             if (data != null)
@@ -130,9 +151,9 @@ namespace DataCollector.Client.UI.ViewModels.Chart
             }
         }
         /// <summary>
-        /// Inicjalizacja danych wizualizacyjnych.
+        /// Initializes the visualization data.
         /// </summary>
-        /// <param name="data">nowa kolekcja wejściowa</param>
+        /// <param name="data">The data.</param>
         private void InitVisualizationData(QueueableChartValues<DateTimePoint> data)
         {
             if (data != null)
@@ -154,10 +175,10 @@ namespace DataCollector.Client.UI.ViewModels.Chart
             }
         }
         /// <summary>
-        /// Obsługa zdarzenia zegara, aktualizacja czasu trwania pomiaru/
+        /// Called when [duration timer callback].
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void OnDurationTimerCallback(object sender, EventArgs e)
         {
             DateTime now = DateTime.Now;
@@ -166,15 +187,16 @@ namespace DataCollector.Client.UI.ViewModels.Chart
             MinXAxis = now.Ticks - minuteTicks;
         }
         /// <summary>
-        /// Obsługa zdarzenia zmiany właściwości aktywacji pomiarów.
+        /// Called when [enabled state changed].
         /// </summary>
+        /// <param name="collection">The collection.</param>
         private void OnEnabledStateChanged(QueueableChartValues<DateTimePoint> collection)
         {
             durationTimer.IsEnabled = collection.IsEnabled;
             DisableAnimations = !collection.IsEnabled;
         }
         /// <summary>
-        /// Reset danych statystycznych.
+        /// Resets the statistic data.
         /// </summary>
         private void ResetStatisticData()
         {
@@ -192,10 +214,10 @@ namespace DataCollector.Client.UI.ViewModels.Chart
             MeasureDuration = TimeSpan.FromMilliseconds(0);
         }
         /// <summary>
-        /// Obsługa zdarzenia zmiany w kolekcji wejściowej danych.
+        /// Called when [collection property changed].
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
         private void OnCollectionPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             QueueableChartValues<DateTimePoint> collection = sender as QueueableChartValues<DateTimePoint>;
@@ -204,10 +226,10 @@ namespace DataCollector.Client.UI.ViewModels.Chart
                 OnEnabledStateChanged(collection);
         }
         /// <summary>
-        /// Obsługa zdarzenia zmiany elementów w kolekcji wejściowej.
+        /// Called when [noisy collection changed].
         /// </summary>
-        /// <param name="oldItems"></param>
-        /// <param name="newItems"></param>
+        /// <param name="oldItems">The old items.</param>
+        /// <param name="newItems">The new items.</param>
         private void OnNoisyCollectionChanged(IEnumerable<DateTimePoint> oldItems, IEnumerable<DateTimePoint> newItems)
         {
             if (newItems != null)

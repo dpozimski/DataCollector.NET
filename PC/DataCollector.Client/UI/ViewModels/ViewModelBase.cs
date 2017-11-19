@@ -12,44 +12,56 @@ using System.Threading.Tasks;
 namespace DataCollector.Client.UI.ViewModels
 {
     /// <summary>
-    /// Abstrakcyjna klasa rozszerzająca funckjonalność klasycznego ViewModel o funkcjonalności związane z
-    /// wyświetlaniem dialogów.
+    /// A base class for all model.
     /// </summary>
+    /// <seealso cref="ReactiveUI.ReactiveObject" />
     public abstract class ViewModelBase : ReactiveObject
     {
         #region Private Fields
         private bool isBusy;
         #endregion
 
-        #region Protected Properties
+        #region Protected Properties        
         /// <summary>
-        /// Serwis dialogów globalnych.
+        /// Gets the dialog access.
         /// </summary>
+        /// <value>
+        /// The dialog access.
+        /// </value>
         protected IDialogAccess DialogAccess { get; private set; }
         /// <summary>
-        /// Konwerter typów wyliczeiowych na przypisany opis.
+        /// Gets the enum string converter.
         /// </summary>
+        /// <value>
+        /// The enum string converter.
+        /// </value>
         protected static EnumToStringDescription EnumStrConverter { get; private set; } = new EnumToStringDescription();
         #endregion
 
-        #region Public Properties
+        #region Public Properties        
         /// <summary>
-        /// Flaga zajętości.
+        /// Gets or sets a value indicating whether this instance is busy.
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is busy; otherwise, <c>false</c>.
+        /// </value>
         public bool IsBusy
         {
             get { return isBusy; }
             set { this.RaiseAndSetIfChanged(ref isBusy, value); }
         }
         /// <summary>
-        /// Główny ViewModel aplikacji.
+        /// Gets or sets the main view model.
         /// </summary>
+        /// <value>
+        /// The main view model.
+        /// </value>
         public static ShellViewModel MainViewModel { get; set; }
         #endregion
 
-        #region ctor
+        #region ctor        
         /// <summary>
-        /// Konstruktor klasy DialogViewModelBase.
+        /// Initializes a new instance of the <see cref="ViewModelBase"/> class.
         /// </summary>
         public ViewModelBase()
         {

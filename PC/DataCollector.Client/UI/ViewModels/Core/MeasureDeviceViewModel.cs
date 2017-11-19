@@ -9,8 +9,9 @@ using DataCollector.Client.UI.DeviceCommunication;
 namespace DataCollector.Client.UI.ViewModels.Core
 {
     /// <summary>
-    /// ViewModel reprezentujący urządzenie pomiarowe.
+    /// The device view model.
     /// </summary>
+    /// <seealso cref="DataCollector.Client.UI.ViewModels.ViewModelBase" />
     public class MeasureDeviceViewModel : ViewModelBase
     {
         #region Private Fields
@@ -22,66 +23,90 @@ namespace DataCollector.Client.UI.ViewModels.Core
         private bool isConnected;
         #endregion
 
-        #region Public Properties
+        #region Public Properties       
         /// <summary>
-        /// Adres IP urządzenia.
+        /// Gets or sets the name.
         /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         public string Name
         {
             get { return name; }
             set { this.RaiseAndSetIfChanged(ref name, value); }
         }
         /// <summary>
-        /// IPv4.
+        /// Gets or sets the i PV4.
         /// </summary>
+        /// <value>
+        /// The i PV4.
+        /// </value>
         public string IPv4
         {
             get { return ipV4; }
             set { this.RaiseAndSetIfChanged(ref ipV4, value); }
         }
         /// <summary>
-        /// Wersja Windows 10 IoT Core.
+        /// Gets or sets the win ver.
         /// </summary>
+        /// <value>
+        /// The win ver.
+        /// </value>
         public string WinVer
         {
             get { return winVer; }
             set { this.RaiseAndSetIfChanged(ref winVer, value); }
         }
         /// <summary>
-        /// Architektura systemu.
+        /// Gets or sets the architecture.
         /// </summary>
+        /// <value>
+        /// The architecture.
+        /// </value>
         public string Architecture
         {
             get { return architecture; }
             set { this.RaiseAndSetIfChanged(ref architecture, value); }
         }
         /// <summary>
-        /// Adres MAC urządzenia.
+        /// Gets or sets the mac address.
         /// </summary>
+        /// <value>
+        /// The mac address.
+        /// </value>
         public string MacAddress
         {
             get { return macAddress; }
             set { this.RaiseAndSetIfChanged(ref macAddress, value); }
         }
         /// <summary>
-        /// Model urządzenia.
+        /// Gets or sets the model.
         /// </summary>
+        /// <value>
+        /// The model.
+        /// </value>
         public string Model
         {
             get { return model; }
             set { this.RaiseAndSetIfChanged(ref model, value); }
         }
         /// <summary>
-        /// Połączono z serwerem.
+        /// Gets or sets a value indicating whether this instance is connected.
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is connected; otherwise, <c>false</c>.
+        /// </value>
         public bool IsConnected
         {
             get { return isConnected; }
             set { this.RaiseAndSetIfChanged(ref isConnected, value); }
         }
         /// <summary>
-        /// Interwał pobierania pomiarów.
+        /// Gets or sets the measurements ms request interval.
         /// </summary>
+        /// <value>
+        /// The measurements ms request interval.
+        /// </value>
         public double MeasurementsMsRequestInterval
         {
             get { return deviceHandler.MeasurementsMsRequestInterval; }
@@ -94,28 +119,34 @@ namespace DataCollector.Client.UI.ViewModels.Core
         }
         #endregion
 
-        #region Commands
+        #region Commands        
         /// <summary>
-        /// Komenda nawiązania komunikacji z urządzeniem.
+        /// Gets or sets the connect prompt command.
         /// </summary>
+        /// <value>
+        /// The connect prompt command.
+        /// </value>
         public ReactiveCommand<object> ConnectPromptCommand
         {
             get; protected set;
         }
         /// <summary>
-        /// Komenda rozłączenia komunikacji z urządzeniem.
+        /// Gets or sets the disconnect prompt command.
         /// </summary>
+        /// <value>
+        /// The disconnect prompt command.
+        /// </value>
         public ReactiveCommand<object> DisconnectPromptCommand
         {
             get; protected set;
         }
         #endregion
 
-        #region ctor
+        #region ctor        
         /// <summary>
-        /// Konstruktor klasy MeasureDeviceViewModel.
+        /// Initializes a new instance of the <see cref="MeasureDeviceViewModel"/> class.
         /// </summary>
-        /// <param name="deviceHandler"></param>
+        /// <param name="deviceHandler">The device handler.</param>
         public MeasureDeviceViewModel(DeviceCommunication.MeasureDevice deviceHandler)
         {
             webCommunication = ServiceLocator.Resolve<ICommunicationService>();
@@ -125,17 +156,17 @@ namespace DataCollector.Client.UI.ViewModels.Core
         }
         #endregion
 
-        #region Public Methods
+        #region Public Methods        
         /// <summary>
-        /// Zwraca referencję do głównego uchwytu urządzenia.
+        /// Gets the device handler.
         /// </summary>
         /// <returns></returns>
         public DeviceCommunication.MeasureDevice GetDeviceHandler() =>
             deviceHandler;
         /// <summary>
-        /// Aktualizuje model o nowe dane urządzenia.
+        /// Updates the specified device handler.
         /// </summary>
-        /// <param name="deviceHandler"></param>
+        /// <param name="deviceHandler">The device handler.</param>
         public void Update(DeviceCommunication.MeasureDevice deviceHandler)
         {
             this.Name = deviceHandler.Name;
@@ -149,9 +180,9 @@ namespace DataCollector.Client.UI.ViewModels.Core
         }
         #endregion
 
-        #region Private Methods
+        #region Private Methods       
         /// <summary>
-        /// Metoda inicjalizująca komendy.
+        /// Initializes the commands.
         /// </summary>
         private void InitCommands()
         {
@@ -161,8 +192,9 @@ namespace DataCollector.Client.UI.ViewModels.Core
             DisconnectPromptCommand.Subscribe(async s => await DisconnectPromptMethod());
         }
         /// <summary>
-        /// Obsługa rozłączenia komunikacji z urządzeniem.
+        /// Disconnects the prompt method.
         /// </summary>
+        /// <returns></returns>
         private async Task DisconnectPromptMethod()
         {
             await ChangeBusyState(true);
@@ -179,8 +211,9 @@ namespace DataCollector.Client.UI.ViewModels.Core
             });
         }
         /// <summary>
-        /// Obsługa nawiązania komunikacji z urządzeniem.
+        /// Connects the prompt method.
         /// </summary>
+        /// <returns></returns>
         private async Task ConnectPromptMethod()
         {
             await ChangeBusyState(true);
@@ -197,9 +230,10 @@ namespace DataCollector.Client.UI.ViewModels.Core
             });
         }
         /// <summary>
-        /// Zmiana stanu flagu zajętości.
+        /// Changes the state of the busy.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">if set to <c>true</c> [value].</param>
+        /// <returns></returns>
         private async Task ChangeBusyState(bool value) =>
                     await Application.Current.Dispatcher.BeginInvoke(new Action(() => IsBusy = value));
         #endregion

@@ -19,7 +19,7 @@ using System.Windows.Controls;
 namespace DataCollector.Client.UI.ModulesAccess
 {
     /// <summary>
-    /// Klasa implementująca obsługę dialogów
+    /// Class which implements a dialog access.
     /// </summary>
     class DialogAccess : IDialogAccess
     {
@@ -27,20 +27,20 @@ namespace DataCollector.Client.UI.ModulesAccess
         private MetroWindow hwnd;
         #endregion
 
-        #region Public Methods
+        #region Public Methods        
         /// <summary>
-        /// Referencja do okna głównego aplikacji.
+        /// Sets the HWND.
         /// </summary>
-        /// <param name="hwnd"></param>
+        /// <param name="hwnd">The HWND.</param>
         public void SetHwnd(MetroWindow hwnd)
         {
             this.hwnd = hwnd;
         }
         /// <summary>
-        /// Wyświetla dialog we wskazanym kontenerze.
+        /// Shows a dialog in selected container.
         /// </summary>
-        /// <param name="content">zawartość</param>
-        /// <param name="rootDialogId">identyfikator</param>
+        /// <param name="content">content</param>
+        /// <param name="rootDialogId">the contianer identifier</param>
         /// <returns></returns>
         public async Task<object> Show(UserControl content, string rootDialogId)
         {
@@ -55,7 +55,7 @@ namespace DataCollector.Client.UI.ModulesAccess
             }
         }
         /// <summary>
-        /// Wyświetla komunikat tekstowy.
+        /// Shows the text message.
         /// </summary>
         /// <param name="message">wiadmość</param>
         /// <returns></returns>
@@ -64,14 +64,9 @@ namespace DataCollector.Client.UI.ModulesAccess
            await ShowRequestAsync(RequestModel.Create().Text(message).Style(MessageDialogStyle.Affirmative));
         }
         /// <summary>
-        /// Metoda wyświetlajaća pytanie na ekranie w formie komunikatu..
+        /// Shows the request asynchronous.
         /// </summary>
-        /// <param name="cancelheader">nagłowek anulowania operacji</param>
-        /// <param name="confirmHeader">nagłowęk potwierdzenia operacji</param>
-        /// <param name="message">wiadomość</param>
-        /// <param name="mode">Określa typ komunikatu.</param>
-        /// <param name="firstAuxiliaryHeader">nagłówek przycisku dodatowego</param>
-        /// <param name="secondAuxiliaryHeader">nagłówek 2 przycisku dodatkowego</param>
+        /// <param name="model">The model.</param>
         /// <returns></returns>
         public async Task<MessageDialogResult> ShowRequestAsync(IRequestBuilder model)
         {
@@ -82,7 +77,7 @@ namespace DataCollector.Client.UI.ModulesAccess
             return result;
         }
         /// <summary>
-        /// Pobiera dane logowania od użytkownika.
+        /// Shows the login asynchronous.
         /// </summary>
         /// <returns></returns>
         public async Task<LoginDialogData> ShowLoginAsync()
@@ -97,8 +92,9 @@ namespace DataCollector.Client.UI.ModulesAccess
                                 TranslationExtension.GetString("PleaseTypeDataToLogIn"), loginDialogSettings);
         }
         /// <summary>
-        /// Wyświetla okno oczekiwania.
+        /// Gets the progress dialog.
         /// </summary>
+        /// <param name="message">The message.</param>
         /// <returns></returns>
         public async Task<ProgressDialogController> GetProgressDialog(string message)
         {
@@ -111,10 +107,12 @@ namespace DataCollector.Client.UI.ModulesAccess
             return await hwnd.ShowProgressAsync(hwnd.Title, message, settings: settingsDialog);
         }
         /// <summary>
-        /// Metoda wyświetlająca powiadomienei w formie dymku.
+        /// Shows the toast notification.
         /// </summary>
-        /// <param name="message">wiadomość</param>
-        /// <param name="type">Typ powiadomienia</param>
+        /// <param name="message">The message.</param>
+        /// <param name="type">The type.</param>
+        /// <CreatedOn>19.11.2017 12:37</CreatedOn>
+        /// <CreatedBy>dpozimski</CreatedBy>
         public void ShowToastNotification(string message, ToastType type = ToastType.Info)
         {
             switch (type)

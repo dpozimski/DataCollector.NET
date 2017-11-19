@@ -10,7 +10,7 @@ using System.Windows.Controls;
 namespace DataCollector.Client.UI.ValidationRules
 {
     /// <summary>
-    /// Klasa implementująca walidację wprowadzonej daty.
+    /// The date validation rule.
     /// </summary>
     class DateValidationRule : ValidationRule
     {

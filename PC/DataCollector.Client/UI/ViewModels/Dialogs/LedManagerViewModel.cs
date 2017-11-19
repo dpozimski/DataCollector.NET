@@ -14,8 +14,9 @@ using System.Windows;
 namespace DataCollector.Client.UI.ViewModels.Dialogs
 {
     /// <summary>
-    /// ViewModel implementujący obsługę zmiany diody LED.
+    /// The manager view model.
     /// </summary>
+    /// <seealso cref="DataCollector.Client.UI.ViewModels.ViewModelBase" />
     public class LedManagerViewModel : ViewModelBase
     {
         #region Private Fields
@@ -23,10 +24,13 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
         private bool isActive;
         #endregion
 
-        #region Public Properties
+        #region Public Properties        
         /// <summary>
-        /// Stan diody LED.
+        /// Gets or sets a value indicating whether this instance is active.
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is active; otherwise, <c>false</c>.
+        /// </value>
         public bool IsActive
         {
             get { return isActive; }
@@ -34,20 +38,26 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
         }
         #endregion
 
-        #region Commands
+        #region Commands        
         /// <summary>
-        /// Komenda aktywacji diody LED.
+        /// Gets or sets the turn on command.
         /// </summary>
+        /// <value>
+        /// The turn on command.
+        /// </value>
         public ReactiveCommand<object> TurnOnCommand { get; protected set; }
         /// <summary>
-        /// Komenda dezaktywacji diody LED.
+        /// Gets or sets the turn off command.
         /// </summary>
+        /// <value>
+        /// The turn off command.
+        /// </value>
         public ReactiveCommand<object> TurnOffCommand { get; protected set; }
         #endregion
 
-        #region ctor
+        #region ctor        
         /// <summary>
-        /// Konstruktor klasy LedManagerViewModel.
+        /// Initializes a new instance of the <see cref="LedManagerViewModel"/> class.
         /// </summary>
         public LedManagerViewModel()
         {
@@ -57,9 +67,9 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
         }
         #endregion
 
-        #region Private Methods
+        #region Private Methods        
         /// <summary>
-        /// Inicjalizacja danych wejściowych.
+        /// Initializes the data.
         /// </summary>
         private async void InitData()
         {
@@ -76,7 +86,7 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
             });
         }
         /// <summary>
-        /// Inicjalizacja komend.
+        /// Initializes the commands.
         /// </summary>
         private void InitCommands()
         {

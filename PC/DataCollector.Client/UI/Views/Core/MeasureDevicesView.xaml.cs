@@ -22,19 +22,22 @@ namespace DataCollector.Client.UI.Views.Core
     /// </summary>
     public partial class MeasureDevicesView : UserControl
     {
-        #region Publix XAML Static Properties
+        #region Publix XAML Static Properties        
         /// <summary>
-        /// Rejestracja właściwości aktualnie wybranego urządzenia.
+        /// The selected device property
         /// </summary>
         public static readonly DependencyProperty SelectedDeviceProperty =
             DependencyProperty.Register("SelectedDevice", typeof(MeasureDeviceViewModel),
               typeof(MeasureDevicesView), new PropertyMetadata(null));
         #endregion
 
-        #region Public Properties
+        #region Public Properties        
         /// <summary>
-        /// Aktualnie wybrane urządzenie.
+        /// Gets or sets the selected device.
         /// </summary>
+        /// <value>
+        /// The selected device.
+        /// </value>
         public MeasureDeviceViewModel SelectedDevice
         {
             get { return (MeasureDeviceViewModel)GetValue(SelectedDeviceProperty); }
@@ -44,7 +47,7 @@ namespace DataCollector.Client.UI.Views.Core
 
         #region ctor
         /// <summary>
-        /// Konstruktor klasy MeasureDevicesView.
+        /// The constructor.
         /// </summary>
         public MeasureDevicesView()
         {
@@ -53,11 +56,10 @@ namespace DataCollector.Client.UI.Views.Core
         #endregion
 
         /// <summary>
-        /// Obsługa zdarzenia wpisania klawisza dla pola numerycznego.
-        /// Wpisywanie tylko wartości całkowitych.
+        /// Filters the input to allow to type only the integer values.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="TextCompositionEventArgs"/> instance containing the event data.</param>
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = new Regex("[^0-9]+").IsMatch(e.Text);

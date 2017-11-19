@@ -1,4 +1,5 @@
-﻿using DataCollector.Client.UI.DataAccess;
+﻿using DataCollector.Client.Translation;
+using DataCollector.Client.UI.DataAccess;
 using DataCollector.Client.UI.Models;
 using DataCollector.Client.UI.ModulesAccess;
 using DataCollector.Client.UI.ViewModels.Dialogs;
@@ -17,7 +18,7 @@ using System.Threading.Tasks;
 namespace DataCollector.Client.UI.ViewModels.Chart
 {
     /// <summary>
-    /// Klasa implementująca wyświetlanie danych archiwalnych.
+    /// The ViewModel for displaying historical data of the measures.
     /// </summary>
     public class MeasurementsHistoryViewModel : RootViewModelBase
     {
@@ -27,18 +28,24 @@ namespace DataCollector.Client.UI.ViewModels.Chart
         private ReportDefinitionViewModel selectedReport;
         #endregion
 
-        #region Public Properties
+        #region Public Properties        
         /// <summary>
-        /// Aktualnie wybrany raport.
+        /// Gets or sets the selected report.
         /// </summary>
+        /// <value>
+        /// The selected report.
+        /// </value>
         public ReportDefinitionViewModel SelectedReport
         {
             get { return selectedReport; }
             set { this.RaiseAndSetIfChanged(ref selectedReport, value); }
         }
         /// <summary>
-        /// Kolekcja zdefiniowanych raportów.
+        /// Gets or sets the report collection.
         /// </summary>
+        /// <value>
+        /// The report collection.
+        /// </value>
         public ObservableCollection<ReportDefinitionViewModel> ReportCollection
         {
             get { return reportCollection; }
@@ -46,17 +53,23 @@ namespace DataCollector.Client.UI.ViewModels.Chart
         }
         #endregion
 
-        #region Commands
+        #region Commands        
         /// <summary>
-        /// Komenda dodawania raportu.
+        /// Gets or sets the add report command.
         /// </summary>
+        /// <value>
+        /// The add report command.
+        /// </value>
         public ReactiveCommand<object> AddReportCommand
         {
             get;protected set;
         }
         /// <summary>
-        /// Komenda usuwania raportu.
+        /// Gets or sets the delete report command.
         /// </summary>
+        /// <value>
+        /// The delete report command.
+        /// </value>
         public ReactiveCommand<object> DeleteReportCommand
         {
             get;protected set;
@@ -65,7 +78,7 @@ namespace DataCollector.Client.UI.ViewModels.Chart
 
         #region ctor
         /// <summary>
-        /// Konstruktor klasy MeasurementsHistoryViewModel.
+        /// The constructor.
         /// </summary>
         public MeasurementsHistoryViewModel()
         {
@@ -75,9 +88,9 @@ namespace DataCollector.Client.UI.ViewModels.Chart
         }
         #endregion
 
-        #region Private Methods
+        #region Private Methods        
         /// <summary>
-        /// Metoda inicjująca komendy użytkownika.
+        /// Initializes the commands.
         /// </summary>
         private void InitCommands()
         {
@@ -87,8 +100,9 @@ namespace DataCollector.Client.UI.ViewModels.Chart
             DeleteReportCommand.Subscribe(async s => await DeleteReportMethod());
         }
         /// <summary>
-        /// Metoda konfigurująca nowy raport wg użytkownika.
+        /// Creates the report method.
         /// </summary>
+        /// <returns></returns>
         private async Task CreateReportMethod()
         {
             ReportCreatorDialog creatorDialog = new ReportCreatorDialog()
@@ -103,12 +117,12 @@ namespace DataCollector.Client.UI.ViewModels.Chart
             }  
         }
         /// <summary>
-        /// Usuwa aktualnie zaznaczony raport.
+        /// Deletes the report method.
         /// </summary>
+        /// <returns></returns>
         private async Task DeleteReportMethod()
         {
-            var builder = RequestModel.Create().Text("Czy na pewno chcesz usunąć wybrany raport?\r\n" +
-                                    "Niezapisane dane zostaną utracone.");
+            var builder = RequestModel.Create().Text(TranslationExtension.GetString("DoYouWantToDeleteCurrentReport"));
             var result = await DialogAccess.ShowRequestAsync(builder);
             if(result == MessageDialogResult.Affirmative)
             {

@@ -11,8 +11,10 @@ using System.Threading.Tasks;
 namespace DataCollector.Client.UI.ViewModels.Dialogs
 {
     /// <summary>
-    /// ViewModel implementujący obsługę zmiany ustawień aplikacji.
+    /// The settings dialog view model.
     /// </summary>
+    /// <seealso cref="DataCollector.Client.UI.ViewModels.ViewModelBase" />
+    /// <seealso cref="DataCollector.Client.UI.ModulesAccess.Interfaces.IAppSettings" />
     class SettingsDialogViewModel : ViewModelBase, IAppSettings
     {
         #region Private Fields
@@ -20,9 +22,9 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
         private string collectorServiceHost, dataAccessHost, deviceCommunicationHost, usersHost;
         #endregion
 
-        #region Public Properties
+        #region Public Properties        
         /// <summary>
-        /// Uruchamiaj aplikacje przy starcie systemu.
+        /// Run the app on startup.
         /// </summary>
         public bool RunAppDuringStartup
         {
@@ -30,7 +32,7 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
             set { this.RaiseAndSetIfChanged(ref runAppDuringStartup, value); }
         }
         /// <summary>
-        /// Adres serwisu kolektora danych.
+        /// The collector service host.
         /// </summary>
         public string CollectorServiceHost
         {
@@ -38,7 +40,7 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
             set { this.RaiseAndSetIfChanged(ref collectorServiceHost, value); }
         }
         /// <summary>
-        /// Adres serwisu dostępu do danych.
+        /// The data access host.
         /// </summary>
         public string DataAccessHost
         {
@@ -46,7 +48,7 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
             set { this.RaiseAndSetIfChanged(ref dataAccessHost, value); }
         }
         /// <summary>
-        /// Adres serwisu komunikacji z urządzeniami.
+        /// The device communication host.
         /// </summary>
         public string DeviceCommunicationHost
         {
@@ -54,7 +56,7 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
             set { this.RaiseAndSetIfChanged(ref deviceCommunicationHost, value); }
         }
         /// <summary>
-        /// Adres serwisu dostępu do użytkowników.
+        /// The user management host.
         /// </summary>
         public string UsersHost
         {
@@ -63,9 +65,9 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
         }
         #endregion
 
-        #region ctor
+        #region ctor        
         /// <summary>
-        /// Konstrukotr klasy SettingsDialogViewModel.
+        /// Initializes a new instance of the <see cref="SettingsDialogViewModel"/> class.
         /// </summary>
         public SettingsDialogViewModel()
         {

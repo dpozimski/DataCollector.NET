@@ -31,8 +31,9 @@ using DataCollector.Client.Translation;
 namespace DataCollector.Client.UI.ViewModels.Core
 {
     /// <summary>
-    /// Klasa ViewModel implementująca obsługę okna głównego aplikacji.
+    /// The shell view model.
     /// </summary>
+    /// <seealso cref="DataCollector.Client.UI.ViewModels.RootViewModelBase" />
     public class ShellViewModel : RootViewModelBase
     {
         #region Private Fields
@@ -43,10 +44,13 @@ namespace DataCollector.Client.UI.ViewModels.Core
         private MeasureDeviceViewModel selectedDevice;
         #endregion
 
-        #region Public Properties
+        #region Public Properties        
         /// <summary>
-        /// Aktualnie zalogowany użytkownik.
+        /// Gets or sets the current logged user.
         /// </summary>
+        /// <value>
+        /// The current logged user.
+        /// </value>
         public UserViewModel CurrentLoggedUser
         {
             get { return currentLoggedUser; }
@@ -54,76 +58,105 @@ namespace DataCollector.Client.UI.ViewModels.Core
             {
                 this.RaiseAndSetIfChanged(ref currentLoggedUser, value);
 
-                //ustawienie triggera na komendę wylogowania się
+                //sets the trigger to logout
                 if (currentLoggedUser != null)
                     currentLoggedUser.ObservableForProperty(vm => vm.LogoutRequested, s => s).
                         Subscribe(c => LogoutMethod(c));
             }
         }
         /// <summary>
-        /// Wybrane urządzenie pomiarowe
+        /// Gets or sets the selected device.
         /// </summary>
+        /// <value>
+        /// The selected device.
+        /// </value>
         public MeasureDeviceViewModel SelectedDevice
         {
             get { return selectedDevice; }
             set { this.RaiseAndSetIfChanged(ref selectedDevice, value); }
         }
         /// <summary>
-        /// Sterowanie panelem informacji o użytkowniku.
+        /// Gets or sets a value indicating whether this instance is user information flyout open.
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is user information flyout open; otherwise, <c>false</c>.
+        /// </value>
         public bool IsUserInfoFlyoutOpen
         {
             get { return isUserInfoFlyoutOpen; }
             set { this.RaiseAndSetIfChanged(ref isUserInfoFlyoutOpen, value); }
         }
         /// <summary>
-        /// Sterowanie panelem urządzeń.
+        /// Gets or sets a value indicating whether this instance is devices flyout open.
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is devices flyout open; otherwise, <c>false</c>.
+        /// </value>
         public bool IsDevicesFlyoutOpen
         {
             get { return isDevicesFlyoutOpen; }
             set { this.RaiseAndSetIfChanged(ref isDevicesFlyoutOpen, value); }
         }
         /// <summary>
-        /// Reprezentuje aktualną godzinę w systemie.
+        /// Gets the now.
         /// </summary>
+        /// <value>
+        /// The now.
+        /// </value>
         public string Now
         {
             get { return DateTime.Now.ToString(CultureInfo.GetCultureInfo("pl-PL")); }
         }
         #endregion
 
-        #region Commands
+        #region Commands        
         /// <summary>
-        /// Komenda sterowania stanem diody LED.
+        /// Gets or sets the led change dialog command.
         /// </summary>
+        /// <value>
+        /// The led change dialog command.
+        /// </value>
         public ReactiveCommand<object> LedChangeDialogCommand { get; protected set; }
         /// <summary>
-        /// Komenda logowania do aplikacji.
+        /// Gets or sets the login to application command.
         /// </summary>
+        /// <value>
+        /// The login to application command.
+        /// </value>
         public ReactiveCommand<object> LoginToApplicationCommand { get; protected set; }
         /// <summary>
-        /// Komenda wyzwalana podczas żądania wyświetlenia zarządzania użytkownikami.
+        /// Gets or sets the users management dialog command.
         /// </summary>
+        /// <value>
+        /// The users management dialog command.
+        /// </value>
         public ReactiveCommand<object> UsersManagementDialogCommand { get; protected set; }
         /// <summary>
-        /// Komenda wyzwalana podczas żądania wyświetlenia ustawień.
+        /// Gets or sets the settings prompt dialog command.
         /// </summary>
+        /// <value>
+        /// The settings prompt dialog command.
+        /// </value>
         public ReactiveCommand<object> SettingsPromptDialogCommand { get; protected set; }
         /// <summary>
-        /// Komenda wyzwalana podczas żądania zmiany wyświetlenia listy urządzeń.
+        /// Gets or sets the toggle devices flyout command.
         /// </summary>
+        /// <value>
+        /// The toggle devices flyout command.
+        /// </value>
         public ReactiveCommand<object> ToggleDevicesFlyoutCommand { get; protected set; }
         /// <summary>
-        /// Komenda wyzwalana podczas żądania wyświetlenia informacji o użytkowniku.
-        /// użytkowniku.
+        /// Gets or sets the flyout user command.
         /// </summary>
+        /// <value>
+        /// The flyout user command.
+        /// </value>
         public ReactiveCommand<object> FlyoutUserCommand { get; protected set; }
         #endregion
 
-        #region ctor
+        #region ctor        
         /// <summary>
-        /// Konstruktor klasy ShellViewModel.
+        /// Initializes a new instance of the <see cref="ShellViewModel"/> class.
         /// </summary>
         public ShellViewModel()
         {
@@ -138,11 +171,10 @@ namespace DataCollector.Client.UI.ViewModels.Core
         }
         #endregion
 
-        #region Public Methods
+        #region Public Methods        
         /// <summary>
-        /// Wyswietla ustawienia oraz aktualizuje nowe ustawienia.
+        /// Settingses the prompt dialog method.
         /// </summary>
-        /// <param name="shell">referencja do okna głównego</param>
         /// <returns></returns>
         public async Task SettingsPromptDialogMethod()
         {
@@ -156,7 +188,7 @@ namespace DataCollector.Client.UI.ViewModels.Core
             }
         }
         /// <summary>
-        /// Metoda logująca użytkownika do aplikacji.
+        /// Logins to application method asynchronous.
         /// </summary>
         /// <returns></returns>
         public async Task<bool> LoginToApplicationMethodAsync()
@@ -176,11 +208,11 @@ namespace DataCollector.Client.UI.ViewModels.Core
         }
         #endregion
 
-        #region Private Methods
+        #region Private Methods        
         /// <summary>
-        /// Obsługa wylogowania się z aplikacji.
+        /// Logouts the method.
         /// </summary>
-        /// <param name="logoutTrigger"></param>
+        /// <param name="logoutTrigger">if set to <c>true</c> [logout trigger].</param>
         private async void LogoutMethod(bool logoutTrigger)
         {
             string text = TranslationExtension.GetString("DoYouReallyWantToLogoutFromTheCurrentSession");
@@ -188,16 +220,16 @@ namespace DataCollector.Client.UI.ViewModels.Core
             var message = await DialogAccess.ShowRequestAsync(builder);
             if (message == MessageDialogResult.Affirmative)
             {
-                //odznaka wylogowania się użytkownika z systemu
+                //send a request with logout timestamp
                 usersManagement.RecordLogoutTimeStamp(CurrentLoggedUser.SessionId);
-                //wyczysć aktualnie zalogowanego użytkownika
+                //clears the current logged user
                 CurrentLoggedUser = null;
-                //zamknij flyout użytkownika
+                //close the flyout
                 IsUserInfoFlyoutOpen = false;
             }
         }
         /// <summary>
-        /// Inicjalizacja aktualizacji czasu.
+        /// Initializes the timer.
         /// </summary>
         private void InitTimer()
         {
@@ -207,35 +239,27 @@ namespace DataCollector.Client.UI.ViewModels.Core
             timer.Start();
         }
         /// <summary>
-        /// Inicjalizacji komend.
+        /// Initializes the commands.
         /// </summary>
         private void InitCommands()
         {
-            //inicjalizacja komendy ustawień
             this.SettingsPromptDialogCommand = ReactiveCommand.Create(GetUserCondition(UserRole.Administrator));
             this.SettingsPromptDialogCommand.Subscribe(async s => await SettingsPromptDialogMethod());
-            //zezwolenie na wykonanie komendy jeżeli liczba urządzeń jest większa od zero
-            //lub flyout jest otwarty
             this.ToggleDevicesFlyoutCommand = ReactiveCommand.Create(GetUserCondition(UserRole.All));
             this.ToggleDevicesFlyoutCommand.Subscribe(s => IsDevicesFlyoutOpen = !IsDevicesFlyoutOpen);
-            //informacje o użytkowniku - jeśli istnieje
-            //lub żądanie logowania
             this.FlyoutUserCommand = ReactiveCommand.Create();
             this.FlyoutUserCommand.Subscribe(async s => await FlyoutUserMethod());
-            //zarządzanie użytkownikami
             this.UsersManagementDialogCommand = ReactiveCommand.Create(GetUserCondition(UserRole.Administrator));
             this.UsersManagementDialogCommand.Subscribe(async s => await ShowUsersManagementDialog());
-            //inicjalizacja komendy logowania do aplikacji
             this.LoginToApplicationCommand = ReactiveCommand.Create();
             this.LoginToApplicationCommand.Subscribe(async s => await LoginToApplicationMethodAsync());
-            //incijalizacja komendy sterowania diodą LED
             this.LedChangeDialogCommand = ReactiveCommand.Create(Observable.CombineLatest(GetUserCondition(UserRole.All),
                                                                                           this.ObservableForProperty(s=>s.SelectedDevice),
                                                                                           (a,b) => a && b.Value != null));
             this.LedChangeDialogCommand.Subscribe(async s => await ShowLedStateManager());
         }
         /// <summary>
-        /// Wyswietla menadżera stanu diody LED.
+        /// Shows the led state manager.
         /// </summary>
         /// <returns></returns>
         private async Task ShowLedStateManager()
@@ -250,7 +274,7 @@ namespace DataCollector.Client.UI.ViewModels.Core
                 DialogAccess.ShowToastNotification(TranslationExtension.GetString("ThereIsNoConnectionWithDevice"), ToastType.Error);
         }
         /// <summary>
-        /// Metoda zmieniająca stan okna info o użytkowniku lub logująca do systemu
+        /// Flyouts the user method.
         /// </summary>
         /// <returns></returns>
         private async Task FlyoutUserMethod()
@@ -261,10 +285,9 @@ namespace DataCollector.Client.UI.ViewModels.Core
                 await LoginToApplicationMethodAsync();
         }
         /// <summary>
-        /// Zwraca obserwatora nasłuchującego na spełnienie określonego warunku podczas zmiany stanu użytkownika.
-        /// dla określonego uprawnienia.
+        /// Gets the user condition.
         /// </summary>
-        /// <param name="role">wymagane uprawnienie</param>
+        /// <param name="role">The role.</param>
         /// <returns></returns>
         private IObservable<bool> GetUserCondition(UserRole role)
         {
@@ -272,8 +295,9 @@ namespace DataCollector.Client.UI.ViewModels.Core
                                                 user => user != null && role.HasFlag(user.Role));
         }
         /// <summary>
-        /// Wyświetla dialog zarządzania użytkownikami.
+        /// Shows the users management dialog.
         /// </summary>
+        /// <returns></returns>
         private async Task ShowUsersManagementDialog()
         {
             var view = new UsersManagementViewDialog();

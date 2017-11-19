@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace DataCollector.Client.UI.Models
 {
     /// <summary>
-    /// Klasa opisująca zakres danych pomiarowych.
+    /// Class which describes a date range.
     /// </summary>
     public class DataRange : ReactiveObject
     {
@@ -18,7 +18,7 @@ namespace DataCollector.Client.UI.Models
 
         #region Public Properties
         /// <summary>
-        /// Początkowy znacznik czasu.
+        /// The first stamp.
         /// </summary>
         public DateTime FirstStamp
         {
@@ -26,7 +26,7 @@ namespace DataCollector.Client.UI.Models
             set { this.RaiseAndSetIfChanged(ref firstStamp, value); }
         }
         /// <summary>
-        /// Ostatni znacznik czasu.
+        /// The last stamp.
         /// </summary>
         public DateTime LastStamp
         {
@@ -37,10 +37,10 @@ namespace DataCollector.Client.UI.Models
 
         #region Public Methods
         /// <summary>
-        /// Aktualizuje dane w podanym modelu.
+        /// Updates the data.
         /// </summary>
-        /// <param name="from">początek zakresu danych</param>
-        /// <param name="to">ostatni znacznik zakresu danych</param>
+        /// <param name="from">the start stamp</param>
+        /// <param name="to">the last stamp</param>
         public void Update(DateTime from, DateTime to)
         {
             this.FirstStamp = from;

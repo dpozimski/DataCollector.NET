@@ -21,7 +21,7 @@ using System.Windows.Threading;
 namespace DataCollector.Client.UI.ViewModels.Core
 {
     /// <summary>
-    /// ViewModel implementujący prezentację wykrytych urządzeń w sieci.
+    /// The devices view model.
     /// </summary>
     public class MeasureDevicesViewModel : ViewModelBase
     {
@@ -32,20 +32,29 @@ namespace DataCollector.Client.UI.ViewModels.Core
         private ICommunicationServiceEventCallback webCommunicationCallback;
         #endregion
 
-        #region Public Properties
+        #region Public Properties        
         /// <summary>
-        /// Liczba podłączonych urządzeń w systemie.
+        /// Gets the connected devices count.
         /// </summary>
+        /// <value>
+        /// The connected devices count.
+        /// </value>
         public int ConnectedDevicesCount =>
                 devices.Count(s => s.IsConnected);
         /// <summary>
-        /// Liczba urządzeń w systemie.
+        /// Gets the devices count.
         /// </summary>
+        /// <value>
+        /// The devices count.
+        /// </value>
         public int DevicesCount =>
                 devices.Count();
         /// <summary>
-        /// Lista urządzeń widzianych w sieci.
+        /// Gets or sets the devices.
         /// </summary>
+        /// <value>
+        /// The devices.
+        /// </value>
         public ObservableCollection<MeasureDeviceViewModel> Devices
         {
             get { return devices; }
@@ -53,9 +62,9 @@ namespace DataCollector.Client.UI.ViewModels.Core
         }
         #endregion
 
-        #region ctor
+        #region ctor        
         /// <summary>
-        /// Konstruktor klasy MeasureDevicesViewModel.
+        /// Initializes a new instance of the <see cref="MeasureDevicesViewModel"/> class.
         /// </summary>
         public MeasureDevicesViewModel()
         {
@@ -71,12 +80,12 @@ namespace DataCollector.Client.UI.ViewModels.Core
         }
         #endregion
 
-        #region Private Methods
+        #region Private Methods        
         /// <summary>
-        /// Obsługa zdarzenia zmiany stanu urządzenia wykrytego w sieci.
+        /// Called when [device changed state].
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="DeviceUpdatedEventArgs"/> instance containing the event data.</param>
         private async void OnDeviceChangedState(object sender, DeviceUpdatedEventArgs e)
         {
             await Application.Current.Dispatcher.BeginInvoke(new Action(() =>
@@ -85,17 +94,13 @@ namespace DataCollector.Client.UI.ViewModels.Core
                 var device = devices.SingleOrDefault(s => s.MacAddress == e.Device.MacAddress);
                 if (device == null && e.UpdateStatus == UpdateStatus.Found)
                 {
-                    //measureAccess.AssignMeasureDevice(e.Device);
                     var vmDevice = new MeasureDeviceViewModel(e.Device);
                     Devices.Add(vmDevice);
                 }
                 if (device != null)
                 {
                     if (e.UpdateStatus != UpdateStatus.Lost)
-                    {
-                        //measureAccess.AssignMeasureDevice(e.Device);
                         device.Update(e.Device);
-                    }
                     else
                     {
                         toastType = ToastType.Error;

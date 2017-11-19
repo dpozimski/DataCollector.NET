@@ -14,17 +14,17 @@ using System.Threading.Tasks;
 namespace DataCollector.Client.UI.ViewModels.Chart
 {
     /// <summary>
-    /// Klasa stanowiąca definicję nowego raportu.
+    /// Class which represents a single report.
     /// </summary>
     public class ReportDefinitionViewModel: ChartVisualizationViewModelBase
     {
-        #region Static Fields
+        #region Private Fields
         private DataRange viewRange, dataRange;
         #endregion
 
         #region Constant
         /// <summary>
-        /// Nomenklatura nazywania pomiarów na osi.
+        /// The names of the axis.
         /// </summary>
         private readonly string[] SeriesNameConvention = new string[] { "X", "Y", "Z" };
         #endregion
@@ -36,45 +36,66 @@ namespace DataCollector.Client.UI.ViewModels.Chart
         private TimeSpan initialDataRange = TimeSpan.FromSeconds(150);
         #endregion
 
-        #region Commands
+        #region Commands        
         /// <summary>
-        /// Przesuń w lewo widok pomiarów.
+        /// Gets or sets the step forward command.
         /// </summary>
+        /// <value>
+        /// The step forward command.
+        /// </value>
         public ReactiveCommand<object> StepForwardCommand { get; protected set; }
         /// <summary>
-        /// Przesuń w prawo widok pomiaró.
+        /// Gets or sets the step backward command.
         /// </summary>
+        /// <value>
+        /// The step backward command.
+        /// </value>
         public ReactiveCommand<object> StepBackwardCommand { get; protected set; }
         /// <summary>
-        /// Zmniejszenie zakresu widoczności.
+        /// Gets or sets the zoom in command.
         /// </summary>
+        /// <value>
+        /// The zoom in command.
+        /// </value>
         public ReactiveCommand<object> ZoomInCommand { get; protected set; }
         /// <summary>
-        /// Zwiększenie zakresu widoczności.
+        /// Gets or sets the zoom out command.
         /// </summary>
+        /// <value>
+        /// The zoom out command.
+        /// </value>
         public ReactiveCommand<object> ZoomOutCommand { get; protected set; }
         #endregion
 
-        #region Public Properties
+        #region Public Properties        
         /// <summary>
-        /// Znacznik zakresu danych w widoku.
+        /// Gets or sets the view range.
         /// </summary>
+        /// <value>
+        /// The view range.
+        /// </value>
         public DataRange ViewRange
         {
             get { return viewRange; }
             set { this.RaiseAndSetIfChanged(ref viewRange, value); }
         }
         /// <summary>
-        /// Znacznik zakresu wszystkich danych.
+        /// Gets or sets the data range.
         /// </summary>
+        /// <value>
+        /// The data range.
+        /// </value>
         public DataRange DataRange
         {
             get { return dataRange; }
             set { this.RaiseAndSetIfChanged(ref dataRange, value); }
         }
         /// <summary>
-        /// Udostępnione wartości pomiarów.
+        /// Gets or sets the view.
         /// </summary>
+        /// <value>
+        /// The view.
+        /// </value>
         public SeriesCollection View
         {
             get { return view; }
@@ -86,13 +107,14 @@ namespace DataCollector.Client.UI.ViewModels.Chart
         public int ValuesCount => values.Count();
         #endregion
 
-        #region ctor
+        #region ctor        
         /// <summary>
-        /// Konstruktor klasy ReportDefinitionModel.
+        /// Initializes a new instance of the <see cref="ReportDefinitionViewModel"/> class.
         /// </summary>
-        /// <param name="values">posortowane wartości</param>
-        /// <param name="type">typ raportu</param>
-        /// <param name="measureType">typ wartości</param>
+        /// <param name="values">The values.</param>
+        /// <param name="measureType">Type of the measure.</param>
+        /// <CreatedOn>19.11.2017 14:24</CreatedOn>
+        /// <CreatedBy>dpozimski</CreatedBy>
         public ReportDefinitionViewModel(IEnumerable<DateTimePoint[]> values, Enum measureType)
            :base(EnumStrConverter.ToDescription(measureType), EnumStrConverter.ToUnit(measureType), (val) => $"{new DateTime((long)Math.Abs(val))}")
         {
@@ -118,9 +140,9 @@ namespace DataCollector.Client.UI.ViewModels.Chart
         }
         #endregion
 
-        #region Private Methods
+        #region Private Methods        
         /// <summary>
-        /// Inicjalizacja komend.
+        /// Initializes the commands.
         /// </summary>
         private void InitCommands()
         {
@@ -145,10 +167,9 @@ namespace DataCollector.Client.UI.ViewModels.Chart
         }
 
         /// <summary>
-        /// Metoda obsługująca zmianę położenia danych w czasie.
+        /// Called when [location point request].
         /// </summary>
-        /// <param name="range">zakres przesuwający</param>
-        /// <returns></returns>
+        /// <param name="range">The range.</param>
         private void OnLocationPointRequest(TimeSpan range)
         {
             this.MaxXAxis += range.Ticks;
@@ -156,22 +177,20 @@ namespace DataCollector.Client.UI.ViewModels.Chart
             UpdateView();
         }
         /// <summary>
-        /// Metoda obsługująca zmianę objętości danych w widoku.
+        /// Called when [zoom request].
         /// </summary>
-        /// <param name="range">zakres rozszerzający</param>
-        /// <returns></returns>
+        /// <param name="range">The range.</param>
         private void OnZoomRequest(TimeSpan range)
         {
-            //równomiernie oddalenie/przybliżenie wykresu
             var halfRange = range.Ticks / 2;
             this.MaxXAxis += halfRange;
             this.MinXAxis -= halfRange;
             UpdateView();
         }
         /// <summary>
-        /// Inicjalizacja widoku.
-        /// <param name="inputValuesTypesCount">suma typów wartości wejsciowych</param>
+        /// Called when [source values changed].
         /// </summary>
+        /// <param name="inputValuesTypesCount">The input values types count.</param>
         private void OnSourceValuesChanged(int inputValuesTypesCount)
         {
             view = new SeriesCollection();
@@ -180,23 +199,22 @@ namespace DataCollector.Client.UI.ViewModels.Chart
                 view.Add(new LineSeries() { Title = SeriesNameConvention[i], Values = new ChartValues<DateTimePoint>() });
         }
         /// <summary>
-        /// Pobór danych do widoku.
+        /// Updates the view.
         /// </summary>
-        /// <returns></returns>
         private void UpdateView()
         {
             bool isViewRangeUpdated = false;
-            //pobranie danych na podstawie min i max
+            //gets the data depends of min and max range
             var data = values.Where(s =>
             {
                 var dtPoint = s.Min(d=>d.DateTime);
                 return dtPoint.Ticks > this.MinXAxis &&
                        dtPoint.Ticks < this.MaxXAxis;
             }).OrderBy(s=>s.Min(d=>d.DateTime)).ToList();
-            //wyczyszczenie {lex:Loc Key=Previous}ch wartości z widoku
+            //clears the previous values
             foreach (var item in view)
                 item.Values.Clear();
-            //wpisanie danych z odpowiedniej osi do odpowiadającej serii
+            //move the data to series
             for (int i = 0; i < view.Count; i++)
             {
                 IEnumerable<DateTimePoint> singleSeriesData = data.Select(s => s[i]);

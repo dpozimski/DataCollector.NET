@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace DataCollector.Client.UI.Models
 {
     /// <summary>
-    /// Klasa reprezentująca pojedynczy obiekt wykresu kolumnowego.
+    /// Class which represents the single object of the column chart.
     /// </summary>
     public class SeriesModel : IObservableChartPoint
     {
@@ -19,11 +19,12 @@ namespace DataCollector.Client.UI.Models
 
         #region Public Properties
         /// <summary>
-        /// Definiuje czy w danym obiekcie dokonano zmiany pierwotnej wartości.
+        /// Gets the value that indicates whether
+        /// the first value was added to the series.
         /// </summary>
         public bool IsTouched { get; private set; }
         /// <summary>
-        /// Wartość.
+        /// The value.
         /// </summary>
         public double Value
         {
@@ -34,7 +35,7 @@ namespace DataCollector.Client.UI.Models
             }
         }
         /// <summary>
-        /// Nazwa kolumny.
+        /// The column name.
         /// </summary>
         public string Name
         {
@@ -47,20 +48,20 @@ namespace DataCollector.Client.UI.Models
 
         #region ctor
         /// <summary>
-        /// Konstruktor klasy SeriesModel.
+        /// The constructor.
         /// </summary>
-        /// <param name="name">Nazwa pola</param>
+        /// <param name="name">Name of the series</param>
         public SeriesModel(string name)
         {
             this.Name = name;
         }
         #endregion
 
-        #region IObservableChartPoint
+        #region [IObservableChartPoint]
         public event Action PointChanged;
         protected void OnPointChanged()
         {
-            if (PointChanged != null) PointChanged.Invoke();
+            PointChanged?.Invoke();
         }
         #endregion
     }

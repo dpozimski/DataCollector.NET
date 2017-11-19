@@ -14,54 +14,60 @@ using netoaster.Enumes;
 namespace DataCollector.Client.UI.ModulesAccess.Interfaces
 {
     /// <summary>
-    /// Interfejs implementujący metody obsługi dialogów.
+    /// The interface which declares a dialog methods.
     /// </summary>
     public interface IDialogAccess
     {
         /// <summary>
-        /// Wyświetla dialog we wskazanym kontenerze.
+        /// Shows a dialog in selected container.
         /// </summary>
-        /// <param name="content">zawartość</param>
-        /// <param name="rootDialogId">identyfikator</param>
+        /// <param name="content">content</param>
+        /// <param name="rootDialogId">the contianer identifier</param>
         /// <returns></returns>
         Task<object> Show(UserControl content, string rootDialogId);
         /// <summary>
-        /// Metoda wyświetlajaća pytanie na ekranie w formie komunikatu..
+        /// Shows the request asynchronous.
         /// </summary>
-        /// <param name="cancelheader">nagłowek anulowania operacji</param>
-        /// <param name="confirmHeader">nagłowęk potwierdzenia operacji</param>
-        /// <param name="message">wiadomość</param>
-        /// <param name="mode">Określa typ komunikatu.</param>
-        /// <param name="firstAuxiliaryHeader">nagłówek przycisku dodatowego</param>
-        /// <param name="secondAuxiliaryHeader">nagłówek 2 przycisku dodatkowego</param>
+        /// <param name="model">The model.</param>
         /// <returns></returns>
+        /// <CreatedOn>19.11.2017 12:32</CreatedOn>
+        /// <CreatedBy>dpozimski</CreatedBy>
         Task<MessageDialogResult> ShowRequestAsync(IRequestBuilder model);
         /// <summary>
-        /// Wyświetla komunikat tekstowy.
+        /// Shows the text message.
         /// </summary>
         /// <param name="message">wiadmość</param>
         /// <returns></returns>
         Task ShowMessage(string message);
         /// <summary>
-        /// Pobiera dane logowania od użytkownika.
+        /// Shows the login asynchronous.
         /// </summary>
         /// <returns></returns>
+        /// <CreatedOn>19.11.2017 12:33</CreatedOn>
+        /// <CreatedBy>dpozimski</CreatedBy>
         Task<LoginDialogData> ShowLoginAsync();
         /// <summary>
-        /// Wyświetla okno oczekiwania.
+        /// Gets the progress dialog.
         /// </summary>
+        /// <param name="message">The message.</param>
         /// <returns></returns>
+        /// <CreatedOn>19.11.2017 12:33</CreatedOn>
+        /// <CreatedBy>dpozimski</CreatedBy>
         Task<ProgressDialogController> GetProgressDialog(string message);
         /// <summary>
-        /// Referencja do okna głównego aplikacji.
+        /// Sets the HWND.
         /// </summary>
-        /// <param name="shell"></param>
+        /// <param name="shell">The shell.</param>
+        /// <CreatedOn>19.11.2017 12:33</CreatedOn>
+        /// <CreatedBy>dpozimski</CreatedBy>
         void SetHwnd(MetroWindow shell);
         /// <summary>
-        /// Metoda wyświetlająca powiadomienei w formie dymku.
+        /// Shows the toast notification.
         /// </summary>
-        /// <param name="message">wiadomość</param>
-        /// <param name="type">Typ powiadomienia</param>
+        /// <param name="message">The message.</param>
+        /// <param name="type">The type.</param>
+        /// <CreatedOn>19.11.2017 12:33</CreatedOn>
+        /// <CreatedBy>dpozimski</CreatedBy>
         void ShowToastNotification(string message, ToastType type = ToastType.Info);
     }
 }

@@ -18,8 +18,9 @@ using System.Windows;
 namespace DataCollector.Client.UI.ViewModels.Dialogs
 {
     /// <summary>
-    /// ViewModel implementującu zarządzanie użytkownikami.
+    /// The management dialog view model.
     /// </summary>
+    /// <seealso cref="DataCollector.Client.UI.ViewModels.RootViewModelBase" />
     class UsersManagementDialogViewModel : RootViewModelBase
     {
         #region Private Fields
@@ -28,18 +29,24 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
         private UserViewModel selectedUser;
         #endregion
 
-        #region Public Properties
+        #region Public Properties        
         /// <summary>
-        /// Użytkownicy w systemie.
+        /// Gets or sets the users.
         /// </summary>
+        /// <value>
+        /// The users.
+        /// </value>
         public ObservableCollection<UserViewModel> Users
         {
             get { return users; }
             set { this.RaiseAndSetIfChanged(ref users, value); }
         }
         /// <summary>
-        /// Wybrany użytkownik.
+        /// Gets or sets the selected user.
         /// </summary>
+        /// <value>
+        /// The selected user.
+        /// </value>
         public UserViewModel SelectedUser
         {
             get { return selectedUser; }
@@ -47,33 +54,42 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
         }
         #endregion
 
-        #region Commands
+        #region Commands        
         /// <summary>
-        /// Komenda dodawania użytkownika.
+        /// Gets or sets the add user command.
         /// </summary>
+        /// <value>
+        /// The add user command.
+        /// </value>
         public ReactiveCommand<object> AddUserCommand
         {
             get;protected set;
         }
         /// <summary>
-        /// Komenda usuwania użytkownika.
+        /// Gets or sets the delete user command.
         /// </summary>
+        /// <value>
+        /// The delete user command.
+        /// </value>
         public ReactiveCommand<object> DeleteUserCommand
         {
             get;protected set;
         }
         /// <summary>
-        /// Komenda edycji użytkownika.
+        /// Gets or sets the edit user command.
         /// </summary>
+        /// <value>
+        /// The edit user command.
+        /// </value>
         public ReactiveCommand<object> EditUserCommand
         {
             get;protected set;
         }
         #endregion
 
-        #region ctor
+        #region ctor        
         /// <summary>
-        /// Konstruktor klasy UsersManagementDialogViewModel.
+        /// Initializes a new instance of the <see cref="UsersManagementDialogViewModel"/> class.
         /// </summary>
         public UsersManagementDialogViewModel()
         {
@@ -83,24 +99,23 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
         }
         #endregion
 
-        #region Private Methods
+        #region Private Methods        
         /// <summary>
-        /// Zwraca użytkownika edytowanego przez operatora.
-        /// Null w przypadku anulowania.
+        /// Gets the user from operator.
         /// </summary>
         /// <returns></returns>
         private async Task<UserViewModel> GetUserFromOperator()
         {
             var userInput = new UserInputDialog()
             {
-                //utwórz nową instancję modelu użytkownika w celu uniknięcia wzajemnej edycji w DataGrid
+                //creates a new instance of the user to prevent from double edit in DataGrid
                 DataContext = new UserViewModel(selectedUser?.GetUser())
             };
 
             return await DialogAccess.Show(userInput, RootDialogId) as UserViewModel;
         }
         /// <summary>
-        /// Zatwierdzenie zmian dla bieżącego użytkownika.
+        /// Edits the user method.
         /// </summary>
         /// <returns></returns>
         private async Task EditUserMethod()
@@ -113,12 +128,13 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
             }
         }
         /// <summary>
-        /// Usunięcie bieżącego użytkownika.
+        /// Deletes the user method.
         /// </summary>
-        /// <returns></returns>
+        /// <CreatedOn>19.11.2017 14:32</CreatedOn>
+        /// <CreatedBy>dpozimski</CreatedBy>
         private void DeleteUserMethod()
         {
-            //zabezpieczenie przed usunięciem samego siebie
+            //do not allow to delete the same user as its logged to the app
             if(selectedUser.Login != MainViewModel.CurrentLoggedUser.Login)
             {
                 usersManagement.DeleteUser(selectedUser.Login);
@@ -126,7 +142,7 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
             }
         }
         /// <summary>
-        /// Dodanie nowego użytkownika.
+        /// Adds the user method.
         /// </summary>
         /// <returns></returns>
         private async Task AddUserMethod()
@@ -143,23 +159,22 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
             }
         }
         /// <summary>
-        /// Inicjalizacja komend.
+        /// Initializes the commands.
         /// </summary>
         private void InitCommands()
         {
-            //dodawanie użytkownika
             AddUserCommand = ReactiveCommand.Create();
             AddUserCommand.Subscribe(async s => await AddUserMethod());
-            //usuwanie użytkownika
             DeleteUserCommand = ReactiveCommand.Create(this.ObservableForProperty(s => s.SelectedUser, user => user != null));
             DeleteUserCommand.Subscribe(s => DeleteUserMethod());
-            //edycja użytkownika
             EditUserCommand = ReactiveCommand.Create(this.ObservableForProperty(s => s.SelectedUser, user => user != null));
             EditUserCommand.Subscribe(async s => await EditUserMethod());
         }
         /// <summary>
-        /// Incijalizacja listy użytkowników.
+        /// Initializes the users.
         /// </summary>
+        /// <CreatedOn>19.11.2017 14:33</CreatedOn>
+        /// <CreatedBy>dpozimski</CreatedBy>
         private void InitUsers()
         {
             var dbUsers = usersManagement.GetUsers().Select(s => new UserViewModel(s));

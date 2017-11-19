@@ -13,9 +13,6 @@ namespace DataCollector.Client.Translation
     /// <summary>
     /// Class provides a functionality to translate a keys using current culture.
     /// </summary>
-    /// <CreatedOn>01.11.2017 21:17</CreatedOn>
-    /// <CreatedBy>dpozimski</CreatedBy>
-    /// <seealso cref="System.Windows.Markup.MarkupExtension" />
     public class TranslationExtension
     {
         #region [Public Static Methods]        

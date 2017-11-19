@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace DataCollector.Client.UI.Models
 {
     /// <summary>
-    /// Definicja metod buildera powiadomienia dla użytkownika.
+    /// Interface which describes a possible configuration
+    /// of the user notification.
     /// </summary>
     public interface IRequestBuilder
     {

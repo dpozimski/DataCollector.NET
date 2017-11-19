@@ -12,8 +12,9 @@ using System.Windows.Data;
 namespace DataCollector.Client.UI.ViewModels.Core
 {
     /// <summary>
-    /// ViewModel implementujący modyfikację danych użytkownika.
+    /// The view model.
     /// </summary>
+    /// <seealso cref="DataCollector.Client.UI.ViewModels.ViewModelBase" />
     public class UserViewModel : ViewModelBase
     {
         #region Private Fields
@@ -26,10 +27,13 @@ namespace DataCollector.Client.UI.ViewModels.Core
         private ObservableCollection<UserLoginHistory> loginHistory;
         #endregion
 
-        #region Public Properties
+        #region Public Properties        
         /// <summary>
-        /// Flaga żądania wylogowania sie z aplikacji,
+        /// Gets or sets a value indicating whether [logout requested].
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if [logout requested]; otherwise, <c>false</c>.
+        /// </value>
         public bool LogoutRequested
         {
             get { return logoutRequested; }
@@ -40,16 +44,22 @@ namespace DataCollector.Client.UI.ViewModels.Core
             }
         }
         /// <summary>
-        /// Identyfikator trwającej sesji.
+        /// Gets or sets the session identifier.
         /// </summary>
+        /// <value>
+        /// The session identifier.
+        /// </value>
         public int SessionId
         {
             get { return sessionId; }
             set { this.RaiseAndSetIfChanged(ref sessionId, value); }
         }
         /// <summary>
-        /// Nazwa użytkownika.
+        /// Gets or sets the login.
         /// </summary>
+        /// <value>
+        /// The login.
+        /// </value>
         public string Login
         {
             get { return user.Login; }
@@ -60,8 +70,11 @@ namespace DataCollector.Client.UI.ViewModels.Core
             }
         }
         /// <summary>
-        /// Hasło zakodowane w MD5
+        /// Gets or sets the password.
         /// </summary>
+        /// <value>
+        /// The password.
+        /// </value>
         public string Password
         {
             get { return user.Password; }
@@ -71,8 +84,11 @@ namespace DataCollector.Client.UI.ViewModels.Core
             }
         }
         /// <summary>
-        /// Imię.
+        /// Gets or sets the first name.
         /// </summary>
+        /// <value>
+        /// The first name.
+        /// </value>
         public string FirstName
         {
             get { return user.FirstName; }
@@ -83,8 +99,11 @@ namespace DataCollector.Client.UI.ViewModels.Core
             }
         }
         /// <summary>
-        /// Nazwisko.
+        /// Gets or sets the last name.
         /// </summary>
+        /// <value>
+        /// The last name.
+        /// </value>
         public string LastName
         {
             get { return user.LastName; }
@@ -95,8 +114,11 @@ namespace DataCollector.Client.UI.ViewModels.Core
             }
         }
         /// <summary>
-        /// Uprawnienie.
+        /// Gets or sets the role.
         /// </summary>
+        /// <value>
+        /// The role.
+        /// </value>
         public UserRole Role
         {
             get { return user.Role; }
@@ -107,16 +129,22 @@ namespace DataCollector.Client.UI.ViewModels.Core
             }
         }
         /// <summary>
-        /// Dostępne uprawnienia.
+        /// Gets or sets the available roles.
         /// </summary>
+        /// <value>
+        /// The available roles.
+        /// </value>
         public ObservableCollection<UserRole> AvailableRoles
         {
             get { return availableRoles; }
             set { this.RaiseAndSetIfChanged(ref availableRoles, value); }
         }
         /// <summary>
-        /// Historia logowania użytkownika.
+        /// Gets or sets the login history.
         /// </summary>
+        /// <value>
+        /// The login history.
+        /// </value>
         public ObservableCollection<UserLoginHistory> LoginHistory
         {
             get { return loginHistory; }
@@ -124,46 +152,49 @@ namespace DataCollector.Client.UI.ViewModels.Core
         }
         #endregion
 
-        #region Commands
+        #region Commands        
         /// <summary>
-        /// Komenda wylogowania uzytkownika.
+        /// Gets or sets the logout command.
         /// </summary>
+        /// <value>
+        /// The logout command.
+        /// </value>
         public ReactiveCommand<object> LogoutCommand
         {
             get;protected set;
         }
         #endregion
 
-        #region ctor
+        #region ctor        
         /// <summary>
-        /// Konstruktor klasy UserViewModel
+        /// Initializes a new instance of the <see cref="UserViewModel"/> class.
         /// </summary>
-        /// <param name="user">użytkownik</param>
+        /// <param name="user">The user.</param>
         public UserViewModel(User user):this(new UserSession() { SessionUser = user, SessionId = -1 })
         {
 
         }
         /// <summary>
-        /// Konstruktor klasy UserViewModel.
+        /// Initializes a new instance of the <see cref="UserViewModel"/> class.
         /// </summary>
-        /// <param name="userSession">użytkownik bazodanowy z identyfikatorem sesji</param>
+        /// <param name="userSession">The user session.</param>
         public UserViewModel(UserSession userSession)
         {
-            //inicjalizacja uprawnień
+            //the roles initialization
             var roles = ((UserRole[])Enum.GetValues(typeof(UserRole))).Where(s => s != UserRole.All);
             this.AvailableRoles = new ObservableCollection<UserRole>(roles);
 
-            //aktualizacja danych uzytkownika
+            //updates the user data
             Update(userSession.SessionUser);
 
-            //przypisanie id sesji
+            //assign a session id
             SessionId = userSession.SessionId;
 
-            //inicjalizacja komendy wylogowywania się
+            //the logout command init
             LogoutCommand = ReactiveCommand.Create();
             LogoutCommand.Subscribe(s => LogoutRequested = !LogoutRequested);
 
-            //pobranie danych logowania
+            //gets the service
             managementService = ServiceLocator.Resolve<IUsersManagementService>();
         }
         #endregion
@@ -172,8 +203,6 @@ namespace DataCollector.Client.UI.ViewModels.Core
         /// <summary>
         /// Fills the login history of the current user.
         /// </summary>
-        /// <CreatedOn>14.11.2017 20:34</CreatedOn>
-        /// <CreatedBy>dpozimski</CreatedBy>
         public void FillLoginHistory()
         {
             //Get the login history collection
@@ -181,18 +210,18 @@ namespace DataCollector.Client.UI.ViewModels.Core
             LoginHistory = new ObservableCollection<UserLoginHistory>(userLoginHistory);
         }
         /// <summary>
-        /// Aktualizuje ViewModel o nowe dane.
+        /// Updates the specified user.
         /// </summary>
-        /// <param name="user"></param>
+        /// <param name="user">The user.</param>
         public void Update(User user)
         {
             this.user = user ?? new User();
             this.RaisePropertyChanged(null);
         }
         /// <summary>
-        /// Zwraca nowo utworzonego obiektu na podstawie wlaściwości klasy.
+        /// Gets the user.
         /// </summary>
-        /// <returns>użytkownik z identyfikatorem sesji</returns>
+        /// <returns></returns>
         public User GetUser()
         {
             var user = new User()

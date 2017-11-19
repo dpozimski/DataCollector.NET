@@ -16,7 +16,7 @@ using System.Xml;
 namespace DataCollector.Client.UI.ModulesAccess
 {
     /// <summary>
-    /// Klasa implementująca wzorzec ServiceLocator.
+    /// The service locator pattern implementation.
     /// </summary>
     public static class ServiceLocator
     {
@@ -27,7 +27,7 @@ namespace DataCollector.Client.UI.ModulesAccess
 
         #region Public Static Methods
         /// <summary>
-        /// Rejestracja dostępu do obiektów.
+        /// Register the services.
         /// </summary>
         public static void Register()
         {
@@ -67,9 +67,9 @@ namespace DataCollector.Client.UI.ModulesAccess
         }
 
         /// <summary>
-        /// Zwraca obiekt ze wskazanym interfejsem.
+        /// Resolves this instance.
         /// </summary>
-        /// <typeparam name="TAccessObj"></typeparam>
+        /// <typeparam name="TAccessObj">The type of the access object.</typeparam>
         /// <returns></returns>
         public static TAccessObj Resolve<TAccessObj>()
         {
@@ -77,6 +77,7 @@ namespace DataCollector.Client.UI.ModulesAccess
         }
         #endregion
 
+        #region [Private Static Methods]
         private static void CreateWcfBasicServiceReference<TService>(ContainerBuilder builder, Func<IAppSettings, string> hostFactory)
         {
             builder.Register(c =>
@@ -91,8 +92,6 @@ namespace DataCollector.Client.UI.ModulesAccess
               .As<TService>()
               .UseWcfSafeRelease();
         }
-
-
         private static BasicHttpBinding GetBasicHttpBinding()
         {
             return new BasicHttpBinding()
@@ -108,7 +107,6 @@ namespace DataCollector.Client.UI.ModulesAccess
                 }
             };
         }
-
         private static WSDualHttpBinding GetWsDualHttpBinding()
         {
             return new WSDualHttpBinding()
@@ -122,5 +120,6 @@ namespace DataCollector.Client.UI.ModulesAccess
                 }
             };
         }
+        #endregion
     }
 }

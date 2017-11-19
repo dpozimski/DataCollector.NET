@@ -1,4 +1,5 @@
-﻿using MahApps.Metro.Controls.Dialogs;
+﻿using DataCollector.Client.Translation;
+using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,30 +9,30 @@ using System.Threading.Tasks;
 namespace DataCollector.Client.UI.Models
 {
     /// <summary>
-    /// Model definiujący powiadomienie do użytkownika.
+    /// The model which defines a user notification.
     /// </summary>
     public class RequestModel : MetroDialogSettings, IRequestBuilder
     {
         #region Public Properties
         /// <summary>
-        /// Styl dialogu.
+        /// The dialog style.
         /// </summary>
         public MessageDialogStyle DialogStyle { get; private set; }
         /// <summary>
-        /// Wiadomość.
+        /// The message.
         /// </summary>
         public string Message { get; private set; }
         #endregion
 
         #region ctor
         /// <summary>
-        /// Prywatny konstruktor klasy RequestModel.
+        /// The private constructor.
         /// </summary>
         private RequestModel()
         {
             this.DialogStyle = MessageDialogStyle.AffirmativeAndNegative;
-            this.NegativeButtonText = "Anuluj";
-            this.AffirmativeButtonText = "Potwierdź";
+            this.NegativeButtonText = TranslationExtension.GetString("Cancel");
+            this.AffirmativeButtonText = TranslationExtension.GetString("Confirm");
             this.FirstAuxiliaryButtonText = "";
             this.SecondAuxiliaryButtonText = "";
         }

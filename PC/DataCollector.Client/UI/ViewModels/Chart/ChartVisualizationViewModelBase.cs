@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace DataCollector.Client.UI.ViewModels.Chart
 {
     /// <summary>
-    /// Abstrakcyjna klasa definiująca podstawowy ViewModel prezentacji danych wizualizacyjnych.
+    /// Implements the basic functionality of presenting a measure data in the view.
     /// </summary>
     public abstract class ChartVisualizationViewModelBase : ViewModelBase
     {
@@ -21,7 +21,7 @@ namespace DataCollector.Client.UI.ViewModels.Chart
 
         #region Public Properties
         /// <summary>
-        /// Firmatowanie osi Y.
+        /// The format of the y axis.
         /// </summary>
         public Func<double, string> YFormatter
         {
@@ -29,7 +29,7 @@ namespace DataCollector.Client.UI.ViewModels.Chart
             set { this.RaiseAndSetIfChanged(ref yFormatter, value); }
         }
         /// <summary>
-        /// Nagłówek pomiaru.
+        /// The header.
         /// </summary>
         public string Header
         {
@@ -37,7 +37,7 @@ namespace DataCollector.Client.UI.ViewModels.Chart
             set { this.RaiseAndSetIfChanged(ref header, value); }
         }
         /// <summary>
-        /// Maksymalna wartość osi X wykresu w czasie rzeczywistym.
+        /// Maximum value of x axis.
         /// </summary>
         public long MaxXAxis
         {
@@ -45,7 +45,7 @@ namespace DataCollector.Client.UI.ViewModels.Chart
             set { this.RaiseAndSetIfChanged(ref maxXAxis, value); }
         }
         /// <summary>
-        /// Minimalna wartość osi X wykresu w czasie rzeczywistym.
+        /// Minimum value of x axis.
         /// </summary>
         public long MinXAxis
         {
@@ -53,8 +53,7 @@ namespace DataCollector.Client.UI.ViewModels.Chart
             set { this.RaiseAndSetIfChanged(ref minXAxis, value); }
         }
         /// <summary>
-        /// Dezaktywacja animacji.
-        /// Oszczędzanie zasobów aplikacji.
+        /// Disable the animations.
         /// </summary>
         public bool DisableAnimations
         {
@@ -62,7 +61,7 @@ namespace DataCollector.Client.UI.ViewModels.Chart
             set { this.RaiseAndSetIfChanged(ref disableAnimations, value); }
         }
         /// <summary>
-        /// Sposób formatowania osi X wykresu w czasie rzeczywistym.
+        /// The format of the x axis.
         /// </summary>
         public Func<double, string> XFormatter
         {
@@ -73,11 +72,11 @@ namespace DataCollector.Client.UI.ViewModels.Chart
 
         #region ctor
         /// <summary>
-        /// Konstruktor klasy ChartVisualizationViewModelBase.
+        /// The constructor.
         /// </summary>
-        /// <param name="header">Nagłówek wykresu</param>
-        /// <param name="unit">jednostka pomiarowa</param>
-        /// <param name="xFormatter">formatowanie osi x</param>
+        /// <param name="header">header of the chart</param>
+        /// <param name="unit">unit name</param>
+        /// <param name="xFormatter">x axis format</param>
         public ChartVisualizationViewModelBase(string header, string unit, Func<double, string> xFormatter)
         {
             this.header = header;

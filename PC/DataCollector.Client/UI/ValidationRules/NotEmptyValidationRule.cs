@@ -10,12 +10,12 @@ using System.Windows.Controls;
 namespace DataCollector.Client.UI.ValidationRules
 {
     /// <summary>
-    /// Klasa implementująca metodę walidacji pustych pól.
+    /// The not empty field validation rule.
     /// </summary>
     class NotEmptyValidationRule : ValidationRule
     {
         /// <summary>
-        /// Minimalna długość tekstu.
+        /// The minimum length of the text.
         /// </summary>
         public int MinLength { get; set; }
 

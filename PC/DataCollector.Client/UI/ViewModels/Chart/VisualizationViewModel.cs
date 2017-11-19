@@ -17,7 +17,7 @@ using DataCollector.Client.UI.ModulesAccess.Interfaces;
 namespace DataCollector.Client.UI.ViewModels.Chart
 {
     /// <summary>
-    /// Klasa implementujący obsługę danych wizualizacyjnych w czasie rzeczywistym.
+    /// The ViewModel which implements the measures data adding in real-time.
     /// </summary>
     public class VisualizationViewModel : ViewModelBase
     {
@@ -32,7 +32,7 @@ namespace DataCollector.Client.UI.ViewModels.Chart
 
         #region Public Properties
         /// <summary>
-        /// Aktualnie wybrany pomiar.
+        /// Current selected measure.
         /// </summary>
         public VariableVisualizationViewModel SelectedMeasure
         {
@@ -42,7 +42,7 @@ namespace DataCollector.Client.UI.ViewModels.Chart
             }
         }
         /// <summary>
-        /// Wartości pomiarowe.
+        /// The measures values.
         /// </summary>
         public ObservableCollection<VariableVisualizationViewModel> MeasureCollection
         {
@@ -53,7 +53,7 @@ namespace DataCollector.Client.UI.ViewModels.Chart
 
         #region ctor
         /// <summary>
-        /// Konstruktor klasy VisualizationViewModel.
+        /// The constructor.
         /// </summary>
         public VisualizationViewModel()
         {
@@ -66,12 +66,11 @@ namespace DataCollector.Client.UI.ViewModels.Chart
         }
         #endregion
 
-        #region Private Methods
+        #region Private Methods        
         /// <summary>
-        /// Obsługa zdarzenia zmiany aktualnie wybranego elementu.
-        /// Dezaktywacja kolekcji nie będących na pierwszym planie.
-        /// <param name="index">wybrany indeks</param>
+        /// Called when [selected measure index changed].
         /// </summary>
+        /// <param name="measure">The measure.</param>
         private void OnSelectedMeasureIndexChanged(VariableVisualizationViewModel measure)
         {
             if (MeasureCollection != null)
@@ -79,8 +78,9 @@ namespace DataCollector.Client.UI.ViewModels.Chart
                     MeasureCollection[i].Values.IsEnabled = (measure == MeasureCollection[i]);
         }
         /// <summary>
-        /// Obsługa zmiany aktualnie obsługiwanego urządzenia.
+        /// Called when [current device changed].
         /// </summary>
+        /// <param name="measureDevice">The measure device.</param>
         private void OnCurrentDeviceChanged(MeasureDeviceViewModel measureDevice)
         {
             if(currentMeasureDevice?.MacAddress != measureDevice?.MacAddress)
@@ -99,7 +99,7 @@ namespace DataCollector.Client.UI.ViewModels.Chart
 
                 communicationServiceCallback.MeasuresArrivedEvent += new EventHandler<MeasuresArrivedEventArgs>(OnMeasuresArrived);
                 currentMeasureDevice = measureDevice;
-                //opóźnienie oznaczenia nowego pomiaru
+                //the delay between adding a new measure
                 Task.Factory.StartNew(() =>
                 {
                     Task.Delay(100).Wait();
@@ -109,10 +109,10 @@ namespace DataCollector.Client.UI.ViewModels.Chart
             }
         }
         /// <summary>
-        /// Obsługa zdarzenia nadejścia pomiarów.
+        /// Called when [measures arrived].
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="MeasuresArrivedEventArgs"/> instance containing the event data.</param>
         private void OnMeasuresArrived(object sender, MeasuresArrivedEventArgs e)
         {
             if (currentMeasureDevice?.MacAddress != e.Source.MacAddress)

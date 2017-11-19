@@ -25,11 +25,11 @@ namespace DataCollector.Client.UI.Views.Core
     {
         #region ctor
         /// <summary>
-        /// Konstruktor klasy Shell.
+        /// The contructor.
         /// </summary>
         public Shell()
         {
-            //ustawienie wskaźnika na referencję view modelu
+            //sets the shell reference in viewmodelbase
             var vm = new ShellViewModel();
             ViewModelBase.MainViewModel = vm;
             this.DataContext = vm;
@@ -42,14 +42,13 @@ namespace DataCollector.Client.UI.Views.Core
         {
             IDialogAccess dialogAccess = ServiceLocator.Resolve<IDialogAccess>();
             dialogAccess.SetHwnd(this);
-            //dialog postępu
+            //the progress dialog
             var progress = await DialogManager.ShowProgressAsync(this, Title, "ClientInitialization");
             progress.SetIndeterminate();
             progress.SetMessage(TranslationExtension.GetString("ClientInitializationFinished"));
             await Task.Delay(1000);
             progress.SetMessage(TranslationExtension.GetString("ConnectingWithService"));
             await ConnectToService();
-            //zamknięcie dialogu
             await progress.CloseAsync(); 
         }
         private async Task ConnectToService()
@@ -63,7 +62,7 @@ namespace DataCollector.Client.UI.Views.Core
             }
         }
         /// <summary>
-        /// Zdarzenie powodujące przerzucenie focus na okno główne programu.
+        /// Move the focus to main window.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

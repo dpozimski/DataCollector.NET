@@ -15,57 +15,43 @@ using System.Windows.Data;
 namespace DataCollector.Client.UI.Converters
 {
     /// <summary>
-    /// Konwersja typu wyliczeniowego na reprezentację tekstu z wykorzystaniem refleksji.
+    /// Class which converts the enum value to string representation
+    /// from translation resources.
     /// </summary>
     public class EnumToStringDescription : IValueConverter
     {
+        #region [Public Methods]
         /// <summary>
-        /// Konwersja typu wyliczeniowego do jego opisu.
+        /// Gets the description fo the enum value.
         /// </summary>
-        /// <param name="value">Enum posiadający DescriptionAttribute</param>
+        /// <param name="value">The enum value</param>
         /// <returns></returns>
         public string ToDescription(Enum value)
         {
             return TranslationExtension.GetString(value.ToString());
         }
         /// <summary>
-        /// Konwersja typu wyliczeniowego do jego jednostki.
+        /// Converts the enum value to its unit.
         /// </summary>
-        /// <param name="value">Enum posiadający MeasureInformationAttribute</param>
+        /// <param name="value">The enum value</param>
         /// <returns></returns>
         public string ToUnit(Enum value)
         {
             return "";
         }
-
-        #region Private Methods
-        /// <summary>
-        /// Zwraca tekstową reprezentację typu wiliczeniowego dla ogólnego typu Enum.
-        /// Z wykorzystaniem atrybutu Description i refleksji.
-        /// </summary>
-        /// <param name="value">wartość z atrybutem description</param>
-        /// <returns></returns>
-        private TAttribute GetAttribute<TAttribute>(Enum value) where TAttribute : DescriptionAttribute
-        {
-            if (value == null)
-                return null;
-
-            FieldInfo fi = value.GetType().GetField(value.ToString());
-
-            TAttribute[] attributes =
-                (TAttribute[])fi.GetCustomAttributes(
-                typeof(TAttribute),
-                false);
-
-            if (attributes != null &&
-                attributes.Length > 0)
-                return attributes[0];
-            else
-                return null;
-        }
         #endregion
 
-        #region IValueConverter
+        #region IValueConverter        
+        /// <summary>
+        /// Converts the specified value to description.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="targetType">Type of the target.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <param name="culture">The culture.</param>
+        /// <returns></returns>
+        /// <CreatedOn>19.11.2017 12:11</CreatedOn>
+        /// <CreatedBy>dpozimski</CreatedBy>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is Enum)
@@ -73,7 +59,19 @@ namespace DataCollector.Client.UI.Converters
             else
                 return value;
         }
-
+        /// <summary>
+        /// Converts a value.
+        /// </summary>
+        /// <param name="value">The value that is produced by the binding target.</param>
+        /// <param name="targetType">The type to convert to.</param>
+        /// <param name="parameter">The converter parameter to use.</param>
+        /// <param name="culture">The culture to use in the converter.</param>
+        /// <returns>
+        /// A converted value. If the method returns null, the valid null value is used.
+        /// </returns>
+        /// <CreatedOn>19.11.2017 12:12</CreatedOn>
+        /// <CreatedBy>dpozimski</CreatedBy>
+        /// <exception cref="NotImplementedException"></exception>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();

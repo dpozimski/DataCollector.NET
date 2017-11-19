@@ -22,8 +22,9 @@ using System.Windows;
 namespace DataCollector.Client.UI.ViewModels.Dialogs
 {
     /// <summary>
-    /// Klasa implementująca obsługę konfiguracji nowego raportu.
+    /// The creator dialog view model.
     /// </summary>
+    /// <seealso cref="DataCollector.Client.UI.ViewModels.ViewModelBase" />
     class ReportCreatorDialogViewModel : ViewModelBase
     {
         #region Constants
@@ -39,55 +40,76 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
         private Enum selectedMeasureType;
         #endregion
 
-        #region Public Properties
+        #region Public Properties        
         /// <summary>
-        /// Liczba pobranych pomiarów.
+        /// Gets the measures count.
         /// </summary>
+        /// <value>
+        /// The measures count.
+        /// </value>
         public int MeasuresCount =>
             reportDefinition?.ValuesCount ?? 0;
         /// <summary>
-        /// Wybrany rodzaj pomiaru.
+        /// Gets or sets the type of the selected measure.
         /// </summary>
+        /// <value>
+        /// The type of the selected measure.
+        /// </value>
         public Enum SelectedMeasureType
         {
             get { return selectedMeasureType; }
             set { this.RaiseAndSetIfChanged(ref selectedMeasureType, value); }
         }
         /// <summary>
-        /// Ograniczenie górnego pomiarów.
+        /// Gets or sets to.
         /// </summary>
+        /// <value>
+        /// To.
+        /// </value>
         public DateTime To
         {
             get { return to; }
             set { this.RaiseAndSetIfChanged(ref to, value); }
         }
         /// <summary>
-        /// Ograniczenie dolne pomiarów.
+        /// Gets or sets from.
         /// </summary>
+        /// <value>
+        /// From.
+        /// </value>
         public DateTime From
         {
             get { return from; }
             set { this.RaiseAndSetIfChanged(ref from, value); }
         }
         /// <summary>
-        /// Dostępne urządzenia pomiarowe.
+        /// Gets or sets the measure devices.
         /// </summary>
+        /// <value>
+        /// The measure devices.
+        /// </value>
         public ObservableCollection<MeasureDevice> MeasureDevices
         {
             get { return measureDevices; }
             set { this.RaiseAndSetIfChanged(ref measureDevices, value); }
         }
         /// <summary>
-        /// Wybrane urządzenie pomiarowe.
+        /// Gets or sets the selected device.
         /// </summary>
+        /// <value>
+        /// The selected device.
+        /// </value>
         public MeasureDevice SelectedDevice
         {
             get { return selectedDevice; }
             set { this.RaiseAndSetIfChanged(ref selectedDevice, value); }
         }
         /// <summary>
-        /// Kolekcja danych wejściowych.
+        /// Gets or sets the report definitiion.
         /// </summary>
+        /// <value>
+        /// The report definitiion.
+        /// </value>
         public ReportDefinitionViewModel ReportDefinitiion
         {
             get { return reportDefinition; }
@@ -95,19 +117,22 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
         }
         #endregion
 
-        #region Commands
+        #region Commands        
         /// <summary>
-        /// Komenda potwierdzenia konfigursacji raportu.
+        /// Gets the apply report command.
         /// </summary>
+        /// <value>
+        /// The apply report command.
+        /// </value>
         public ReactiveCommand<object> ApplyReportCommand
         {
             get;private set;
         }
         #endregion
 
-        #region ctor
+        #region ctor        
         /// <summary>
-        /// Konstruktor klasy ReportCreatorialogViewModel.
+        /// Initializes a new instance of the <see cref="ReportCreatorDialogViewModel"/> class.
         /// </summary>
         public ReportCreatorDialogViewModel()
         {
@@ -117,10 +142,11 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
         }
         #endregion
 
-        #region Private Methods
+        #region Private Methods        
         /// <summary>
-        /// Metoda pobierająca dane do kolekcji wejściowej.
+        /// Applies the report method.
         /// </summary>
+        /// <returns></returns>
         private async Task ApplyReportMethod()
         {
             IsBusy = true;
@@ -154,9 +180,8 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
                 }
             });
         }
-
         /// <summary>
-        /// W zależności od preferencji zwraca kolekcję żądanych pomiarów.
+        /// Gets the measures data.
         /// </summary>
         /// <returns></returns>
         private IEnumerable<DateTimePoint[]> GetMeasuresData()
@@ -169,7 +194,7 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
             return data.OrderBy(s=>s.First().DateTime);
         }
         /// <summary>
-        /// Inicjalizacja komend użytkownika.
+        /// Initializes the commands.
         /// </summary>
         private void InitCommands()
         {
@@ -177,11 +202,10 @@ namespace DataCollector.Client.UI.ViewModels.Dialogs
             ApplyReportCommand.Subscribe(async s => await ApplyReportMethod());
         }
         /// <summary>
-        /// Inicjalizacja danych bazodanowych.
+        /// Initializes the data.
         /// </summary>
         private void InitData()
         {
-            //pobranie dostępnych urządzeń pomiarowych z historią pomiarów
             var measureDevices = measureAccess.GetMeasureDevices();
             MeasureDevices = new ObservableCollection<MeasureDevice>(measureDevices);
             SelectedDevice = MeasureDevices.FirstOrDefault();

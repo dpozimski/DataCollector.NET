@@ -376,6 +376,15 @@ namespace DataCollector.Client.Translation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you really want to delete the current selected report?.
+        /// </summary>
+        internal static string DoYouWantToDeleteCurrentReport {
+            get {
+                return ResourceManager.GetString("DoYouWantToDeleteCurrentReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         internal static string Edit {
@@ -462,6 +471,15 @@ namespace DataCollector.Client.Translation {
         internal static string LastName {
             get {
                 return ResourceManager.GetString("LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LED.
+        /// </summary>
+        internal static string LED {
+            get {
+                return ResourceManager.GetString("LED", resourceCulture);
             }
         }
         
@@ -984,6 +1002,24 @@ namespace DataCollector.Client.Translation {
         internal static string To {
             get {
                 return ResourceManager.GetString("To", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn off.
+        /// </summary>
+        internal static string TurnOff {
+            get {
+                return ResourceManager.GetString("TurnOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn on.
+        /// </summary>
+        internal static string TurnOn {
+            get {
+                return ResourceManager.GetString("TurnOn", resourceCulture);
             }
         }
         

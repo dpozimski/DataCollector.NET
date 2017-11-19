@@ -29,7 +29,7 @@ namespace DataCollector.Client.UI.Controls
 
         #region Publix XAML Static Properties
         /// <summary>
-        /// Rejestracja właściwości wartości wejściowych.
+        /// The selected date dependency property.
         /// </summary>
         public static readonly DependencyProperty SelectedDateProperty =
             DependencyProperty.Register("SelectedDate", typeof(DateTime),
@@ -38,7 +38,7 @@ namespace DataCollector.Client.UI.Controls
 
         #region Public Properties
         /// <summary>
-        /// Wybrany czas.
+        /// The selected time.
         /// </summary>
         public string InternalTime
         {
@@ -50,7 +50,7 @@ namespace DataCollector.Client.UI.Controls
             }
         }
         /// <summary>
-        /// Wybrana data.
+        /// The selected date.
         /// </summary>
         public string InternalDate
         {
@@ -63,7 +63,7 @@ namespace DataCollector.Client.UI.Controls
         }
 
         /// <summary>
-        /// Wartości wejściowe.
+        /// The selected input date.
         /// </summary>
         public DateTime SelectedDate
         {
@@ -74,7 +74,7 @@ namespace DataCollector.Client.UI.Controls
 
         #region ctor
         /// <summary>
-        /// Konstruktor klasy DateTimeRange.
+        /// The constructor.
         /// </summary>
         public DateTimeRange()
         {
@@ -83,12 +83,12 @@ namespace DataCollector.Client.UI.Controls
         }
         #endregion
 
-        #region Private Methods
+        #region Private Methods        
         /// <summary>
-        /// Obsługa zdarzenia nowego przypisania czasu.
+        /// Called when [selected date property changed callback].
         /// </summary>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
         private static void OnSelectedDatePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             DateTimeRange instance = d as DateTimeRange;
@@ -108,7 +108,7 @@ namespace DataCollector.Client.UI.Controls
             instance.PropertyChanged(instance, new PropertyChangedEventArgs(nameof(instance.InternalDate)));
         }
         /// <summary>
-        /// Ustawienie daty wyjściowej.
+        /// Sets the new complex date.
         /// </summary>
         private void SetBindingDate()
         {

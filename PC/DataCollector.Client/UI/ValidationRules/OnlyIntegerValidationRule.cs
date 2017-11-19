@@ -10,16 +10,16 @@ using System.Windows.Controls;
 namespace DataCollector.Client.UI.ValidationRules
 {
     /// <summary>
-    /// Klasa implementująca walidację zezwalającą tylko na liczby całkowite.
+    /// Class which implements the only integer validation rule.
     /// </summary>
     class OnlyIntegerValidationRule : ValidationRule
     {
         /// <summary>
-        /// Minimalna wartość.
+        /// The minimum value.
         /// </summary>
         public int MinValue { get; set; }
         /// <summary>
-        /// Maksymalna wartość.
+        /// The maximum value.
         /// </summary>
         public int MaxValue { get; set; }
 

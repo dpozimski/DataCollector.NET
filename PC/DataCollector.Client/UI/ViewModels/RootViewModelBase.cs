@@ -7,18 +7,23 @@ using System.Threading.Tasks;
 
 namespace DataCollector.Client.UI.ViewModels
 {
+    /// <summary>
+    /// A base class for all view model which adds the window reference id.
+    /// </summary>
+    /// <seealso cref="DataCollector.Client.UI.ViewModels.ViewModelBase" />
     public class RootViewModelBase : ViewModelBase
     {
         #region Private Fields
         private string rootDialogId;
         #endregion
 
-        #region Public Properties
+        #region Public Properties        
         /// <summary>
-        /// Identyfikator dialogów wewnętrznych.
-        /// Wymaga implementacji w widoku.
-        /// <wpf:DialogHost></Dialog>
+        /// Gets or sets the root dialog identifier.
         /// </summary>
+        /// <value>
+        /// The root dialog identifier.
+        /// </value>
         public string RootDialogId
         {
             get { return rootDialogId; }
@@ -26,9 +31,9 @@ namespace DataCollector.Client.UI.ViewModels
         }
         #endregion
 
-        #region ctor
+        #region ctor        
         /// <summary>
-        /// Konstruktor klasy RootViewModelBase.
+        /// Initializes a new instance of the <see cref="RootViewModelBase"/> class.
         /// </summary>
         public RootViewModelBase()
         {

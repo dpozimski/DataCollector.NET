@@ -41,7 +41,7 @@ namespace DataCollector.Client.UI
         #region Overrides
         protected override void OnStartup(StartupEventArgs e)
         {
-            //rejestracja serwisów
+            //register the services
             ServiceLocator.Register();
             //charts
             InitializeChartsLayout();
@@ -49,7 +49,7 @@ namespace DataCollector.Client.UI
 
         protected override void OnExit(ExitEventArgs e)
         {
-            //oznaczenie wylogowania się użytkownika z systemu
+            //send a logout signal request
             var loggedUser = ViewModelBase.MainViewModel?.CurrentLoggedUser;
             if (loggedUser != null)
             {
@@ -74,11 +74,11 @@ namespace DataCollector.Client.UI
             }
         }
         /// <summary>
-        /// Inicjalizacja layoutu wykresów.
+        /// The chartslayout initialization.
         /// </summary>
         private void InitializeChartsLayout()
         {
-            //dla pomiarów 1D
+            //for the measures with id
             var columnMapper = Mappers.Xy<SeriesModel>()
                 .X((obj, index) => index)
                 .Y(city => city.Value);

@@ -13,7 +13,8 @@ using System.Windows;
 namespace DataCollector.Client.UI.Models
 {
     /// <summary>
-    /// Klasa rozszerzająca funkcjonalność bazy ChartValues o warunkowe dodawanie danych.
+    /// Class which extend the default behavior of the
+    /// <see cref="ChartValues<T>"/> with conditional adding of items.
     /// </summary>
     public class QueueableChartValues<T> : ChartValues<T>, INotifyPropertyChanged, IDisposable
     {
@@ -29,7 +30,7 @@ namespace DataCollector.Client.UI.Models
 
         #region Public Properties
         /// <summary>
-        /// Jednostka pomiarowa.
+        /// The measure unit.
         /// </summary>
         public string Unit
         {
@@ -37,7 +38,7 @@ namespace DataCollector.Client.UI.Models
             set { Set(ref unit, value); }
         }
         /// <summary>
-        /// Rodzaj pomiaru
+        /// The measure type.
         /// </summary>
         public MeasureType Type
         {
@@ -45,8 +46,7 @@ namespace DataCollector.Client.UI.Models
             set { Set(ref type, value); }
         }
         /// <summary>
-        /// Flaga aktywacji kolekcji.
-        /// W razie dezaktywacji dane są dodawane z trzykrotnie mniejszą częstotliwościa.
+        /// If the value is false the data will be added 3 times less often than usual.
         /// </summary>
         public bool IsEnabled
         {
@@ -58,7 +58,7 @@ namespace DataCollector.Client.UI.Models
             }
         }
         /// <summary>
-        /// Interwał pomiędzy dodaniem następnego elementu.
+        /// The interval between adding a new elements.
         /// </summary>
         public TimeSpan IntervalBetweenItemInserting
         {
@@ -74,7 +74,7 @@ namespace DataCollector.Client.UI.Models
             }
         }
         /// <summary>
-        /// Maksymalna liczba elementów w kolekcji.
+        /// The maximum count of the items.
         /// </summary>
         public int CountLimit
         {
@@ -93,9 +93,10 @@ namespace DataCollector.Client.UI.Models
 
         #region ctor
         /// <summary>
-        /// Konstruktor klasy QueueableChartValues.
+        /// The constructor.
         /// </summary>
-        /// <param name="type">rodzaj pomiaru</param>
+        /// <param name="type">the measure type</param>
+        /// <param name="unit">the measure unit</param>
         public QueueableChartValues(MeasureType type, string unit)
         {
             this.Type = type;
@@ -105,9 +106,9 @@ namespace DataCollector.Client.UI.Models
 
         #region Public Methods
         /// <summary>
-        /// Próba dodania elementu do kolekcji.
+        /// Tries to add a new element to collection.
         /// </summary>
-        /// <param name="item">obiekt</param>
+        /// <param name="item">the item</param>
         /// <returns>sukces</returns>
         public bool TryAdd(T item)
         {
@@ -148,7 +149,7 @@ namespace DataCollector.Client.UI.Models
 
         #region IDisposable
         /// <summary>
-        /// Zwolnienie zasobów.
+        /// Releases the manages resources taken by this instance.
         /// </summary>
         public void Dispose()
         {
