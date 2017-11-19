@@ -13,7 +13,7 @@
 ## PC
 
   * Client<br>
-    [![WPF Client](./PC/Media/WPF Client.png)](https://youtu.be/g-ky-iDyDHQ "Data Collector WPF Client - Click to Watch!")
+    ![WPF Client](./PC/Media/WPF Client.png)(https://youtu.be/g-ky-iDyDHQ "Data Collector WPF Client - Click to Watch!")
   * Server
 
 ## Device
