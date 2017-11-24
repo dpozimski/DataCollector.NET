@@ -5,33 +5,33 @@ using System.Text;
 namespace DataCollector.Device.Models
 {
     /// <summary>
-    /// Klasa zrzeszająca pomiary pobrane z źródła zewnętrznego.
+    /// Class which represents a measures collection.
     /// </summary>
     public sealed class Measures
     {
         #region Public Properties
         /// <summary>
-        /// Akcelerometr.
+        /// Accelrometer value.
         /// </summary>
         public SpherePoint Accelerometer { get; set; }
         /// <summary>
-        /// Żyroskop.
+        /// Gyroscope value.
         /// </summary>
         public SpherePoint Gyroscope { get; set; }
         /// <summary>
-        /// Wilgotność [RH].
+        /// Humidity [RH].
         /// </summary>
         public float? Humidity { get; set; }
         /// <summary>
-        /// Temperatura [*C].
+        /// Temperature [*C].
         /// </summary>
         public float? Temperature { get; set; }
         /// <summary>
-        /// Ciśnienie atmosferyczne [hPa].
+        /// Air pressure [hPa].
         /// </summary>
         public float? AirPressure { get; set; }
         /// <summary>
-        /// Dioda LED jest aktywna.
+        /// LED Diode is active.
         /// </summary>
         public bool? IsLedActive { get; set; }
         #endregion

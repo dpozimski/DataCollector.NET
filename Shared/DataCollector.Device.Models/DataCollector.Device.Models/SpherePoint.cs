@@ -5,7 +5,7 @@ using System.Text;
 namespace DataCollector.Device.Models
 {
     /// <summary>
-    /// Klasa reprezentująca Punkt w przestrzeni.
+    /// Represents a point in 3D.
     /// </summary>
     public sealed class SpherePoint
     {
@@ -17,11 +17,11 @@ namespace DataCollector.Device.Models
 
         #region ctor
         /// <summary>
-        /// Konstruktor klasy Point3D.
+        /// The constructor.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
+        /// <param name="x">x value</param>
+        /// <param name="y">y value</param>
+        /// <param name="z">z value</param>
         public SpherePoint(float x, float y, float z)
         {
             this.X = x;
@@ -29,7 +29,7 @@ namespace DataCollector.Device.Models
             this.Z = z;
         }
         /// <summary>
-        /// Domyślny konstruktor klasy Point3D.
+        /// The default constructor.
         /// </summary>
         public SpherePoint()
         {
