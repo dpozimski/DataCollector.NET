@@ -38,7 +38,7 @@ namespace DataCollector.Device.Models
 
         #region Overrides
         /// <summary>
-        /// Metoda nadpisująca metodę ToString w celu wyświetlenia zawartości obiektu.
+        /// Override ToString method to show user-friendly measures text.
         /// </summary>
         /// <returns></returns>
         public override string ToString()
@@ -49,7 +49,7 @@ namespace DataCollector.Device.Models
             builder.AppendLine($"{nameof(Temperature)}  :   {Temperature}");
             builder.AppendLine($"{nameof(Humidity)}     :   {Humidity}");
             builder.AppendLine($"{nameof(AirPressure)}  :   {AirPressure}");
-            builder.AppendLine($"{nameof(IsLedActive)}  :   {(IsLedActive.HasValue && IsLedActive.Value ? "Tak" : "Nie")}");
+            builder.AppendLine($"{nameof(IsLedActive)}  :   {(IsLedActive.HasValue && IsLedActive.Value ? "Yes" : "No")}");
             return builder.ToString();
         }
         #endregion
