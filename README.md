@@ -13,7 +13,7 @@
 ## PC
 
   * Client<br>
-    [![WPF Client](./PC/Media/WPF Client.jpg)](https://www.youtube.com/watch?v=g-ky-iDyDHQ&t=1s)
+    [![WPF Client](https://i.ytimg.com/vi_webp/g-ky-iDyDHQ/hqdefault.webp)](https://www.youtube.com/watch?v=g-ky-iDyDHQ&t=1s)
   * Server
 
 ## Device
