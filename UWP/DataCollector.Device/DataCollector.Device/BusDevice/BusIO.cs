@@ -10,7 +10,7 @@ using Windows.Foundation.Metadata;
 namespace DataCollector.Device.BusDevice
 {
     /// <summary>
-    /// Klasa implementująca metody IO dla urządzenia I2C.
+    /// Contians a method that are the helpers to calculate the values taken from each I2C module.
     /// </summary>
     public sealed class BusIO
     {
@@ -20,14 +20,14 @@ namespace DataCollector.Device.BusDevice
 
         #region Public Properties
         /// <summary>
-        /// Raport ostatniego transferu.
+        /// The last transfer report.
         /// </summary>
         public I2cTransferResult LastResult { get; private set; }
         #endregion
 
         #region ctor
         /// <summary>
-        /// Konstruktor klasy BusIO
+        /// The constructor.
         /// </summary>
         /// <param name="i2cDevice"></param>
         public BusIO(I2cDevice i2cDevice)
@@ -38,7 +38,7 @@ namespace DataCollector.Device.BusDevice
 
         #region Public Methods
         /// <summary>
-        /// Czyta pojedynczy bajt z urządzenia.
+        /// Reads the single byte from the device.
         /// </summary>
         /// <returns></returns>
         public byte Read()
@@ -48,7 +48,7 @@ namespace DataCollector.Device.BusDevice
             return buffer[0];
         }
         /// <summary>
-        /// Metoda wysyłająca komendę do urządzenia.
+        /// Sends the command to the device.
         /// </summary>
         /// <param name="command">komenda</param>
         /// <returns>powodzenie operacji</returns>
@@ -58,21 +58,21 @@ namespace DataCollector.Device.BusDevice
             return Write(new List<byte>(), command);
         }
         /// <summary>
-        /// Metoda wysyłająca dane do urządzenia.
+        /// Sends the data to registry.
         /// </summary>
-        /// <param name="data">dane</param>
-        /// <param name="registry">rejestr</param>
-        /// <returns>powodzenie operacji</returns>
+        /// <param name="data">data</param>
+        /// <param name="registry">registry</param>
+        /// <returns>succes of the operation</returns>
         public bool Write(byte data, byte registry)
         {
             return Write(new List<byte>() { data }, registry);
         }
         /// <summary>
-        /// Metoda wysyłająca dane do urządzenia.
+        /// Sends the data to the device.
         /// </summary>
-        /// <param name="data">dane</param>
-        /// <param name="registry">rejestr</param>
-        /// <returns>powodzenie operacji</returns>
+        /// <param name="data">data</param>
+        /// <param name="registry">registry</param>
+        /// <returns>success of the operation</returns>
         public bool Write(IList<byte> data, byte registry)
         {
             data.Insert(0, registry);
@@ -80,21 +80,21 @@ namespace DataCollector.Device.BusDevice
             return LastResult.Status == I2cTransferStatus.FullTransfer;
         }
         /// <summary>
-        /// Odczyt jednego bajtu ze wskazanego rejestru.
+        /// Reads the single byte from the registry.
         /// </summary>
-        /// <param name="registry">rejestr</param>
-        /// <returns></returns>
+        /// <param name="registry">registry</param>
+        /// <returns>the value</returns>
         public byte Read(byte registry)
         {
             var buffer = Read(1, (byte)registry);
             return buffer[0];
         }
         /// <summary>
-        /// Metoda odczytująca dane ze wskazanego rejestru urządzenia.
+        /// Reads the bytes collection from the registry.
         /// </summary>
-        /// <param name="bufferLength">rozmiar buforu wyjściowego</param>
-        /// <param name="registry">rejestr</param>
-        /// <exception cref="InvalidOperationException">W przypadku niepowodzenia zapytania</exception>
+        /// <param name="bufferLength">buffer length</param>
+        /// <param name="registry">registry</param>
+        /// <exception cref="InvalidOperationException">when the connection will be failed</exception>
         /// <returns></returns>
         public byte[] Read(int bufferLength, byte registry)
         {
@@ -103,7 +103,7 @@ namespace DataCollector.Device.BusDevice
             LastResult = i2cDevice.WriteReadPartial(writeBuffer, readBuffer);
 
             if (LastResult.Status != I2cTransferStatus.FullTransfer)
-                Debug.Write($"Wystąpił problem z komunikacją z urządzeniem o adresie {i2cDevice.ConnectionSettings.SlaveAddress}");
+                Debug.Write($"There was a communication issue with {i2cDevice.ConnectionSettings.SlaveAddress}");
             return readBuffer;
         }
         #endregion

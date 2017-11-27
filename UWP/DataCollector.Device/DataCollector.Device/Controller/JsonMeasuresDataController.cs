@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace DataCollector.Device.Controller
 {
     /// <summary>
-    /// Klasa będąca uchwytem do aktualizowanych danych pomiarowych urządzenia.
+    /// The thread-safe classs which holds the current measure.
     /// </summary>
     public sealed class JsonMeasuresDataController : IMeasuresDataController
     {
@@ -21,7 +21,7 @@ namespace DataCollector.Device.Controller
         #endregion
 
         /// <summary>
-        /// Uchwyt do najnowszych pomiarów.
+        /// The newest measures.
         /// </summary>
         public Measures NewestMeasure
         {
@@ -42,7 +42,7 @@ namespace DataCollector.Device.Controller
         }
 
         /// <summary>
-        /// Zwraca pomiary w formacie JSON.
+        /// Returns a measures in JSON.
         /// </summary>
         public string NewestMeasureOutput
         {

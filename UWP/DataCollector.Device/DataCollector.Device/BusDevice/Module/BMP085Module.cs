@@ -6,13 +6,13 @@ using UnitsNet;
 namespace DataCollector.Device.BusDevice.Module
 {
     /// <summary>
-    /// Klasa implementująca obsługę komunikacji urządzenia pomiarowego ciśnienia i temperatury.
+    /// Represents an air pressure module.
     /// </summary>
     public sealed class BMP085Module : I2CBusDevice
     {
         #region Declarations
         /// <summary>
-        /// Definicja modelu danych kalibracyjnych.
+        /// The calibration model definition.
         /// </summary>
         private class CalibrationData
         {
@@ -57,21 +57,21 @@ namespace DataCollector.Device.BusDevice.Module
 
         #region Constants
         /// <summary>
-        /// Trub standard
+        /// The standard mode.
         /// </summary>
         private const byte measureMode = 0x01;
         #endregion
 
         #region Private Fields
         /// <summary>
-        /// Dane kalibracyjne.
+        /// The calibration data.
         /// </summary>
         private CalibrationData calibrationData;
         #endregion
 
         #region ctor
         /// <summary>
-        /// Konstruktor klasy BMP085.
+        /// The constructor.
         /// </summary>
         public BMP085Module() : base((char)0x77)
         {
@@ -81,7 +81,7 @@ namespace DataCollector.Device.BusDevice.Module
 
         #region Private Methods
         /// <summary>
-        /// Metoda odczytująca słowo ze wskazanego rejestru.
+        /// Reads the word from register.
         /// </summary>
         /// <param name="reg"></param>
         /// <returns></returns>
@@ -91,7 +91,7 @@ namespace DataCollector.Device.BusDevice.Module
             return (ushort)(buffer[0] << 8 | buffer[1]);
         }
         /// <summary>
-        /// Metoda odczytująca Int16 ze wskazanego rejestru.
+        /// Reads the int 16 value from the register.
         /// </summary>
         /// <param name="reg"></param>
         /// <returns></returns>
@@ -100,9 +100,9 @@ namespace DataCollector.Device.BusDevice.Module
             return (short)ReadWord(reg);
         }
         /// <summary>
-        /// Oblicz współczynnik B5 wykorzystywany w obliczeniach temperatury i ciśnienia.
+        /// Caluclates B5 value which will be used to calculate the main values.
         /// </summary>
-        /// <param name="ut">nieprzetworzona wartość temperatury</param>
+        /// <param name="ut">not procceded value</param>
         /// <returns>współczynnik B5</returns>
         private Int32 ComputeB5(int ut)
         {
@@ -111,7 +111,7 @@ namespace DataCollector.Device.BusDevice.Module
             return X1 + X2;
         }
         /// <summary>
-        /// Metoda odczytująca dane kalibracyjnego z urządzenia.
+        /// Reads the calibration data from module.
         /// </summary>
         private void ReadCalibrationData()
         {
@@ -128,7 +128,7 @@ namespace DataCollector.Device.BusDevice.Module
             calibrationData.md = ReadShort(Registers.CAL_MD);
         }
         /// <summary>
-        /// Odczyt nieprzetworzonej wartości temperatury.
+        /// Reads raw temperature from the module.
         /// </summary>
         /// <returns>Raw Temperature</returns>
         private int ReadRawTemperature()
@@ -140,7 +140,7 @@ namespace DataCollector.Device.BusDevice.Module
         }
 
         /// <summary>
-        /// Odczyt nieprzetworzonej wartości ciśnienia.
+        /// Reads raw humidity value.
         /// </summary>
         /// <returns>Raw Pressure</returns>
         private int ReadRawPressure()
@@ -162,7 +162,7 @@ namespace DataCollector.Device.BusDevice.Module
             return p32;
         }
         /// <summary>
-        /// Odczytuje wartość cisnienia z urządzenia w hPa.
+        /// Reads the pressure in hPa format.
         /// </summary>
         /// <returns></returns>
         private float GetPreasure()
@@ -204,7 +204,7 @@ namespace DataCollector.Device.BusDevice.Module
             x2 = (-7357 * p) >> 16;
             compp = p + ((x1 + x2 + 3791) >> 4);
 
-            //oblicz wartosc w hPa.
+            //converts the value to hPa.
             return Convert.ToSingle(Pressure.From(compp, UnitsNet.Units.PressureUnit.Pascal).Hectopascals);
         }
         #endregion

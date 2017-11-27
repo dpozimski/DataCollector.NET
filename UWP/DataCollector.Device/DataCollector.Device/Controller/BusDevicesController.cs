@@ -12,7 +12,7 @@ using Windows.Devices.Gpio;
 namespace DataCollector.Device.Controller
 {
     /// <summary>
-    /// Klasa zarządzająca szyną I2C.
+    /// The i2C bus management class.
     /// </summary>
     public sealed class BusDevicesController : IDisposable
     {
@@ -27,9 +27,9 @@ namespace DataCollector.Device.Controller
 
         #region ctor
         /// <summary>
-        /// Konstruktor klasy BusDevicesAccess.
-        /// <paramref name="busDevices">kolekcja urzadzeń szyny I2C</paramref>
-        /// <paramref name="measuresHandler">uchwyt danych pomiarowych</paramref>
+        /// The constructor.
+        /// <paramref name="busDevices">the bus devices collection</paramref>
+        /// <paramref name="measuresHandler">measures handler</paramref>
         /// </summary>
         public BusDevicesController(IEnumerable<I2CBusDevice> busDevices, IMeasuresDataController measuresHandler)
         {
@@ -43,7 +43,7 @@ namespace DataCollector.Device.Controller
 
         #region Private Methods
         /// <summary>
-        /// Metoda implementująca obsługę pobierania pomiarów.
+        /// The loop for getting a new measures.
         /// </summary>
         private void UpdaterLoop()
         {
@@ -60,10 +60,10 @@ namespace DataCollector.Device.Controller
                     }
                     catch (Exception ex)
                     {
-                        Debug.WriteLine($"Wystąpił błąd podczas aktualizacji danych pomiarowych dla {item.GetType()}\r\n" + ex.Message);
+                        Debug.WriteLine($"There was an error of getting measures from module {item.GetType()}\r\n" + ex.Message);
                     }
                 }
-                //powiadomienie subskrybujących o nadejściu nowego zestawu danych.
+                //notify about new measures
                 measuresHandler.NewestMeasure = measures;
 
                 measureBusyLedIndicator.Write(GpioPinValue.Low);

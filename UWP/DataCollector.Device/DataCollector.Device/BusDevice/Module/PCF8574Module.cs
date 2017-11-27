@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 namespace DataCollector.Device.BusDevice.Module
 {
     /// <summary>
-    /// Klasa implementująca obsługę komunikacji urządzenia rozszerzającego IO.
+    /// Represents an I2C expander.
     /// </summary>
     public sealed class PCF8574Module : I2CBusDevice, ILedController
     {
         #region Constants
         /// <summary>
-        /// Pin sterujący diodą LED.
+        /// The pin of the LED.
         /// </summary>
         private const byte ControlLedPin = (1 << 3);
         #endregion
 
         #region ctor
         /// <summary>
-        /// Konstruktor klasy PCF8574.
+        /// The constructor.
         /// </summary>
         public PCF8574Module():base((char)0x21)
         {
@@ -30,11 +30,11 @@ namespace DataCollector.Device.BusDevice.Module
 
         #region Public Methods
         /// <summary>
-        /// Zmiana stanu diody LED.
-        /// Powtórzenie nadawania wartości
-        /// ze względu na błędy zapisu.
+        /// Cgange the LED state.
+        /// The requests are repeated many times because
+        /// of the write errors.
         /// </summary>
-        /// <param name="state">stan</param>
+        /// <param name="state">target state</param>
         public bool ChangeLedState(bool state)
         {
             Task.Delay(5).Wait();
@@ -48,7 +48,7 @@ namespace DataCollector.Device.BusDevice.Module
         public bool GetLedState()
         {
             const int loopCount = 5;
-            //eliminacja drgań
+            //shake-blocking
             List<bool> values = new List<bool>();
             for (int i = 0; i < loopCount; i++)
             {

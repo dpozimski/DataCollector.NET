@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataCollector.Web", "DataCollector.NET.Web\DataCollector.Web.csproj", "{CB1967B9-8617-4A36-A315-995C4F9D8536}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataCollector.Web", "DataCollector.Web\DataCollector.Web.csproj", "{CB1967B9-8617-4A36-A315-995C4F9D8536}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

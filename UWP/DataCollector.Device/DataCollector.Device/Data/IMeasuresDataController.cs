@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 namespace DataCollector.Device.Data
 {
     /// <summary>
-    /// Interfejs kontrolera pomiarów.
+    /// The measures holder interface.
     /// </summary>
     public interface IMeasuresDataController
     {
         /// <summary>
-        /// Uchwyt do najnowszych pomiarów.
+        /// The newest measures.
         /// </summary>
         Measures NewestMeasure { get; set; }
 
         /// <summary>
-        /// Zwraca pomiary w formacie JSON.
+        /// Returns a measures in JSON.
         /// </summary>
         string NewestMeasureOutput { get; }
     }

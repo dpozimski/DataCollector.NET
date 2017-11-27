@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 namespace DataCollector.Device.BusDevice
 {
     /// <summary>
-    /// Fabryka urządzeń pomiarowych.
+    /// The bus devices factory.
     /// </summary>
     public static class BusDevicesFactory
     {
         /// <summary>
-        /// Tworzy kolekcję peryferii podłączonych do szyny I2C.
+        /// Creates a collection of all devices connected to I2C bus.
         /// </summary>
-        /// <returns>kolekcja urządzeń szyny I2C</returns>
+        /// <returns>bus devices</returns>
         public static IEnumerable<I2CBusDevice> Create()
         {
             var busDevices = new List<I2CBusDevice>();

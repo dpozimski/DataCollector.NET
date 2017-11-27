@@ -7,21 +7,23 @@ using System.Threading.Tasks;
 namespace DataCollector.Device.BusDevice
 {
     /// <summary>
-    /// Interfejs kontrolujący stan diody LED.
+    /// Interface provides a methods to control the led.
     /// </summary>
     public interface ILedController
     {
         /// <summary>
-        /// Zmiana stanu diody LED.
-        /// Powtórzenie nadawania wartości
-        /// ze względu na błędy zapisu.
+        /// CHange the LED state.
+        /// The requests are repeated many times because
+        /// of the write errors.
         /// </summary>
-        /// <param name="state">stan</param>
+        /// <param name="state">target state</param>
         bool ChangeLedState(bool state);
         /// <summary>
-        /// Zwraca stan diody LED.
+        /// Cgange the LED state.
+        /// The requests are repeated many times because
+        /// of the write errors.
         /// </summary>
-        /// <returns>stan diody LED</returns>
+        /// <param name="state">target state</param>
         bool GetLedState();
     }
 }

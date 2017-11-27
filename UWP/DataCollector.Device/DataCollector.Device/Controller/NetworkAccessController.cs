@@ -10,7 +10,7 @@ using DataCollector.Device.Data;
 namespace DataCollector.Device.Controller
 {
     /// <summary>
-    /// Klasa implementująca obsługę zapytań WebSocket.
+    /// Class provides a network functionality.
     /// </summary>
     public sealed class NetworkAccessController : IDisposable
     {
@@ -25,8 +25,9 @@ namespace DataCollector.Device.Controller
 
         #region ctor
         /// <summary>
-        /// Konstruktor klasy NetworkAccess.
-        /// <param name="ledControl">kontroler diody LED</param>
+        /// The constructor.
+        /// <param name="ledController">the led controller</param>
+        /// <paramref name="measuresController">the measures controller</paramref>
         /// </summary>
         public NetworkAccessController(ILedController ledController, IMeasuresDataController measuresController)
         {
@@ -44,14 +45,14 @@ namespace DataCollector.Device.Controller
 
         #region Public Methods
         /// <summary>
-        /// Uruchamia serwer WebSocket.
+        /// Runs the WebSocket server.
         /// </summary>
         public void Start()
         {
             server.StartServerAsync().Wait();
         }
         /// <summary>
-        /// Zatrzymuje serwer WebSocket.
+        /// Stops the server,
         /// </summary>
         public void Stop()
         {
@@ -61,7 +62,7 @@ namespace DataCollector.Device.Controller
 
         #region IDispoable
         /// <summary>
-        /// Zwolnienie zasobów.
+        /// Releases managed resources.
         /// </summary>
         public void Dispose()
         {

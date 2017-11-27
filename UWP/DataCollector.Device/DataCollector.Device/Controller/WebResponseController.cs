@@ -21,9 +21,9 @@ namespace DataCollector.Device.Controller
 
         #region ctor
         /// <summary>
-        /// Konstruktor klasy WebResponseController.
+        /// The constructor.
         /// </summary>
-        /// <param name="args">kolekcja zależności</param>
+        /// <param name="args">dependencies collection</param>
         public WebResponseController(params object[] args)
         {
             IEnumerable<object> dep = args.AsEnumerable();

@@ -8,13 +8,13 @@ using Windows.Devices.I2c;
 namespace DataCollector.Device.BusDevice.Module
 {
     /// <summary>
-    /// Klasa implementująca obsługę komunikacji urządzenia pomiarowego wilgotności i temperatury.
+    /// Represents a humidity && temperature module.
     /// </summary>
     public sealed class Sensirion_SHT21Module : I2CBusDevice
     {
         #region Declarations
         /// <summary>
-        /// Adresy rejestrów.
+        /// Register addresses.
         /// </summary>
         private enum Registers : byte
         {
@@ -27,7 +27,7 @@ namespace DataCollector.Device.BusDevice.Module
             SOFT_RESET = 0xFE  // command soft reset
         }
         /// <summary>
-        /// Komendy konfiguracyjne
+        /// The configuration commands.
         /// </summary>
         private enum ConfigCommands : byte
         {
@@ -38,7 +38,7 @@ namespace DataCollector.Device.BusDevice.Module
             SHT2x_RES_MASK = 0x81  // Mask for res. bits (7,0) in user reg.
         }
         /// <summary>
-        /// Tryb pomiaru.
+        /// The measure mode.
         /// </summary>
         private enum ReadMode
         {
@@ -48,7 +48,7 @@ namespace DataCollector.Device.BusDevice.Module
 
         #region ctor
         /// <summary>
-        /// Konstruktor klasy Sensirion_SHT21.
+        /// The constructor.
         /// </summary>
         public Sensirion_SHT21Module() : base((char)0x40)
         {
@@ -58,10 +58,10 @@ namespace DataCollector.Device.BusDevice.Module
 
         #region Private Methods
         /// <summary>
-        /// Walidacja sumy kontrolnej CRC8.
+        /// CRC8 validation.
         /// </summary>
-        /// <param name="data">dane</param>
-        /// <param name="checksum">suma kontrolna</param>
+        /// <param name="data">data</param>
+        /// <param name="checksum">CRC8 value</param>
         /// <returns></returns>
         private bool CrcValidate(byte[] data, byte checksum)
         {
@@ -83,36 +83,36 @@ namespace DataCollector.Device.BusDevice.Module
             return (crc == checksum);
         }
         /// <summary>
-        /// Kalkuluje wartość temperatury ze wskazanej wartości.
+        /// The temperature calculation based on the value.
         /// </summary>
-        /// <param name="value">wartość</param>
-        /// <returns>wynik w Celsjuszach</returns>
+        /// <param name="value">value</param>
+        /// <returns>temperature in Celsius</returns>
         private float CalculateTemperature(ushort value)
         {
             float temperature = Convert.ToSingle(-46.85 + 175.72 / 65536 * value);
             return temperature;
         }
         /// <summary>
-        /// Kalkuluje wartość wilgotności ze wskazanej wartości.
+        /// The humidity calculation based on the value.
         /// </summary>
-        /// <param name="value">wartość</param>
-        /// <returns>wilgotność w RH</returns>
+        /// <param name="value">vale</param>
+        /// <returns>humidity in RH</returns>
         private float CalculateHumidity(ushort value)
         {
             float humidity = Convert.ToSingle(-6.0 + 125.0 / 65536 * value);
             return humidity;
         }
         /// <summary>
-        /// Metoda odpowiedzialna za odczyt wartości z urządzenia.
+        /// Reads the measure by the given argument.
         /// </summary>
-        /// <param name="mode">tryb pomiaru</param>
-        /// <returns></returns>
+        /// <param name="mode">read mode</param>
+        /// <returns>raw value</returns>
         private float? ReadMeasure(ReadMode mode)
         {
             float? measure = null;
             byte[] data = null;
 
-            //odczyt wartości wraz z sumą kontrolną
+            //value with crc
             switch (mode)
             {
                 case ReadMode.Humidity:
@@ -151,15 +151,14 @@ namespace DataCollector.Device.BusDevice.Module
         {
             //reset
             ReadWrite.Write((byte)Registers.SOFT_RESET);
-            //uśpij 15ms
+            //sleep for 15ms
             Task.Delay(15).Wait();
-            //odczytaj rejestr konfiguracyjny
+            //reads the module configuration
             byte userRegistry = ReadWrite.Read((byte)Registers.USER_REG_R);
-            //skonfiguruj
+            //configure
             userRegistry = (byte)((userRegistry & ~(byte)ConfigCommands.SHT2x_RES_MASK) | (byte)ConfigCommands.SHT2x_RES_10_13BIT);
-            //wyslij konfigurację
+            //sends the configuration
             ReadWrite.Write(userRegistry, (byte)Registers.USER_REG_W);
-            //odczytuj wartosci w trybie hold master
         }
     }
 }

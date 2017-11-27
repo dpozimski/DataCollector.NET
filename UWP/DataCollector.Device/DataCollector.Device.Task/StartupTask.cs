@@ -13,7 +13,7 @@ using DataCollector.Device.BusDevice.Module;
 namespace DataCollector.Device.Task
 {
     /// <summary>
-    /// Klasa stanowiąca punkt wejścia do programu.
+    /// Entry point for the task.
     /// </summary>
     public sealed class StartupTask : IBackgroundTask
     {
@@ -25,18 +25,15 @@ namespace DataCollector.Device.Task
 
         public void Run(IBackgroundTaskInstance taskInstance)
         {
-            //pobranie przydzielonych zasobów na zadanie
+            //gets the allocated resources for this task
             deferral = taskInstance.GetDeferral();
-            //rejestracja kontenera i zależności
+            //register a container
             var assembly = Assembly.Load(new AssemblyName("DataCollector.Device"));
             var builder = new ContainerBuilder();
-            //rejestracja obsługiwanych peryferii w urządzeniu
-            //dla pcf8574 przydzielenie dodatkowej roli ILedControllera
             builder.RegisterAssemblyTypes(assembly)
                    .Where(t => t.Name.EndsWith("Module"))
                    .As<I2CBusDevice>()
                    .Except<PCF8574Module>(ct => ct.As(typeof(I2CBusDevice), typeof(ILedController)).SingleInstance());
-            //rejestracja kontrolerów, za wyjątkiem kontrolera web responses(Restup wymaga własnej fabryki)
             builder.RegisterAssemblyTypes(assembly)
                    .Where(t => t.Name.EndsWith("Controller"))
                    .AsSelf()

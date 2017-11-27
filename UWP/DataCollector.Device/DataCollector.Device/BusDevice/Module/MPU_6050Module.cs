@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 namespace DataCollector.Device.BusDevice.Module
 {
     /// <summary>
-    /// Klasa implementująca obsługę komunikacji urządzenia pomiarowego akcelerometru i żyroskopu.
+    /// Represents a gyroscope && accelerometer device.
     /// </summary>
     public sealed class MPU_6050Module : I2CBusDevice
     {
         #region Declarations
         /// <summary>
-        /// Opis rejestrów urządzenia
+        /// The device registry definition.
         /// </summary>
         private enum Registers : byte
         {
@@ -33,7 +33,7 @@ namespace DataCollector.Device.BusDevice.Module
 
         #region ctor
         /// <summary>
-        /// Konstruktor klasy MPU_6050.
+        /// The constructor.
         /// </summary>
         public MPU_6050Module() : base((char)0x68)
         {
@@ -43,7 +43,7 @@ namespace DataCollector.Device.BusDevice.Module
 
         #region Private Methods
         /// <summary>
-        /// Metoda czytająca słowo ze wskazanego rejestru.
+        /// Reads the word from the device.
         /// </summary>
         /// <param name="registry">registry</param>
         /// <returns></returns>
@@ -53,10 +53,10 @@ namespace DataCollector.Device.BusDevice.Module
             return (ushort)(((int)buffer[0] << 8) | (int)buffer[1]);
         }
         /// <summary>
-        /// Uśrednianie wartości dla parametrów wejściowych.
+        /// The averages the data.
         /// </summary>
-        /// <param name="values">wartości</param>
-        /// <returns>usredniona wartość</returns>
+        /// <param name="values">values</param>
+        /// <returns>the averaged value from the collection</returns>
         private float Average(params float[] values)
         {
             return values.Average();
@@ -65,13 +65,13 @@ namespace DataCollector.Device.BusDevice.Module
 
         public override bool UpdateData([System.Runtime.InteropServices.In] ref Measures measures)
         {
-            //utworzenie listy obiektów pomocniczych
+            //creates a list of temp values
             List<SpherePoint> accelerometerValues = new List<SpherePoint>();
             List<SpherePoint> gyroscopeValues = new List<SpherePoint>();
 
-            //odczytanie liczby zalegających pomiarów do odczytania
+            //reads the count of the pending measures
             int count = ReadWord(Registers.FifoCount);
-            //odczytanie całego bufora zalegających pomiarów aż do ostatniego
+            //reads the measures
             while (count >= (byte)Registers.SensorBytes)
             {
                 var data = ReadWrite.Read((byte)Registers.SensorBytes, (byte)Registers.FifoRW);
@@ -105,17 +105,17 @@ namespace DataCollector.Device.BusDevice.Module
 
         protected override void InitHardware()
         {
-            //zaczekaj na zasilenie urządzenia
+            //wait for the device power initialization
             Task.Delay(3).Wait();
-            //reset urządzenia
+            //device reset
             ReadWrite.Write(0x80, (byte)Registers.PwrMgmt1);
             Task.Delay(100).Wait();
             ReadWrite.Write(0x02, (byte)Registers.PwrMgmt1);
             //reset fifo
             ReadWrite.Write(0x04, (byte)Registers.UserCtrl);
-            // źródło zegara = gyro x
+            // the source clock = gyro x
             ReadWrite.Write(0x01, (byte)Registers.PwrMgmt1);
-            // +/- 250 stopni/sec
+            // +/- 250 steps/sec
             ReadWrite.Write(0x00, (byte)Registers.GyroConfig);
             // +/- 2g
             ReadWrite.Write(0x00, (byte)Registers.AccelConfig);

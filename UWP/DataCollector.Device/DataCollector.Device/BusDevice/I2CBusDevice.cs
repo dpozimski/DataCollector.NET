@@ -9,40 +9,40 @@ using Windows.Devices.I2c;
 namespace DataCollector.Device.BusDevice
 {
     /// <summary>
-    /// Klasa abstrakcyjna definiująca podstawową funkcjonalność urządzenia z protkołem I2C.
+    /// Represents an I2C module.
     /// </summary>
     public abstract class I2CBusDevice : IDisposable
     {
         #region Private Fields
         /// <summary>
-        /// Konfiguracja komunikacji.
+        /// Communication configuration.
         /// </summary>
         private I2cConnectionSettings connectionSettings;
         /// <summary>
-        /// Interfejs sprzętowy I2C.
+        /// The hardware interface of the i2c bus.
         /// </summary>
         private I2cDevice i2cBusDevice;
         #endregion
 
         #region Protected Properties
         /// <summary>
-        /// Moduł odczytu/zapisu danych.
+        /// The ReadWrite reference handler.
         /// </summary>
         protected BusIO ReadWrite { get; private set; }
         #endregion
 
         #region Public Properties
         /// <summary>
-        /// Komunikacja została zainicjalizowana.
+        /// The communication is initialized.
         /// </summary>
         public bool IsInitialized { get; private set; }
         #endregion
 
         #region ctor
         /// <summary>
-        /// Konstruktor klasy I2CBusDevice.
+        /// Constructs a new instance of this class.
         /// </summary>
-        /// <param name="address">adres urządzenia na szynie</param>
+        /// <param name="address">the module address</param>
         protected I2CBusDevice(char address)
         {
             connectionSettings = new I2cConnectionSettings(Convert.ToInt32(address))
@@ -55,26 +55,26 @@ namespace DataCollector.Device.BusDevice
 
         #region Public Methods
         /// <summary>
-        /// Metoda inicjująca komunikację z urządzeniem peryferyjnym szyny I2C.
+        /// Inits a module.
         /// </summary>
         /// <returns>sukces</returns>
         public async Task<bool> InitCommunication()
         {
             try
             {
-                //filtr wyszukiwania urządzenia I2C1
+                //filter of the searching for the module
                 string aqs = I2cDevice.GetDeviceSelector("I2C1");
 
-                // znajdź urządzenie ze wskazanym filtrem
+                //find device with selected filter
                 var devices = await DeviceInformation.FindAllAsync(aqs);
                 if (devices.Count == 0)
                     throw new InvalidProgramException("Brak urządzenia I2C");
 
-                // inicjalizuj komunikację ze wskazanym urządzeniem przez konstruktor
+                //initialize communication with device
                 i2cBusDevice = await I2cDevice.FromIdAsync(devices[0].Id, connectionSettings);
                 ReadWrite = new BusIO(i2cBusDevice);
 
-                //inicjalizacja modułu
+                //module initialization
                 InitHardware();
 
                 IsInitialized = true;
@@ -89,16 +89,17 @@ namespace DataCollector.Device.BusDevice
             }
         }
         /// <summary>
-        /// Metoda aktualizująca zadanie o nowe pomiary.
+        /// Updates a specified property in measures instance
+        /// with the new measure.
         /// </summary>
-        /// <param name="measures">obiekt wejściowy</param>
-        /// <returns>powodzenie pobierania danych</returns>
+        /// <param name="measures">the input object</param>
+        /// <returns>the success</returns>
         public abstract bool UpdateData([In] ref Measures measures);
         #endregion
 
         #region Protected Methods
         /// <summary>
-        /// Abstrakcyjna metoda inicjująca hardware.
+        /// The module initialization method.
         /// </summary>
         protected abstract void InitHardware();
         #endregion
@@ -106,7 +107,7 @@ namespace DataCollector.Device.BusDevice
         #region IDisposable
 
         /// <summary>
-        /// Zwolnienie zasobów.
+        /// Releases the managed resources.
         /// </summary>
         public void Dispose()
         {
