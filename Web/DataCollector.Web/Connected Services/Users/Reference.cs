@@ -221,7 +221,7 @@ namespace Users
         System.Threading.Tasks.Task RecordLogoutTimeStampAsync(int sessionId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/GetUserLoginHistory", ReplyAction="http://tempuri.org/IUsersManagementService/GetUserLoginHistoryResponse")]
-        System.Threading.Tasks.Task<Users.UserLoginHistory[]> GetUserLoginHistoryAsync(Users.User user);
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Users.UserLoginHistory>> GetUserLoginHistoryAsync(Users.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/ValidateCredentials", ReplyAction="http://tempuri.org/IUsersManagementService/ValidateCredentialsResponse")]
         System.Threading.Tasks.Task<bool> ValidateCredentialsAsync(string username, string password);
@@ -230,7 +230,7 @@ namespace Users
         System.Threading.Tasks.Task<Users.UserSession> GetUserAsync(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/GetUsers", ReplyAction="http://tempuri.org/IUsersManagementService/GetUsersResponse")]
-        System.Threading.Tasks.Task<Users.User[]> GetUsersAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Users.User>> GetUsersAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsersManagementService/AddUser", ReplyAction="http://tempuri.org/IUsersManagementService/AddUserResponse")]
         System.Threading.Tasks.Task<bool> AddUserAsync(Users.User user);
@@ -297,7 +297,7 @@ namespace Users
             return base.Channel.RecordLogoutTimeStampAsync(sessionId);
         }
         
-        public System.Threading.Tasks.Task<Users.UserLoginHistory[]> GetUserLoginHistoryAsync(Users.User user)
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Users.UserLoginHistory>> GetUserLoginHistoryAsync(Users.User user)
         {
             return base.Channel.GetUserLoginHistoryAsync(user);
         }
@@ -312,7 +312,7 @@ namespace Users
             return base.Channel.GetUserAsync(username);
         }
         
-        public System.Threading.Tasks.Task<Users.User[]> GetUsersAsync()
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Users.User>> GetUsersAsync()
         {
             return base.Channel.GetUsersAsync();
         }

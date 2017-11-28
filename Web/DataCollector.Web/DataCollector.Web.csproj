@@ -60,4 +60,6 @@
     </ItemGroup>
   </Target>
 
+  <Import Project="..\..\Shared\DataCollector.Device.Models\DataCollector.Device.Models\DataCollector.Device.Models.projitems" Label="DataCollector.Device.Models" />
+
 </Project>

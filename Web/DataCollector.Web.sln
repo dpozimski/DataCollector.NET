@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataCollector.Web", "DataCollector.Web\DataCollector.Web.csproj", "{CB1967B9-8617-4A36-A315-995C4F9D8536}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DataCollector.Device.Models", "..\Shared\DataCollector.Device.Models\DataCollector.Device.Models\DataCollector.Device.Models.shproj", "{AE013886-8B5B-464A-B698-24B6C3EC7FF7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
