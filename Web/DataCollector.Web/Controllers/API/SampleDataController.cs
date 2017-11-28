@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DataCollector.NET.Web.Controllers
+namespace DataCollector.NET.Web.Controllers.API
 {
     [Route("api/[controller]")]
     public class SampleDataController : Controller

@@ -7,22 +7,26 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using DataCollector.Web.Infrastructure;
 
 namespace DataCollector.NET.Web
 {
     public class Startup
     {
+        #region [Private Fields]
+        private AutofacDependencyResolver m_DependencyResolver;
+        #endregion
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            m_DependencyResolver = new AutofacDependencyResolver(configuration);
         }
 
-        public IConfiguration Configuration { get; }
-
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            m_DependencyResolver.ConfigureServiceCollection(services);
+            return m_DependencyResolver.BuildServiceProvider();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
