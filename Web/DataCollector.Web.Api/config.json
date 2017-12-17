@@ -1,4 +1,5 @@
 ﻿{
     "urls": "http://*:5005;",
-    "SecurityKey": "dd%89*377f6d&f£$$£$FdddFF33fssDG^!3"
+    "SecurityKey": "dd%89*377f6d&f£$$£$FdddFF33fssDG^!3",
+    "UsersHost": "http://localhost:57412/UsersManagementService.svc"
 }
