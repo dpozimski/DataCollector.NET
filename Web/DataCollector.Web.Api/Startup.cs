@@ -45,10 +45,6 @@ namespace DataCollector.Web.Api
         /// <CreatedBy>dpozimski</CreatedBy>
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            //configure authentication method
-            ConfigureJwtAuthentication(services);
-            //add mvc services collection
-            services.AddMvc();
             //builds the autofac kernel
             m_DependencyResolver.ConfigureServiceCollection(services);
             return m_DependencyResolver.BuildServiceProvider();
@@ -61,35 +57,10 @@ namespace DataCollector.Web.Api
         /// <CreatedBy>dpozimski</CreatedBy>
         public void Configure(IApplicationBuilder app)
         {
+            //jwt authentication
+            app.UseAuthentication();
             //use mvc strctural pattern
             app.UseMvc();
-        }
-        #endregion
-
-        #region [Private Methods]
-        /// <summary>
-        /// Adds the JWT authentication support to asp.net controllers.
-        /// </summary>
-        /// <param name="services">The services.</param>
-        /// <CreatedOn>16.12.2017 21:31</CreatedOn>
-        /// <CreatedBy>dpozimski</CreatedBy>
-        private void ConfigureJwtAuthentication(IServiceCollection services)
-        {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = "yourdomain.com",
-                        ValidAudience = "yourdomain.com",
-                        IssuerSigningKey = new SymmetricSecurityKey(
-                            Encoding.UTF8.GetBytes(m_Configuration["SecurityKey"]))
-                    };
-                });
         }
         #endregion
     }

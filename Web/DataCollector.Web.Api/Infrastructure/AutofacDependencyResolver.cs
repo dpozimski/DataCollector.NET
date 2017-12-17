@@ -1,8 +1,10 @@
 ﻿using Autofac;
 using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
@@ -47,6 +49,7 @@ namespace DataCollector.Web.Api.Infrastructure
         public void ConfigureServiceCollection(IServiceCollection services)
         {
             services.AddMvc();
+            ConfigureJwtAuthentication(services);
             m_ContainerBuilder.Populate(services);
         }
         /// <summary>
@@ -88,6 +91,30 @@ namespace DataCollector.Web.Api.Infrastructure
                 return UsersManagementServiceClient.EndpointConfiguration.BasicHttpBinding_IUsersManagementService;
             else
                 throw new InvalidOperationException($"The type {ServiceName} is not supported.");
+        }
+        /// <summary>
+        /// Adds the JWT authentication support to asp.net controllers.
+        /// </summary>
+        /// <param name="services">The services.</param>
+        /// <CreatedOn>16.12.2017 21:31</CreatedOn>
+        /// <CreatedBy>dpozimski</CreatedBy>
+        private void ConfigureJwtAuthentication(IServiceCollection services)
+        {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = "softpower.pl",
+                        ValidAudience = "softpower.pl",
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(m_Configuration["SecurityKey"]))
+                    };
+                });
         }
         #endregion
     }
