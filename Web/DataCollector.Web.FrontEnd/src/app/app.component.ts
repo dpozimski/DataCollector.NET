@@ -6,9 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
-
-  AppComponent() {
-    console.log('siema');
-  }
+  title = 'DataCollector.Web.FrontEnd Angular';
 }

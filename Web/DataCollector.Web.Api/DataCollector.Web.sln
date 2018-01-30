@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DataCollector.Device.Models", "..\Shared\DataCollector.Device.Models\DataCollector.Device.Models\DataCollector.Device.Models.shproj", "{AE013886-8B5B-464A-B698-24B6C3EC7FF7}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DataCollector.Device.Models", "..\..\Shared\DataCollector.Device.Models\DataCollector.Device.Models\DataCollector.Device.Models.shproj", "{AE013886-8B5B-464A-B698-24B6C3EC7FF7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataCollector.Web.Api", "DataCollector.Web.Api\DataCollector.Web.Api.csproj", "{8BB7BDB3-E437-4B0B-8B44-E7B4064C1D97}"
 EndProject
